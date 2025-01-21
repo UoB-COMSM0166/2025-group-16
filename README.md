@@ -13,12 +13,12 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 Add a group photo here!
 
-- Group member 1, name, email, role
-- Group member 2, name, email, role
-- Group member 3, name, email, role
-- Group member 4, name, email, role
-- Group member 5, name, email, role
-- Group member 6, name, email, role
+- Group member 1, Hsin Yun Fan, lt24003@bristol.ac.uk, hsinyunF
+- Group member 2, Yu Qi Lin, rk24876@bristol.ac.uk, chiderlin
+- Group member 3, Wei Lin, tr24015@bristol.ac.uk, vivi2393142
+- Group member 4, Digo Tu, ma24030@bristol.ac.uk, digotu
+- Group member 5, Zih-Cing Lan, aw24252@bristol.ac.uk, ZihcingLan
+- Group member 6, CHEN PIN-RU, tz24192@bristol.ac.uk, nezii0331
 
 ## Project Report
 
