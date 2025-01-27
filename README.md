@@ -28,7 +28,7 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ## Idea - Unspottable / Taiko no Tatsujin
 
-<b>Unspottable</b>
+<a href="https://store.steampowered.com/app/1243960/Unspottable/"><b>Unspottable</b></a>
 
 Multiple players join a party game where they blend in with a crowd of robots while identifying and hunting down the other human players hidden among them, under various environmental rules.
 
@@ -53,8 +53,12 @@ Twists / Stages
 6. Online Mode: Allow players to compete online with matchmaking or room creation.
 7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
 
+Simulation preview from p5js:
+![alt text](image-1.png)
 
-<b>Taiko no Tatsujin</b>
+
+
+<a href="https://www.youtube.com/watch?v=perKCVKo-Mc"><b>Taiko no Tatsujin</b></a>
 
 A rhythm music game where players choose their favorite song and score points by hitting notes with perfect timing as they reach the target spots on the screen. The better the timing, the higher the score.
 
