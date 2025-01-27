@@ -54,7 +54,7 @@ Twists / Stages
 7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
 
 Simulation preview from p5js:
-![alt text](image-1.png)
+![alt text](image-simulationPic.png)
 
 
 
