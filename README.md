@@ -26,9 +26,9 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 | **King of Opera**      | A party game where characters continuously spin while idle. Players only need to control the forward button and try to knock others off by pushing them to fall from the edge. | **Feasibility:** ★☆☆☆☆ <br> - 3D to 2D transition may affect smoothness. <br> - Sliding-back effect needed on hit. <br> - Precise reactions for consecutive collisions. |
 | **Ghost Invaders**     | A Space Invaders-inspired game featuring multiplayer controls for movement and shooting, with quick access to the menu and restart options.            | **Feasibility:** ★☆☆☆☆ <br> - Excessive repetition. <br> - Difficulty imbalance affects player retention.                               |
 
-## Idea
+## Idea - Unspottable / Taiko no Tatsujin
 
-<b>Game 1 Introduction</b>
+<b>Unspottable</b>
 
 Multiple players join a party game where they blend in with a crowd of robots while identifying and hunting down the other human players hidden among them, under various environmental rules.
 
@@ -54,7 +54,7 @@ Twists / Stages
 7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
 
 
-<b>Game 2 Introduction</b>
+<b>Taiko no Tatsujin</b>
 
 A rhythm music game where players choose their favorite song and score points by hitting notes with perfect timing as they reach the target spots on the screen. The better the timing, the higher the score.
 
