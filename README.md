@@ -26,6 +26,57 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 | **King of Opera**      | A party game where characters continuously spin while idle. Players only need to control the forward button and try to knock others off by pushing them to fall from the edge. | **Feasibility:** ★☆☆☆☆ <br> - 3D to 2D transition may affect smoothness. <br> - Sliding-back effect needed on hit. <br> - Precise reactions for consecutive collisions. |
 | **Ghost Invaders**     | A Space Invaders-inspired game featuring multiplayer controls for movement and shooting, with quick access to the menu and restart options.            | **Feasibility:** ★☆☆☆☆ <br> - Excessive repetition. <br> - Difficulty imbalance affects player retention.                               |
 
+## Idea
+
+<b>Game 1 Introduction</b>
+
+Multiple players join a party game where they blend in with a crowd of robots while identifying and hunting down the other human players hidden among them, under various environmental rules.
+
+Feasibility / Difficulty
+1. Develop an algorithm to make robots behave like real players. 
+2. Convert 3D visual elements into a 2D style. 
+3. Implement simultaneous controls for multiple players (single-player mode is not supported).
+4. Synchronize player actions and robot actions to ensure smooth gameplay.
+
+Features
+1. Simple controls: move, attack, run, and disturb. 
+2. Realistic robots involved. 
+3. Diverse maps with unique rules. 
+4. Customizable score system.
+
+Twists / Stages
+1. Basic Gameplay: 2-player simplest mode. Robots have no special behavior. Basic controls include: up, right, down, left, and hit. 
+2. More Maps: Add multiple maps with unique rules, such as Gym, Battlefield, Theater, and Nightclub. 
+3. More Controls: Introduce additional controls like running and disturbing, making the game more dynamic. 
+4. More Players: Support up to 4 local players. 
+5. Score System: Implement a scoring system where players set a target score to win. 
+6. Online Mode: Allow players to compete online with matchmaking or room creation.
+7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
+
+
+<b>Game 2 Introduction</b>
+
+A rhythm music game where players choose their favorite song and score points by hitting notes with perfect timing as they reach the target spots on the screen. The better the timing, the higher the score.
+
+Feasibility / Difficulty
+1. Controls, music, and visuals must be perfectly synced for providing an engaging experience.. 
+2. Transform songs into beat points for gameplay.
+
+Features
+1. Simple Controls: Only 2 buttons are needed. 
+2. Multiplayer & Score System: Support multiple players and track scores. 
+3. Multiple Songs & Levels: Offer a variety of songs with multiple level options of each. 
+
+Twists / Stages
+1. Basic Gameplay: Playable with keyboard and only one song. 
+2. Start Screen: Add a start page before gameplay. 
+3. Song Selection: Allow players to choose from three or more songs. 
+4. Motion Detection: Add a motion-based gameplay mode. 
+5. Multiplayer: Add a two-player versus mode. 
+6. Custom Songs: Enable players to import music and auto-generate rhythm points.
+7. Visual Recognition for Drumming Action: Integrate image recognition to track players' drumming actions in the air, increasing immersion and making the experience more interactive.
+
+
 
 ## Your Group
 
