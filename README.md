@@ -26,6 +26,13 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 | **King of Opera**      | A party game where characters continuously spin while idle. Players only need to control the forward button and try to knock others off by pushing them to fall from the edge. | **Feasibility:** ★☆☆☆☆ <br> - 3D to 2D transition may affect smoothness. <br> - Sliding-back effect needed on hit. <br> - Precise reactions for consecutive collisions. |
 | **Ghost Invaders**     | A Space Invaders-inspired game featuring multiplayer controls for movement and shooting, with quick access to the menu and restart options.            | **Feasibility:** ★☆☆☆☆ <br> - Excessive repetition. <br> - Difficulty imbalance affects player retention.                               |
 
+## Two Prototype Ideas GIFs
+![Prototype Idea 1](DEMO%201.gif)
+![Prototype Idea 2](DEMO%202.gif)
+<a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
+<a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
+
+
 ## Idea - Unspottable / Taiko no Tatsujin
 
 <a href="https://store.steampowered.com/app/1243960/Unspottable/"><b>Unspottable</b></a>
