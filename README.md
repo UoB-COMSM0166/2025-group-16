@@ -29,8 +29,8 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 ## Two Prototype Ideas GIFs
 ![Prototype Idea 1](DEMO%201.gif)
 ![Prototype Idea 2](DEMO%202.gif)
-<a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
-<a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
+1. <a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
+2. <a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
 
 
 ## Idea - Unspottable / Taiko no Tatsujin
