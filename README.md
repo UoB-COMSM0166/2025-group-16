@@ -22,7 +22,7 @@ Our project management and documents are on Atlassian Jira. As the free plan doe
 **Access Credentials**
 
 - Email: team16_access@outlook.com
-- Password: team16_password@outlook.com
+- Password: team16_password
 
 Alternatively, if you prefer to use your own account, please request access from us.
 
