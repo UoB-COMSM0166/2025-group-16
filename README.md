@@ -10,22 +10,6 @@ Your game lives in the [/docs](/docs) folder, and is published using Github page
 
 Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
 
-## Kanban, Meeting Minutes & Documentation
-
-Our project management and documents are on Atlassian Jira. As the free plan doesn't support public sharing, please use the credentials below to access them.
-
-**Access Links**
-
-- [🔗 Jira Kanban Board](https://vivi2393142-0702.atlassian.net/jira/software/projects/TG/boards/2)
-- [📄 Meeting Records & Documents](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/overview)
-
-**Access Credentials**
-
-- Email: team16_access@outlook.com
-- Password: team16_password
-
-Alternatively, if you prefer to use your own account, please request access from us.
-
 ## Our Game List
 
 | **Name**              | **Introduction**                                                                                                                                      | **Feasibility / Challenges**                                                                                  |
@@ -154,6 +138,22 @@ Twists / Stages
 - 15% ~750 words
 
 - Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
+
+#### Kanban, Meeting Minutes & Documentation
+
+Our project management and documents are on Atlassian Jira. As the free plan doesn't support public sharing, please use the credentials below to access them.
+
+**Access Links**
+
+- [🔗 Jira Kanban Board](https://vivi2393142-0702.atlassian.net/jira/software/projects/TG/boards/2)
+- [📄 Meeting Records & Documents](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/overview)
+
+**Access Credentials**
+
+- Email: team16_access@outlook.com
+- Password: team16_password
+
+Alternatively, if you prefer to use your own account, please request access from us.
 
 ### Conclusion
 
