@@ -150,6 +150,10 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
 
 - Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
+#### Github Workflow
+
+Please find the link to check our [workflow](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/8159293/GitHub+Workflow+Guideline).
+
 #### Kanban, Meeting Minutes & Documentation
 
 Our project management and documents are on Atlassian Jira. As the free plan doesn't support public sharing, please use the credentials below to access them.
