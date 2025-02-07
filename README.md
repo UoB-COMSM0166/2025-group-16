@@ -166,6 +166,10 @@ Our project management and documents are on Atlassian Jira. As the free plan doe
 
 Alternatively, if you prefer to use your own account, please request access from us.
 
+#### Github Workflow
+
+Please find the link to check our [workflow](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/8159293/GitHub+Workflow+Guideline).
+
 ### Conclusion
 
 - 10% ~500 words
