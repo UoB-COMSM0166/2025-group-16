@@ -114,6 +114,14 @@ Twists / Stages
 
 #### Stakeholder List
 
+- User
+
+- Developer
+
+- Supervisor
+
+- Competitor
+
 #### Epics and User Stories
 
 Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/jira/software/projects/TG/boards/2/timeline), or check our documentations through the [link](https://vivi2393142-0702.atlassian.net/wiki/x/OoBm).
