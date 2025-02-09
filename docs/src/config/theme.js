@@ -13,6 +13,7 @@ const Theme = Object.freeze({
       disabled: '#E0E0E0',
       contrastText: '#FFF',
     }),
+    player: Object.freeze(['#CE0000', '#009100', '#005AB5', '#FFD306']),
   }),
   text: Object.freeze({
     fontSize: Object.freeze({

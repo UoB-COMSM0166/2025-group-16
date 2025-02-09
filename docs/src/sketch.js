@@ -8,15 +8,12 @@
  * add it both here and to `basePage` to ensure consistency across all pages.
  */
 
-function preload() {
-  Controller.changePage(new Home(), Constants.Page.HOME);
-  Store.getCurrentPage().preload();
-}
+function preload() {}
 
 function setup() {
   // TODO: check the way to set size, now use the current screen size to set canvas
   createCanvas(windowWidth, windowHeight);
-  Store.getCurrentPage().setup();
+  Controller.changePage(new Welcome(), Constants.Page.WELCOME);
 }
 
 const pageLabel = new Text(); // TODO: remove it
