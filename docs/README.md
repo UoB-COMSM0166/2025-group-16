@@ -29,7 +29,7 @@
 
    If you add a new file, remember to include the script link in `index.html` and ensure the correct load order.
 
-   - Encapsulated p5.js objects is in `src/classes`.
+   - Encapsulated p5.js objects are in `src/classes`.
    - Pages are in `src/pages`.
    - Configuration, constants and theme files are in `src/config`.
    - Global state management is in `src/state`.
