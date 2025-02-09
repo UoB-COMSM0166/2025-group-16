@@ -1,15 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="libs/p5.js"></script>
+    <script src="libs/p5.sound.min.js"></script>
   </head>
   <body>
-    <main>
-    </main>
-    <script src="sketch.js"></script>
+    <script src="src/config/constants.js"></script>
+    <script src="src/config/settings.js"></script>
+    <script src="src/config/theme.js"></script>
+
+    <script src="src/state/store.js"></script>
+    <script src="src/state/controller.js"></script>
+
+    <script src="src/classes/entity.js"></script>
+    <script src="src/classes/player.js"></script>
+    <script src="src/classes/robot.js"></script>
+    <script src="src/classes/button.js"></script>
+    <script src="src/classes/text.js"></script>
+
+    <script src="src/utils/colorHelper.js"></script>
+    <script src="src/utils/checkCollision.js"></script>
+
+    <script src="src/pages/basePage.js"></script>
+    <script src="src/pages/home.js"></script>
+    <script src="src/pages/maps/mapBasicIntro.js"></script>
+    <script src="src/pages/maps/mapBasicGame.js"></script>
+    <script src="src/pages/results.js"></script>
+
+    <script src="src/sketch.js"></script>
   </body>
 </html>
