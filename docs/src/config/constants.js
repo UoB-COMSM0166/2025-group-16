@@ -1,6 +1,9 @@
 const Constants = Object.freeze({
+  Game: Object.freeze({
+    TITLE: 'Unspottable',
+  }),
   Page: Object.freeze({
-    HOME: 'HOME',
+    WELCOME: 'WELCOME',
     RESULTS: 'RESULTS',
     MAP_BASIC_INTRO: 'MAP_BASIC_INTRO',
     MAP_BASIC_GAME: 'MAP_BASIC_GAME',

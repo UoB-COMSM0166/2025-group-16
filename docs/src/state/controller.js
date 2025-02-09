@@ -5,10 +5,12 @@ const Controller = {
    * @param {string} newPageKey The page to switch to, e.g. `Constants.Page.xxx`.
    */
   changePage(page, newPageKey) {
+    const isSamePage = Store.getCurrentPageKey() == newPageKey;
+    if (isSamePage) return;
+
     Store._updateState({ currentPage: page });
     Store._updateState({ currentPageKey: newPageKey });
 
-    if (page.preload) page.preload();
     if (page.setup) page.setup();
   },
 };
