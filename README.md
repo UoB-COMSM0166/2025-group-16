@@ -28,8 +28,8 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ## Two Prototype Ideas GIFs
 
-![Prototype Idea 1](DEMO%201.gif)
-![Prototype Idea 2](DEMO%202.gif)
+![Prototype Idea 1](docs/assets/readme/prototype-demo-1.gif)
+![Prototype Idea 2](docs/assets/readme/prototype-demo-2.gif)
 
 1. <a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
 2. <a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
@@ -65,7 +65,7 @@ Twists / Stages
 7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
 
 Simulation preview from p5js:
-![alt text](image-simulationPic.png)
+![alt text](docs/assets/readme/prototype-screenshot.png)
 
 <a href="https://www.youtube.com/watch?v=perKCVKo-Mc"><b>Taiko no Tatsujin</b></a>
 
@@ -94,7 +94,7 @@ Twists / Stages
 
 ## Your Group
 
-![alt text](image.png)
+![alt text](docs/assets/readme/group-photo.png)
 
 - Group member 1, Yun-Fan Hsin, lt24003@bristol.ac.uk, hsinyunF
 - Group member 2, Yu-Qi Lin, rk24876@bristol.ac.uk, chiderlin
