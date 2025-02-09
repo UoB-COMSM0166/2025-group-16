@@ -11,7 +11,8 @@ class Results extends BasePage {
       width: 200,
       height: 50,
       label: 'Back to Home',
-      action: () => Controller.changePage(new Home(), Constants.Page.HOME),
+      action: () =>
+        Controller.changePage(new Welcome(), Constants.Page.WELCOME),
       color: Theme.palette.primary,
       hoverColor: colorHelper.lighter(Theme.palette.primary, 0.5),
     });
