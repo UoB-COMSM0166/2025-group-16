@@ -9,7 +9,7 @@
  */
 
 function preload() {
-  Controller.changePage(new Home(), Constants.Page.HOME);
+  Controller.changePage(new Welcome(), Constants.Page.WELCOME);
   Store.getCurrentPage().preload();
 }
 
