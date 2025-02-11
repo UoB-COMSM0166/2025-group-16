@@ -8,7 +8,6 @@ const Controller = {
     Store._updateState({ currentPage: page });
     Store._updateState({ currentPageKey: newPageKey });
 
-    if (page.preload) page.preload();
     if (page.setup) page.setup();
   },
 };

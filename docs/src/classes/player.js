@@ -8,7 +8,7 @@ class Player extends Entity {
    * @param {number} params.idx - The index of the player in players.
    * @param {Object} params.controls - The control mappings from `Settings.players[idx].controls`.
    * @param {string} [params.color] - Optional. The color of the player.
-   * @param {string} [params.size] - Optional. The size of the player.
+   * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the player.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */
   constructor(params) {
@@ -32,21 +32,26 @@ class Player extends Entity {
       this.x = Math.max(this.x - Settings.entity.speed, 0);
     }
     if (keyIsDown(this.controls[Constants.Control.RIGHT].value)) {
-      this.x = Math.min(this.x + Settings.entity.speed, width);
+      this.x = Math.min(
+        this.x + Settings.entity.speed,
+        width - this.getShape().getSize().width,
+      );
     }
     if (keyIsDown(this.controls[Constants.Control.UP].value)) {
       this.y = Math.max(this.y - Settings.entity.speed, 0);
     }
     if (keyIsDown(this.controls[Constants.Control.DOWN].value)) {
-      this.y = Math.min(this.y + Settings.entity.speed, height);
+      this.y = Math.min(
+        this.y + Settings.entity.speed,
+        height - this.getShape().getSize().height,
+      );
     }
   }
 
   draw() {
     if (this.status === Constants.EntityStatus.DIED) return;
 
-    fill(this.color);
-    ellipse(this.x, this.y, this.size, this.size);
+    image(this.getShape().getImage(), this.x, this.y);
   }
 
   keyPressed(entities, onDie) {
@@ -57,17 +62,12 @@ class Player extends Entity {
       this.status !== Constants.EntityStatus.HIT &&
       this.status !== Constants.EntityStatus.COOLDOWN
     ) {
-      this.color = Theme.palette.error;
-      this.size = Settings.entity.size.hit;
       this.status = Constants.EntityStatus.HIT;
 
       setTimeout(() => {
-        this.color = Theme.palette.warning;
-        this.size = this.originSize;
         this.status = Constants.EntityStatus.COOLDOWN;
 
         setTimeout(() => {
-          this.color = this.originColor;
           this.status = Constants.EntityStatus.ALIVE;
         }, Settings.entity.duration[Constants.EntityStatus.HIT]);
       }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
@@ -75,13 +75,14 @@ class Player extends Entity {
       for (const entity of entities) {
         const isMe = entity.type === this.type && entity.idx === this.idx;
         if (!isMe) {
+          // TODO: check collision more strictly
           const hasCollision = checkCollision(
             this.x,
             this.y,
-            Settings.entity.size.hit,
+            this.getShape().getSize().width,
             entity.x,
             entity.y,
-            Settings.entity.size.default,
+            entity.getShape().getSize().width,
           );
           if (hasCollision) {
             entity.status = Constants.EntityStatus.DIED;

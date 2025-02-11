@@ -6,13 +6,6 @@
  */
 class BasePage {
   /**
-   * Called once before setup.
-   * Load all assets here (images, sounds, etc.)
-   * @see https://p5js.org/reference/p5/preload/
-   */
-  preload() {}
-
-  /**
    * Called once when page is initialized.
    * Setup canvas and initialize page elements here.
    * @see https://p5js.org/reference/p5/setup/

@@ -7,14 +7,14 @@ class Robot extends Entity {
    * @param {Object} params - The parameters for the player.
    * @param {number} params.idx - The index of the robot in robots.
    * @param {string} [params.color] - The color of the player.
-   * @param {string} [params.size] - The size of the player.
+   * @param {keyof typeof Constants.EntitySize} [params.size] - The size of the player.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */
   constructor(params) {
     super({
       idx: params.idx,
       type: Constants.EntityType.ROBOT,
-      color: params?.color,
+      color: params?.color, // TODO: apply different players' color
       size: params?.size,
       position: params?.position,
     });
@@ -33,6 +33,9 @@ class Robot extends Entity {
     const speed = Settings.entity.speed;
     const canvasWidth = width;
     const canvasHeight = height;
+    const shapeSize = this.getShape().getSize();
+    const shapeWidth = shapeSize.width;
+    const shapeHeight = shapeSize.height;
 
     const actions = {
       [Constants.MoveAction.UP]: () => {
@@ -40,7 +43,7 @@ class Robot extends Entity {
         else this.move();
       },
       [Constants.MoveAction.DOWN]: () => {
-        if (this.y + speed <= canvasHeight) this.y += speed;
+        if (this.y + speed + shapeHeight <= canvasHeight) this.y += speed;
         else this.move();
       },
       [Constants.MoveAction.LEFT]: () => {
@@ -48,7 +51,7 @@ class Robot extends Entity {
         else this.move();
       },
       [Constants.MoveAction.RIGHT]: () => {
-        if (this.x + speed <= canvasWidth) this.x += speed;
+        if (this.x + speed + shapeWidth <= canvasWidth) this.x += speed;
         else this.move();
       },
       [Constants.MoveAction.UP_LEFT]: () => {
@@ -58,19 +61,25 @@ class Robot extends Entity {
         } else this.move();
       },
       [Constants.MoveAction.UP_RIGHT]: () => {
-        if (this.x + speed <= canvasWidth && this.y - speed >= 0) {
+        if (this.x + speed + shapeWidth <= canvasWidth && this.y - speed >= 0) {
           this.x += speed;
           this.y -= speed;
         } else this.move();
       },
       [Constants.MoveAction.DOWN_LEFT]: () => {
-        if (this.x - speed >= 0 && this.y + speed <= canvasHeight) {
+        if (
+          this.x - speed >= 0 &&
+          this.y + speed + shapeHeight <= canvasHeight
+        ) {
           this.x -= speed;
           this.y += speed;
         } else this.move();
       },
       [Constants.MoveAction.DOWN_RIGHT]: () => {
-        if (this.x + speed <= canvasWidth && this.y + speed <= canvasHeight) {
+        if (
+          this.x + speed + shapeWidth <= canvasWidth &&
+          this.y + speed + shapeHeight <= canvasHeight
+        ) {
           this.x += speed;
           this.y += speed;
         } else this.move();
@@ -93,7 +102,6 @@ class Robot extends Entity {
   draw() {
     if (this.status === Constants.EntityStatus.DIED) return;
 
-    fill(this.color);
-    ellipse(this.x, this.y, this.size, this.size);
+    image(this.getShape().getImage(), this.x, this.y);
   }
 }
