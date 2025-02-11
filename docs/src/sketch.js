@@ -8,9 +8,24 @@
  * add it both here and to `basePage` to ensure consistency across all pages.
  */
 
+function loadAllImages(obj) {
+  Object.values(obj).forEach((value) => {
+    if (value instanceof SvgImage) {
+      value.loadImage();
+    } else if (typeof value === 'object' && value !== null) {
+      loadAllImages(value);
+    }
+  });
+}
+
+/**
+ * Called once before all the setups.
+ * Load all assets here (images, sounds, etc.)
+ */
 function preload() {
   Controller.changePage(new Home(), Constants.Page.HOME);
-  Store.getCurrentPage().preload();
+
+  loadAllImages(Resources.img);
 }
 
 function setup() {

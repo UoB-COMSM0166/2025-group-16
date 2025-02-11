@@ -33,4 +33,9 @@ const Constants = Object.freeze({
     COOLDOWN: 'COOLDOWN',
     DIED: 'DIED',
   }),
+  EntitySize: Object.freeze({
+    S: 'S',
+    M: 'M',
+    L: 'L',
+  }),
 });
