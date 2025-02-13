@@ -27,8 +27,7 @@ function preload() {
 }
 
 function setup() {
-  // TODO: check the way to set size, now use the current screen size to set canvas
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(800, 600);
   Controller.changePage(new Welcome(), Constants.Page.WELCOME);
 }
 
