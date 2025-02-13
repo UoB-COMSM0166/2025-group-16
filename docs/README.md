@@ -27,7 +27,7 @@
 
 2. **Development**:
 
-   If you add a new file, remember to include the script link in `index.html` and ensure the correct load order.
+   **Add a new file**: Include the script link in `index.html` and ensure the correct load order.
 
    - Encapsulated p5.js objects are in `src/classes`.
    - Pages are in `src/pages`.
@@ -35,11 +35,15 @@
    - Global state management is in `src/state`.
    - Utility functions are in `src/utils`.
 
-   If you want to add a new asset (image or sound), you can:
+   **Add a new asset** (image or sound):
 
    1. Add the path and asset instance to `config/resources`.
    2. Preload it in `sketch.js`.
-   3. Access the asset by `Resources.xxx.xxx`(from `config/resources`).
+   3. Access the asset via `Resources.xxx.xxx` (from `config/resources`).
+
+   Examples:
+
+   - Images loaded with variants: See `Entity.js`
 
 3. **Lint and Format**:
 
