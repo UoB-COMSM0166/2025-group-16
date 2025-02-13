@@ -1,13 +1,25 @@
-class MapBasicGame extends BasePage {
-  constructor() {
+class BaseMapGame extends BasePage {
+  /**
+   * Creates a new MapGame page instance.
+   * @param {Object} params - The parameters for the map page.
+   * @param {number} params.robotNumber - The number of robots.
+   * @param {{ size: keyof typeof Constants.EntitySize }} [params.playerParams] - Optional. The params of players.
+   * @param {{ size: keyof typeof Constants.EntitySize }} [params.robotParams] - Optional. The params of robots.
+   */
+  constructor(params) {
     super();
-    this.robotNumber = 30;
     this.players = [];
     this.robots = [];
     this.alivePlayerCtn = Store.getPlayerNumber();
 
+    this.robotNumber = params?.robotNumber || 30;
+    this.playerParams = params.playerParams || {};
+    this.robotParams = params.robotParams || {};
+
     this.gameOverButton = null;
     this.gameOverText = null;
+
+    this.background = null; // TODO: add background
   }
 
   /** @override */
@@ -37,6 +49,7 @@ class MapBasicGame extends BasePage {
     // initialize players
     for (var pIdx = 0; pIdx < Settings.players.length; pIdx++) {
       const newPlayer = new Player({
+        ...this.playerParams,
         idx: pIdx,
         controls: Settings.players[pIdx].controls,
       });
@@ -45,7 +58,7 @@ class MapBasicGame extends BasePage {
 
     // initialize robots
     for (var rIdx = 0; rIdx < this.robotNumber; rIdx++) {
-      this.robots.push(new Robot({ idx: rIdx }));
+      this.robots.push(new Robot({ ...this.robotParams, idx: rIdx }));
     }
   }
 
