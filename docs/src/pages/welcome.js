@@ -35,7 +35,7 @@ class Welcome extends BasePage {
         new Player({
           idx: i,
           controls: Settings.players[i].controls,
-          color: Theme.palette.player[i],
+          color: Object.values(Theme.palette.entity)[i],
           size: Constants.EntitySize.L,
         }),
       );

@@ -7,7 +7,7 @@ class Entity {
    * @param {Object} params - The parameters for the entity.
    * @param {number} params.idx - The idx of the entity in the target type.
    * @param {keyof typeof Constants.EntityType} params.type - The type of the entity.
-   * @param {string} [params.color] - Optional. The color of the entity.
+   * @param {typeof Theme.palette.entity[keyof typeof Theme.palette.entity]} [params.color] - Optional. The color of the entity.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the entity.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */
@@ -15,7 +15,7 @@ class Entity {
     this.idx = params.idx;
     this.type = params.type;
     this.status = Constants.EntityStatus.ALIVE;
-    this.color = params?.color || Theme.palette.primary;
+    this.color = params?.color || Theme.palette.entity.blue;
     this.size = params?.size || Constants.EntitySize.M;
 
     this.speed = Settings.entity.speed;
@@ -65,6 +65,10 @@ class Entity {
   }
 
   getShape() {
+    if (this.status == Constants.EntityStatus.ALIVE) {
+      const targetShape = Resources.img.entity[this.size]?.[this.color];
+      if (targetShape) return Resources.img.entity[this.size]?.[this.color];
+    }
     return Resources.img.entity[this.size][this.status];
   }
 }

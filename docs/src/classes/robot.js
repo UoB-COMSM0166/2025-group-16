@@ -6,7 +6,7 @@ class Robot extends Entity {
    * Creates a new Robot instance.
    * @param {Object} params - The parameters for the player.
    * @param {number} params.idx - The index of the robot in robots.
-   * @param {string} [params.color] - The color of the player.
+   * @param {typeof Theme.palette.entity[keyof typeof Theme.palette.entity]} [params.color] - The color of the player.
    * @param {keyof typeof Constants.EntitySize} [params.size] - The size of the player.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */

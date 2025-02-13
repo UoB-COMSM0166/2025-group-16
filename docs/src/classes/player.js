@@ -7,7 +7,7 @@ class Player extends Entity {
    * @param {Object} params - The parameters for the player.
    * @param {number} params.idx - The index of the player in players.
    * @param {Object} params.controls - The control mappings from `Settings.players[idx].controls`.
-   * @param {string} [params.color] - Optional. The color of the player.
+   * @param {typeof Theme.palette.entity[keyof typeof Theme.palette.entity]} [params.color] - Optional. The color of the player.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the player.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */
@@ -15,7 +15,7 @@ class Player extends Entity {
     super({
       idx: params.idx,
       type: Constants.EntityType.PLAYER,
-      color: params?.color, // TODO: apply different players' color
+      color: params?.color,
       size: params?.size,
       position: params?.position,
     });
