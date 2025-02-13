@@ -138,10 +138,224 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
   When working with epics, having a clear goal is essential, but understanding our users is equally crucial for building an efficient development environment. These epics can be further divided into smaller, actionable tasks based on actual requirements. For instance, in our game, one of our key epics is to create an intuitive and accessible experience for all players, regardless of whether they are first-time users or experienced ones. This epic consists of several user stories, including tailored experiences for new players, returning players, and those who prefer to skip tutorials at the beginning of the game.
 
   Breaking down large objectives into smaller, well-defined tasks significantly streamlines the development process. Additionally, setting clear acceptance criteria ensures that our progress stays on track. If any issues arise, we can systematically analyze each step to identify where the problem occurred and make necessary adjustments.
+
 ### Design
 
 - 15% ~750 words
 - System architecture. Class diagrams, behavioural diagrams.
+
+#### Class Diagram
+
+```mermaid
+classDiagram
+  %% UI Component Hierarchy
+  UIComponent <|-- Text
+  UIComponent <|-- Button
+
+  %% Entity Hierarchy
+  Entity <|-- Player
+  Entity <|-- Robot
+
+  %% Page Hierarchy
+  BasePage <|-- Welcome
+  BasePage <|-- Results
+  BasePage <|-- BaseMapGame
+  BasePage <|-- BaseMapIntro
+
+  BaseMapGame <|-- MapGame1
+  BaseMapIntro <|-- MapIntro1
+  BaseMapGame <|-- MapGame2
+  BaseMapIntro <|-- MapIntro2
+  BaseMapGame <|-- MapGame3
+  BaseMapIntro <|-- MapIntro3
+
+  %% Relationships
+  BasePage o-- "0..n" UIComponent : contains
+  BasePage o-- "2..n" Player : contains
+  BasePage o-- "0..n" Robot : contains
+
+  class UIComponent {
+      <<abstract>>
+      +number x
+      +number y
+      +draw()*
+  }
+
+  class Text {
+      +string label
+      +string color
+      +string textAlign
+      +number textLeading
+      +string/number textSize
+      +string textStyle
+      +string stroke
+      +number strokeWeight
+      ^draw(params)
+  }
+
+  class Button {
+      +number width
+      +number height
+      +string label
+      +Function action
+      +string color
+      +string hoverColor
+      +boolean disabled
+      +number fontSize
+      +boolean isHovered
+      ^draw()
+      +isMouseOver()
+      +mousePressed()
+      +setDisabled()
+  }
+
+  class Entity {
+      +number idx
+      +string type
+      +string status
+      +string color
+      +string size
+      +number speed
+      +number x
+      +number y
+      +draw()
+      +move(direction)
+      +getShape()
+  }
+
+  class Player {
+      +Object controls
+      ^draw()
+      +keyPressed(entities, onDie)
+  }
+
+  class Robot {
+      +Function action
+      +number actionEndTime
+      ^draw()
+      ^move()
+  }
+
+  class BasePage {
+      <<abstract>>
+      +setup()*
+      +draw()*
+      +mousePressed()*
+      +mouseReleased()*
+      +keyPressed()*
+      +keyReleased()*
+  }
+
+  class BaseMapGame {
+      +number robotNumber
+      +[Object] playerParams
+      +[Object] robotParams
+      ^setup()
+      ^draw()
+      ^mousePressed()
+      ^keyPressed()
+  }
+
+  class BaseMapIntro {
+      +string title
+      +string[] playerControlIntros
+      +[string] additionalIntro
+      ^setup()
+      ^draw()
+      ^mousePressed()
+  }
+
+  class MapIntro1 {
+      <<singleton>>
+  }
+
+  class MapIntro2 {
+      <<singleton>>
+  }
+
+  class MapIntro3 {
+      <<singleton>>
+  }
+
+  class MapGame1 {
+      <<singleton>>
+  }
+
+  class MapGame2 {
+      <<singleton>>
+  }
+
+  class MapGame3 {
+      <<singleton>>
+  }
+
+  class Welcome {
+      <<singleton>>
+  }
+
+  class Results {
+      <<singleton>>
+  }
+```
+
+#### Sequence Diagram
+
+```mermaid
+sequenceDiagram
+  actor Users
+  participant WelcomePage
+  participant MapIntroPage
+  participant MapGamePage
+  participant Player
+  participant Robot
+  participant ResultsPage
+
+  Users->>WelcomePage: Enter into game
+  activate WelcomePage
+  WelcomePage-->>Users: Show welcome page
+  deactivate WelcomePage
+
+  Users->>WelcomePage: Click start button
+  activate WelcomePage
+  WelcomePage->>MapIntroPage: setup()
+  deactivate WelcomePage
+
+  activate MapIntroPage
+  MapIntroPage-->>Users: Show map & control introduction
+  deactivate MapIntroPage
+
+  Users->>MapIntroPage: Click start button
+  activate MapIntroPage
+  MapIntroPage->>MapGamePage: setup()
+  deactivate MapIntroPage
+
+  activate MapGamePage
+  MapGamePage->>Player: new Player(params)
+  MapGamePage->>Robot: new Robot(params)
+
+  loop Game Loop
+      MapGamePage->>Player: draw()
+      MapGamePage->>Robot: draw()
+
+      alt Users Input
+          Users->>MapGamePage: keyPressed()
+          MapGamePage->>Player: keyPressed()
+
+          alt Attack Key Pressed
+              Player->>MapGamePage: checkCollisions()
+              MapGamePage->>MapGamePage: checkRemainingPlayers()
+          end
+      end
+  end
+
+  MapGamePage->>ResultsPage: Only One Player Remaining
+  deactivate MapGamePage
+  activate ResultsPage
+  ResultsPage-->>Users: Show game results
+  deactivate ResultsPage
+  Users->>ResultsPage: Click button to restart
+  ResultsPage->>WelcomePage: setup()
+```
 
 ### Implementation
 
@@ -173,12 +387,12 @@ Please find the link to check our [workflow](https://vivi2393142-0702.atlassian.
 
 Our project management and documents are on Atlassian Jira. As the free plan doesn't support public sharing, please use the credentials below to access them.
 
-**Access Links**
+<u>Access Links</u>
 
 - [🔗 Jira Kanban Board](https://vivi2393142-0702.atlassian.net/jira/software/projects/TG/boards/2)
 - [📄 Meeting Records & Documents](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/overview)
 
-**Access Credentials**
+<u>Access Credentials</u>
 
 - Email: team16_access@outlook.com
 - Password: team16_password
