@@ -24,8 +24,12 @@ class Entity {
       this.x = params.position.x;
       this.y = params.position.y;
     } else {
-      this.x = Math.random() * (width - (this.getShape()?.width || 0));
-      this.y = Math.random() * (height - (this.getShape()?.height || 0));
+      this.x =
+        Math.random() *
+        (width - (this.getShape()?.width || initSize[this.size]));
+      this.y =
+        Math.random() *
+        (height - (this.getShape()?.height || initSize[this.size]));
     }
   }
 
@@ -72,3 +76,10 @@ class Entity {
     return Resources.img.entity[this.size][this.status];
   }
 }
+
+// TODO: change to better way
+const initSize = {
+  [Constants.EntitySize.S]: 16 * 1,
+  [Constants.EntitySize.M]: 16 * 3,
+  [Constants.EntitySize.L]: 16 * 5,
+};
