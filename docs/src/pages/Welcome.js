@@ -48,10 +48,7 @@ class Welcome extends BasePage {
       height: 50,
       label: 'Start Game',
       action: () =>
-        Controller.changePage(
-          new MapBasicIntro(),
-          Constants.Page.MAP_BASIC_INTRO,
-        ),
+        Controller.changePage(new MapIntro1(), Constants.Page.MAP_INTRO_1),
       color: Theme.palette.darkBlue,
       hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
     });

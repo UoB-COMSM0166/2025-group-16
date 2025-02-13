@@ -5,8 +5,8 @@ const Constants = Object.freeze({
   Page: Object.freeze({
     WELCOME: 'WELCOME',
     RESULTS: 'RESULTS',
-    MAP_BASIC_INTRO: 'MAP_BASIC_INTRO',
-    MAP_BASIC_GAME: 'MAP_BASIC_GAME',
+    MAP_GAME_1: 'MAP_GAME_1',
+    MAP_INTRO_1: 'MAP_INTRO_1',
   }),
   Control: Object.freeze({
     LEFT: 'LEFT',
