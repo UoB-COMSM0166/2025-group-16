@@ -10,6 +10,7 @@ class MapBasicGame extends BasePage {
     this.gameOverText = null;
   }
 
+  /** @override */
   setup() {
     this.gameOverButton = new Button({
       x: width / 2 - 100,
@@ -48,6 +49,7 @@ class MapBasicGame extends BasePage {
     }
   }
 
+  /** @override */
   draw() {
     if (this.alivePlayerCtn === 1) {
       // if game is finished
@@ -73,6 +75,7 @@ class MapBasicGame extends BasePage {
     }
   }
 
+  /** @override */
   keyPressed() {
     this.players.forEach((player) => {
       if (player.status === Constants.EntityStatus.DIED) return;
@@ -84,6 +87,7 @@ class MapBasicGame extends BasePage {
     });
   }
 
+  /** @override */
   mousePressed() {
     this.gameOverButton?.mousePressed();
   }

@@ -4,6 +4,7 @@ class Results extends BasePage {
     this.backButton = null;
   }
 
+  /** @override */
   setup() {
     this.backButton = new Button({
       x: width / 2 - 100,
@@ -18,10 +19,12 @@ class Results extends BasePage {
     });
   }
 
+  /** @override */
   draw() {
     this.backButton?.draw();
   }
 
+  /** @override */
   mousePressed() {
     this.backButton?.mousePressed();
   }
