@@ -1,6 +1,6 @@
 const _path = {
   img: {
-    entity: '/docs/assets/images/entity.svg',
+    entity: '../docs/assets/images/entity.svg',
   },
   sound: {},
 };
