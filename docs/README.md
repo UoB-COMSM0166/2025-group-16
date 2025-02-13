@@ -31,9 +31,15 @@
 
    - Encapsulated p5.js objects are in `src/classes`.
    - Pages are in `src/pages`.
-   - Configuration, constants and theme files are in `src/config`.
+   - Configuration, constants, theme, resources files are in `src/config`.
    - Global state management is in `src/state`.
    - Utility functions are in `src/utils`.
+
+   If you want to add a new asset (image or sound), you can:
+
+   1. Add the path and asset instance to `config/resources`.
+   2. Preload it in `sketch.js`.
+   3. Access the asset by `Resources.xxx.xxx`(from `config/resources`).
 
 3. **Lint and Format**:
 
@@ -79,7 +85,7 @@ root
       └─ 📁sounds         # all sounds
    └─ 📁src               # main source code
       └─ 📁classes        # encapsulated p5.js objects
-      └─ 📁config         # config, constants, theme
+      └─ 📁config         # config, constants, theme, resources
       └─ 📁state          # global state
       └─ 📁utils          # utility functions
       └─ 📁pages          # pages
