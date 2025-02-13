@@ -8,7 +8,23 @@
  * add it both here and to `basePage` to ensure consistency across all pages.
  */
 
-function preload() {}
+function loadAllImages(nestedImageObj) {
+  Object.values(nestedImageObj).forEach((svgImage) => {
+    if (svgImage instanceof SVGImage) {
+      svgImage.loadImage();
+    } else if (typeof svgImage === 'object' && svgImage !== null) {
+      loadAllImages(svgImage);
+    }
+  });
+}
+
+/**
+ * Called once before all the setups.
+ * Load all assets here (images, sounds, etc.)
+ */
+function preload() {
+  loadAllImages(Resources.img);
+}
 
 function setup() {
   // TODO: check the way to set size, now use the current screen size to set canvas

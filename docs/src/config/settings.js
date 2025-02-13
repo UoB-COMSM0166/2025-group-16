@@ -1,6 +1,5 @@
 const Settings = Object.freeze({
   entity: Object.freeze({
-    size: Object.freeze({ default: 20, hit: 40 }),
     speed: 2,
     duration: Object.freeze({
       [Constants.EntityStatus.HIT]: 500,

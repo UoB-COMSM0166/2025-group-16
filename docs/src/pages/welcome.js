@@ -8,6 +8,7 @@ class Welcome extends BasePage {
     this.introText = null;
   }
 
+  /** @override */
   setup() {
     this.title = new Text({
       label: Constants.Game.TITLE,
@@ -35,6 +36,7 @@ class Welcome extends BasePage {
           idx: i,
           controls: Settings.players[i].controls,
           color: Theme.palette.player[i],
+          size: Constants.EntitySize.L,
         }),
       );
     }
@@ -65,12 +67,12 @@ class Welcome extends BasePage {
     });
   }
 
+  /** @override */
   draw() {
     this.title?.draw();
     this.gameStartArea?.draw();
     this.introText?.draw();
     this.players.forEach((player) => {
-      player.move();
       player.draw();
     });
 
@@ -86,6 +88,7 @@ class Welcome extends BasePage {
     });
   }
 
+  /** @override */
   mousePressed() {
     this.startButton?.mousePressed();
   }
