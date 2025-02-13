@@ -1,7 +1,7 @@
 /**
  * Represents a button in the game interface.
  */
-class Button {
+class Button extends UIComponent {
   /**
    * Creates a new Button instance.
    * @param {Object} params - The parameters for the button.
@@ -11,44 +11,24 @@ class Button {
    * @param {number} params.height - The height of the button.
    * @param {string} params.label - The text displayed on the button.
    * @param {Function} params.action - The function to be called when the button is pressed.
-   * @param {string} params.color - The default color of the button.
-   * @param {string} params.hoverColor - The color of the button when hovered over.
+   * @param {string} [params.color] - The default color of the button.
+   * @param {string} [params.hoverColor] - The color of the button when hovered over.
    * @param {boolean} [params.disabled] - Optional. If true, the button will be disabled.
    * @param {number} [params.fontSize] - Optional. The font size of the label text.
    */
-  constructor({
-    x,
-    y,
-    width,
-    height,
-    label,
-    action,
-    color = Theme.palette.primary,
-    hoverColor = colorHelper.lighter(Theme.palette.primary, 0.5),
-    disabled = false,
-    fontSize = Theme.text.fontSize.medium,
-  }) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.label = label;
-    this.action = action;
-    this.color = color;
-    this.hoverColor = hoverColor;
-    this.isHovered = false;
-    this.disabled = disabled;
-    this.fontSize = fontSize;
-  }
+  constructor(params) {
+    super({ x: params.x, y: params.y });
 
-  isMouseOver() {
-    return (
-      !this.disabled &&
-      mouseX > this.x &&
-      mouseX < this.x + this.width &&
-      mouseY > this.y &&
-      mouseY < this.y + this.height
-    );
+    this.width = params?.width || 32;
+    this.height = params?.height || 32;
+    this.label = params?.label || '';
+    this.action = params?.action;
+    this.color = params?.color || Theme.palette.primary;
+    this.hoverColor =
+      params?.hoverColor || colorHelper.lighter(this.color, 0.5);
+    this.disabled = params?.disabled || false;
+    this.fontSize = params?.fontSize || Theme.text.fontSize.medium;
+    this.isHovered = false;
   }
 
   draw() {
@@ -64,6 +44,16 @@ class Button {
     textSize(this.fontSize);
     textAlign(CENTER, CENTER);
     text(this.label, this.x + this.width / 2, this.y + this.height / 2);
+  }
+
+  isMouseOver() {
+    return (
+      !this.disabled &&
+      mouseX > this.x &&
+      mouseX < this.x + this.width &&
+      mouseY > this.y &&
+      mouseY < this.y + this.height
+    );
   }
 
   mousePressed() {

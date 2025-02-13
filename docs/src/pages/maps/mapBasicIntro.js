@@ -7,6 +7,7 @@ class MapBasicIntro extends BasePage {
     this.startButton = null;
   }
 
+  /** @override */
   setup() {
     this.introText1 = new Text({
       label: 'Fight!',
@@ -47,6 +48,7 @@ class MapBasicIntro extends BasePage {
     });
   }
 
+  /** @override */
   draw() {
     this.introText1?.draw();
     this.introText2?.draw();
@@ -54,6 +56,7 @@ class MapBasicIntro extends BasePage {
     this.startButton?.draw();
   }
 
+  /** @override */
   mousePressed() {
     this.startButton?.mousePressed();
   }

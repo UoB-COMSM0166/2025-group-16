@@ -1,12 +1,12 @@
 /**
  * Represents a text in the game interface.
  */
-class Text {
+class Text extends UIComponent {
   /**
    * @param {Object} params - The parameters for the text, see https://p5js.org/reference/ for more details.
-   * @param {string} [params.label] - The text content to display.
    * @param {number} [params.x] - The x-coordinate of the text's position.
    * @param {number} [params.y] - The y-coordinate of the text's position.
+   * @param {string} [params.label] - The text content to display.
    * @param {string} [params.color] - The fill color of the text.
    * @param {string} [params.textAlign] - The alignment of the text.
    * @param {number} [params.textLeading] - The spacing between lines of text.
@@ -17,9 +17,9 @@ class Text {
    * @param {number} [params.strokeWeight] - The weight of the text's outline (stroke thickness).
    */
   constructor(params) {
+    super({ x: params?.x, y: params?.y });
+
     this.label = params?.label || '';
-    this.x = params?.x || 0;
-    this.y = params?.y || 0;
     this.color = params?.color;
     this.textAlign = params?.textAlign;
     this.textLeading = params?.textLeading;
