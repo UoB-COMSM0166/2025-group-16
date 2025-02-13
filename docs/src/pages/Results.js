@@ -14,8 +14,8 @@ class Results extends BasePage {
       label: 'Back to Home',
       action: () =>
         Controller.changePage(new Welcome(), Constants.Page.WELCOME),
-      color: Theme.palette.primary,
-      hoverColor: colorHelper.lighter(Theme.palette.primary, 0.5),
+      color: Theme.palette.darkBlue,
+      hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
     });
   }
 

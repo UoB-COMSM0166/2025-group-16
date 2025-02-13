@@ -20,8 +20,8 @@ class MapBasicGame extends BasePage {
       label: 'Finish',
       action: () =>
         Controller.changePage(new Results(), Constants.Page.RESULTS),
-      color: Theme.palette.primary,
-      hoverColor: colorHelper.lighter(Theme.palette.primary, 0.5),
+      color: Theme.palette.darkBlue,
+      hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
     });
 
     this.gameOverText = new Text({

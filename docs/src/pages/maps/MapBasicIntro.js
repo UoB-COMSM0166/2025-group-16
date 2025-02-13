@@ -43,8 +43,8 @@ class MapBasicIntro extends BasePage {
       label: 'Ready!',
       action: () =>
         Controller.changePage(new MapBasicGame(), Constants.Page.MapBasicGame),
-      color: Theme.palette.primary,
-      hoverColor: colorHelper.lighter(Theme.palette.primary, 0.5),
+      color: Theme.palette.darkBlue,
+      hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
     });
   }
 
