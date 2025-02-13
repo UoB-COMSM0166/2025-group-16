@@ -23,7 +23,7 @@ class Button extends UIComponent {
     this.height = params?.height || 32;
     this.label = params?.label || '';
     this.action = params?.action;
-    this.color = params?.color || Theme.palette.primary;
+    this.color = params?.color || Theme.palette.darkBlue;
     this.hoverColor =
       params?.hoverColor || colorHelper.lighter(this.color, 0.5);
     this.disabled = params?.disabled || false;

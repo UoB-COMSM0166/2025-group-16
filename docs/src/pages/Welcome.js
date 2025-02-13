@@ -25,8 +25,8 @@ class Welcome extends BasePage {
       y: (height / 10) * 2,
       width: 360,
       height: 300,
-      color: Theme.palette.background,
-      hoverColor: Theme.palette.background,
+      color: Theme.palette.lightGrey,
+      hoverColor: Theme.palette.lightGrey,
     });
 
     // initialize players
@@ -52,8 +52,8 @@ class Welcome extends BasePage {
           new MapBasicIntro(),
           Constants.Page.MAP_BASIC_INTRO,
         ),
-      color: Theme.palette.primary,
-      hoverColor: colorHelper.lighter(Theme.palette.primary, 0.5),
+      color: Theme.palette.darkBlue,
+      hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
     });
 
     this.introText = new Text({

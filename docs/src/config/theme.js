@@ -1,23 +1,39 @@
 const Theme = Object.freeze({
   palette: Object.freeze({
-    background: '#E0D6D6',
-    primary: '#597DCE',
-    secondary: '#6DC2CA',
-    success: '#6DAA2C',
-    error: '#D04648',
-    warning: '#D27D2C',
+    blackRed: '#140C1C',
+    darkPurple: '#442434',
+    darkBlue: '#30346D',
+    darkGrey: '#4E4A4E',
+
+    brown: '#854C30',
+    green: '#346524',
+    red: '#D04648',
+    grey: '#757161',
+
+    blue: '#597DEC',
+    orange: '#D27D2C',
+    lightGrey: '#8595A1',
+    lime: '#6DAA2C',
+
+    beige: '#D2AA99',
+    cyan: '#6BC2CA',
+    yellow: '#DAD45E',
+    mint: '#DEEED6',
+
+    black: '#000000',
+    white: '#FFFFFF',
     text: Object.freeze({
-      primary: '#5D5F5E',
-      secondary: '#828282',
-      hint: '#BDBDBD',
+      primary: '#140C1C', // blackRed,
+      secondary: '#4E4A4E', // darkGrey
+      hint: '#757161', // grey
       disabled: '#E0E0E0',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF', // white
     }),
     entity: Object.freeze({
+      red: '#D04648',
       blue: '#597DCE',
       green: '#6DC2CA',
       orange: '#D27D2C',
-      red: '#D04648',
     }),
   }),
   text: Object.freeze({

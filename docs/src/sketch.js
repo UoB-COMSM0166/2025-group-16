@@ -23,7 +23,7 @@ function loadAllImages(nestedImageObj) {
  * Load all assets here (images, sounds, etc.)
  */
 function preload() {
-  loadAllImages(Resources.img);
+  loadAllImages(Resources.images);
 }
 
 function setup() {
@@ -33,7 +33,7 @@ function setup() {
 
 const pageLabel = new Text(); // TODO: remove it
 function draw() {
-  background(Theme.palette.background);
+  background(Theme.palette.lightGrey);
   pageLabel.draw({
     label: Store.getCurrentPageKey(),
     x: 10,

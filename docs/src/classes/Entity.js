@@ -15,7 +15,7 @@ class Entity {
     this.idx = params.idx;
     this.type = params.type;
     this.status = Constants.EntityStatus.ALIVE;
-    this.color = params?.color || Theme.palette.entity.blue;
+    this.color = params?.color || Theme.palette.entity.red;
     this.size = params?.size || Constants.EntitySize.M;
 
     this.speed = Settings.entity.speed;
