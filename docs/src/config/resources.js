@@ -1,6 +1,8 @@
+const _base_path = "https://uob-comsm0166.github.io/2025-group-16/"
+
 const _path = {
   img: {
-    entity: '../docs/assets/images/entity.svg',
+    entity: 'assets/images/entity.svg',
   },
   sound: {},
 };
@@ -44,11 +46,11 @@ const Resources = {
         Object.fromEntries([
           ...Object.values(_entityVariants.entity).map((fill) => [
             fill,
-            new SVGImage(_path.img.entity, { scale, fill }),
+            new SVGImage(`${_base_path}${_path.img.entity}`, { scale, fill }),
           ]),
           ...Object.entries(_entityVariants.status).map(([status, fill]) => [
             status,
-            new SVGImage(_path.img.entity, { scale, fill }),
+            new SVGImage(`${_base_path}${_path.img.entity}`, { scale, fill }),
           ]),
         ]),
       ]),
