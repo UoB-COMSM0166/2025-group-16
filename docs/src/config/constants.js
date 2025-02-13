@@ -15,7 +15,13 @@ const Constants = Object.freeze({
     DOWN: 'DOWN',
     HIT: 'HIT',
   }),
-  MoveAction: Object.freeze({
+  EntityMove: Object.freeze({
+    UP: 'UP',
+    DOWN: 'DOWN',
+    RIGHT: 'RIGHT',
+    LEFT: 'LEFT',
+  }),
+  RobotMoveOption: Object.freeze({
     UP: 'UP',
     DOWN: 'DOWN',
     RIGHT: 'RIGHT',
@@ -35,5 +41,10 @@ const Constants = Object.freeze({
     HIT: 'HIT',
     COOLDOWN: 'COOLDOWN',
     DIED: 'DIED',
+  }),
+  EntitySize: Object.freeze({
+    S: 'S',
+    M: 'M',
+    L: 'L',
   }),
 });
