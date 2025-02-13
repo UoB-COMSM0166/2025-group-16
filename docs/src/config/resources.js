@@ -17,24 +17,40 @@ const _entityVariants = Object.freeze({
     [Constants.EntityStatus.COOLDOWN]: Theme.palette.warning,
     [Constants.EntityStatus.DIED]: Theme.palette.text.disabled,
   }),
+  entity: Theme.palette.entity,
 });
 
 /**
  * @typedef {keyof typeof Constants.EntitySize} EntitySize
  * @typedef {keyof typeof Constants.EntityStatus} EntityStatus
+ * @typedef {typeof Theme.palette.entity[keyof typeof Theme.palette.entity]} EntityColor
  */
-/** @type {{ entity: { [size in EntitySize]: { [status in EntityStatus]: SVGImage } } }} */
+
+/**
+ * @type {{
+ *   entity: {
+ *     [size in EntitySize]: {
+ *       [status in EntityStatus]: SVGImage,
+ *       [color in EntityColor]: SVGImage
+ *     }
+ *   }
+ * }}
+ */
 const Resources = {
   img: {
     entity: Object.fromEntries(
       Object.entries(_entityVariants.scale).map(([size, scale]) => [
         size,
-        Object.fromEntries(
-          Object.entries(_entityVariants.status).map(([status, fill]) => [
+        Object.fromEntries([
+          ...Object.values(_entityVariants.entity).map((fill) => [
+            fill,
+            new SVGImage(_path.img.entity, { scale, fill }),
+          ]),
+          ...Object.entries(_entityVariants.status).map(([status, fill]) => [
             status,
             new SVGImage(_path.img.entity, { scale, fill }),
           ]),
-        ),
+        ]),
       ]),
     ),
   },
