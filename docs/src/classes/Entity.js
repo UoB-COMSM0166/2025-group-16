@@ -70,10 +70,10 @@ class Entity {
 
   getShape() {
     if (this.status == Constants.EntityStatus.ALIVE) {
-      const targetShape = Resources.img.entity[this.size]?.[this.color];
-      if (targetShape) return Resources.img.entity[this.size]?.[this.color];
+      const targetShape = Resources.images.entity[this.size]?.[this.color];
+      if (targetShape) return Resources.images.entity[this.size]?.[this.color];
     }
-    return Resources.img.entity[this.size][this.status];
+    return Resources.images.entity[this.size][this.status];
   }
 }
 

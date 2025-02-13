@@ -6,7 +6,7 @@
  *
  * 2. Make sure it preload in `sketch.js`
  *
- * 3. In `draw()`, display the image using `image(Resources.img.xxx.image)`.
+ * 3. In `draw()`, display the image using `image(Resources.images.xxx.image)`.
  *
  * 4. If you want to update the SVG's attributes, call `img.updateAttributes()`.
  * Be careful, it will change this image globally.

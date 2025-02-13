@@ -1,12 +1,23 @@
-const _base_path = "https://uob-comsm0166.github.io/2025-group-16/"
+// 1. Add the path to `_ASSET_PATHS`
+// 2. Add the asset instance to `Resources`
+// 3. Preload it in `sketch.js`.
+// 4. Access the asset via `Resources.xxx.xxx` (from `config/resources`).
 
-const _path = {
-  img: {
+/* Path Settings */
+const _BASE_PATH = window.location.hostname.includes('github.io')
+  ? 'https://uob-comsm0166.github.io/2025-group-16/'
+  : '';
+const _ASSET_PATHS = {
+  images: {
     entity: 'assets/images/entity.svg',
+    // Add more image paths here
   },
-  sound: {},
+  sounds: {
+    // Add sound paths here
+  },
 };
 
+/* Helper Variables and Functions */
 const _entityVariants = Object.freeze({
   scale: Object.freeze({
     [Constants.EntitySize.S]: 1,
@@ -14,47 +25,70 @@ const _entityVariants = Object.freeze({
     [Constants.EntitySize.L]: 5,
   }),
   status: Object.freeze({
-    [Constants.EntityStatus.ALIVE]: Theme.palette.primary,
-    [Constants.EntityStatus.HIT]: Theme.palette.error,
-    [Constants.EntityStatus.COOLDOWN]: Theme.palette.warning,
-    [Constants.EntityStatus.DIED]: Theme.palette.text.disabled,
+    [Constants.EntityStatus.ALIVE]: Theme.palette.red,
+    [Constants.EntityStatus.HIT]: Theme.palette.yellow,
+    [Constants.EntityStatus.COOLDOWN]: Theme.palette.mint,
+    [Constants.EntityStatus.DIED]: Theme.palette.text.grey,
   }),
   entity: Theme.palette.entity,
 });
 
-/**
- * @typedef {keyof typeof Constants.EntitySize} EntitySize
- * @typedef {keyof typeof Constants.EntityStatus} EntityStatus
- * @typedef {typeof Theme.palette.entity[keyof typeof Theme.palette.entity]} EntityColor
- */
+const _entityResources = Object.fromEntries(
+  // Create size variants
+  Object.entries(_entityVariants.scale).map(([size, scale]) => [
+    size,
+    Object.fromEntries([
+      // Add color variants
+      ...Object.values(_entityVariants.entity).map((fill) => [
+        fill,
+        new SVGImage(`${_BASE_PATH}${_ASSET_PATHS.images.entity}`, {
+          scale,
+          fill,
+        }),
+      ]),
+      // Add status variants
+      ...Object.entries(_entityVariants.status).map(([status, fill]) => [
+        status,
+        new SVGImage(`${_BASE_PATH}${_ASSET_PATHS.images.entity}`, {
+          scale,
+          fill,
+        }),
+      ]),
+    ]),
+  ]),
+);
 
+/* Main Resources */
 /**
- * @type {{
- *   entity: {
- *     [size in EntitySize]: {
- *       [status in EntityStatus]: SVGImage,
- *       [color in EntityColor]: SVGImage
- *     }
- *   }
- * }}
+ * Please find the reference structure below:
+ *
+ * ```
+ * const Resources = {
+ *   images: {
+ *     entity: {
+ *       [Constants.EntitySize.S]: {
+ *         [Constants.palette.entity[0]]: SVGImage,
+ *         [Constants.palette.entity[1]]: SVGImage,
+ *         [Constants.palette.entity[2]]: SVGImage,
+ *         [Constants.palette.entity[3]]: SVGImage,
+ *         [Constants.EntityStatus.ALIVE]: SVGImage,
+ *         [Constants.EntityStatus.HIT]: SVGImage,
+ *         [Constants.EntityStatus.COOLDOWN]: SVGImage,
+ *         [Constants.EntityStatus.DIED]: SVGImage,
+ *       },
+ *       // [Constants.EntitySize.M]: { ... },
+ *       // [Constants.EntitySize.L]: { ... },
+ *     },
+ *     map: {},
+ *   },
+ *   sounds: {},
+ * }
+ * ```
  */
 const Resources = {
-  img: {
-    entity: Object.fromEntries(
-      Object.entries(_entityVariants.scale).map(([size, scale]) => [
-        size,
-        Object.fromEntries([
-          ...Object.values(_entityVariants.entity).map((fill) => [
-            fill,
-            new SVGImage(`${_base_path}${_path.img.entity}`, { scale, fill }),
-          ]),
-          ...Object.entries(_entityVariants.status).map(([status, fill]) => [
-            status,
-            new SVGImage(`${_base_path}${_path.img.entity}`, { scale, fill }),
-          ]),
-        ]),
-      ]),
-    ),
+  images: {
+    entity: _entityResources,
+    map: {},
   },
-  sound: {},
+  sounds: {},
 };
