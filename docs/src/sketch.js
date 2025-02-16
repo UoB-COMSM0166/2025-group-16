@@ -24,6 +24,7 @@ function loadAllImages(nestedImageObj) {
  */
 function preload() {
   loadAllImages(Resources.images);
+  Resources.images.map.MapGame1 = loadImage(Resources.images.map.MapGame1);
 }
 
 function setup() {
@@ -34,6 +35,17 @@ function setup() {
 const pageLabel = new Text(); // TODO: remove it
 function draw() {
   background(Theme.palette.lightGrey);
+
+  /*
+   * "Upon entering the game, press 'Ready!'
+   * to begin Phase Two, at which point MapGame1 will appear as the background."
+   */
+  if (Store.getCurrentPageKey() === Constants.Page.MAP_GAME_1) {
+    if (Resources.images.map.MapGame1) {
+      image(Resources.images.map.MapGame1, 0, 0, 800, 600);
+    }
+  }
+
   pageLabel.draw({
     label: Store.getCurrentPageKey(),
     x: 10,
