@@ -85,10 +85,13 @@ const _entityResources = Object.fromEntries(
  * }
  * ```
  */
+
 const Resources = {
   images: {
     entity: _entityResources,
-    map: {},
+    map: {
+      MapGame1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
+    },
   },
   sounds: {},
 };
