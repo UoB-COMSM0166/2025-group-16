@@ -20,6 +20,8 @@ class BaseMapGame extends BasePage {
     this.gameOverText = null;
 
     this.background = null; // TODO: add background
+    this.playerAvatars = [];
+    this.fightImage = [];
   }
 
   /** @override */
@@ -54,6 +56,17 @@ class BaseMapGame extends BasePage {
         controls: Settings.players[pIdx].controls,
       });
       this.players.push(newPlayer);
+      //avatar part
+      let avatarPath = `${window.location.origin}/docs/assets/images/welcomepage/icon_p${pIdx + 1}.svg`;
+      let avatar = new SVGImage(avatarPath);
+      avatar.loadImage(); // 確保載入
+      this.playerAvatars.push(avatar);
+      console.log(`Loading avatar for Player ${pIdx + 1}:`, avatar);
+      //for image fight part (TODO: replace it with fight image)
+      let fightImagePath = `${window.location.origin}/docs/assets/images/welcomepage/icon_p${pIdx + 1}.svg`;
+      let singleFightImage = new SVGImage(fightImagePath);
+      singleFightImage.loadImage(); // 確保載入
+      this.fightImage.push(singleFightImage);
     }
 
     // initialize robots
@@ -86,6 +99,8 @@ class BaseMapGame extends BasePage {
         robot.draw();
       });
     }
+    //draw players
+    this.drawPlayerAvatars();
   }
 
   /** @override */
@@ -103,5 +118,41 @@ class BaseMapGame extends BasePage {
   /** @override */
   mousePressed() {
     this.gameOverButton?.mousePressed();
+  }
+
+  drawPlayerAvatars() {
+    let avatarSize = 80;
+    let fightImageSize = 60; // image size
+    let numPlayers = this.playerAvatars.length;
+    if (numPlayers === 0) return;
+
+    let spacing = width / (numPlayers + 1); // automatically adjust the width
+
+    for (let i = 0; i < numPlayers; i++) {
+      let xPos = spacing * (i + 1) - avatarSize / 2; // adjust equally
+      let yPos = height - avatarSize - 20;
+
+      // avatar
+      if (this.playerAvatars[i]?.image) {
+        image(this.playerAvatars[i].image, xPos, yPos, avatarSize, avatarSize);
+      } else {
+        console.log(`Avatar ${i + 1} not loaded yet`);
+      }
+
+      // image of fight
+      let fightXPos = xPos + avatarSize + 5;
+      let fightYPos = yPos + avatarSize / 2 - fightImageSize / 2;
+      if (this.fightImage[i]?.image) {
+        image(
+          this.fightImage[i].image,
+          fightXPos,
+          fightYPos,
+          fightImageSize,
+          fightImageSize,
+        );
+      } else {
+        console.log(`Fight image ${i + 1} not loaded yet`);
+      }
+    }
   }
 }
