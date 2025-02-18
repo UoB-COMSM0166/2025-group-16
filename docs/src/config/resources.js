@@ -129,7 +129,7 @@ const Resources = {
   images: {
     entity: _entityResources,
     map: {
-      game1: _ASSET_PATHS.images.map.game1,
+      game1: new Img(_ASSET_PATHS.images.map.game1),
     },
   },
   sounds: {},

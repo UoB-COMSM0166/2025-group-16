@@ -8,7 +8,7 @@ class Text extends UIComponent {
    * @param {number} [params.y] - The y-coordinate of the text's position.
    * @param {string} [params.label] - The text content to display.
    * @param {string} [params.color] - The fill color of the text.
-   * @param {string} [params.textAlign] - The alignment of the text.
+   * @param {string} [params.textAlign] - The alignment of the text, e.g. [CENTER, TOP]
    * @param {number} [params.textLeading] - The spacing between lines of text.
    * @param {number | string} [params.textSize] - The font size to set for the text.
    * @param {string} [params.textStyle] - The style for the text.
@@ -36,7 +36,9 @@ class Text extends UIComponent {
     };
 
     if (config.color !== undefined) fill(config.color);
-    if (config.textAlign !== undefined) textAlign(config.textAlign);
+    if (config.textAlign !== undefined) {
+      textAlign(config.textAlign[0], config.textAlign[1]);
+    }
     if (config.textLeading !== undefined) textLeading(config.textLeading);
     if (config.textSize !== undefined) textSize(config.textSize);
     if (config.textStyle !== undefined) textStyle(config.textStyle);

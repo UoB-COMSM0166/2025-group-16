@@ -27,20 +27,20 @@ class BaseMapGame extends BasePage {
 
   /** @override */
   setup() {
-    if (this.background) {
-      image(this.background, 0, 0, width, height);
-    }
-
     this.gameOverButton = new Button({
-      x: width / 2 - 100,
+      x: width / 2,
       y: (height / 4) * 3,
-      width: 200,
-      height: 50,
-      label: 'Finish',
+      width: 400,
+      height: 100,
       action: () =>
         Controller.changePage(new Results(), Constants.Page.RESULTS),
       color: Theme.palette.darkBlue,
       hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
+      align: [CENTER, TOP],
+      textParams: {
+        label: 'Finish',
+        textSize: Theme.text.fontSize.medium,
+      },
     });
 
     this.gameOverText = new Text({
@@ -50,7 +50,7 @@ class BaseMapGame extends BasePage {
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.large,
       textStyle: BOLD,
-      textAlign: CENTER,
+      textAlign: [CENTER, CENTER],
     });
 
     // initialize players
@@ -97,6 +97,10 @@ class BaseMapGame extends BasePage {
 
   /** @override */
   draw() {
+    if (this.background) {
+      image(this.background.image, 0, 0, width, height);
+    }
+
     // if game is finished
     this.players.forEach((player) => {
       player.draw();

@@ -47,7 +47,7 @@ class Entity {
     const currShape = this.getShape();
     if (currShape) {
       const { image: img, scaledWidth, scaledHeight } = currShape;
-      image(img, this.x, this.y, scaledWidth, scaledHeight);
+      if (img) image(img, this.x, this.y, scaledWidth, scaledHeight);
     }
     this.isWalking = false;
   }

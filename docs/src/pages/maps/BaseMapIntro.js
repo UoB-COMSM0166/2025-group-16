@@ -23,11 +23,11 @@ class BaseMapIntro extends BasePage {
     this.titleText = new Text({
       label: this.title,
       x: width / 2,
-      y: (height / 5) * 2,
+      y: (height / 6) * 2,
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.large,
       textStyle: BOLD,
-      textAlign: CENTER,
+      textAlign: [CENTER, CENTER],
     });
 
     this.playerControlIntroTexts = this.playerControlIntros.map(
@@ -35,10 +35,10 @@ class BaseMapIntro extends BasePage {
         new Text({
           label: intro,
           x: width / 2,
-          y: (height / 5) * 2 + 50 + 35 * idx,
+          y: (height / 6) * 2 + 80 + 55 * idx,
           color: Theme.palette.text.primary,
           textSize: Theme.text.fontSize.medium,
-          textAlign: CENTER,
+          textAlign: [CENTER, CENTER],
         }),
     );
 
@@ -50,20 +50,23 @@ class BaseMapIntro extends BasePage {
         color: Theme.palette.text.primary,
         textSize: Theme.text.fontSize.large,
         textStyle: BOLD,
-        textAlign: CENTER,
+        textAlign: [CENTER, CENTER],
       });
     }
 
     this.startButton = new Button({
-      x: width / 2 - 100,
+      x: width / 2,
       y: (height / 4) * 3,
-      width: 200,
-      height: 50,
-      label: 'Ready!',
+      width: 400,
+      height: 80,
       action: () =>
         Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1),
       color: Theme.palette.darkBlue,
       hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
+      align: [CENTER, TOP],
+      textParams: {
+        label: 'Ready!',
+      },
     });
   }
 

@@ -13,20 +13,27 @@ class Welcome extends BasePage {
     this.title = new Text({
       label: Constants.Game.TITLE,
       x: width / 2,
-      y: (height / 10) * 1,
+      y: height / 8,
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.title,
       textStyle: BOLD,
-      textAlign: CENTER,
+      textAlign: [CENTER, CENTER],
     });
 
     this.gameStartArea = new Button({
-      x: this.title.x - 180,
-      y: (height / 10) * 2,
-      width: 360,
-      height: 300,
+      x: width / 2,
+      y: height / 2,
+      width: 560,
+      height: 320,
       color: Theme.palette.lightGrey,
       hoverColor: Theme.palette.lightGrey,
+      align: [CENTER, CENTER],
+      textParams: {
+        label: 'COME HERE',
+        color: colorHelper.lighter(Theme.palette.text.primary, 0.5),
+        textSize: Theme.text.fontSize.large,
+        textStyle: BOLD,
+      },
     });
 
     // initialize players
@@ -42,25 +49,16 @@ class Welcome extends BasePage {
     }
 
     this.startButton = new Button({
-      x: width / 2 - 100,
-      y: (height / 4) * 3.5,
-      width: 200,
-      height: 50,
-      label: 'Start Game',
+      x: width / 2,
+      y: (height + this.gameStartArea.height) / 2 + 80,
+      width: 400,
+      height: 80,
       action: () =>
         Controller.changePage(new MapIntro1(), Constants.Page.MAP_INTRO_1),
       color: Theme.palette.darkBlue,
       hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
-    });
-
-    this.introText = new Text({
-      label: 'COME HERE',
-      x: width / 2,
-      y: (height / 10) * 3,
-      color: colorHelper.lighter(Theme.palette.text.primary, 0.5),
-      textSize: Theme.text.fontSize.large,
-      textStyle: BOLD,
-      textAlign: CENTER,
+      align: [CENTER, TOP],
+      textParams: { label: 'Start Game' },
     });
   }
 
@@ -79,7 +77,7 @@ class Welcome extends BasePage {
 
     this.players.forEach((player, idx) => {
       if (this.checkPlayersInStartArea(player)) {
-        const moveDown = 38 * idx;
+        const moveDown = 40 * idx;
         this.drawCheckLine(player.color, moveDown);
       }
     });
@@ -95,26 +93,36 @@ class Welcome extends BasePage {
     stroke(color);
     strokeWeight(5);
     line(
-      this.gameStartArea.x + 50,
-      this.gameStartArea.y + 20 + moveDown,
-      this.gameStartArea.x + 150,
-      this.gameStartArea.y + 150 + moveDown,
+      this.gameStartArea.x - this.gameStartArea.width / 8,
+      this.gameStartArea.y + moveDown,
+      this.gameStartArea.x,
+      this.gameStartArea.y + this.gameStartArea.height / 5 + moveDown,
     );
     line(
-      this.gameStartArea.x + 150,
-      this.gameStartArea.y + 150 + moveDown,
-      this.gameStartArea.x + this.gameStartArea.width - 10,
-      this.gameStartArea.y + 10 + moveDown,
+      this.gameStartArea.x,
+      this.gameStartArea.y + this.gameStartArea.height / 5 + moveDown,
+      this.gameStartArea.x + this.gameStartArea.width / 4,
+      this.gameStartArea.y - this.gameStartArea.height / 3 + moveDown,
     );
     pop();
   }
 
   checkPlayersInStartArea(player) {
+    const playerWidth =
+      28 *
+      (1 / Settings.entity.scale[Constants.EntitySize.S]) *
+      Settings.entity.scale[player.size];
+    const playerHeight =
+      32 *
+      (1 / Settings.entity.scale[Constants.EntitySize.S]) *
+      Settings.entity.scale[player.size];
     return (
-      player.x > this.gameStartArea.x &&
-      player.x < this.gameStartArea.x + this.gameStartArea.width &&
-      player.y > this.gameStartArea.y &&
-      player.y < this.gameStartArea.y + this.gameStartArea.height
+      player.x >
+        this.gameStartArea.x - this.gameStartArea.width / 2 - playerWidth &&
+      player.x < this.gameStartArea.x + this.gameStartArea.width / 2 &&
+      player.y >
+        this.gameStartArea.y - this.gameStartArea.height / 2 - playerHeight &&
+      player.y < this.gameStartArea.y + this.gameStartArea.height / 2
     );
   }
 }
