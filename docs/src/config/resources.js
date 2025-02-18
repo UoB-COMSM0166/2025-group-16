@@ -10,6 +10,8 @@ const _BASE_PATH = window.location.hostname.includes('github.io')
 const _ASSET_PATHS = {
   images: {
     entity: 'assets/images/entity.svg',
+    playerlist1: 'assets/images/welcomepage/icon_p1.svg',
+    playerlist2: 'assets/images/welcomepage/icon_p2.svg',
     // Add more image paths here
   },
   sounds: {
@@ -91,6 +93,10 @@ const Resources = {
     entity: _entityResources,
     map: {
       MapGame1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
+    },
+    playerlist: {
+      1: new SVGImage(`${_BASE_PATH}${_ASSET_PATHS.images.playerlist1}`),
+      2: new SVGImage(`${_BASE_PATH}${_ASSET_PATHS.images.playerlist2}`),
     },
   },
   sounds: {},
