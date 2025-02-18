@@ -74,6 +74,7 @@ class BaseMapGame extends BasePage {
 
       this.playerAvatars.push(Resources.images[avatarKey]);
       this.fightImage.push(Resources.images[fightImageKey]);
+
     }
 
     // initialize robots
