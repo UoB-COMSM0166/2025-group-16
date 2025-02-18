@@ -7,8 +7,8 @@ const Settings = Object.freeze({
       [Constants.EntityStatus.COOLDOWN]: 1500,
     }),
     scale: Object.freeze({
-      [Constants.EntitySize.S]: 1 / 4,
-      [Constants.EntitySize.M]: 2 / 4,
+      [Constants.EntitySize.S]: 1 / 3,
+      [Constants.EntitySize.M]: 2 / 3,
       [Constants.EntitySize.L]: 1,
     }),
   }),
@@ -32,4 +32,8 @@ const Settings = Object.freeze({
       }),
     }),
   ],
+  canvas: {
+    width: 640,
+    height: 320,
+  },
 });
