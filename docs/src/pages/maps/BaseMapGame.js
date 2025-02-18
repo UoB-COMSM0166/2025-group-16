@@ -2,7 +2,8 @@ class BaseMapGame extends BasePage {
   /**
    * Creates a new MapGame page instance.
    * @param {Object} params - The parameters for the map page.
-   * @param {number} params.robotNumber - The number of robots.
+   * @param {number} [params.robotNumber] - Optional. The number of robots.
+   * @param {image} [params.background] - Optional. Image resources path.
    * @param {{ size: keyof typeof Constants.EntitySize }} [params.playerParams] - Optional. The params of players.
    * @param {{ size: keyof typeof Constants.EntitySize }} [params.robotParams] - Optional. The params of robots.
    */
@@ -19,13 +20,17 @@ class BaseMapGame extends BasePage {
     this.gameOverButton = null;
     this.gameOverText = null;
 
-    this.background = null; // TODO: add background
+    this.background = params?.background || null;
     this.playerAvatars = [];
     this.fightImage = [];
   }
 
   /** @override */
   setup() {
+    if (this.background) {
+      image(this.background, 0, 0, width, height);
+    }
+
     this.gameOverButton = new Button({
       x: width / 2 - 100,
       y: (height / 4) * 3,
