@@ -7,7 +7,8 @@ class Player extends Entity {
    * @param {Object} params - The parameters for the player.
    * @param {number} params.idx - The index of the player in players.
    * @param {Object} params.controls - The control mappings from `Settings.players[idx].controls`.
-   * @param {typeof Theme.palette.entity[keyof typeof Theme.palette.entity]} [params.color] - Optional. The color of the player.
+   * @param {keyof typeof Constants.EntityType} [params.shapeType] - The shape type of the player, can looks like a robot but is a player actually.
+   * @param {typeof Theme.palette.player[keyof typeof Theme.palette.player]} [params.color] - Optional. The color of the player.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the player.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */
@@ -15,6 +16,7 @@ class Player extends Entity {
     super({
       idx: params.idx,
       type: Constants.EntityType.PLAYER,
+      shapeType: params?.shapeType || Constants.EntityType.PLAYER,
       color: params?.color,
       size: params?.size,
       position: params?.position,
@@ -30,9 +32,7 @@ class Player extends Entity {
     super.draw();
     Object.values(Constants.EntityMove).forEach((direction) => {
       const key = this.controls[direction]?.value;
-      if (keyIsDown(key)) {
-        super.move(direction);
-      }
+      if (keyIsDown(key)) super.move(direction);
     });
   }
 
@@ -44,36 +44,16 @@ class Player extends Entity {
       keyCode === this.controls[Constants.Control.HIT].value &&
       this.status === Constants.EntityStatus.ALIVE
     ) {
-      this.status = Constants.EntityStatus.HIT;
+      this.hit(entities, onDie);
+    }
+  }
 
-      // status change when hit: alive -> hit -> cooldown -> alive
-      setTimeout(() => {
-        this.status = Constants.EntityStatus.COOLDOWN;
-
-        setTimeout(() => {
-          this.status = Constants.EntityStatus.ALIVE;
-        }, Settings.entity.duration[Constants.EntityStatus.HIT]);
-      }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
-
-      // check if hit any of entities
-      for (const entity of entities) {
-        const isMe = entity.type === this.type && entity.idx === this.idx;
-        if (!isMe) {
-          // TODO: check collision more strictly
-          const hasCollision = checkCollision(
-            this.x,
-            this.y,
-            this.getShape().width,
-            entity.x,
-            entity.y,
-            entity.getShape().width,
-          );
-          if (hasCollision) {
-            entity.status = Constants.EntityStatus.DIED;
-            onDie(entity);
-          }
-        }
-      }
+  updateParams(params = {}) {
+    if (params?.shapeType) {
+      this.shapeType = params.shapeType;
+    }
+    if (params?.color) {
+      this.color = params.color;
     }
   }
 }

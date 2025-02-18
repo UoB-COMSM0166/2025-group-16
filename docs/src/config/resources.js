@@ -9,7 +9,7 @@ const _BASE_PATH = window.location.hostname.includes('github.io')
   : '';
 const _ASSET_PATHS = {
   images: {
-    entity: 'assets/images/entity.svg',
+    entity: 'assets/images/entity/',
     // Add more image paths here
   },
   sounds: {
@@ -18,43 +18,75 @@ const _ASSET_PATHS = {
 };
 
 /* Helper Variables and Functions */
+/**
+ * @example getEntityImagePath(Constants.EntityType.Player, Constants.AnimationStatus.WALK, Constants.EntityMove.RIGHT, 1)
+ *
+ * return: 'assets/images/entity/player_walk_right_1.svg'
+ */
+const _getEntityImagePath = (entityType, animationStatus, entityMove, number) =>
+  _ASSET_PATHS.images.entity +
+  entityType.toLowerCase() +
+  '_' +
+  animationStatus.toLowerCase() +
+  '_' +
+  entityMove.toLowerCase() +
+  (number ? `_${number}` : '') +
+  '.svg';
+
 const _entityVariants = Object.freeze({
-  scale: Object.freeze({
-    [Constants.EntitySize.S]: 1,
-    [Constants.EntitySize.M]: 3,
-    [Constants.EntitySize.L]: 5,
-  }),
   status: Object.freeze({
     [Constants.EntityStatus.ALIVE]: Theme.palette.red,
     [Constants.EntityStatus.HIT]: Theme.palette.yellow,
     [Constants.EntityStatus.COOLDOWN]: Theme.palette.mint,
     [Constants.EntityStatus.DIED]: Theme.palette.text.grey,
   }),
-  entity: Theme.palette.entity,
+  frameNo: Object.freeze({
+    [Constants.EntityAnimationStatus.IDLE]: 1,
+    [Constants.EntityAnimationStatus.ATTACK]: 2,
+    [Constants.EntityAnimationStatus.WALK]: 2,
+  }),
 });
 
+const _entityBaseScale = 1 / Settings.entity.scale[Constants.EntitySize.S];
+
 const _entityResources = Object.fromEntries(
-  // Create size variants
-  Object.entries(_entityVariants.scale).map(([size, scale]) => [
-    size,
-    Object.fromEntries([
-      // Add color variants
-      ...Object.values(_entityVariants.entity).map((fill) => [
+  // Add entity type: player, robot
+  Object.values(Constants.EntityType).map((type) => [
+    type,
+    // Add color variants
+    Object.fromEntries(
+      Object.values(
+        Theme.palette[
+          type === Constants.EntityType.PLAYER ? 'player' : 'robot'
+        ],
+      ).map((fill) => [
         fill,
-        new SVGImage(`${_BASE_PATH}${_ASSET_PATHS.images.entity}`, {
-          scale,
-          fill,
-        }),
+        // Add entity animation: idle, attack, walk
+        Object.fromEntries(
+          Object.values(Constants.EntityAnimationStatus).map((animation) => [
+            animation,
+            // Add move direction: up, down, left, right
+            Object.fromEntries(
+              Object.entries(Constants.EntityMove).map(([direction]) => [
+                direction,
+                // Get sequenced images
+                Array.from(
+                  { length: _entityVariants.frameNo[animation] },
+                  (_, idx) =>
+                    new SVGImage(
+                      _getEntityImagePath(type, animation, direction, idx + 1),
+                      {
+                        scale: _entityBaseScale,
+                        fill,
+                      },
+                    ),
+                ),
+              ]),
+            ),
+          ]),
+        ),
       ]),
-      // Add status variants
-      ...Object.entries(_entityVariants.status).map(([status, fill]) => [
-        status,
-        new SVGImage(`${_BASE_PATH}${_ASSET_PATHS.images.entity}`, {
-          scale,
-          fill,
-        }),
-      ]),
-    ]),
+    ),
   ]),
 );
 
@@ -66,23 +98,27 @@ const _entityResources = Object.fromEntries(
  * const Resources = {
  *   images: {
  *     entity: {
- *       [Constants.EntitySize.S]: {
- *         [Constants.palette.entity[0]]: SVGImage,
- *         [Constants.palette.entity[1]]: SVGImage,
- *         [Constants.palette.entity[2]]: SVGImage,
- *         [Constants.palette.entity[3]]: SVGImage,
- *         [Constants.EntityStatus.ALIVE]: SVGImage,
- *         [Constants.EntityStatus.HIT]: SVGImage,
- *         [Constants.EntityStatus.COOLDOWN]: SVGImage,
- *         [Constants.EntityStatus.DIED]: SVGImage,
- *       },
- *       // [Constants.EntitySize.M]: { ... },
- *       // [Constants.EntitySize.L]: { ... },
- *     },
+ *       [Constants.EntityType.Player]: {
+ *         [Constants.palette.entity[0]]: {
+ *           [Constants.EntityAnimationStatus.IDLE]: {
+ *             [Constants.EntityMove.UP]: SVGImage[],
+ *             [Constants.EntityMove.DOWN]: SVGImage[],
+ *             [Constants.EntityMove.RIGHT]: SVGImage[],
+ *             [Constants.EntityMove.LEFT]: SVGImage[],
+ *           },
+ *           [Constants.EntityAnimationStatus.ATTACK]: {...},
+ *           [Constants.EntityAnimationStatus.WALK]: {...},
+ *         },
+ *         [Constants.palette.entity[1]]: {...},
+ *         [Constants.palette.entity[2]]: {...},
+ *         [Constants.palette.entity[3]]: {...},
+ *        },
+ *       [Constants.EntityType.Robot]: {...},
+ *     }
  *     map: {},
- *   },
+ *   }
  *   sounds: {},
- * }
+ * };
  * ```
  */
 
