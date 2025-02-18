@@ -29,11 +29,17 @@ const Theme = Object.freeze({
       disabled: '#E0E0E0',
       contrastText: '#FFFFFF', // white
     }),
-    entity: Object.freeze({
+    player: Object.freeze({
       red: '#D04648',
       blue: '#597DCE',
-      green: '#6DC2CA',
-      orange: '#D27D2C',
+      // green: '#6DC2CA', // TODO: add more players
+      // orange: '#D27D2C',
+    }),
+    robot: Object.freeze({
+      grey: '#8594A1',
+      // blue: '#597DCE',
+      // green: '#6DC2CA', // TODO: add more players
+      // orange: '#D27D2C',
     }),
   }),
   text: Object.freeze({

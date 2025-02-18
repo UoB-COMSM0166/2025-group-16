@@ -12,7 +12,7 @@ class BaseMapGame extends BasePage {
     this.robots = [];
     this.alivePlayerCtn = Store.getPlayerNumber();
 
-    this.robotNumber = params?.robotNumber || 30;
+    this.robotNumber = params?.robotNumber || 20;
     this.playerParams = params.playerParams || {};
     this.robotParams = params.robotParams || {};
 
@@ -54,6 +54,8 @@ class BaseMapGame extends BasePage {
         ...this.playerParams,
         idx: pIdx,
         controls: Settings.players[pIdx].controls,
+        shapeType: Constants.EntityType.ROBOT,
+        size: Constants.EntitySize.M,
       });
       this.players.push(newPlayer);
 
@@ -78,33 +80,38 @@ class BaseMapGame extends BasePage {
 
     // initialize robots
     for (var rIdx = 0; rIdx < this.robotNumber; rIdx++) {
-      this.robots.push(new Robot({ ...this.robotParams, idx: rIdx }));
+      this.robots.push(
+        new Robot({
+          ...this.robotParams,
+          idx: rIdx,
+          size: Constants.EntitySize.M,
+        }),
+      );
     }
   }
 
   /** @override */
   draw() {
+    // if game is finished
+    this.players.forEach((player) => {
+      player.draw();
+    });
+    this.robots.forEach((robot) => {
+      robot.draw();
+    });
+
     if (this.alivePlayerCtn === 1) {
-      // if game is finished
       const alivePlayer = this.players.find(
-        (player) => player.status !== Constants.EntityStatus.DIED,
+        ({ status }) => status !== Constants.EntityStatus.DIED,
       );
+      alivePlayer.updateParams({
+        shapeType: Constants.EntityType.PLAYER,
+        color: Object.values(Theme.palette.player)[alivePlayer.idx],
+      });
       this.gameOverText?.draw({
         label: `Winner is player ${alivePlayer.idx + 1}`,
       });
       this.gameOverButton?.draw();
-    } else {
-      // continue
-      this.players.forEach((player) => {
-        if (player.status === Constants.EntityStatus.DIED) return;
-        player.move();
-        player.draw();
-      });
-      this.robots.forEach((robot) => {
-        if (robot.status === Constants.EntityStatus.DIED) return;
-        robot.update();
-        robot.draw();
-      });
     }
     //draw players
     this.drawPlayerAvatars();

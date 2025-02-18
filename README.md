@@ -348,7 +348,7 @@ sequenceDiagram
           MapGamePage->>Player: keyPressed()
 
           alt Attack Key Pressed
-              Player->>MapGamePage: checkCollisions()
+              Player->>MapGamePage: checkKnockedDown()
               MapGamePage->>MapGamePage: checkRemainingPlayers()
           end
       end

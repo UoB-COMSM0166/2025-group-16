@@ -6,7 +6,6 @@ class Robot extends Entity {
    * Creates a new Robot instance.
    * @param {Object} params - The parameters for the player.
    * @param {number} params.idx - The index of the robot in robots.
-   * @param {typeof Theme.palette.entity[keyof typeof Theme.palette.entity]} [params.color] - Optional. The color of the player.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the player.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */
@@ -14,7 +13,7 @@ class Robot extends Entity {
     super({
       idx: params.idx,
       type: Constants.EntityType.ROBOT,
-      color: params?.color,
+      shapeType: Constants.EntityType.ROBOT,
       size: params?.size,
       position: params?.position,
     });
@@ -25,7 +24,11 @@ class Robot extends Entity {
 
   /** @override */
   draw() {
+    if (this.status === Constants.EntityStatus.DIED) return;
     super.draw();
+
+    if (millis() > this.actionEndTime) this.move();
+    this.action();
   }
 
   /** @override */
@@ -37,15 +40,13 @@ class Robot extends Entity {
     this.actionEndTime = millis() + duration * 1000;
 
     this.action = () => {
-      moveDirections[type]?.forEach((dir) => super.move(dir));
+      moveDirections[type]?.forEach((dir) => {
+        const isAtEdge = super.move(dir);
+        if (isAtEdge) {
+          this.actionEndTime = 0;
+        }
+      });
     };
-  }
-
-  update() {
-    if (this.status === Constants.EntityStatus.DIED) return;
-
-    if (millis() > this.actionEndTime) this.move();
-    this.action();
   }
 }
 
