@@ -44,10 +44,10 @@ const Theme = Object.freeze({
   }),
   text: Object.freeze({
     fontSize: Object.freeze({
-      small: 16,
-      medium: 20,
-      large: 32,
-      title: 48,
+      small: 24,
+      medium: 32,
+      large: 48,
+      title: 72,
     }),
   }),
 });

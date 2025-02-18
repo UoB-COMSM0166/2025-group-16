@@ -10,7 +10,7 @@
 
 function loadAllImages(nestedImageObj) {
   Object.values(nestedImageObj).forEach((img) => {
-    if (img instanceof SVGImage) {
+    if (img instanceof SVGImage || img instanceof Img) {
       img.loadImage();
     } else if (typeof img === 'object' && img !== null) {
       loadAllImages(img);
@@ -34,15 +34,14 @@ function setup() {
 const pageLabel = new Text(); // TODO: remove it
 function draw() {
   background(Theme.palette.lightGrey);
-
   pageLabel.draw({
     label: Store.getCurrentPageKey(),
-    x: 10,
+    x: 15,
     y: 15,
     color: Theme.palette.text.primary,
     textSize: Theme.text.fontSize.small,
-    textAlign: LEFT,
     textStyle: BOLD,
+    textAlign: [LEFT, TOP],
   });
 
   Store.getCurrentPage().draw();
