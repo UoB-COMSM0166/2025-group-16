@@ -57,8 +57,10 @@ class BaseMapGame extends BasePage {
       });
       this.players.push(newPlayer);
 
+
       this.playerAvatars.push(Resources.images.playerlist[pIdx + 1]);
       this.fightImage.push(Resources.images.playerlist[pIdx + 1]);
+
     }
 
     // initialize robots
@@ -124,9 +126,11 @@ class BaseMapGame extends BasePage {
       let xPos = spacing * (i + 1) - avatarSize / 2;
       let yPos = height - avatarSize - 20;
 
+
       let playerAvatar = Resources.images.playerlist[i + 1];
       if (playerAvatar?.image) {
         image(playerAvatar.image, xPos, yPos, avatarSize, avatarSize);
+
       }
 
       let fightXPos = xPos + avatarSize + 5;
