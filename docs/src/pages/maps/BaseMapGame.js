@@ -49,24 +49,31 @@ class BaseMapGame extends BasePage {
     });
 
     // initialize players
-    for (var pIdx = 0; pIdx < Settings.players.length; pIdx++) {
+    for (let pIdx = 0; pIdx < Settings.players.length; pIdx++) {
       const newPlayer = new Player({
         ...this.playerParams,
         idx: pIdx,
         controls: Settings.players[pIdx].controls,
       });
       this.players.push(newPlayer);
-      //avatar part
-      let avatarPath = `${window.location.origin}/docs/assets/images/welcomepage/icon_p${pIdx + 1}.svg`;
-      let avatar = new SVGImage(avatarPath);
-      avatar.loadImage(); // 確保載入
-      this.playerAvatars.push(avatar);
-      console.log(`Loading avatar for Player ${pIdx + 1}:`, avatar);
-      //for image fight part (TODO: replace it with fight image)
-      let fightImagePath = `${window.location.origin}/docs/assets/images/welcomepage/icon_p${pIdx + 1}.svg`;
-      let singleFightImage = new SVGImage(fightImagePath);
-      singleFightImage.loadImage(); // 確保載入
-      this.fightImage.push(singleFightImage);
+
+      // initialize key
+      let avatarKey = `player_avatar_${pIdx + 1}`;
+      let fightImageKey = `player_fight_${pIdx + 1}`;
+      let imagePath = `${window.location.origin}/docs/assets/images/welcomepage/icon_p${pIdx + 1}.svg`;
+
+      // make sure it loads
+      if (!Resources.images[avatarKey]) {
+        Resources.images[avatarKey] = new SVGImage(imagePath);
+        Resources.images[avatarKey].loadImage();
+      }
+
+      if (!Resources.images[fightImageKey]) {
+        Resources.images[fightImageKey] = Resources.images[avatarKey]; // TODO: replace it with fight image
+      }
+
+      this.playerAvatars.push(Resources.images[avatarKey]);
+      this.fightImage.push(Resources.images[fightImageKey]);
     }
 
     // initialize robots
@@ -135,8 +142,6 @@ class BaseMapGame extends BasePage {
       // avatar
       if (this.playerAvatars[i]?.image) {
         image(this.playerAvatars[i].image, xPos, yPos, avatarSize, avatarSize);
-      } else {
-        console.log(`Avatar ${i + 1} not loaded yet`);
       }
 
       // image of fight
@@ -150,8 +155,6 @@ class BaseMapGame extends BasePage {
           fightImageSize,
           fightImageSize,
         );
-      } else {
-        console.log(`Fight image ${i + 1} not loaded yet`);
       }
     }
   }
