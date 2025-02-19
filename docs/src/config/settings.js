@@ -10,6 +10,7 @@ const Settings = Object.freeze({
       [Constants.EntitySize.S]: 1 / 5,
       [Constants.EntitySize.M]: 3 / 5,
       [Constants.EntitySize.L]: 1,
+      [Constants.EntitySize.XL]: 2,
     }),
   }),
   players: [

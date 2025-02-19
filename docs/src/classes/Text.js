@@ -42,8 +42,12 @@ class Text extends UIComponent {
     if (config.textLeading !== undefined) textLeading(config.textLeading);
     if (config.textSize !== undefined) textSize(config.textSize);
     if (config.textStyle !== undefined) textStyle(config.textStyle);
-    if (config.stroke !== undefined) stroke(config.stroke);
-    if (config.strokeWeight !== undefined) strokeWeight(config.strokeWeight);
+    if (config.stroke && config.strokeWeight) {
+      stroke(config.stroke);
+      strokeWeight(config.strokeWeight);
+    } else {
+      noStroke();
+    }
     text(config.label, config.x, config.y);
   }
 }
