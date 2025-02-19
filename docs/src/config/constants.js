@@ -7,6 +7,8 @@ const Constants = Object.freeze({
     RESULTS: 'RESULTS',
     MAP_GAME_1: 'MAP_GAME_1',
     MAP_INTRO_1: 'MAP_INTRO_1',
+    MAP_GAME_2: 'MAP_GAME_2',
+    MAP_INTRO_2: 'MAP_INTRO_2',
   }),
   Control: Object.freeze({
     LEFT: 'LEFT',
