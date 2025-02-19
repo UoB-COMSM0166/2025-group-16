@@ -10,7 +10,7 @@
 
 function loadAllImages(nestedImageObj) {
   Object.values(nestedImageObj).forEach((img) => {
-    if (img instanceof SVGImage || img instanceof Img) {
+    if (img instanceof Img) {
       img.loadImage();
     } else if (typeof img === 'object' && img !== null) {
       loadAllImages(img);
@@ -27,6 +27,9 @@ function preload() {
 }
 
 function setup() {
+  // remove loading when preload finish
+  document.getElementById('start-loading-text-wrapper').remove();
+
   createCanvas(Settings.canvas.width, Settings.canvas.height);
   Controller.changePage(new Welcome(), Constants.Page.WELCOME);
 }
