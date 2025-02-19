@@ -4,9 +4,10 @@ class MapIntro1 extends BaseMapIntro {
       title: 'Find Your Robot!',
       playerControlIntros: [
         '\n' +
-          'In this stage, Find out which robot you control! Move around to check which one\n' +
-          'responds to your controls. Once you know who you are, find and attack your\n' +
-          '💥opponent before they attack you!',
+          '\n' +
+          'In this stage. Find out which robot you control! \n' +
+          'Move around to check which one responds to your controls.\n' +
+          'Once you know who you are, find and attack💥your opponent before they attack you!\n',
       ],
     });
 
@@ -121,7 +122,7 @@ class MapIntro1 extends BaseMapIntro {
     // Instruction text
     fill(0);
     noStroke();
-    textSize(16);
+    textSize(18);
     textAlign(LEFT, CENTER);
     textLeading(24);
 
