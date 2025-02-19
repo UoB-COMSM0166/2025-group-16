@@ -66,6 +66,7 @@ class MapIntro1 extends BaseMapIntro {
   draw() {
     // Draw background
     if (this.background?.image) {
+      imageMode(CORNER);
       image(this.background.image, 0, 0, width, height);
     } else {
       background(Theme.palette.lightGrey);

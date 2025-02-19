@@ -11,6 +11,17 @@ const _ASSET_PATHS = {
   images: {
     entity: `${_BASE_PATH}assets/images/entity/`,
     playerlist: `${_BASE_PATH}assets/images/welcomepage/player_avatar.svg`,
+    welcomepage: {
+      background: `${_BASE_PATH}assets/images/welcomepage/background_welcomepage.png`,
+      title: `${_BASE_PATH}assets/images/welcomepage/text_unstoppable.svg`,
+      comehere: `${_BASE_PATH}assets/images/welcomepage/text_comehere.svg`,
+      gamaStartArea: `${_BASE_PATH}assets/images/welcomepage/tileset_square_comehere.svg`,
+      checkiconp1: `${_BASE_PATH}assets/images/welcomepage/icon_check_p1.svg`,
+      checkiconp2: `${_BASE_PATH}assets/images/welcomepage/icon_check_p2.svg`,
+      areYouARobot: `${_BASE_PATH}assets/images/welcomepage/text_areyouarobot.svg`,
+      textOkP1: `${_BASE_PATH}assets/images/welcomepage/text_ok_p1.svg`,
+      textOkP2: `${_BASE_PATH}assets/images/welcomepage/text_ok_p2.svg`,
+    },
     map: {
       game1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
     },
@@ -52,7 +63,7 @@ const _entityVariants = Object.freeze({
 });
 
 const _entityBaseScale = 1 / Settings.entity.scale[Constants.EntitySize.S];
-
+const _welcomePageScale = Settings.entity.scale[Constants.EntitySize.XL];
 const _entityResources = Object.fromEntries(
   // Add entity type: player, robot
   Object.values(Constants.EntityType).map((type) => [
@@ -119,6 +130,7 @@ const _entityResources = Object.fromEntries(
  *        },
  *       [Constants.EntityType.Robot]: {...},
  *     }
+ *     welcome:{},
  *     map: {},
  *     playerlist: [p1_avatar, p2_avatar, ...],
  *   }
@@ -127,14 +139,26 @@ const _entityResources = Object.fromEntries(
  * ```
  */
 
+const _welomepageResources = Object.fromEntries(
+  Object.entries(_ASSET_PATHS.images.welcomepage).map(([key, path]) => [
+    key,
+    path.endsWith('.svg')
+      ? new SVGImage(path, { scale: _welcomePageScale })
+      : new Img(path),
+  ]),
+);
+console.log('_welomepageResources', _welomepageResources);
+
 const Resources = {
   images: {
     entity: _entityResources,
+    welcome: _welomepageResources,
     map: {
       game1: new Img(_ASSET_PATHS.images.map.game1),
     },
     playerlist: Object.values(Theme.palette.player).map(
-      (fill) => new SVGImage(_ASSET_PATHS.images.playerlist, { fill }),
+      (fill) =>
+        new SVGImage(_ASSET_PATHS.images.playerlist, { fill, scale: 2 }),
     ),
   },
   sounds: {},

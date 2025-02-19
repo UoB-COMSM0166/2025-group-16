@@ -8,7 +8,7 @@ class BaseMapGame extends BasePage {
    * @param {{ size: keyof typeof Constants.EntitySize }} [params.robotParams] - Optional. The params of robots.
    */
   constructor(params) {
-    super();
+    super(params);
     this.players = [];
     this.robots = [];
     this.alivePlayerCtn = Store.getPlayerNumber();
@@ -20,13 +20,13 @@ class BaseMapGame extends BasePage {
     this.gameOverButton = null;
     this.gameOverText = null;
 
-    this.background = params?.background || null;
     this.playerAvatars = [];
-    this.fightImage = [];
+    this.statusTextImages = [];
   }
 
   /** @override */
   setup() {
+    super.setup();
     this.gameOverButton = new Button({
       x: width / 2,
       y: (height / 4) * 3,
@@ -53,21 +53,6 @@ class BaseMapGame extends BasePage {
       textAlign: [CENTER, CENTER],
     });
 
-    // initialize players
-    for (let pIdx = 0; pIdx < Settings.players.length; pIdx++) {
-      const newPlayer = new Player({
-        ...this.playerParams,
-        idx: pIdx,
-        controls: Settings.players[pIdx].controls,
-        shapeType: Constants.EntityType.ROBOT,
-        size: Constants.EntitySize.M,
-      });
-      this.players.push(newPlayer);
-
-      this.playerAvatars.push(Resources.images.playerlist[pIdx]);
-      this.fightImage.push(Resources.images.playerlist[pIdx]);
-    }
-
     // initialize robots
     for (var rIdx = 0; rIdx < this.robotNumber; rIdx++) {
       this.robots.push(
@@ -82,9 +67,7 @@ class BaseMapGame extends BasePage {
 
   /** @override */
   draw() {
-    if (this.background) {
-      image(this.background.image, 0, 0, width, height);
-    }
+    super.draw();
 
     // if game is finished
     this.players.forEach((player) => {
@@ -93,6 +76,9 @@ class BaseMapGame extends BasePage {
     this.robots.forEach((robot) => {
       robot.draw();
     });
+
+    //draw PlayerAvatars
+    this.drawPlayerAvatars();
 
     if (this.alivePlayerCtn === 1) {
       const alivePlayer = this.players.find(
@@ -107,8 +93,6 @@ class BaseMapGame extends BasePage {
       });
       this.gameOverButton?.draw();
     }
-    //draw players
-    this.drawPlayerAvatars();
   }
 
   /** @override */
@@ -126,37 +110,5 @@ class BaseMapGame extends BasePage {
   /** @override */
   mousePressed() {
     this.gameOverButton?.mousePressed();
-  }
-
-  drawPlayerAvatars() {
-    let avatarSize = 80;
-    let fightImageSize = 60; // image size
-    let numPlayers = Object.keys(Resources.images.playerlist).length;
-    if (numPlayers === 0) return;
-
-    let spacing = width / (numPlayers + 1);
-
-    for (let i = 0; i < numPlayers; i++) {
-      let xPos = spacing * (i + 1) - avatarSize / 2;
-      let yPos = height - avatarSize - 20;
-
-      let playerAvatar = Resources.images.playerlist[i];
-      if (playerAvatar?.image) {
-        image(playerAvatar.image, xPos, yPos, avatarSize, avatarSize);
-      }
-
-      let fightXPos = xPos + avatarSize + 5;
-      let fightYPos = yPos + avatarSize / 2 - fightImageSize / 2;
-      let fightImage = Resources.images.playerlist[i]; // TODO: change to fight image
-      if (fightImage?.image) {
-        image(
-          fightImage.image,
-          fightXPos,
-          fightYPos,
-          fightImageSize,
-          fightImageSize,
-        );
-      }
-    }
   }
 }
