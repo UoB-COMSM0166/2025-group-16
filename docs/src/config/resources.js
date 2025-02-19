@@ -10,8 +10,7 @@ const _BASE_PATH = window.location.hostname.includes('github.io')
 const _ASSET_PATHS = {
   images: {
     entity: `${_BASE_PATH}assets/images/entity/`,
-    playerlist1: `${_BASE_PATH}assets/images/welcomepage/icon_p1.svg`,
-    playerlist2: `${_BASE_PATH}assets/images/welcomepage/icon_p2.svg`,
+    playerlist: `${_BASE_PATH}assets/images/welcomepage/player_avatar.svg`,
     map: {
       game1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
     },
@@ -121,6 +120,7 @@ const _entityResources = Object.fromEntries(
  *       [Constants.EntityType.Robot]: {...},
  *     }
  *     map: {},
+ *     playerlist: [p1_avatar, p2_avatar, ...],
  *   }
  *   sounds: {},
  * };
@@ -133,10 +133,9 @@ const Resources = {
     map: {
       game1: new Img(_ASSET_PATHS.images.map.game1),
     },
-    playerlist: {
-      1: new SVGImage(`${_BASE_PATH}${_ASSET_PATHS.images.playerlist1}`),
-      2: new SVGImage(`${_BASE_PATH}${_ASSET_PATHS.images.playerlist2}`),
-    },
+    playerlist: Object.values(Theme.palette.player).map(
+      (fill) => new SVGImage(_ASSET_PATHS.images.playerlist, { fill }),
+    ),
   },
   sounds: {},
 };
