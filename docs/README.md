@@ -43,7 +43,42 @@
 
    Examples:
 
-   - Images loaded with variants: See `Entity.js`
+   - Use player SVG:
+
+     ```javascript
+     // any page
+     draw() {
+        const resource = Resources.images.entity.PLAYER[Theme.palette.player.red].IDLE.DOWN[0];
+
+        const {image, width, height} = resource;
+        // scale should less than 1 to prevent distortion
+        const scale = Settings.entity.scale.M;
+        image(image, 0, 0, width * scale, height * scale);
+     }
+     ```
+
+   - Add new image:
+
+     ```javascript
+     // docs/src/config/resources.js
+     const _ASSET_PATHS = {
+       images: {
+         newImage: `${_BASE_PATH}assets/images/xxx`,
+       },
+     };
+
+     const Resources = {
+       images: {
+         newImage: new Img(_ASSET_PATHS.images.newImage),
+       },
+     };
+
+     // any page
+      draw() {
+        const resource = Resources.images.newImage;
+        image(resource.image, 0, 0);
+     }
+     ```
 
 3. **Lint and Format**:
 

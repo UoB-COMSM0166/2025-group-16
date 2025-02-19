@@ -8,6 +8,7 @@ class MapIntro1 extends BaseMapIntro {
           'In this stage. Find out which robot you control! \n' +
           'Move around to check which one responds to your controls.\n' +
           'Once you know who you are, find and attack💥your opponent before they attack you!\n',
+
       ],
     });
 

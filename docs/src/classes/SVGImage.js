@@ -11,7 +11,7 @@
  * 4. If you want to update the SVG's attributes, call `img.updateAttributes()`.
  * Be careful, it will change this image globally.
  */
-class SVGImage {
+class SVGImage extends Img {
   /**
    * @param {string} path - The path to the SVG file.
    * @param {Object} [attributes] - Attributes to modify in the SVG.
@@ -19,7 +19,8 @@ class SVGImage {
    *                                      will be ignored if width, height, or viewBox are specified.
    */
   constructor(path, attributes = {}) {
-    this.path = path;
+    super(path);
+
     this.attributes = attributes;
     this.image = null;
     this.width = 0;
@@ -36,6 +37,7 @@ class SVGImage {
     this.loadImage();
   }
 
+  /** override */
   loadImage() {
     fetch(this.path)
       .then((res) => res.text())
