@@ -64,23 +64,8 @@ class BaseMapGame extends BasePage {
       });
       this.players.push(newPlayer);
 
-      // initialize key
-      let avatarKey = `player_avatar_${pIdx + 1}`;
-      let fightImageKey = `player_fight_${pIdx + 1}`;
-      let imagePath = `${window.location.origin}/docs/assets/images/welcomepage/icon_p${pIdx + 1}.svg`;
-
-      // make sure it loads
-      if (!Resources.images[avatarKey]) {
-        Resources.images[avatarKey] = new SVGImage(imagePath);
-        Resources.images[avatarKey].loadImage();
-      }
-
-      if (!Resources.images[fightImageKey]) {
-        Resources.images[fightImageKey] = Resources.images[avatarKey]; // TODO: replace it with fight image
-      }
-
-      this.playerAvatars.push(Resources.images[avatarKey]);
-      this.fightImage.push(Resources.images[fightImageKey]);
+      this.playerAvatars.push(Resources.images.playerlist[pIdx + 1]);
+      this.fightImage.push(Resources.images.playerlist[pIdx + 1]);
     }
 
     // initialize robots
@@ -146,26 +131,26 @@ class BaseMapGame extends BasePage {
   drawPlayerAvatars() {
     let avatarSize = 80;
     let fightImageSize = 60; // image size
-    let numPlayers = this.playerAvatars.length;
+    let numPlayers = Object.keys(Resources.images.playerlist).length;
     if (numPlayers === 0) return;
 
-    let spacing = width / (numPlayers + 1); // automatically adjust the width
+    let spacing = width / (numPlayers + 1);
 
     for (let i = 0; i < numPlayers; i++) {
-      let xPos = spacing * (i + 1) - avatarSize / 2; // adjust equally
+      let xPos = spacing * (i + 1) - avatarSize / 2;
       let yPos = height - avatarSize - 20;
 
-      // avatar
-      if (this.playerAvatars[i]?.image) {
-        image(this.playerAvatars[i].image, xPos, yPos, avatarSize, avatarSize);
+      let playerAvatar = Resources.images.playerlist[i + 1];
+      if (playerAvatar?.image) {
+        image(playerAvatar.image, xPos, yPos, avatarSize, avatarSize);
       }
 
-      // image of fight
       let fightXPos = xPos + avatarSize + 5;
       let fightYPos = yPos + avatarSize / 2 - fightImageSize / 2;
-      if (this.fightImage[i]?.image) {
+      let fightImage = Resources.images.playerlist[i + 1]; // TODO: change to fight image
+      if (fightImage?.image) {
         image(
-          this.fightImage[i].image,
+          fightImage.image,
           fightXPos,
           fightYPos,
           fightImageSize,
