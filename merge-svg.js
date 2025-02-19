@@ -16,7 +16,8 @@ async function mergeSVG(inputFilePath, outputFilePath = inputFilePath) {
   }
 
   while (true) {
-    mergeRects(svg);
+    mergeRects(svg, true);
+    mergeRects(svg, false);
     const result = dom.serialize();
 
     if (prevSVG === result) break; // Stop if no changes
@@ -36,14 +37,16 @@ async function mergeSVG(inputFilePath, outputFilePath = inputFilePath) {
   console.log(`Merge complete: ${outputFilePath}`);
 }
 
-function mergeRects(svg) {
+function mergeRects(svg, isHorizontal) {
   const rects = Array.from(svg.querySelectorAll('rect'));
   rects.sort((a, b) => {
     const ay = parseFloat(a.getAttribute('y'));
     const ax = parseFloat(a.getAttribute('x'));
     const by = parseFloat(b.getAttribute('y'));
     const bx = parseFloat(b.getAttribute('x'));
-    return ax === bx ? ay - by : ax - bx;
+    const horizontalFactor = ax === bx ? ay - by : ax - bx;
+    const verticalFactor = ax === by ? ax - bx : ay - by;
+    return isHorizontal ? horizontalFactor : verticalFactor;
   });
 
   const colorMap = {};
