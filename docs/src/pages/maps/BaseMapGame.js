@@ -64,8 +64,8 @@ class BaseMapGame extends BasePage {
       });
       this.players.push(newPlayer);
 
-      this.playerAvatars.push(Resources.images.playerlist[pIdx + 1]);
-      this.fightImage.push(Resources.images.playerlist[pIdx + 1]);
+      this.playerAvatars.push(Resources.images.playerlist[pIdx]);
+      this.fightImage.push(Resources.images.playerlist[pIdx]);
     }
 
     // initialize robots
@@ -140,14 +140,14 @@ class BaseMapGame extends BasePage {
       let xPos = spacing * (i + 1) - avatarSize / 2;
       let yPos = height - avatarSize - 20;
 
-      let playerAvatar = Resources.images.playerlist[i + 1];
+      let playerAvatar = Resources.images.playerlist[i];
       if (playerAvatar?.image) {
         image(playerAvatar.image, xPos, yPos, avatarSize, avatarSize);
       }
 
       let fightXPos = xPos + avatarSize + 5;
       let fightYPos = yPos + avatarSize / 2 - fightImageSize / 2;
-      let fightImage = Resources.images.playerlist[i + 1]; // TODO: change to fight image
+      let fightImage = Resources.images.playerlist[i]; // TODO: change to fight image
       if (fightImage?.image) {
         image(
           fightImage.image,
