@@ -1,9 +1,15 @@
 const Settings = Object.freeze({
   entity: Object.freeze({
-    speed: 2,
+    speed: 4,
+    frameCtn: 25,
     duration: Object.freeze({
       [Constants.EntityStatus.HIT]: 500,
       [Constants.EntityStatus.COOLDOWN]: 1500,
+    }),
+    scale: Object.freeze({
+      [Constants.EntitySize.S]: 1 / 5,
+      [Constants.EntitySize.M]: 3 / 5,
+      [Constants.EntitySize.L]: 1,
     }),
   }),
   players: [
@@ -26,4 +32,8 @@ const Settings = Object.freeze({
       }),
     }),
   ],
+  canvas: {
+    width: 640 * 2,
+    height: 360 * 2,
+  },
 });

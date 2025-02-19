@@ -1,13 +1,11 @@
 // TODO: check other maps' design to restructure MapGame1 and BaseMapGame
 class MapGame1 extends BaseMapGame {
   constructor() {
-    super({ robotNumber: 30 });
+    super({ robotNumber: 20, background: Resources.images.map.game1 });
   }
-  //Add MapGame1 to this game.
+
+  // Add MapGame1 to this game.
   draw() {
-    if (this.background) {
-      image(this.background, 0, 0, width, height);
-    }
     super.draw();
   }
 }

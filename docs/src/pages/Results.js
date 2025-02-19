@@ -7,15 +7,19 @@ class Results extends BasePage {
   /** @override */
   setup() {
     this.backButton = new Button({
-      x: width / 2 - 100,
+      x: width / 2,
       y: (height / 4) * 3,
-      width: 200,
-      height: 50,
-      label: 'Back to Home',
+      width: 400,
+      height: 100,
       action: () =>
         Controller.changePage(new Welcome(), Constants.Page.WELCOME),
       color: Theme.palette.darkBlue,
       hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
+      align: [CENTER, TOP],
+      textParams: {
+        label: 'Back to Home',
+        textSize: Theme.text.fontSize.medium,
+      },
     });
   }
 

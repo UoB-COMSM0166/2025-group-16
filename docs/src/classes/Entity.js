@@ -7,29 +7,36 @@ class Entity {
    * @param {Object} params - The parameters for the entity.
    * @param {number} params.idx - The idx of the entity in the target type.
    * @param {keyof typeof Constants.EntityType} params.type - The type of the entity.
-   * @param {typeof Theme.palette.entity[keyof typeof Theme.palette.entity]} [params.color] - Optional. The color of the entity.
+   * @param {keyof typeof Constants.EntityType} params.shapeType - The shape type of the entity, can looks like a robot but is a player actually.
+   * @param {keyof typeof Constants.EntityMove} [params.direction] - Optional. The current move direction of the entity.
+   * @param {typeof Theme.palette.player[keyof typeof Theme.palette.player]} [params.color] - Optional. Only applicable for players.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the entity.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */
   constructor(params) {
     this.idx = params.idx;
     this.type = params.type;
-    this.status = Constants.EntityStatus.ALIVE;
-    this.color = params?.color || Theme.palette.entity.red;
-    this.size = params?.size || Constants.EntitySize.M;
+    this.shapeType = params?.shapeType || params.type;
+    this.direction = params?.direction || Constants.EntityMove.DOWN;
+    this.color =
+      params.shapeType === Constants.EntityType.ROBOT
+        ? Theme.palette.robot.grey
+        : params?.color || Theme.palette.player.red;
+    this.size = params?.size || Constants.EntitySize.L;
 
+    this.status = Constants.EntityStatus.ALIVE;
     this.speed = Settings.entity.speed;
+    this.isWalking = false;
+
+    this.frameIdx = 0;
+    this.frameCtn = 0;
 
     if (params?.position) {
       this.x = params.position.x;
       this.y = params.position.y;
     } else {
-      this.x =
-        Math.random() *
-        (width - (this.getShape()?.width || initSize[this.size]));
-      this.y =
-        Math.random() *
-        (height - (this.getShape()?.height || initSize[this.size]));
+      this.x = Math.random() * (width - initPadding);
+      this.y = Math.random() * (height - initPadding);
     }
   }
 
@@ -37,8 +44,12 @@ class Entity {
   draw() {
     if (this.status === Constants.EntityStatus.DIED) return;
 
-    const shapeImg = this.getShape().image;
-    if (shapeImg) image(shapeImg, this.x, this.y);
+    const currShape = this.getShape();
+    if (currShape) {
+      const { image: img, scaledWidth, scaledHeight } = currShape;
+      if (img) image(img, this.x, this.y, scaledWidth, scaledHeight);
+    }
+    this.isWalking = false;
   }
 
   /**
@@ -46,15 +57,25 @@ class Entity {
    * @param {keyof typeof Constants.EntityMove} direction - Move direction, get the direction from `Constants.EntityMove.xxx`.
    */
   move(direction) {
-    if (this.status === Constants.EntityStatus.DIED) return;
+    if (
+      this.status === Constants.EntityStatus.HIT ||
+      this.status === Constants.EntityStatus.DIED
+    ) {
+      return;
+    }
 
+    this.isWalking = true;
+    this.direction = direction;
+    const shape = this.getShape();
+    const shapeWidth = shape.scaledWidth;
+    const shapeHeight = shape.scaledHeight;
     switch (direction) {
       case Constants.EntityMove.UP: {
         this.y = Math.max(this.y - this.speed, 0);
         break;
       }
       case Constants.EntityMove.DOWN: {
-        this.y = Math.min(this.y + this.speed, height - this.getShape().height);
+        this.y = Math.min(this.y + this.speed, height - shapeHeight);
         break;
       }
       case Constants.EntityMove.LEFT: {
@@ -62,24 +83,90 @@ class Entity {
         break;
       }
       case Constants.EntityMove.RIGHT: {
-        this.x = Math.min(this.x + this.speed, width - this.getShape().width);
+        this.x = Math.min(this.x + this.speed, width - shapeWidth);
         break;
+      }
+    }
+
+    const isAtEdge = // TODO: haven't resolve
+      this.x <= 0 ||
+      this.x + shapeWidth >= width ||
+      this.y <= 0 ||
+      this.y + shapeHeight >= height;
+    return isAtEdge;
+  }
+
+  hit(entities, onHitEntity) {
+    this.status = Constants.EntityStatus.HIT;
+
+    // status change when hit: alive -> hit -> cooldown -> alive
+    setTimeout(() => {
+      this.status = Constants.EntityStatus.COOLDOWN;
+
+      setTimeout(() => {
+        if (this.status !== Constants.EntityStatus.DIED) {
+          this.status = Constants.EntityStatus.ALIVE;
+        }
+      }, Settings.entity.duration[Constants.EntityStatus.HIT]);
+    }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
+
+    // check if hit any of entities
+    for (const entity of entities) {
+      const isMe = entity.type === this.type && entity.idx === this.idx;
+      if (!isMe) {
+        const isKnockedDown = checkKnockedDown(
+          {
+            x: this.x,
+            y: this.y,
+            w: this.getShape().scaledWidth,
+            h: this.getShape().scaledHeight,
+          },
+          {
+            x: entity.x,
+            y: entity.y,
+            w: entity.getShape().scaledWidth,
+            h: entity.getShape().scaledHeight,
+          },
+          this.direction,
+        );
+        if (isKnockedDown) {
+          entity.status = Constants.EntityStatus.DIED;
+          onHitEntity(entity);
+        }
       }
     }
   }
 
+  _getAnimationStatus() {
+    if (this.status === Constants.EntityStatus.HIT)
+      return Constants.EntityAnimationStatus.ATTACK;
+    return this.isWalking
+      ? Constants.EntityAnimationStatus.WALK
+      : Constants.EntityAnimationStatus.IDLE;
+  }
+
   getShape() {
-    if (this.status == Constants.EntityStatus.ALIVE) {
-      const targetShape = Resources.images.entity[this.size]?.[this.color];
-      if (targetShape) return Resources.images.entity[this.size]?.[this.color];
+    const aniStatus = this._getAnimationStatus();
+    if (this.isWalking && this.frameCtn > Settings.entity.frameCtn) {
+      this.frameIdx = this.frameIdx ? 0 : 1;
+      this.frameCtn = 0;
     }
-    return Resources.images.entity[this.size][this.status];
+    this.frameCtn++;
+
+    const targetShape =
+      Resources.images.entity[this.shapeType]?.[this.color]?.[aniStatus]?.[
+        this.direction
+      ]?.[
+        aniStatus === Constants.EntityAnimationStatus.IDLE ? 0 : this.frameIdx
+      ];
+
+    const scale = Settings.entity.scale[this.size];
+    targetShape.scaledWidth = targetShape.width * scale;
+    targetShape.scaledHeight = targetShape.height * scale;
+
+    if (targetShape) return targetShape;
   }
 }
 
 // TODO: change to better way
-const initSize = {
-  [Constants.EntitySize.S]: 16 * 1,
-  [Constants.EntitySize.M]: 16 * 3,
-  [Constants.EntitySize.L]: 16 * 5,
-};
+const initPadding = 100;

@@ -47,4 +47,9 @@ const Constants = Object.freeze({
     M: 'M',
     L: 'L',
   }),
+  EntityAnimationStatus: Object.freeze({
+    IDLE: 'IDLE',
+    ATTACK: 'ATTACK',
+    WALK: 'WALK',
+  }),
 });

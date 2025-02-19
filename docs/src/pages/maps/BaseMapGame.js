@@ -2,7 +2,8 @@ class BaseMapGame extends BasePage {
   /**
    * Creates a new MapGame page instance.
    * @param {Object} params - The parameters for the map page.
-   * @param {number} params.robotNumber - The number of robots.
+   * @param {number} [params.robotNumber] - Optional. The number of robots.
+   * @param {image} [params.background] - Optional. Image resources path.
    * @param {{ size: keyof typeof Constants.EntitySize }} [params.playerParams] - Optional. The params of players.
    * @param {{ size: keyof typeof Constants.EntitySize }} [params.robotParams] - Optional. The params of robots.
    */
@@ -12,14 +13,14 @@ class BaseMapGame extends BasePage {
     this.robots = [];
     this.alivePlayerCtn = Store.getPlayerNumber();
 
-    this.robotNumber = params?.robotNumber || 30;
+    this.robotNumber = params?.robotNumber || 20;
     this.playerParams = params.playerParams || {};
     this.robotParams = params.robotParams || {};
 
     this.gameOverButton = null;
     this.gameOverText = null;
 
-    this.background = null; // TODO: add background
+    this.background = params?.background || null;
     this.playerAvatars = [];
     this.fightImage = [];
   }
@@ -27,15 +28,19 @@ class BaseMapGame extends BasePage {
   /** @override */
   setup() {
     this.gameOverButton = new Button({
-      x: width / 2 - 100,
+      x: width / 2,
       y: (height / 4) * 3,
-      width: 200,
-      height: 50,
-      label: 'Finish',
+      width: 400,
+      height: 100,
       action: () =>
         Controller.changePage(new Results(), Constants.Page.RESULTS),
       color: Theme.palette.darkBlue,
       hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
+      align: [CENTER, TOP],
+      textParams: {
+        label: 'Finish',
+        textSize: Theme.text.fontSize.medium,
+      },
     });
 
     this.gameOverText = new Text({
@@ -45,7 +50,7 @@ class BaseMapGame extends BasePage {
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.large,
       textStyle: BOLD,
-      textAlign: CENTER,
+      textAlign: [CENTER, CENTER],
     });
 
     // initialize players
@@ -54,6 +59,8 @@ class BaseMapGame extends BasePage {
         ...this.playerParams,
         idx: pIdx,
         controls: Settings.players[pIdx].controls,
+        shapeType: Constants.EntityType.ROBOT,
+        size: Constants.EntitySize.M,
       });
       this.players.push(newPlayer);
 
@@ -65,33 +72,42 @@ class BaseMapGame extends BasePage {
 
     // initialize robots
     for (var rIdx = 0; rIdx < this.robotNumber; rIdx++) {
-      this.robots.push(new Robot({ ...this.robotParams, idx: rIdx }));
+      this.robots.push(
+        new Robot({
+          ...this.robotParams,
+          idx: rIdx,
+          size: Constants.EntitySize.M,
+        }),
+      );
     }
   }
 
   /** @override */
   draw() {
+    if (this.background) {
+      image(this.background.image, 0, 0, width, height);
+    }
+
+    // if game is finished
+    this.players.forEach((player) => {
+      player.draw();
+    });
+    this.robots.forEach((robot) => {
+      robot.draw();
+    });
+
     if (this.alivePlayerCtn === 1) {
-      // if game is finished
       const alivePlayer = this.players.find(
-        (player) => player.status !== Constants.EntityStatus.DIED,
+        ({ status }) => status !== Constants.EntityStatus.DIED,
       );
+      alivePlayer.updateParams({
+        shapeType: Constants.EntityType.PLAYER,
+        color: Object.values(Theme.palette.player)[alivePlayer.idx],
+      });
       this.gameOverText?.draw({
         label: `Winner is player ${alivePlayer.idx + 1}`,
       });
       this.gameOverButton?.draw();
-    } else {
-      // continue
-      this.players.forEach((player) => {
-        if (player.status === Constants.EntityStatus.DIED) return;
-        player.move();
-        player.draw();
-      });
-      this.robots.forEach((robot) => {
-        if (robot.status === Constants.EntityStatus.DIED) return;
-        robot.update();
-        robot.draw();
-      });
     }
     //draw players
     this.drawPlayerAvatars();

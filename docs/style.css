@@ -10,8 +10,8 @@ body {
 }
 
 main {
-  width: min(100vw - 32px, 100vh * (4/3));
-  height: min(100vh - 32px, 90vw * (3/4));
+  width: min(100vw - 32px, 100vh * (16/9));
+  height: min(100vh - 32px, 90vw * (9/16));
   display: flex;
   justify-content: center;
   align-items: center;
