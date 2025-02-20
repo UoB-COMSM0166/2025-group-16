@@ -5,8 +5,8 @@ class WelcomeIntro extends BasePage {
     this.maskColor = color(211, 211, 211, 150); 
     this.boxWidth = width-4; 
     this.boxHeight = 200; 
-    this.boxX = 2;
-    this.boxY = height - this.boxHeight-2; 
+    this.boxX = (width - this.boxWidth) / 2;
+    this.boxY = height - this.boxHeight-4; 
   }
 
   showWelcomeIntro() {
@@ -33,11 +33,22 @@ class WelcomeIntro extends BasePage {
       const scaledHeight = resources.height * scale;
       image(resources.image, this.boxX + 30, this.boxY - 200, scaledWidth, scaledHeight);
 
+      //BoxShadow
+      push();
+      stroke(Theme.palette.black);
+      strokeWeight(3);  // 設置合適的線條寬度
+      drawingContext.shadowColor = color(0, 0, 0, 255); // 設置陰影顏色
+      drawingContext.shadowBlur = 15;  // 設置陰影模糊程度，不要太大
+      drawingContext.shadowOffsetX = 0; // 設置陰影水平偏移量
+      drawingContext.shadowOffsetY = 5; // 設置陰影垂直偏移量
+      line(this.boxX, this.boxY + this.boxHeight, this.boxX + this.boxWidth, this.boxY + this.boxHeight); // 繪製底部邊框
+      pop();
+
       //Box
       push();
       fill(Theme.palette.lightGrey);
       stroke(Theme.palette.black);
-      strokeWeight(2);
+      strokeWeight(3);
       rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight);
       pop();
 
