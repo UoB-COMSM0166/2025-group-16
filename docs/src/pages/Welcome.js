@@ -19,6 +19,8 @@ class Welcome extends BasePage {
     this.checkiconP1 = null;
     this.checkiconP2 = null;
     this.introBox = { x: 20, y: 350, w: 400, h: 150 };
+    this.delay = 3000;
+    this.pauseGame = false;
   }
 
   /** @override */
@@ -48,6 +50,14 @@ class Welcome extends BasePage {
       align: [CENTER, TOP],
       textParams: { label: 'Start Game' },
     });
+
+    //delay the intro
+    this.welcomeIntro = new WelcomeIntro();
+    setTimeout(() => {
+      this.welcomeIntro.showWelcomeIntro();
+      this.pauseGame = true;
+      this.players.forEach((player) => player.setPauseState(true));
+    }, this.delay);
   }
 
   /** @override */
@@ -106,11 +116,21 @@ class Welcome extends BasePage {
         this.loadCheckImg(player.color, moveDown);
       }
     });
+    this.welcomeIntro.draw();
   }
 
   /** @override */
   mousePressed() {
     this.startButton?.mousePressed();
+  }
+
+  /** @override */
+  keyPressed() {
+    if (this.welcomeIntro.maskIsVisible && keyCode === RIGHT_ARROW) {
+      this.welcomeIntro.hideWelcomeIntro();
+      this.pauseGame = false;
+      this.players.forEach((player) => player.setPauseState(false));
+    }
   }
 
   loadCheckImg(color, moveDown = 0) {
