@@ -134,8 +134,7 @@ class Welcome extends BasePage {
   }
 
   loadCheckImg(color, moveDown = 0) {
-    console.log('🔍 Loading check image for color:', color);
-    if (color == '#D04648') {
+    if (color == Theme.palette.player.red) {
       imageMode(CENTER);
       image(
         this.checkiconP1.image,
@@ -144,7 +143,7 @@ class Welcome extends BasePage {
         this.checkiconP1.width,
         this.checkiconP1.height,
       );
-    } else if (color == '#597DCE') {
+    } else if (color == Theme.palette.player.blue) {
       imageMode(CENTER);
       image(
         this.checkiconP2.image,
@@ -192,7 +191,7 @@ class Welcome extends BasePage {
     const p2 = new Text({
       x: position.x + 10,
       y: position.y + 80,
-      label: 'Player 2: [W A S D] Attack: [/]',
+      label: 'Player 2: [↑ ← ↓ →] Attack: [/]',
       textAlign: [LEFT, CENTER],
       textSize: Theme.text.fontSize.small,
       color: Theme.palette.black,
