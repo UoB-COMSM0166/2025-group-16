@@ -6,6 +6,7 @@ class Welcome extends BasePage {
     this.players = [];
     this.startButton = null;
     this.introText = null;
+    this.delay = 3000;
   }
 
   /** @override */
@@ -60,6 +61,13 @@ class Welcome extends BasePage {
       align: [CENTER, TOP],
       textParams: { label: 'Start Game' },
     });
+
+    this.welcomeIntro = new WELCOMEINTRO();
+
+    setTimeout(() => {
+      this.welcomeIntro.showWelcomeIntro();
+    }, this.delay);
+
   }
 
   /** @override */
@@ -81,6 +89,8 @@ class Welcome extends BasePage {
         this.drawCheckLine(player.color, moveDown);
       }
     });
+
+    this.welcomeIntro.draw();
   }
 
   /** @override */
