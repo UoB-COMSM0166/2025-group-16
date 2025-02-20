@@ -7,10 +7,10 @@ const Settings = Object.freeze({
       [Constants.EntityStatus.COOLDOWN]: 1500,
     }),
     scale: Object.freeze({
-      [Constants.EntitySize.S]: 1 / 8,
-      [Constants.EntitySize.M]: 3 / 8,
-      [Constants.EntitySize.L]: 5 / 8,
-      [Constants.EntitySize.XL]: 1,
+      [Constants.EntitySize.S]: 1 / 5,
+      [Constants.EntitySize.M]: 3 / 5,
+      [Constants.EntitySize.L]: 1,
+      [Constants.EntitySize.XL]: 2,
     }),
   }),
   players: [
