@@ -23,6 +23,7 @@ class Player extends Entity {
     });
 
     this.controls = params.controls;
+    this.isPaused = false;
   }
 
   /** @override */
@@ -30,10 +31,16 @@ class Player extends Entity {
     if (this.status === Constants.EntityStatus.DIED) return;
 
     super.draw();
-    Object.values(Constants.EntityMove).forEach((direction) => {
-      const key = this.controls[direction]?.value;
-      if (keyIsDown(key)) super.move(direction);
-    });
+    if (!this.isPaused){
+      Object.values(Constants.EntityMove).forEach((direction) => {
+        const key = this.controls[direction]?.value;
+        if (keyIsDown(key)) super.move(direction);
+      });
+    }
+  }
+
+  setPauseState(pauseState){
+    this.isPaused = pauseState;
   }
 
   keyPressed(entities, onDie) {
