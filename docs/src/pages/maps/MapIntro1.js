@@ -33,11 +33,11 @@ class MapIntro1 extends BaseMapIntro {
       shapeType: Constants.EntityType.PLAYER,
       size: Constants.EntitySize.XL,
       color: Theme.palette.player.blue,
-      scale: 2.0,
+      position: {
+        x: 100,
+        y: height - 400,
+      },
     });
-
-    this.playerRobot.x = 200;
-    this.playerRobot.y = height - 200;
 
     // Create robot for demo
     const startX = width / 2;
@@ -55,7 +55,7 @@ class MapIntro1 extends BaseMapIntro {
             y: startY + row * spacingY,
             size: Constants.EntitySize.M,
             isMovable: false,
-            scale: 1.5,
+            // scale: 1.5,
           }),
         );
       }
@@ -91,17 +91,7 @@ class MapIntro1 extends BaseMapIntro {
     });
 
     // Then draw player robot on top
-    if (this.playerRobot) {
-      this.playerRobot.x = 100;
-      this.playerRobot.y = height - 330;
-
-      push();
-      translate(this.playerRobot.x, this.playerRobot.y);
-      scale(1.5);
-      translate(-this.playerRobot.x, -this.playerRobot.y);
-      this.playerRobot.draw();
-      pop();
-    }
+    this.playerRobot.draw();
 
     this.drawInteractionBox();
   }

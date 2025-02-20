@@ -147,7 +147,6 @@ const _welomepageResources = Object.fromEntries(
       : new Img(path),
   ]),
 );
-console.log('_welomepageResources', _welomepageResources);
 
 const Resources = {
   images: {
@@ -158,7 +157,10 @@ const Resources = {
     },
     playerlist: Object.values(Theme.palette.player).map(
       (fill) =>
-        new SVGImage(_ASSET_PATHS.images.playerlist, { fill, scale: 2 }),
+        new SVGImage(_ASSET_PATHS.images.playerlist, {
+          fill,
+          scale: Settings.entity.scale[Constants.EntitySize.XL],
+        }),
     ),
   },
   sounds: {},
