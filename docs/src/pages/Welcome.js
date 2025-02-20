@@ -62,7 +62,7 @@ class Welcome extends BasePage {
       textParams: { label: 'Start Game' },
     });
 
-    this.welcomeIntro = new WELCOMEINTRO();
+    this.welcomeIntro = new this.welcomeIntro();
 
     setTimeout(() => {
       this.welcomeIntro.showWelcomeIntro();

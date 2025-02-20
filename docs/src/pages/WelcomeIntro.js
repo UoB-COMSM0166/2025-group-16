@@ -1,8 +1,8 @@
-class WELCOMEINTRO extends BasePage {
+class WelcomIntro extends BasePage {
   constructor() {
     super();
     this.maskIsVisible = false; //hide Intro
-    this.maskColor = color(211, 211, 211, 150); //gray transparent background
+    this.maskColor = color(211, 211, 211, 150); //grey transparent background
     this.height = 320; //height of the welcome page
     this.width = 640; //width of the welcome page
     this.boxX = 0; //box x position
@@ -22,7 +22,7 @@ class WELCOMEINTRO extends BasePage {
 
   draw(){
     if (this.maskIsVisible){
-      //Gray transparent background
+      //Grey transparent background
       push(); //保存當前welcome頁面
       fill(this.maskColor);
       rect(0, 0, this.width, this.height); //覆蓋整個畫布
@@ -30,7 +30,7 @@ class WELCOMEINTRO extends BasePage {
     
       //Box
       push();
-      fill(Theme.palette.lightGray);
+      fill(Theme.palette.lightGrey);
       stroke(Theme.palette.black);
       strokeWeight(2);
       rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight);
