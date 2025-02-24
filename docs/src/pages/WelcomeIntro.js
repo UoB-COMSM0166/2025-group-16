@@ -6,7 +6,7 @@ class WelcomeIntro extends BasePage {
     this.boxWidth = width - 4;
     this.boxHeight = 200;
     this.boxX = (width - this.boxWidth) / 2;
-    this.boxY = height - this.boxHeight - 4;
+    this.boxY = height - this.boxHeight - 2;
   }
 
   showWelcomeIntro() {
@@ -39,22 +39,6 @@ class WelcomeIntro extends BasePage {
         scaledHeight,
       );
 
-      //BoxShadow
-      push();
-      stroke(Theme.palette.black);
-      strokeWeight(3); // 設置合適的線條寬度
-      drawingContext.shadowColor = color(0, 0, 0, 255); // 設置陰影顏色
-      drawingContext.shadowBlur = 15; // 設置陰影模糊程度，不要太大
-      drawingContext.shadowOffsetX = 0; // 設置陰影水平偏移量
-      drawingContext.shadowOffsetY = 5; // 設置陰影垂直偏移量
-      line(
-        this.boxX,
-        this.boxY + this.boxHeight,
-        this.boxX + this.boxWidth,
-        this.boxY + this.boxHeight,
-      ); // 繪製底部邊框
-      pop();
-
       //Box
       push();
       fill(Theme.palette.lightGrey);
@@ -69,14 +53,9 @@ class WelcomeIntro extends BasePage {
       textSize(Theme.text.fontSize.medium);
       textAlign(LEFT, TOP);
       text(
-        'Welcome to UNSTOPPABLE. Player 1: move with [W A S D], ',
+        'Welcome to UNSTOPPABLE. \n'+'Player 1: move with [W A S D], attack with [Q], \n'+'Player 2: move with [↑ ← ↓ →], attack with [/]\n'+'to COME HERE area to start! Shall we?',
         10,
         height - 175,
-      );
-      text(
-        'Player 2: move with [↑ ← ↓ →] to COME HERE area to start! Shall we?',
-        10,
-        height - 125,
       );
       pop();
 

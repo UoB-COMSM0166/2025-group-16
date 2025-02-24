@@ -19,7 +19,7 @@ class Welcome extends BasePage {
     this.checkiconP1 = null;
     this.checkiconP2 = null;
     this.introBox = { x: 20, y: 350, w: 400, h: 150 };
-    this.delay = 3000;
+    this.delay = 0;
     this.pauseGame = false;
   }
 
@@ -126,7 +126,7 @@ class Welcome extends BasePage {
 
   /** @override */
   keyPressed() {
-    if (this.welcomeIntro.maskIsVisible && keyCode === RIGHT_ARROW) {
+    if (this.welcomeIntro.maskIsVisible && keyCode) {
       this.welcomeIntro.hideWelcomeIntro();
       this.pauseGame = false;
       this.players.forEach((player) => player.setPauseState(false));
