@@ -5,11 +5,7 @@ class MapGame1 extends BaseMapGame {
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 20,
       background: Resources.images.map.game1,
+      bgm: Resources.sounds.bgm.playing1,
     });
-  }
-
-  // Add MapGame1 to this game.
-  draw() {
-    super.draw();
   }
 }

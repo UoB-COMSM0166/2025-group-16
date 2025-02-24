@@ -31,15 +31,15 @@ class Player extends Entity {
     if (this.status === Constants.EntityStatus.DIED) return;
 
     super.draw();
-    if (!this.isPaused){
+    if (!this.isPaused) {
       Object.values(Constants.EntityMove).forEach((direction) => {
         const key = this.controls[direction]?.value;
-        if (keyIsDown(key)) super.move(direction);
+        if (key !== undefined && keyIsDown(key)) super.move(direction);
       });
     }
   }
 
-  setPauseState(pauseState){
+  setPauseState(pauseState) {
     this.isPaused = pauseState;
   }
 

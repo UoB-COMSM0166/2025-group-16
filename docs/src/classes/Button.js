@@ -36,6 +36,7 @@ class Button extends UIComponent {
   }
 
   draw() {
+    push();
     if (this.disabled) {
       fill(Theme.palette.text.disabled);
     } else {
@@ -63,6 +64,7 @@ class Button extends UIComponent {
       x: position.x + this.width / 2,
       y: position.y + this.height / 2,
     });
+    pop();
   }
 
   isMouseOver() {

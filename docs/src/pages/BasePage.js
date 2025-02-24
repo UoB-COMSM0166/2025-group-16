@@ -7,10 +7,15 @@
 class BasePage {
   constructor(params) {
     this.background = params?.background || null;
+    this.bgm = params?.bgm || null;
     this.players = [];
     this.playerAvatars = [];
     this.statusTextImages = [];
     this.shapeType = params?.shapeType || Constants.EntityType.ROBOT;
+  }
+
+  initBgm() {
+    this.bgm?.loop();
   }
 
   /**
@@ -19,6 +24,8 @@ class BasePage {
    * @see https://p5js.org/reference/p5/setup/
    */
   setup() {
+    if (Store.getIsAllowSound()) this.initBgm();
+
     for (let pIdx = 0; pIdx < Settings.players.length; pIdx++) {
       const createPlayer = {
         ...this.playerParams,
@@ -98,7 +105,12 @@ class BasePage {
    * Called when mouse is pressed.
    * @see https://p5js.org/reference/p5/mousePressed/
    */
-  mousePressed() {}
+  mousePressed() {
+    if (!Store.getIsAllowSound()) {
+      Controller.changeIsAllowSound(true);
+      this.initBgm();
+    }
+  }
 
   /**
    * Called when mouse is released.
@@ -111,11 +123,23 @@ class BasePage {
    * Called when a key is pressed.
    * @see https://p5js.org/reference/p5/keyPressed/
    */
-  keyPressed() {}
+  keyPressed() {
+    if (!Store.getIsAllowSound()) {
+      Controller.changeIsAllowSound(true);
+      this.initBgm();
+    }
+  }
 
   /**
    * Called when a key is released.
    * @see https://p5js.org/reference/p5/keyReleased/
    */
   keyReleased() {}
+
+  /**
+   * Called when the page is being removed, should clean up resources here.
+   */
+  remove() {
+    this.bgm?.stop();
+  }
 }
