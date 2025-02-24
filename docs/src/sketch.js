@@ -58,7 +58,9 @@ function draw() {
     textAlign: [LEFT, TOP],
   });
 
+  push();
   Store.getCurrentPage().draw();
+  pop();
 }
 
 /**
