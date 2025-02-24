@@ -30,6 +30,7 @@ class Text extends UIComponent {
   }
 
   draw(params) {
+    push();
     const config = {
       ...this,
       ...params,
@@ -49,5 +50,6 @@ class Text extends UIComponent {
       noStroke();
     }
     text(config.label, config.x, config.y);
+    pop();
   }
 }

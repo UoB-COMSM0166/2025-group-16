@@ -72,7 +72,9 @@ class WelcomeIntro extends BasePage {
     }
   }
 
+  /** @override */
   keyPressed() {
+    super.keyPressed();
     if (this.maskIsVisible && keyCode === RIGHT_ARROW) {
       this.hideWelcomeIntro();
     }

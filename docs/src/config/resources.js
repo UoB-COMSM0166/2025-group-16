@@ -33,6 +33,10 @@ const _ASSET_PATHS = {
       dong: `${_BASE_PATH}assets/sounds/dong.wav`,
       whoosh: `${_BASE_PATH}assets/sounds/whoosh.wav`,
     },
+    bgm: {
+      intro: `${_BASE_PATH}assets/sounds/intro.wav`,
+      playing1: `${_BASE_PATH}assets/sounds/playing1.wav`,
+    },
   },
 };
 
@@ -172,6 +176,10 @@ const Resources = {
       punch: new Sound(_ASSET_PATHS.sounds.entity.punch),
       dong: new Sound(_ASSET_PATHS.sounds.entity.dong),
       whoosh: new Sound(_ASSET_PATHS.sounds.entity.whoosh),
+    },
+    bgm: {
+      intro: new Sound(_ASSET_PATHS.sounds.bgm.intro),
+      playing1: new Sound(_ASSET_PATHS.sounds.bgm.playing1),
     },
   },
 };

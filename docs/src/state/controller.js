@@ -8,9 +8,14 @@ const Controller = {
     const isSamePage = Store.getCurrentPageKey() == newPageKey;
     if (isSamePage) return;
 
+    const prevPage = Store.getCurrentPage();
+    if (prevPage) prevPage.remove();
     Store._updateState({ currentPage: page });
     Store._updateState({ currentPageKey: newPageKey });
-
     if (page.setup) page.setup();
+  },
+
+  changeIsAllowSound(isAllowSound) {
+    Store._updateState({ isAllowSound });
   },
 };

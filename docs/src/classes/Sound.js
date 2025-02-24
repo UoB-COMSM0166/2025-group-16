@@ -19,4 +19,19 @@ class Sound {
   loadSound() {
     this.sound = loadSound(this.path);
   }
+
+  /** Plays the sound in a loop */
+  loop() {
+    if (this.sound && !this.sound.isLooping()) {
+      this.sound.setLoop(true);
+      this.sound.play();
+    }
+  }
+
+  /** Stops the sound */
+  stop() {
+    if (this.sound?.isPlaying()) {
+      this.sound.stop();
+    }
+  }
 }

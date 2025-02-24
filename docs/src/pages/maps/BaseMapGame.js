@@ -97,6 +97,7 @@ class BaseMapGame extends BasePage {
 
   /** @override */
   keyPressed() {
+    super.keyPressed();
     this.players.forEach((player) => {
       if (player.status === Constants.EntityStatus.DIED) return;
       player.keyPressed([...this.robots, ...this.players], (diedEntity) => {
@@ -109,6 +110,7 @@ class BaseMapGame extends BasePage {
 
   /** @override */
   mousePressed() {
+    super.mousePressed();
     this.gameOverButton?.mousePressed();
   }
 }

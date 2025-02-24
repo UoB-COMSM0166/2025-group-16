@@ -1,10 +1,18 @@
 const Store = (function () {
-  // private variables, cannot change directly
+  /** @type {{
+   *   currentPage: BasePage | null,
+   *   currentPageKey: string,
+   *   playerNumber: number,
+   *   players: Array<{name: string}>,
+   *   isAllowSound?: boolean
+   * }} */
   var _state = {
     currentPage: null,
     currentPageKey: '',
     playerNumber: 2,
     players: [{ name: 'A' }, { name: 'B' }],
+    // browser only allow sound after first user interaction, check if it's allowed to play sound now
+    isAllowSound: false,
   };
 
   return {
@@ -23,6 +31,10 @@ const Store = (function () {
 
     getPlayerNumber() {
       return _state.playerNumber;
+    },
+
+    getIsAllowSound() {
+      return _state.isAllowSound;
     },
   };
 })();
