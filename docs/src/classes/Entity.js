@@ -111,29 +111,34 @@ class Entity {
     }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
 
     // check if hit any of entities
+    const hitEntities = {
+      [Constants.EntityType.PLAYER]: [],
+      [Constants.EntityType.ROBOT]: [],
+    };
     for (const entity of entities) {
       const isMe = entity.type === this.type && entity.idx === this.idx;
       if (!isMe) {
-        const isKnockedDown = checkKnockedDown(
-          {
-            x: this.x,
-            y: this.y,
-            w: this.getShape().scaledWidth,
-            h: this.getShape().scaledHeight,
-          },
-          {
-            x: entity.x,
-            y: entity.y,
-            w: entity.getShape().scaledWidth,
-            h: entity.getShape().scaledHeight,
-          },
-          this.direction,
-        );
-        if (isKnockedDown) {
-          entity.status = Constants.EntityStatus.DIED;
-          onHitEntity(entity);
-        }
+        const isKnockedDown = checkKnockedDown(this, entity);
+        if (isKnockedDown) hitEntities[entity.type].push(entity);
       }
+    }
+
+    // play sound based on hit entities
+    if (hitEntities[Constants.EntityType.PLAYER].length) {
+      Resources.sounds.entity.punch.sound?.play();
+    } else if (hitEntities[Constants.EntityType.ROBOT].length) {
+      Resources.sounds.entity.dong.sound?.play();
+    } else {
+      Resources.sounds.entity.whoosh.sound?.play();
+    }
+
+    // change status of hit entities
+    for (const entity of [
+      ...hitEntities[Constants.EntityType.PLAYER],
+      ...hitEntities[Constants.EntityType.ROBOT],
+    ]) {
+      entity.status = Constants.EntityStatus.DIED;
+      onHitEntity(entity);
     }
   }
 
