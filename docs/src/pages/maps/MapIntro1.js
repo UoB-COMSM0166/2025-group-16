@@ -4,9 +4,10 @@ class MapIntro1 extends BaseMapIntro {
       title: 'Find Your Robot!',
       playerControlIntros: [
         '\n' +
-          'In this stage, Find out which robot you control! Move around to check which one\n' +
-          'responds to your controls. Once you know who you are, find and attack your\n' +
-          '💥opponent before they attack you!',
+          '\n' +
+          'Find your robot! \n' +
+          'Move to check which one responds.\n' +
+          'Attack 💥 with [Q] or [/] before your enemy does!\n',
       ],
     });
 
@@ -55,7 +56,6 @@ class MapIntro1 extends BaseMapIntro {
             y: startY + row * spacingY,
             size: Constants.EntitySize.M,
             isMovable: false,
-            // scale: 1.5,
           }),
         );
       }
@@ -98,55 +98,41 @@ class MapIntro1 extends BaseMapIntro {
 
   drawInteractionBox() {
     // Box parameters
-    const boxHeight = 100;
-    const boxWidth = width - 100;
-    const boxX = 50;
-    const boxY = height - boxHeight - 50;
-    const borderRadius = 20;
+    const boxHeight = 150;
+    const boxWidth = width - 4;
+    const boxX = 2;
+    const boxY = height - boxHeight - 3;
+    // const borderRadius = 20;
 
     fill(255, 250, 240);
     stroke(0);
     strokeWeight(2);
-    rect(boxX, boxY, boxWidth, boxHeight, borderRadius);
+    rect(boxX, boxY, boxWidth, boxHeight);
 
     // Instruction text
     fill(0);
     noStroke();
-    textSize(16);
+    textSize(33);
     textAlign(LEFT, CENTER);
-    textLeading(24);
+    textLeading(38);
 
     const instructionText = this.playerControlIntros[0];
     text(instructionText, boxX + 20, boxY + boxHeight / 2 - 10);
 
     // Save the press button area for click detection
-    const pressX = boxX + boxWidth - 100;
-    const pressY = boxY + boxHeight - 30;
-    const pressWidth = 100;
-    const pressHeight = 20;
-    this.pressButtonArea = {
-      x: pressX,
-      y: pressY - pressHeight / 2,
-      width: pressWidth,
-      height: pressHeight,
-    };
+    // const pressX = boxX + boxWidth - 100;
+    // const pressY = boxY + boxHeight - 30;
+    // const pressWidth = 100;
+    // const pressHeight = 20;
+    // this.pressButtonArea = {
+    //   width: pressWidth,
+    //   height: pressHeight,
+    // };
 
     // Draw "Press →" with enhanced triangle
-    textSize(16);
+    textSize(35);
     textAlign(RIGHT, CENTER);
-    text('Press →', pressX + pressWidth - 30, pressY);
-
-    // Draw enhanced triangle arrow
-    fill(0);
-    noStroke();
-    push();
-    translate(pressX + pressWidth - 10, pressY);
-    beginShape();
-    vertex(-12, -8);
-    vertex(0, 0);
-    vertex(-12, 8);
-    endShape(CLOSE);
-    pop();
+    text('Press →', width - 25, height - 25);
   }
 
   /** @override */
