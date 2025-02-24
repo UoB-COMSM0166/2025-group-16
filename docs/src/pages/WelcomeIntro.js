@@ -53,7 +53,10 @@ class WelcomeIntro extends BasePage {
       textSize(Theme.text.fontSize.medium);
       textAlign(LEFT, TOP);
       text(
-        'Welcome to UNSTOPPABLE. \n'+'Player 1: move with [W A S D], attack with [Q], \n'+'Player 2: move with [↑ ← ↓ →], attack with [/]\n'+'to COME HERE area to start! Shall we?',
+        'Welcome to UNSTOPPABLE. \n' +
+          'Player 1: move with [W A S D], attack with [Q]\n' +
+          'Player 2: move with [↑ ← ↓ →], attack with [/]\n' +
+          'to COME HERE area to start! Shall we?',
         10,
         height - 175,
       );
