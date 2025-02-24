@@ -18,12 +18,23 @@ function loadAllImages(nestedImageObj) {
   });
 }
 
+function loadAllSounds(nestedSoundObj) {
+  Object.values(nestedSoundObj).forEach((sound) => {
+    if (sound instanceof Sound) {
+      sound.loadSound();
+    } else if (typeof sound === 'object' && sound !== null) {
+      loadAllSounds(sound);
+    }
+  });
+}
+
 /**
  * Called once before all the setups.
  * Load all assets here (images, sounds, etc.)
  */
 function preload() {
   loadAllImages(Resources.images);
+  loadAllSounds(Resources.sounds);
 }
 
 function setup() {
@@ -56,6 +67,6 @@ function draw() {
 const events = ['mousePressed', 'mouseReleased', 'keyPressed', 'keyReleased'];
 events.forEach((eventName) => {
   window[eventName] = function (...args) {
-    return Store.getCurrentPage()[eventName](...args);
+    return Store.getCurrentPage()?.[eventName]?.(...args);
   };
 });
