@@ -147,7 +147,14 @@ class Entity {
 
   getShape() {
     const aniStatus = this._getAnimationStatus();
-    if (this.isWalking && this.frameCtn > Settings.entity.frameCtn) {
+    if (aniStatus === Constants.EntityAnimationStatus.ATTACK) {
+      // only allow the attack animation to play for two frames, then keep the last frame
+      if (this.frameIdx === 0 && this.frameCtn > Settings.entity.frameCtn) {
+        this.frameIdx = 1;
+        this.frameCtn = 0;
+      }
+    } else if (this.isWalking && this.frameCtn > Settings.entity.frameCtn) {
+      // walking animation switches back and forth
       this.frameIdx = this.frameIdx ? 0 : 1;
       this.frameCtn = 0;
     }
