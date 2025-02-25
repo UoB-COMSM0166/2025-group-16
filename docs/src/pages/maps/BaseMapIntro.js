@@ -7,7 +7,9 @@ class BaseMapIntro extends BasePage {
    * @param {string} [params.additionalIntro] - The number of robots.
    */
   constructor(params) {
-    super();
+    super({
+      bgm: Resources.sounds.bgm.intro,
+    });
     this.title = params.title;
     this.playerControlIntros = params.playerControlIntros;
     this.additionalIntro = params?.additionalIntro;
@@ -20,6 +22,8 @@ class BaseMapIntro extends BasePage {
 
   /** @override */
   setup() {
+    super.setup();
+
     this.titleText = new Text({
       label: this.title,
       x: width / 2,
@@ -80,6 +84,7 @@ class BaseMapIntro extends BasePage {
 
   /** @override */
   mousePressed() {
+    super.mousePressed();
     this.startButton?.mousePressed();
   }
 }

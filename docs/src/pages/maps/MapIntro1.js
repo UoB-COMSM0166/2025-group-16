@@ -127,6 +127,7 @@ class MapIntro1 extends BaseMapIntro {
 
   /** @override */
   mousePressed() {
+    super.mousePressed();
     // Check if click is within the press button area
     // Can use two meathds to press
     if (
@@ -141,6 +142,6 @@ class MapIntro1 extends BaseMapIntro {
 
   /** @override */
   keyPressed() {
-    Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
+      Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
   }
 }

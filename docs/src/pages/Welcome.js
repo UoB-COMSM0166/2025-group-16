@@ -4,6 +4,7 @@ class Welcome extends BasePage {
     super({
       shapeType: Constants.EntityType.PLAYER,
       background: Resources.images.welcome.background,
+      bgm: Resources.sounds.bgm.intro,
     });
     // turn on debugMode: not count down 3 sec, show start game button
     this.debugMode = false;
@@ -120,12 +121,8 @@ class Welcome extends BasePage {
   }
 
   /** @override */
-  mousePressed() {
-    this.startButton?.mousePressed();
-  }
-
-  /** @override */
   keyPressed() {
+    super.keyPressed();
     if (this.welcomeIntro.maskIsVisible && keyCode) {
       this.welcomeIntro.hideWelcomeIntro();
       this.pauseGame = false;

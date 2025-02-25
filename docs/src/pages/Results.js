@@ -30,6 +30,7 @@ class Results extends BasePage {
 
   /** @override */
   mousePressed() {
+    super.mousePressed();
     this.backButton?.mousePressed();
   }
 }
