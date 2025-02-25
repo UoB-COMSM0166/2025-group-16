@@ -15,6 +15,9 @@ class Text extends UIComponent {
    * @param {string} [params.textWrap] - The wrapping style of the text.
    * @param {string} [params.stroke] - The outline color of the text.
    * @param {number} [params.strokeWeight] - The weight of the text's outline (stroke thickness).
+   * @param {number} [params.maxWidth] - The maximum width of the text box.
+   * @param {number} [params.maxHeigth] - The maximum height of the text box.
+   * @param {string} [params.textFont] - The font of text.
    */
   constructor(params) {
     super({ x: params?.x, y: params?.y });
@@ -27,6 +30,9 @@ class Text extends UIComponent {
     this.textStyle = params?.textStyle;
     this.stroke = params?.stroke;
     this.strokeWeight = params?.strokeWeight;
+    this.maxWidth = params?.maxWidth;
+    this.maxHeigth = params?.maxHeigth;
+    this.textFont = params?.textFont;
   }
 
   draw(params) {
@@ -49,7 +55,12 @@ class Text extends UIComponent {
     } else {
       noStroke();
     }
-    text(config.label, config.x, config.y);
+    if (config.textFont !== undefined) textFont(config.textFont);
+    if (config.maxWidth !== undefined) {
+      text(config.label, config.x, config.y, config.maxWidth);
+    } else {
+      text(config.label, config.x, config.y);
+    }
     pop();
   }
 }
