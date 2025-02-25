@@ -119,16 +119,6 @@ class MapIntro1 extends BaseMapIntro {
     const instructionText = this.playerControlIntros[0];
     text(instructionText, boxX + 20, boxY + boxHeight / 2 - 10);
 
-    // Save the press button area for click detection
-    // const pressX = boxX + boxWidth - 100;
-    // const pressY = boxY + boxHeight - 30;
-    // const pressWidth = 100;
-    // const pressHeight = 20;
-    // this.pressButtonArea = {
-    //   width: pressWidth,
-    //   height: pressHeight,
-    // };
-
     // Draw "Press →" with enhanced triangle
     textSize(35);
     textAlign(RIGHT, CENTER);
@@ -152,9 +142,6 @@ class MapIntro1 extends BaseMapIntro {
 
   /** @override */
   keyPressed() {
-    super.keyPressed();
-    if (keyCode === RIGHT_ARROW) {
-      Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
-    }
+    Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
   }
 }
