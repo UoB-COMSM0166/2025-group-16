@@ -20,8 +20,7 @@ class BaseMapGame extends BasePage {
     this.gameOverButton = null;
     this.gameOverText = null;
 
-    this.playerAvatars = [];
-    this.statusTextImages = [];
+    this.playerListUI = null;
   }
 
   /** @override */
@@ -96,8 +95,12 @@ class BaseMapGame extends BasePage {
       robot.draw();
     });
 
-    //draw PlayerAvatars
-    this.drawPlayerAvatars();
+    //draw PlayerList
+    this.playerListUI = new PlayerList({
+      label: 'Fight',
+      textSize: Theme.text.fontSize.large,
+    });
+    this.playerListUI.drawPlayerAvatars();
 
     if (this.alivePlayerCtn === 1) {
       const alivePlayer = this.players.find(
