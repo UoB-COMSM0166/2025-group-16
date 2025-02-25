@@ -5,7 +5,7 @@ class PlayerList extends UIComponent {
   /**
    * @param {Object} [params] - The parameter for the player list.
    * @param {string} [params.label] - The text content to display.
-   * @param {boolean} [params.textDrawColor] - The text will draw player color if true, default black.
+   * @param {boolean} [params.isDrawPlayerColor] - The text will draw player color if true, default black.
    * @param {number | string} [params.textSize] - The font size to set for the text.
    */
   constructor(params) {
@@ -13,19 +13,19 @@ class PlayerList extends UIComponent {
 
     this.label = params?.label || '';
     this.textSize = params?.textSize;
-    this.drawColor = params?.textDrawColor
+    this.drawColor = params?.isDrawPlayerColor
       ? Object.values(Theme.palette.player)
       : Theme.palette.black;
   }
 
   drawPlayerAvatars() {
-    let numPlayers = Object.keys(Resources.images.playerlist).length;
-    let spacing = width / (numPlayers + 1);
+    const numPlayers = Object.keys(Resources.images.playerlist).length;
+    const spacing = width / (numPlayers + 1);
     for (let i = 0; i < numPlayers; i++) {
-      let playerAvatar = Resources.images.playerlist[i];
-      let avatarSize = playerAvatar.width;
-      let xPos = spacing * (i + 1) - avatarSize / 2 - 50;
-      let yPos = height - avatarSize + 50;
+      const playerAvatar = Resources.images.playerlist[i];
+      const avatarSize = playerAvatar.width;
+      const xPos = spacing * (i + 1) - avatarSize / 2 - 50;
+      const yPos = height - avatarSize + 50;
 
       if (playerAvatar?.image) {
         imageMode(CENTER);
@@ -39,6 +39,10 @@ class PlayerList extends UIComponent {
 
         let textXPos = xPos + avatarSize / 2 + 10;
         let textYPos = yPos + avatarSize / 2 - 70;
+        let color =
+          typeof this.drawColor === 'string'
+            ? this.drawColor
+            : this.drawColor[i];
         if (this?.label) {
           const text = new Text({
             x: textXPos,
@@ -47,7 +51,7 @@ class PlayerList extends UIComponent {
             textAlign: [LEFT, CENTER],
             textSize: this.textSize,
             textFont: 'Press Start 2P',
-            color: this.drawColor,
+            color: color,
             maxWidth: spacing - avatarSize - 10,
           });
           text.draw();

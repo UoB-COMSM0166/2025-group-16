@@ -81,6 +81,12 @@ class BaseMapGame extends BasePage {
         }),
       );
     }
+
+    // initialize player list and text
+    this.playerListUI = new PlayerList({
+      label: 'Fight',
+      textSize: Theme.text.fontSize.large,
+    });
   }
 
   /** @override */
@@ -95,11 +101,7 @@ class BaseMapGame extends BasePage {
       robot.draw();
     });
 
-    //draw PlayerList
-    this.playerListUI = new PlayerList({
-      label: 'Fight',
-      textSize: Theme.text.fontSize.large,
-    });
+    //draw player list
     this.playerListUI.drawPlayerAvatars();
 
     if (this.alivePlayerCtn === 1) {
