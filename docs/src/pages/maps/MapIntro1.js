@@ -7,7 +7,7 @@ class MapIntro1 extends BaseMapIntro {
           '\n' +
           'Find your robot! \n' +
           'Move to check which one responds.\n' +
-          'Attack 💥 with [Q] or [/] before your enemy does!\n',
+          'Attack 💥 with [Q] or [Shift] before your enemy does!\n',
       ],
     });
 
