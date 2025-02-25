@@ -141,6 +141,21 @@ class Welcome extends BasePage {
       }
     });
     this.welcomeIntro.draw();
+
+    if (this.isCountingDown && this.countdown > 0) {
+      const timerText = new Text({
+        label: this.countdown.toString(),
+        textSize: Theme.text.fontSize.title,
+        textAlign: [CENTER, CENTER],
+        color: Theme.palette.text.contrastText,
+        stroke: Theme.palette.text.contrastText,
+        strokeWeight: 3,
+        x: width / 2,
+        y: height / 2,
+      });
+
+      timerText.draw();
+    }
   }
 
   /** @override */
@@ -152,10 +167,7 @@ class Welcome extends BasePage {
       this.players.forEach((player) => player.setPauseState(false));
     }
     this.players.forEach((player) => {
-      console.log('player:', player);
-      player.keyPressed(event, [...this.players], (diedEntity) => {
-        console.log('diedEntity', diedEntity);
-      });
+      player.keyPressed(event, [...this.players]);
     });
   }
 
@@ -252,8 +264,9 @@ class Welcome extends BasePage {
 
   startCountdown() {
     if (this.isCountingDown) return;
+    this.isCountingDown = true;
     let interval = setInterval(() => {
-      if (this.countdown > 0) {
+      if (this.countdown > 1) {
         this.countdown--;
       } else {
         clearInterval(interval);
