@@ -170,10 +170,12 @@ class Welcome extends BasePage {
   }
 
   drawIntroStroke(position) {
+    push();
     noFill();
     stroke(0);
     strokeWeight(3);
     rect(position.x, position.y, position.w, position.h);
+    pop();
   }
 
   createIntroText(position) {

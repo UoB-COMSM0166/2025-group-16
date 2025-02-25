@@ -82,12 +82,14 @@ class MapIntro1 extends BaseMapIntro {
       pop();
 
       // Draw "ROBOT" labels under each enemyrobot
+      push();
       fill(0);
       noStroke();
       textSize(18);
       textStyle(BOLD);
       textAlign(CENTER, CENTER);
       text('ROBOT', robot.x + 50, robot.y + 130);
+      pop();
     });
 
     // Then draw player robot on top
@@ -104,6 +106,7 @@ class MapIntro1 extends BaseMapIntro {
     const boxY = height - boxHeight - 3;
     // const borderRadius = 20;
 
+    push();
     fill(255, 250, 240);
     stroke(0);
     strokeWeight(2);
@@ -123,6 +126,7 @@ class MapIntro1 extends BaseMapIntro {
     textSize(35);
     textAlign(RIGHT, CENTER);
     text('Press →', width - 25, height - 25);
+    pop();
   }
 
   /** @override */
