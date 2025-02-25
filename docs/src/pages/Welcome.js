@@ -95,16 +95,20 @@ class Welcome extends BasePage {
     // default text status
     let statusImage = new Array(this.players.length).fill(this.areYouARobot);
 
-    if (this.players.every((player) => this.checkPlayersInStartArea(player))) {
-      this.players.forEach((player, idx) => {
+    this.players.forEach((player, idx) => {
+      if (this.checkPlayersInStartArea(player)) {
         statusImage[idx] = idx === 0 ? this.textOkP1 : this.textOkP2;
-      });
+      }
+    });
+
+    if (this.players.every((player) => this.checkPlayersInStartArea(player))) {
       if (this.debugMode) {
         this.startButton?.draw();
       } else {
         this.startCountdown();
       }
     }
+
     this.drawPlayerAvatars(statusImage);
 
     this.players.forEach((player) => {
