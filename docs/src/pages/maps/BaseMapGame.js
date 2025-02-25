@@ -53,6 +53,25 @@ class BaseMapGame extends BasePage {
       textAlign: [CENTER, CENTER],
     });
 
+    // initialize players
+    for (let pIdx = 0; pIdx < Settings.players.length; pIdx++) {
+      const createPlayer = {
+        ...this.playerParams,
+        idx: pIdx,
+        controls: Settings.players[pIdx].controls,
+        shapeType: this.shapeType,
+        size: Constants.EntitySize.M,
+        canDie: true,
+      };
+
+      if (this.shapeType == Constants.EntityType.PLAYER) {
+        createPlayer.color = Object.values(Theme.palette.player)[pIdx];
+      }
+
+      const newPlayer = new Player(createPlayer);
+      this.players.push(newPlayer);
+    }
+
     // initialize robots
     for (var rIdx = 0; rIdx < this.robotNumber; rIdx++) {
       this.robots.push(

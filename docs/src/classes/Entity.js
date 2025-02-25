@@ -12,6 +12,7 @@ class Entity {
    * @param {typeof Theme.palette.player[keyof typeof Theme.palette.player]} [params.color] - Optional. Only applicable for players.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the entity.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
+   * @param {boolean} params.canDie - Setting if the entity would die after hitting. default is true
    */
   constructor(params) {
     this.idx = params.idx;
@@ -27,6 +28,7 @@ class Entity {
     this.status = Constants.EntityStatus.ALIVE;
     this.speed = Settings.entity.speed;
     this.isWalking = false;
+    this.canDie = params?.canDie ?? true; // default player will die after hitting
 
     this.frameIdx = 0;
     this.frameCtn = 0;
@@ -137,7 +139,9 @@ class Entity {
       ...hitEntities[Constants.EntityType.PLAYER],
       ...hitEntities[Constants.EntityType.ROBOT],
     ]) {
-      entity.status = Constants.EntityStatus.DIED;
+      if (this.canDie) {
+        entity.status = Constants.EntityStatus.DIED;
+      }
       onHitEntity(entity);
     }
   }

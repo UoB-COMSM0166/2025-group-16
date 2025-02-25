@@ -9,8 +9,6 @@ class BasePage {
     this.background = params?.background || null;
     this.bgm = params?.bgm || null;
     this.players = [];
-    this.playerAvatars = [];
-    this.statusTextImages = [];
     this.shapeType = params?.shapeType || Constants.EntityType.ROBOT;
   }
 
@@ -25,26 +23,6 @@ class BasePage {
    */
   setup() {
     if (Store.getIsAllowSound()) this.initBgm();
-
-    for (let pIdx = 0; pIdx < Settings.players.length; pIdx++) {
-      const createPlayer = {
-        ...this.playerParams,
-        idx: pIdx,
-        controls: Settings.players[pIdx].controls,
-        shapeType: this.shapeType,
-        size: Constants.EntitySize.M,
-      };
-
-      if (this.shapeType == Constants.EntityType.PLAYER) {
-        createPlayer.color = Object.values(Theme.palette.player)[pIdx];
-      }
-
-      const newPlayer = new Player(createPlayer);
-      this.players.push(newPlayer);
-
-      this.playerAvatars.push(Resources.images.playerlist[pIdx]);
-      this.statusTextImages.push(Resources.images.playerlist[pIdx]);
-    }
   }
 
   /**
