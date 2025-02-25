@@ -20,6 +20,7 @@ class Player extends Entity {
       color: params?.color,
       size: params?.size,
       position: params?.position,
+      canDie: params?.canDie,
     });
 
     this.controls = params.controls;

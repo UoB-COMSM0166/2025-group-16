@@ -52,6 +52,25 @@ class Welcome extends BasePage {
       textParams: { label: 'Start Game' },
     });
 
+    // initialize players
+    for (let pIdx = 0; pIdx < Settings.players.length; pIdx++) {
+      const createPlayer = {
+        ...this.playerParams,
+        idx: pIdx,
+        controls: Settings.players[pIdx].controls,
+        shapeType: this.shapeType,
+        size: Constants.EntitySize.M,
+        canDie: false,
+      };
+
+      if (this.shapeType == Constants.EntityType.PLAYER) {
+        createPlayer.color = Object.values(Theme.palette.player)[pIdx];
+      }
+
+      const newPlayer = new Player(createPlayer);
+      this.players.push(newPlayer);
+    }
+
     //delay the intro
     this.welcomeIntro = new WelcomeIntro();
     setTimeout(() => {
@@ -132,6 +151,12 @@ class Welcome extends BasePage {
       this.pauseGame = false;
       this.players.forEach((player) => player.setPauseState(false));
     }
+    this.players.forEach((player) => {
+      console.log('player:', player);
+      player.keyPressed(event, [...this.players], (diedEntity) => {
+        console.log('diedEntity', diedEntity);
+      });
+    });
   }
 
   loadCheckImg(color, moveDown = 0) {
