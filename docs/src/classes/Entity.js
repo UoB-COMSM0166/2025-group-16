@@ -119,7 +119,7 @@ class Entity {
     };
     for (const entity of entities) {
       const isMe = entity.type === this.type && entity.idx === this.idx;
-      if (!isMe) {
+      if (!isMe && entity.status !== Constants.EntityStatus.DIED) {
         const isKnockedDown = checkKnockedDown(this, entity);
         if (isKnockedDown) hitEntities[entity.type].push(entity);
       }
