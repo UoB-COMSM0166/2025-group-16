@@ -155,6 +155,8 @@ class Entity {
 
     // status change when hit: alive -> hit -> cooldown -> alive
     this.status = Constants.EntityStatus.HIT;
+    this.frameCtn = 0; // reset frame count and index in preparation of attack animation
+    this.frameIdx = 1;
     setTimeout(() => {
       this.status = Constants.EntityStatus.COOLDOWN;
 
@@ -191,12 +193,13 @@ class Entity {
 
   getShape() {
     const aniStatus = this._getAnimationStatus();
-    if (aniStatus === Constants.EntityAnimationStatus.ATTACK) {
-      // only allow the attack animation to play for two frames, then keep the last frame
-      if (this.frameIdx === 0 && this.frameCtn > Settings.entity.frameCtn) {
-        this.frameIdx = 1;
-        this.frameCtn = 0;
-      }
+
+    // only allow the attack animation to play once, then keep the last frame
+    if (
+      aniStatus === Constants.EntityAnimationStatus.ATTACK &&
+      this.frameCtn > Settings.entity.frameCtn
+    ) {
+      this.frameIdx = 0;
     } else if (this.isWalking && this.frameCtn > Settings.entity.frameCtn) {
       // walking animation switches back and forth
       this.frameIdx = this.frameIdx ? 0 : 1;
