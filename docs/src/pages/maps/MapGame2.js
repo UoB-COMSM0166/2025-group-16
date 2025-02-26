@@ -1,2 +1,40 @@
-// TODO: Add GameMap2
-class MapGame2 extends BaseMapGame {}
+class MapGame2 extends BaseMapGame {
+  constructor() {
+    super({
+      shapeType: Constants.EntityType.ROBOT,
+      robotNumber: 15,
+      // TODO: change background and bgm
+      background: Resources.images.map.game1,
+      bgm: Resources.sounds.bgm.playing1,
+    });
+  }
+
+  draw() {
+    super.draw();
+
+    // robots hit randomly
+    this.robots.forEach((robot) => {
+      if (robot.status === Constants.EntityStatus.DIED) return;
+
+      if (robot?.nextHitFrameCtn === undefined) {
+        // initialize
+        robot.nextHitFrameCtn = getNextHitFrameCtn();
+      } else if (robot.nextHitFrameCtn === 0) {
+        // if count down to 0, hit
+        robot.hit([...this.robots, ...this.players], (diedEntity) => {
+          if (diedEntity.type === Constants.EntityType.PLAYER) {
+            this.alivePlayerCtn--;
+          }
+        });
+        robot.nextHitFrameCtn = getNextHitFrameCtn();
+      } else {
+        // count down
+        robot.nextHitFrameCtn--;
+      }
+    });
+  }
+}
+
+// robot hit next time after 5-15 seconds
+const getNextHitFrameCtn = () =>
+  (Math.floor(Math.random() * 10) + 5) * Constants.FramePerSecond;

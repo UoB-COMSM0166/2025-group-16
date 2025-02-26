@@ -55,4 +55,5 @@ const Constants = Object.freeze({
     ATTACK: 'ATTACK',
     WALK: 'WALK',
   }),
+  FramePerSecond: 60, // default
 });

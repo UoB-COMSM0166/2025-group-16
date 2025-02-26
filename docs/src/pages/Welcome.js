@@ -169,6 +169,15 @@ class Welcome extends BasePage {
     this.players.forEach((player) => {
       player.keyPressed(event, [...this.players]);
     });
+
+    // TODO: remove temporary shortcut controls
+    if (keyCode === 49) {
+      // 1
+      Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
+    } else if (keyCode === 50) {
+      // 2
+      Controller.changePage(new MapGame2(), Constants.Page.MAP_GAME_2);
+    }
   }
 
   loadCheckImg(color, moveDown = 0) {

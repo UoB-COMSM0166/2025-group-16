@@ -167,13 +167,18 @@ class Entity {
       }, Settings.entity.duration[Constants.EntityStatus.HIT]);
     }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
 
-    // change status of hit entities
+    // change status of died entities
     for (const entity of [
       ...hitEntities[Constants.EntityType.PLAYER],
       ...hitEntities[Constants.EntityType.ROBOT],
     ]) {
       if (this.canDie) {
         entity.status = Constants.EntityStatus.DIED;
+      }
+      // if entity is player, reset shape and color to showup as player
+      if (entity.type === Constants.EntityType.PLAYER) {
+        entity.shapeType = Constants.EntityType.PLAYER;
+        entity.color = entity?.originColor || entity.color;
       }
       onHitEntity(entity);
     }
