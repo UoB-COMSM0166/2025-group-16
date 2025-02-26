@@ -24,9 +24,9 @@ class Robot extends Entity {
 
   /** @override */
   draw() {
-    if (this.status === Constants.EntityStatus.DIED) return;
     super.draw();
 
+    if (this.status === Constants.EntityStatus.DIED) return;
     if (millis() > this.actionEndTime) this.move();
     this.action();
   }

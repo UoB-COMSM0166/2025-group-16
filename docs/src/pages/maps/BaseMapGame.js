@@ -93,13 +93,14 @@ class BaseMapGame extends BasePage {
   draw() {
     super.draw();
 
-    // if game is finished
-    this.players.forEach((player) => {
-      player.draw();
-    });
-    this.robots.forEach((robot) => {
-      robot.draw();
-    });
+    // draw dying entities first to show alive entities on the top
+    const sortedEntities = [...this.players, ...this.robots];
+    sortedEntities.sort(
+      (a, b) =>
+        (b.status === Constants.EntityStatus.DIED) -
+        (a.status === Constants.EntityStatus.DIED),
+    );
+    sortedEntities.forEach((entity) => entity.draw());
 
     //draw player list
     this.playerListUI.drawPlayerAvatars();

@@ -33,6 +33,8 @@ class Entity {
     this.frameIdx = 0;
     this.frameCtn = 0;
 
+    this.dyingFrameCtn = 0;
+
     if (params?.position) {
       this.x = params.position.x;
       this.y = params.position.y;
@@ -42,14 +44,44 @@ class Entity {
     }
   }
 
-  /** Draws the entity on the canvas. (To be overridden by subclasses) */
+  /**
+   * Handles the dying animation effect
+   * @returns {Object} Animation parameters for the dying effect
+   */
+  _checkDyingStatus() {
+    if (this.status !== Constants.EntityStatus.DIED)
+      return { dyingStatus: 'alive' };
+
+    if (this.dyingFrameCtn > Settings.entity.dyingFrameCtn)
+      return { dyingStatus: 'died' };
+
+    this.dyingFrameCtn++;
+    return {
+      dyingStatus: 'dying',
+      alpha: (this.dyingFrameCtn / 10) % 2 ? 150 : 255,
+    };
+  }
+
+  /**
+   * Draws the entity on the canvas. The drawing process includes:
+   * 1. Handle dying animation if entity is dead
+   * 2. Get current shape based on entity state
+   * 3. Apply visual effects (e.g. flicker when dying)
+   * 4. Draw the entity
+   */
   draw() {
-    if (this.status === Constants.EntityStatus.DIED) return;
+    const { dyingStatus, alpha } = this._checkDyingStatus();
+    if (dyingStatus === 'died') return;
 
     const currShape = this.getShape();
     if (currShape) {
       const { image: img, scaledWidth, scaledHeight } = currShape;
-      if (img) image(img, this.x, this.y, scaledWidth, scaledHeight);
+      if (img) {
+        push();
+        if (dyingStatus === 'dying') tint(255, alpha);
+        image(img, this.x, this.y, scaledWidth, scaledHeight);
+        pop();
+      }
     }
     this.isWalking = false;
   }
@@ -146,8 +178,12 @@ class Entity {
   }
 
   _getAnimationStatus() {
-    if (this.status === Constants.EntityStatus.HIT)
+    if (this.status === Constants.EntityStatus.DIED) {
+      return Constants.EntityAnimationStatus.IDLE;
+    }
+    if (this.status === Constants.EntityStatus.HIT) {
       return Constants.EntityAnimationStatus.ATTACK;
+    }
     return this.isWalking
       ? Constants.EntityAnimationStatus.WALK
       : Constants.EntityAnimationStatus.IDLE;
