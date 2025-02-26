@@ -14,8 +14,4 @@ const Controller = {
     Store._updateState({ currentPageKey: newPageKey });
     if (page.setup) page.setup();
   },
-
-  changeIsAllowSound(isAllowSound) {
-    Store._updateState({ isAllowSound });
-  },
 };

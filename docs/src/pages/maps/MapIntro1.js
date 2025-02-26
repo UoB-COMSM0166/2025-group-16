@@ -146,6 +146,7 @@ class MapIntro1 extends BaseMapIntro {
 
   /** @override */
   keyPressed() {
+    super.keyPressed();
     Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
   }
 }
