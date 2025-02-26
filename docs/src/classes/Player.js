@@ -13,11 +13,13 @@ class Player extends Entity {
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
    */
   constructor(params) {
+    const initColor =
+      params?.color || Object.values(Theme.palette.player)[params.idx];
     super({
       idx: params.idx,
       type: Constants.EntityType.PLAYER,
       shapeType: params?.shapeType || Constants.EntityType.PLAYER,
-      color: params?.color,
+      color: initColor,
       size: params?.size,
       position: params?.position,
       canDie: params?.canDie,
@@ -25,19 +27,18 @@ class Player extends Entity {
 
     this.controls = params.controls;
     this.isPaused = false;
+    this.originColor = initColor;
   }
 
   /** @override */
   draw() {
-    if (this.status === Constants.EntityStatus.DIED) return;
-
     super.draw();
-    if (!this.isPaused) {
-      Object.values(Constants.EntityMove).forEach((direction) => {
-        const key = this.controls[direction]?.value;
-        if (key !== undefined && keyIsDown(key)) super.move(direction);
-      });
-    }
+
+    if (this.status === Constants.EntityStatus.DIED || this.isPaused) return;
+    Object.values(Constants.EntityMove).forEach((direction) => {
+      const key = this.controls[direction]?.value;
+      if (key !== undefined && keyIsDown(key)) super.move(direction);
+    });
   }
 
   setPauseState(pauseState) {
@@ -54,7 +55,13 @@ class Player extends Entity {
       (hitControl.side === undefined || hitControl.side === event.location) &&
       this.status === Constants.EntityStatus.ALIVE
     ) {
-      this.hit(entities, onDie);
+      this.hit(entities, (entity) => {
+        if (entity.type === Constants.EntityType.PLAYER) {
+          entity.shapeType = Constants.EntityType.PLAYER;
+          entity.color = entity.originColor;
+        }
+        onDie(entity);
+      });
     }
   }
 

@@ -2,6 +2,7 @@ const Settings = Object.freeze({
   entity: Object.freeze({
     speed: 4,
     frameCtn: 25,
+    dyingFrameCtn: 200,
     duration: Object.freeze({
       [Constants.EntityStatus.HIT]: 500,
       [Constants.EntityStatus.COOLDOWN]: 1500,
