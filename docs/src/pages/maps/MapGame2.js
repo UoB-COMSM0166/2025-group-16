@@ -12,7 +12,8 @@ class MapGame2 extends BaseMapGame {
   draw() {
     super.draw();
 
-    // robots hit randomly
+    // robots hit randomly when there are more than 1 player alive
+    if (this.alivePlayerCtn <= 1) return;
     this.robots.forEach((robot) => {
       if (robot.status === Constants.EntityStatus.DIED) return;
 
