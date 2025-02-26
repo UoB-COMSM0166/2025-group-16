@@ -49,19 +49,14 @@ class Player extends Entity {
     if (this.status === Constants.EntityStatus.DIED) return;
 
     const hitControl = this.controls[Constants.Control.HIT];
+
     // when player press 'hit' while alive (not 'hit' or 'cooldown' status)
     if (
       keyCode === hitControl.value &&
       (hitControl.side === undefined || hitControl.side === event.location) &&
       this.status === Constants.EntityStatus.ALIVE
     ) {
-      this.hit(entities, (entity) => {
-        if (entity.type === Constants.EntityType.PLAYER) {
-          entity.shapeType = Constants.EntityType.PLAYER;
-          entity.color = entity.originColor;
-        }
-        onDie(entity);
-      });
+      this.hit(entities, onDie);
     }
   }
 
