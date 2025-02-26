@@ -35,6 +35,23 @@ class Button extends UIComponent {
     });
   }
 
+  getPosition() {
+    const position = { x: this.x, y: this.y };
+    if (this.align?.[0] === CENTER) {
+      position.x = this.x - this.width / 2;
+    } else if (this.align?.[0] === RIGHT) {
+      position.x = this.x - this.width;
+    }
+
+    if (this.align?.[1] === CENTER) {
+      position.y = this.y - this.height / 2;
+    } else if (this.align?.[1] === BOTTOM) {
+      position.y = this.y - this.height;
+    }
+
+    return position;
+  }
+
   draw() {
     push();
     if (this.disabled) {
@@ -44,20 +61,7 @@ class Button extends UIComponent {
       fill(this.isHovered ? this.hoverColor : this.color);
     }
 
-    const position = { x: this.x, y: this.y };
-
-    if (this.align?.[0] === CENTER) {
-      position.x = this.x - this.width / 2;
-    } else if (this.align?.[0] === RIGHT) {
-      position.x = this.x - this.height;
-    }
-
-    if (this.align?.[1] === CENTER) {
-      position.y = this.y - this.height / 2;
-    } else if (this.align?.[1] === BOTTOM) {
-      position.y = this.y - this.height;
-    }
-
+    const position = this.getPosition();
     rect(position.x, position.y, this.width, this.height, 10);
     this.text.draw({
       textAlign: [CENTER, CENTER],
@@ -68,12 +72,13 @@ class Button extends UIComponent {
   }
 
   isMouseOver() {
+    const position = this.getPosition();
     return (
       !this.disabled &&
-      mouseX > this.x &&
-      mouseX < this.x + this.width &&
-      mouseY > this.y &&
-      mouseY < this.y + this.height
+      mouseX > position.x &&
+      mouseX < position.x + this.width &&
+      mouseY > position.y &&
+      mouseY < position.y + this.height
     );
   }
 
