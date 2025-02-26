@@ -99,19 +99,6 @@ class Entity {
   }
 
   hit(entities, onHitEntity) {
-    this.status = Constants.EntityStatus.HIT;
-
-    // status change when hit: alive -> hit -> cooldown -> alive
-    setTimeout(() => {
-      this.status = Constants.EntityStatus.COOLDOWN;
-
-      setTimeout(() => {
-        if (this.status !== Constants.EntityStatus.DIED) {
-          this.status = Constants.EntityStatus.ALIVE;
-        }
-      }, Settings.entity.duration[Constants.EntityStatus.HIT]);
-    }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
-
     // check if hit any of entities
     const hitEntities = {
       [Constants.EntityType.PLAYER]: [],
@@ -125,7 +112,7 @@ class Entity {
       }
     }
 
-    // play sound based on hit entities
+    // play sound based on hit entities and play before animation to avoid delay
     if (hitEntities[Constants.EntityType.PLAYER].length) {
       Resources.sounds.entity.punch.sound?.play();
     } else if (hitEntities[Constants.EntityType.ROBOT].length) {
@@ -133,6 +120,18 @@ class Entity {
     } else {
       Resources.sounds.entity.whoosh.sound?.play();
     }
+
+    // status change when hit: alive -> hit -> cooldown -> alive
+    this.status = Constants.EntityStatus.HIT;
+    setTimeout(() => {
+      this.status = Constants.EntityStatus.COOLDOWN;
+
+      setTimeout(() => {
+        if (this.status !== Constants.EntityStatus.DIED) {
+          this.status = Constants.EntityStatus.ALIVE;
+        }
+      }, Settings.entity.duration[Constants.EntityStatus.HIT]);
+    }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
 
     // change status of hit entities
     for (const entity of [
