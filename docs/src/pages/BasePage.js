@@ -12,17 +12,13 @@ class BasePage {
     this.shapeType = params?.shapeType || Constants.EntityType.ROBOT;
   }
 
-  initBgm() {
-    this.bgm?.loop();
-  }
-
   /**
    * Called once when page is initialized.
    * Setup canvas and initialize page elements here.
    * @see https://p5js.org/reference/p5/setup/
    */
   setup() {
-    if (Store.getIsAllowSound()) this.initBgm();
+    this.bgm?.loop();
   }
 
   /**
@@ -84,10 +80,7 @@ class BasePage {
    * @see https://p5js.org/reference/p5/mousePressed/
    */
   mousePressed() {
-    if (!Store.getIsAllowSound()) {
-      Controller.changeIsAllowSound(true);
-      this.initBgm();
-    }
+    userStartAudio();
   }
 
   /**
@@ -102,10 +95,7 @@ class BasePage {
    * @see https://p5js.org/reference/p5/keyPressed/
    */
   keyPressed() {
-    if (!Store.getIsAllowSound()) {
-      Controller.changeIsAllowSound(true);
-      this.initBgm();
-    }
+    userStartAudio();
   }
 
   /**
