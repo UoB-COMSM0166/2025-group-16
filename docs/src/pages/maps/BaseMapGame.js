@@ -17,39 +17,27 @@ class BaseMapGame extends BasePage {
     this.playerParams = params.playerParams || {};
     this.robotParams = params.robotParams || {};
 
-    this.gameOverButton = null;
     this.gameOverText = null;
-
     this.playerListUI = null;
+
+    this.isWaitingForGameOver = false;
   }
 
   /** @override */
   setup() {
     super.setup();
-    this.gameOverButton = new Button({
-      x: width / 2,
-      y: (height / 4) * 3,
-      width: 400,
-      height: 100,
-      action: () =>
-        Controller.changePage(new Results(), Constants.Page.RESULTS),
-      color: Theme.palette.darkBlue,
-      hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
-      align: [CENTER, TOP],
-      textParams: {
-        label: 'Finish',
-        textSize: Theme.text.fontSize.medium,
-      },
-    });
 
     this.gameOverText = new Text({
       label: '',
       x: width / 2,
-      y: (height / 7) * 3,
+      y: height / 2,
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.large,
       textStyle: BOLD,
+      stroke: Theme.palette.text.primary,
+      strokeWeight: 1,
       textAlign: [CENTER, CENTER],
+      textFont: 'Press Start 2P',
     });
 
     // initialize players
@@ -116,7 +104,12 @@ class BaseMapGame extends BasePage {
       this.gameOverText?.draw({
         label: `Winner is player ${alivePlayer.idx + 1}`,
       });
-      this.gameOverButton?.draw();
+
+      if (this.isWaitingForGameOver) return;
+      this.isWaitingForGameOver = true;
+      window.setTimeout(() => {
+        Controller.changePage(new Results(), Constants.Page.RESULTS);
+      }, 3000);
     }
   }
 
@@ -135,11 +128,5 @@ class BaseMapGame extends BasePage {
         },
       );
     });
-  }
-
-  /** @override */
-  mousePressed() {
-    super.mousePressed();
-    this.gameOverButton?.mousePressed();
   }
 }
