@@ -22,6 +22,8 @@ const _ASSET_PATHS = {
       areYouARobot: `${_BASE_PATH}assets/images/welcomepage/text_areyouarobot.svg`,
       textOkP1: `${_BASE_PATH}assets/images/welcomepage/text_ok_p1.svg`,
       textOkP2: `${_BASE_PATH}assets/images/welcomepage/text_ok_p2.svg`,
+      keyboardP1: `${_BASE_PATH}assets/images/welcomepage/icon_keyboard_p1.svg`,
+      keyboardP2: `${_BASE_PATH}assets/images/welcomepage/icon_keyboard_p2.svg`,
     },
     map: {
       game1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
