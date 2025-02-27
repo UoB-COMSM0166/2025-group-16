@@ -14,4 +14,24 @@ const Controller = {
     Store._updateState({ currentPageKey: newPageKey });
     if (page.setup) page.setup();
   },
+
+  addPlayerScore(playerIdx, addedScore) {
+    const newPlayers = Store.getPlayers();
+    newPlayers[playerIdx].score += addedScore;
+    Store._updateState(newPlayers);
+  },
+
+  subtractPlayerScore(playerIdx, subtractedScore) {
+    const newPlayers = Store.getPlayers();
+    newPlayers[playerIdx].score -= subtractedScore;
+    Store._updateState(newPlayers);
+  },
+
+  resetPlayersScore() {
+    const newPlayers = Store.getPlayers();
+    newPlayers.forEach((player) => {
+      player.score = 0;
+    });
+    Store._updateState(newPlayers);
+  },
 };

@@ -10,7 +10,10 @@ const Store = (function () {
     currentPage: null,
     currentPageKey: '',
     playerNumber: 2,
-    players: [{ name: 'A' }, { name: 'B' }],
+    players: [
+      { name: 'A', score: 0 },
+      { name: 'B', score: 0 },
+    ],
   };
 
   return {
@@ -29,6 +32,10 @@ const Store = (function () {
 
     getPlayerNumber() {
       return _state.playerNumber;
+    },
+
+    getPlayers() {
+      return _state.players;
     },
   };
 })();

@@ -48,6 +48,7 @@ const Theme = Object.freeze({
       medium: 32,
       large: 48,
       title: 72,
+      largeTitle: 100,
     }),
   }),
 });

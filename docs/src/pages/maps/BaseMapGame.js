@@ -105,8 +105,10 @@ class BaseMapGame extends BasePage {
         label: `Winner is player ${alivePlayer.idx + 1}`,
       });
 
+      // show winner text for 3 seconds, and add score to the winner
       if (this.isWaitingForGameOver) return;
       this.isWaitingForGameOver = true;
+      Controller.addPlayerScore(alivePlayer.idx, 1);
       window.setTimeout(() => {
         Controller.changePage(new Results(), Constants.Page.RESULTS);
       }, 3000);

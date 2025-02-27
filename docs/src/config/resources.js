@@ -10,6 +10,7 @@ const _BASE_PATH = window.location.hostname.includes('github.io')
 const _ASSET_PATHS = {
   images: {
     entity: `${_BASE_PATH}assets/images/entity/`,
+    playerLose: `${_BASE_PATH}assets/images/entity/player_lose.svg`,
     playerlist: `${_BASE_PATH}assets/images/welcomepage/player_avatar.svg`,
     welcomepage: {
       background: `${_BASE_PATH}assets/images/welcomepage/background_welcomepage.png`,
@@ -113,6 +114,16 @@ const _entityResources = Object.fromEntries(
   ]),
 );
 
+const _playerLoseResources = Object.fromEntries(
+  Object.values(Theme.palette.player).map((fill) => [
+    fill,
+    new SVGImage(_ASSET_PATHS.images.playerLose, {
+      scale: _entityBaseScale,
+      fill,
+    }),
+  ]),
+);
+
 /* Main Resources */
 /**
  * Please find the reference structure below:
@@ -138,6 +149,10 @@ const _entityResources = Object.fromEntries(
  *        },
  *       [Constants.EntityType.Robot]: {...},
  *     }
+ *     playerLose: {
+ *       [Constants.palette.player[0]]: SVGImage,
+ *       [Constants.palette.player[1]]: SVGImage,
+ *     },
  *     welcome:{},
  *     map: {},
  *     playerlist: [p1_avatar, p2_avatar, ...],
@@ -159,6 +174,7 @@ const _welomepageResources = Object.fromEntries(
 const Resources = {
   images: {
     entity: _entityResources,
+    playerLose: _playerLoseResources,
     welcome: _welomepageResources,
     map: {
       game1: new Img(_ASSET_PATHS.images.map.game1),
