@@ -34,11 +34,7 @@ const Settings = Object.freeze({
         [Constants.Control.RIGHT]: { value: 39, name: 'Right Arrow' },
         [Constants.Control.UP]: { value: 38, name: 'Up Arrow' },
         [Constants.Control.DOWN]: { value: 40, name: 'Down Arrow' },
-        [Constants.Control.HIT]: {
-          value: 16,
-          name: 'Shift',
-          side: KeyboardEvent.DOM_KEY_LOCATION_RIGHT,
-        },
+        [Constants.Control.HIT]: { value: 191, name: '?' },
       }),
     }),
   ],
