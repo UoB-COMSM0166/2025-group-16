@@ -10,7 +10,6 @@ class Welcome extends BasePage {
     this.debugMode = false;
     this.countdown = 3;
     this.isCountingDown = false;
-
     this.title = null;
     this.showComeHere = true;
     this.comehere = null;
@@ -20,8 +19,8 @@ class Welcome extends BasePage {
     this.checkiconP1 = null;
     this.checkiconP2 = null;
     this.introBox = { x: 20, y: 350, w: 400, h: 150 };
-    this.delay = 0;
-    this.pauseGame = false;
+    this.keyBoard_p1 = null;
+    this.keyBoard_p2 = null;
   }
 
   /** @override */
@@ -38,6 +37,8 @@ class Welcome extends BasePage {
     this.textOkP1 = Resources.images.welcome.textOkP1;
     this.textOkP2 = Resources.images.welcome.textOkP2;
     this.introText = this.createIntroText(this.introBox);
+    this.keyBoard_p1 = Resources.images.welcome.keyboardP1;
+    this.keyBoard_p2 = Resources.images.welcome.keyboardP2;
 
     this.startButton = new Button({
       x: width / 2,
@@ -70,14 +71,6 @@ class Welcome extends BasePage {
       const newPlayer = new Player(createPlayer);
       this.players.push(newPlayer);
     }
-
-    //delay the intro
-    this.welcomeIntro = new WelcomeIntro();
-    setTimeout(() => {
-      this.welcomeIntro.showWelcomeIntro();
-      this.pauseGame = true;
-      this.players.forEach((player) => player.setPauseState(true));
-    }, this.delay);
   }
 
   /** @override */
@@ -107,12 +100,35 @@ class Welcome extends BasePage {
 
     this.drawComeHere();
 
-    this.drawIntroStroke(this.introBox);
-    this.introText.p1.draw();
-    this.introText.p2.draw();
+    //this.drawIntroStroke(this.introBox);
+    //this.introText.p1.draw();
+    //this.introText.p2.draw();
 
     // default text status
     let statusImage = new Array(this.players.length).fill(this.areYouARobot);
+
+    
+    if (this.keyBoard_p1) {
+      imageMode(CENTER);
+      image(
+        this.keyBoard_p1.image,
+        width / 10,
+        height - 80 ,
+        this.keyBoard_p1.width * 1.5,
+        this.keyBoard_p1.height * 1.5,
+      );
+    }
+
+    if (this.keyBoard_p2) {
+      imageMode(CENTER);
+      image(
+        this.keyBoard_p2.image,
+        width / 10 * 9,
+        height - 80 ,
+        this.keyBoard_p2.width * 1.5,
+        this.keyBoard_p2.height * 1.5,
+      );
+    }
 
     this.players.forEach((player, idx) => {
       if (this.checkPlayersInStartArea(player)) {
@@ -140,7 +156,6 @@ class Welcome extends BasePage {
         this.loadCheckImg(player.color, moveDown);
       }
     });
-    this.welcomeIntro.draw();
 
     if (this.isCountingDown && this.countdown > 0) {
       const timerText = new Text({
@@ -156,16 +171,12 @@ class Welcome extends BasePage {
 
       timerText.draw();
     }
+
   }
 
   /** @override */
   keyPressed() {
     super.keyPressed();
-    if (this.welcomeIntro.maskIsVisible && keyCode) {
-      this.welcomeIntro.hideWelcomeIntro();
-      this.pauseGame = false;
-      this.players.forEach((player) => player.setPauseState(false));
-    }
     this.players.forEach((player) => {
       player.keyPressed(event, [...this.players]);
     });
