@@ -19,7 +19,7 @@ class Welcome extends BasePage {
     this.introText = null;
     this.checkiconP1 = null;
     this.checkiconP2 = null;
-    this.introBox = { x: 20, y: 350, w: 430, h: 150 };
+    this.introBox = { x: 20, y: 350, w: 400, h: 150 };
     this.delay = 0;
     this.pauseGame = false;
   }
@@ -243,7 +243,7 @@ class Welcome extends BasePage {
     const p2 = new Text({
       x: position.x + 10,
       y: position.y + 80,
-      label: 'Player 2: [↑ ← ↓ →] Attack: [Shift]',
+      label: 'Player 2: [↑ ← ↓ →] Attack: [?]',
       textAlign: [LEFT, CENTER],
       textSize: Theme.text.fontSize.small,
       color: Theme.palette.black,

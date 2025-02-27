@@ -116,19 +116,15 @@ class BaseMapGame extends BasePage {
   }
 
   /** @override */
-  keyPressed(event) {
+  keyPressed() {
     super.keyPressed();
     this.players.forEach((player) => {
       if (player.status === Constants.EntityStatus.DIED) return;
-      player.keyPressed(
-        event,
-        [...this.robots, ...this.players],
-        (diedEntity) => {
-          if (diedEntity.type === Constants.EntityType.PLAYER) {
-            this.alivePlayerCtn--;
-          }
-        },
-      );
+      player.keyPressed([...this.robots, ...this.players], (diedEntity) => {
+        if (diedEntity.type === Constants.EntityType.PLAYER) {
+          this.alivePlayerCtn--;
+        }
+      });
     });
   }
 }
