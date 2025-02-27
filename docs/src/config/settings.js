@@ -13,6 +13,10 @@ const Settings = Object.freeze({
       [Constants.EntitySize.L]: 1,
       [Constants.EntitySize.XL]: 2,
     }),
+    baseSize: Object.freeze({
+      height: 32 * 5,
+      width: 28 * 5,
+    }),
   }),
   players: [
     Object.freeze({

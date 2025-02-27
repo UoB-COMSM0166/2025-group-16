@@ -12,6 +12,9 @@ class Entity {
    * @param {typeof Theme.palette.player[keyof typeof Theme.palette.player]} [params.color] - Optional. Only applicable for players.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the entity.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
+   * @param {{ x: number, y: number, width: number, height: number }} [params.positionBoundary] - Optional. If provided and no `position`, will be randomly placed within the boundary.
+   * @param {{ x: number, y: number, width: number, height: number }} [params.randomPositionArea] - Optional. If provided, the entity will be placed within the area.
+   * @param {number} [params.randomPositionPadding] - Optional. If provided, the entity will be placed within the area with a padding.
    * @param {boolean} params.canDie - Setting if the entity would die after hitting. default is true
    */
   constructor(params) {
@@ -34,14 +37,52 @@ class Entity {
     this.frameCtn = 0;
 
     this.dyingFrameCtn = 0;
+    this.positionBoundary = params?.positionBoundary || {
+      x: 0,
+      y: 0,
+      width: Settings.canvas.width,
+      height: Settings.canvas.height,
+    };
 
+    // sets the initial position
     if (params?.position) {
       this.x = params.position.x;
       this.y = params.position.y;
     } else {
-      this.x = Math.random() * (width - initPadding);
-      this.y = Math.random() * (height - initPadding);
+      const initArea = params?.randomPositionArea || this.positionBoundary;
+      const initPadding =
+        Settings.entity.baseSize.height * Settings.entity.scale[this.size] +
+        (params?.randomPositionPadding || 0);
+      this.x =
+        Math.random() * (initArea.width - initPadding) +
+        initArea.x +
+        initPadding / 2;
+      this.y =
+        Math.random() * (initArea.height - initPadding) +
+        initArea.y +
+        initPadding / 2;
     }
+  }
+
+  /**
+   * Draws the entity on the canvas
+   */
+  draw() {
+    const { dyingStatus, alpha } = this._checkDyingStatus();
+    if (dyingStatus === 'died') return;
+
+    const currShape = this.getShape();
+    if (currShape) {
+      const { image: img, scaledWidth, scaledHeight } = currShape;
+      if (img) {
+        push();
+        imageMode(CENTER);
+        if (dyingStatus === 'dying') tint(255, alpha);
+        image(img, this.x, this.y, scaledWidth, scaledHeight);
+        pop();
+      }
+    }
+    this.isWalking = false;
   }
 
   /**
@@ -63,32 +104,9 @@ class Entity {
   }
 
   /**
-   * Draws the entity on the canvas. The drawing process includes:
-   * 1. Handle dying animation if entity is dead
-   * 2. Get current shape based on entity state
-   * 3. Apply visual effects (e.g. flicker when dying)
-   * 4. Draw the entity
-   */
-  draw() {
-    const { dyingStatus, alpha } = this._checkDyingStatus();
-    if (dyingStatus === 'died') return;
-
-    const currShape = this.getShape();
-    if (currShape) {
-      const { image: img, scaledWidth, scaledHeight } = currShape;
-      if (img) {
-        push();
-        if (dyingStatus === 'dying') tint(255, alpha);
-        image(img, this.x, this.y, scaledWidth, scaledHeight);
-        pop();
-      }
-    }
-    this.isWalking = false;
-  }
-
-  /**
-   * Moves the entity.
-   * @param {keyof typeof Constants.EntityMove} direction - Move direction, get the direction from `Constants.EntityMove.xxx`.
+   * Updates entity position based on movement direction while respecting boundaries
+   * @param {keyof typeof Constants.EntityMove} direction - Target movement direction
+   * @returns {boolean} True if entity reached a boundary after movement
    */
   move(direction) {
     if (
@@ -101,50 +119,79 @@ class Entity {
     this.isWalking = true;
     this.direction = direction;
     const shape = this.getShape();
-    const shapeWidth = shape.scaledWidth;
-    const shapeHeight = shape.scaledHeight;
-    switch (direction) {
-      case Constants.EntityMove.UP: {
-        this.y = Math.max(this.y - this.speed, 0);
-        break;
-      }
-      case Constants.EntityMove.DOWN: {
-        this.y = Math.min(this.y + this.speed, height - shapeHeight);
-        break;
-      }
-      case Constants.EntityMove.LEFT: {
-        this.x = Math.max(this.x - this.speed, 0);
-        break;
-      }
-      case Constants.EntityMove.RIGHT: {
-        this.x = Math.min(this.x + this.speed, width - shapeWidth);
-        break;
-      }
-    }
+    const { scaledWidth: entityWidth, scaledHeight: entityHeight } = shape;
 
-    const isAtEdge = // TODO: haven't resolve
-      this.x <= 0 ||
-      this.x + shapeWidth >= width ||
-      this.y <= 0 ||
-      this.y + shapeHeight >= height;
-    return isAtEdge;
+    const moveActions = {
+      [Constants.EntityMove.UP]: () => {
+        this.y = Math.max(
+          this.y - this.speed,
+          this.positionBoundary.y + entityHeight / 2,
+        );
+      },
+      [Constants.EntityMove.DOWN]: () => {
+        this.y = Math.min(
+          this.y + this.speed,
+          this.positionBoundary.y +
+            this.positionBoundary.height -
+            entityHeight / 2,
+        );
+      },
+      [Constants.EntityMove.LEFT]: () => {
+        this.x = Math.max(
+          this.x - this.speed,
+          this.positionBoundary.x + entityWidth / 2,
+        );
+      },
+      [Constants.EntityMove.RIGHT]: () => {
+        this.x = Math.min(
+          this.x + this.speed,
+          this.positionBoundary.x +
+            this.positionBoundary.width -
+            entityWidth / 2,
+        );
+      },
+    };
+
+    moveActions[direction]();
+
+    const isAtBoundary = checkOutOfBoundary(
+      { x: this.x, y: this.y, width: entityWidth, height: entityHeight },
+      this.positionBoundary,
+    );
+    return isAtBoundary;
   }
 
+  /**
+   * Processes collision detection and handles hit effects
+   * @param {Entity[]} entities - List of potential collision entities
+   * @param {(hitEntity: Entity) => void} onHitEntity - Callback for hit entity processing
+   */
   hit(entities, onHitEntity) {
-    // check if hit any of entities
+    const hitEntities = this._checkCollisions(entities);
+    this._playHitSound(hitEntities);
+    this._updateHitStatus();
+    this._handleHitEntities(hitEntities, onHitEntity);
+  }
+
+  _checkCollisions(entities) {
     const hitEntities = {
       [Constants.EntityType.PLAYER]: [],
       [Constants.EntityType.ROBOT]: [],
     };
-    for (const entity of entities) {
+
+    entities.forEach((entity) => {
       const isMe = entity.type === this.type && entity.idx === this.idx;
       if (!isMe && entity.status !== Constants.EntityStatus.DIED) {
-        const isKnockedDown = checkKnockedDown(this, entity);
-        if (isKnockedDown) hitEntities[entity.type].push(entity);
+        if (checkKnockedDown(this, entity)) {
+          hitEntities[entity.type].push(entity);
+        }
       }
-    }
+    });
 
-    // play sound based on hit entities and play before animation to avoid delay
+    return hitEntities;
+  }
+
+  _playHitSound(hitEntities) {
     if (hitEntities[Constants.EntityType.PLAYER].length) {
       Resources.sounds.entity.punch.sound?.play();
     } else if (hitEntities[Constants.EntityType.ROBOT].length) {
@@ -152,8 +199,9 @@ class Entity {
     } else {
       Resources.sounds.entity.whoosh.sound?.play();
     }
+  }
 
-    // status change when hit: alive -> hit -> cooldown -> alive
+  _updateHitStatus() {
     this.status = Constants.EntityStatus.HIT;
     this.frameCtn = 0; // reset frame count and index in preparation of attack animation
     this.frameIdx = 1;
@@ -166,36 +214,34 @@ class Entity {
         }
       }, Settings.entity.duration[Constants.EntityStatus.HIT]);
     }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
+  }
 
-    // change status of died entities
+  _handleHitEntities(hitEntities, onHitEntity) {
     for (const entity of [
       ...hitEntities[Constants.EntityType.PLAYER],
       ...hitEntities[Constants.EntityType.ROBOT],
     ]) {
-      if (this.canDie) {
-        entity.status = Constants.EntityStatus.DIED;
-      }
-      // if entity is player, reset shape and color to showup as player
-      if (entity.type === Constants.EntityType.PLAYER) {
-        entity.shapeType = Constants.EntityType.PLAYER;
-        entity.color = entity?.originColor || entity.color;
-      }
+      entity.die();
       onHitEntity(entity);
     }
   }
 
-  _getAnimationStatus() {
-    if (this.status === Constants.EntityStatus.DIED) {
-      return Constants.EntityAnimationStatus.IDLE;
+  /**
+   * Handles death state of the entity.
+   * If entity is a player, restores original appearance
+   */
+  die() {
+    if (!this.canDie) return;
+
+    this.status = Constants.EntityStatus.DIED;
+    // if entity is player, reset shape and color to showup as player
+    if (this.type === Constants.EntityType.PLAYER) {
+      this.shapeType = Constants.EntityType.PLAYER;
+      this.color = this?.originColor || this.color;
     }
-    if (this.status === Constants.EntityStatus.HIT) {
-      return Constants.EntityAnimationStatus.ATTACK;
-    }
-    return this.isWalking
-      ? Constants.EntityAnimationStatus.WALK
-      : Constants.EntityAnimationStatus.IDLE;
   }
 
+  /*** getShape ***/
   getShape() {
     const aniStatus = this._getAnimationStatus();
 
@@ -225,7 +271,16 @@ class Entity {
 
     if (targetShape) return targetShape;
   }
-}
 
-// TODO: change to better way
-const initPadding = 100;
+  _getAnimationStatus() {
+    if (this.status === Constants.EntityStatus.DIED) {
+      return Constants.EntityAnimationStatus.IDLE;
+    }
+    if (this.status === Constants.EntityStatus.HIT) {
+      return Constants.EntityAnimationStatus.ATTACK;
+    }
+    return this.isWalking
+      ? Constants.EntityAnimationStatus.WALK
+      : Constants.EntityAnimationStatus.IDLE;
+  }
+}

@@ -8,6 +8,9 @@ class Robot extends Entity {
    * @param {number} params.idx - The index of the robot in robots.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the player.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
+   * @param {{ x: number, y: number, width: number, height: number }} [params.positionBoundary] - Optional. If provided and no `position`, will be randomly placed within the boundary.
+   * @param {{ x: number, y: number, width: number, height: number }} [params.randomPositionArea] - Optional. If provided, the entity will be placed within the area.
+   * @param {number} [params.randomPositionPadding] - Optional. If provided, the entity will be placed within the positionBoundary with a padding.
    */
   constructor(params) {
     super({
@@ -16,6 +19,9 @@ class Robot extends Entity {
       shapeType: Constants.EntityType.ROBOT,
       size: params?.size,
       position: params?.position,
+      positionBoundary: params?.positionBoundary,
+      randomPositionPadding: params?.randomPositionPadding,
+      randomPositionArea: params?.randomPositionArea,
     });
 
     this.action = () => {};
@@ -41,8 +47,8 @@ class Robot extends Entity {
 
     this.action = () => {
       moveDirections[type]?.forEach((dir) => {
-        const isAtEdge = super.move(dir);
-        if (isAtEdge) {
+        const isAtBoundary = super.move(dir);
+        if (isAtBoundary) {
           this.actionEndTime = 0;
         }
       });

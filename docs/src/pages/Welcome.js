@@ -177,6 +177,9 @@ class Welcome extends BasePage {
     } else if (keyCode === 50) {
       // 2
       Controller.changePage(new MapGame2(), Constants.Page.MAP_GAME_2);
+    } else if (keyCode === 51) {
+      // 3
+      Controller.changePage(new MapGame3(), Constants.Page.MAP_GAME_3);
     }
   }
 
