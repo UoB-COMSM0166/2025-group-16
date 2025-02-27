@@ -7,9 +7,8 @@ class Results extends BasePage {
 
     this.gameOverText = null;
     this.backHint = null;
-    this.winText = this.playerSettings = [];
 
-    this.showLostImgTime = millis() + 1000;
+    this.showLoseImgTime = millis() + 1000;
     this.showBackHintTime = millis() + 1500;
 
     this.winner = { idx: null, score: 0 };
@@ -38,15 +37,6 @@ class Results extends BasePage {
       y: height / 3 + 132,
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.small,
-      textAlign: [CENTER, CENTER],
-      textFont: 'Press Start 2P',
-    });
-
-    this.winText = new Text({
-      label: 'You \nWin!',
-      color: Theme.palette.yellow,
-      textSize: Theme.text.fontSize.small,
-      textStyle: BOLD,
       textAlign: [CENTER, CENTER],
       textFont: 'Press Start 2P',
     });
@@ -87,23 +77,56 @@ class Results extends BasePage {
     this.gameOverText?.draw();
 
     const scale = Settings.entity.scale[Constants.EntitySize.L];
-    this.playerSettings.forEach(({ resource, loseResource, x, y }, idx) => {
-      push();
-      imageMode(CENTER);
-      const img =
-        idx === this.winner.idx || millis() < this.showLostImgTime
-          ? resource
-          : loseResource;
-      image(img.image, x, y, img.width * scale, img.height * scale);
-      pop();
-
-      if (idx === this.winner.idx) this.winText?.draw({ x, y: y - 128 });
+    const isShowingLoseImage = millis() < this.showLostImgTime;
+    this.playerSettings.forEach((player, idx) => {
+      this._drawPlayerImage(player, idx, scale, isShowingLoseImage);
+      if (idx === this.winner.idx) this._drawConfetti(player.x, player.y - 32);
     });
 
     // check is after showBackHintTime and make it flicker
-    if (millis() > this.showBackHintTime && Math.floor(millis() / 1000) % 2) {
+    const timeSinceHint = millis() - this.showBackHintTime;
+    if (timeSinceHint && Math.floor(timeSinceHint / 1000) % 2) {
       this.backHint?.draw();
     }
+  }
+
+  _drawPlayerImage(
+    { resource, loseResource, x, y },
+    index,
+    scale,
+    isShowingLoseImage,
+  ) {
+    const isWinner = index === this.winner.idx;
+    const imageResource =
+      isWinner || isShowingLoseImage ? resource : loseResource;
+
+    push();
+    imageMode(CENTER);
+    image(
+      imageResource.image,
+      x,
+      y,
+      imageResource.width * scale,
+      imageResource.height * scale,
+    );
+    pop();
+  }
+
+  _drawConfetti(x, y) {
+    const confettiImg = Resources.images.resultsPage.confetti;
+    const scale = 3;
+    const confettiWidth = confettiImg.image.width * scale;
+    const confettiHeight = confettiImg.image.height * scale;
+    const clipHeight = 72 * scale;
+
+    push();
+    clip(() => {
+      rectMode(CENTER);
+      rect(x, y, confettiWidth, clipHeight);
+    });
+    imageMode(CENTER);
+    image(confettiImg?.image, x, y, confettiWidth, confettiHeight);
+    pop();
   }
 
   /** @override */

@@ -25,6 +25,9 @@ const _ASSET_PATHS = {
       keyboardP1: `${_BASE_PATH}assets/images/welcomepage/icon_keyboard_p1.svg`,
       keyboardP2: `${_BASE_PATH}assets/images/welcomepage/icon_keyboard_p2.svg`,
     },
+    resultsPage: {
+      confetti: `${_BASE_PATH}assets/images/results/confetti.gif`,
+    },
     map: {
       game1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
     },
@@ -178,6 +181,9 @@ const Resources = {
     entity: _entityResources,
     playerLose: _playerLoseResources,
     welcome: _welomepageResources,
+    resultsPage: {
+      confetti: new Img(_ASSET_PATHS.images.resultsPage.confetti),
+    },
     map: {
       game1: new Img(_ASSET_PATHS.images.map.game1),
     },
