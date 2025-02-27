@@ -11,6 +11,9 @@ class Player extends Entity {
    * @param {typeof Theme.palette.player[keyof typeof Theme.palette.player]} [params.color] - Optional. The color of the player.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the player.
    * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
+   * @param {{ x: number, y: number, width: number, height: number }} [params.positionBoundary] - Optional. If provided and no `position`, will be randomly placed within the boundary.
+   * @param {{ x: number, y: number, width: number, height: number }} [params.randomPositionArea] - Optional. If provided, the entity will be placed within the area.
+   * @param {number} [params.randomPositionPadding] - Optional. If provided, the entity will be placed within the area with a padding.
    */
   constructor(params) {
     const initColor =
@@ -23,6 +26,9 @@ class Player extends Entity {
       size: params?.size,
       position: params?.position,
       canDie: params?.canDie,
+      positionBoundary: params?.positionBoundary,
+      randomPositionPadding: params?.randomPositionPadding,
+      randomPositionArea: params?.randomPositionArea,
     });
 
     this.controls = params.controls;

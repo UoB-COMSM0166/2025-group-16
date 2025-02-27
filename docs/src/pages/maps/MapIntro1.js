@@ -35,8 +35,8 @@ class MapIntro1 extends BaseMapIntro {
       size: Constants.EntitySize.XL,
       color: Theme.palette.player.blue,
       position: {
-        x: 100,
-        y: height - 400,
+        x: 240,
+        y: height - 240,
       },
     });
 
@@ -88,7 +88,15 @@ class MapIntro1 extends BaseMapIntro {
       textSize(18);
       textStyle(BOLD);
       textAlign(CENTER, CENTER);
-      text('ROBOT', robot.x + 50, robot.y + 130);
+      text(
+        'ROBOT',
+        robot.x,
+        robot.y +
+          (Settings.entity.baseSize.height *
+            Settings.entity.scale[robot.size]) /
+            2 +
+          32,
+      );
       pop();
     });
 
