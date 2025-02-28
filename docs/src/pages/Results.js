@@ -77,7 +77,7 @@ class Results extends BasePage {
     this.gameOverText?.draw();
 
     const scale = Settings.entity.scale[Constants.EntitySize.L];
-    const isShowingLoseImage = millis() < this.showLostImgTime;
+    const isShowingLoseImage = millis() > this.showLoseImgTime;
     this.playerSettings.forEach((player, idx) => {
       this._drawPlayerImage(player, idx, scale, isShowingLoseImage);
       if (idx === this.winner.idx) this._drawConfetti(player.x, player.y - 32);
@@ -98,7 +98,7 @@ class Results extends BasePage {
   ) {
     const isWinner = index === this.winner.idx;
     const imageResource =
-      isWinner || isShowingLoseImage ? resource : loseResource;
+      isWinner || !isShowingLoseImage ? resource : loseResource;
 
     push();
     imageMode(CENTER);
