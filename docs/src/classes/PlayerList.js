@@ -5,58 +5,78 @@ class PlayerList extends UIComponent {
   /**
    * @param {Object} [params] - The parameter for the player list.
    * @param {string} [params.label] - The text content to display.
-   * @param {boolean} [params.isDrawPlayerColor] - The text will draw player color if true, default black.
    * @param {number | string} [params.textSize] - The font size to set for the text.
+   * @param {boolean} [params.isShadow] - The text shadow.
    */
   constructor(params) {
     super({ x: params?.x || 0, y: params?.y || 0 });
 
     this.label = params?.label || '';
     this.textSize = params?.textSize;
-    this.drawColor = params?.isDrawPlayerColor
-      ? Object.values(Theme.palette.player)
-      : Theme.palette.black;
+    this.isShadow = params?.isShadow || false;
+    this.playerAvatars = [];
+    this.statusTexts = []; //store players status in order.
+    const numPlayers = Object.keys(Resources.images.playerlist).length;
+    for (let i = 0; i < numPlayers; i++) {
+      this.playerAvatars.push(Resources.images.playerlist[i]);
+      this.statusTexts.push({
+        text: this.label,
+        color: Theme.palette.black,
+        textSize: this.textSize,
+        isShadow: this.isShadow,
+      });
+    }
   }
 
   drawPlayerAvatars() {
     const numPlayers = Object.keys(Resources.images.playerlist).length;
-    const spacing = width / (numPlayers + 1);
+    const spacing = width / (numPlayers + 1) - 10;
     for (let i = 0; i < numPlayers; i++) {
-      const playerAvatar = Resources.images.playerlist[i];
-      const avatarSize = playerAvatar.width;
-      const xPos = spacing * (i + 1) - avatarSize / 2 - 50;
+      this.playerAvatars.push(Resources.images.playerlist[i]);
+      const avatarSize = this.playerAvatars[i].width;
+      const xPos = spacing * (i + 1) - avatarSize / 2 - 60;
       const yPos = height - avatarSize + 50;
 
-      if (playerAvatar?.image) {
+      if (this.playerAvatars[i]?.image) {
         imageMode(CENTER);
         image(
-          playerAvatar.image,
+          this.playerAvatars[i].image,
           xPos,
           yPos,
-          playerAvatar.width,
-          playerAvatar.height,
+          this.playerAvatars[i].width,
+          this.playerAvatars[i].height,
         );
 
         let textXPos = xPos + avatarSize / 2 + 10;
         let textYPos = yPos + avatarSize / 2 - 70;
-        let color =
-          typeof this.drawColor === 'string'
-            ? this.drawColor
-            : this.drawColor[i];
+
+        let { text, color, textSize, isShadow } = this.statusTexts[i];
         if (this?.label) {
-          const text = new Text({
+          const statusText = new Text({
             x: textXPos,
             y: textYPos,
-            label: this.label,
+            label: text,
             textAlign: [LEFT, CENTER],
-            textSize: this.textSize,
+            textSize: textSize,
             textFont: 'Press Start 2P',
             color: color,
-            maxWidth: spacing - avatarSize - 10,
+            maxWidth: spacing - avatarSize,
+            isShadow: isShadow,
           });
-          text.draw();
+          statusText.draw();
         }
       }
+    }
+  }
+
+  updateStatus({ playerIdx, newStatus, textSize, color, isShadow }) {
+    if (playerIdx >= 0 && playerIdx < this.statusTexts.length) {
+      const update = {};
+      if (newStatus) update.text = newStatus;
+      if (textSize) update.textSize = textSize;
+      if (color) update.color = color;
+      if (typeof isShadow == 'boolean') update.isShadow = isShadow;
+      this.statusTexts[playerIdx] = update;
     }
   }
 }

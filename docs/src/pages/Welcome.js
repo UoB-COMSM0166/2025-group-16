@@ -33,9 +33,12 @@ class Welcome extends BasePage {
     this.gameStartArea.y = height / 2;
     this.checkiconP1 = Resources.images.welcome.checkiconp1;
     this.checkiconP2 = Resources.images.welcome.checkiconp2;
-    this.areYouARobot = Resources.images.welcome.areYouARobot;
-    this.textOkP1 = Resources.images.welcome.textOkP1;
-    this.textOkP2 = Resources.images.welcome.textOkP2;
+    // init player list status
+    this.playerList = new PlayerList({
+      label: 'Are you a robot?',
+      textSize: Theme.text.fontSize.medium,
+    });
+
     this.introText = this.createIntroText(this.introBox);
     this.keyBoard_p1 = Resources.images.welcome.keyboardP1;
     this.keyBoard_p2 = Resources.images.welcome.keyboardP2;
@@ -105,9 +108,6 @@ class Welcome extends BasePage {
     //this.introText.p1.draw();
     //this.introText.p2.draw();
 
-    // default text status
-    let statusImage = new Array(this.players.length).fill(this.areYouARobot);
-
     if (this.keyBoard_p1) {
       imageMode(CENTER);
       image(
@@ -129,12 +129,31 @@ class Welcome extends BasePage {
         this.keyBoard_p2.height * 1.5,
       );
     }
+    // draw initialize playerList status
+    this.playerList.drawPlayerAvatars();
 
+    // update playerList status
     this.players.forEach((player, idx) => {
       if (this.checkPlayersInStartArea(player)) {
-        statusImage[idx] = idx === 0 ? this.textOkP1 : this.textOkP2;
+        this.playerList.updateStatus({
+          playerIdx: idx,
+          newStatus: 'OK',
+          textSize: Theme.text.fontSize.large,
+          color: Object.values(Theme.palette.player)[idx],
+          isShadow: true,
+        });
+      } else {
+        this.playerList.updateStatus({
+          playerIdx: idx,
+          newStatus: 'Are you a robot?',
+          textSize: Theme.text.fontSize.medium,
+          color: Theme.palette.black,
+          isShadow: false,
+        });
       }
     });
+
+    // this.drawPlayerAvatars(statusImage);
 
     if (this.players.every((player) => this.checkPlayersInStartArea(player))) {
       if (this.debugMode) {
@@ -143,8 +162,6 @@ class Welcome extends BasePage {
         this.startCountdown();
       }
     }
-
-    this.drawPlayerAvatars(statusImage);
 
     this.players.forEach((player) => {
       player.draw();
