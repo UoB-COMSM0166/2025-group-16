@@ -168,7 +168,7 @@ class Entity {
    */
   hit(entities, onHitEntity) {
     const hitEntities = this._checkCollisions(entities);
-    this._playHitSound(hitEntities);
+    this._playHitSound(hitEntities, 100); // play sound to sync with hit animation (fist out on 0.1s)
     this._updateHitStatus();
     this._handleHitEntities(hitEntities, onHitEntity);
   }
@@ -191,14 +191,16 @@ class Entity {
     return hitEntities;
   }
 
-  _playHitSound(hitEntities) {
-    if (hitEntities[Constants.EntityType.PLAYER].length) {
-      Resources.sounds.entity.punch.sound?.play();
-    } else if (hitEntities[Constants.EntityType.ROBOT].length) {
-      Resources.sounds.entity.dong.sound?.play();
-    } else {
-      Resources.sounds.entity.whoosh.sound?.play();
-    }
+  _playHitSound(hitEntities, delay = 0) {
+    setTimeout(() => {
+      if (hitEntities[Constants.EntityType.PLAYER].length) {
+        Resources.sounds.entity.punch.sound?.play();
+      } else if (hitEntities[Constants.EntityType.ROBOT].length) {
+        Resources.sounds.entity.dong.sound?.play();
+      } else {
+        Resources.sounds.entity.whoosh.sound?.play();
+      }
+    }, delay);
   }
 
   _updateHitStatus() {
