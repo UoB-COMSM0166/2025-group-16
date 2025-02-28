@@ -107,13 +107,12 @@ class Welcome extends BasePage {
     // default text status
     let statusImage = new Array(this.players.length).fill(this.areYouARobot);
 
-    
     if (this.keyBoard_p1) {
       imageMode(CENTER);
       image(
         this.keyBoard_p1.image,
         width / 10,
-        height - 80 ,
+        height - 80,
         this.keyBoard_p1.width * 1.5,
         this.keyBoard_p1.height * 1.5,
       );
@@ -123,8 +122,8 @@ class Welcome extends BasePage {
       imageMode(CENTER);
       image(
         this.keyBoard_p2.image,
-        width / 10 * 9,
-        height - 80 ,
+        (width / 10) * 9,
+        height - 80,
         this.keyBoard_p2.width * 1.5,
         this.keyBoard_p2.height * 1.5,
       );
@@ -171,14 +170,13 @@ class Welcome extends BasePage {
 
       timerText.draw();
     }
-
   }
 
   /** @override */
   keyPressed() {
     super.keyPressed();
     this.players.forEach((player) => {
-      player.keyPressed(event, [...this.players]);
+      player.keyPressed([...this.players]);
     });
 
     // TODO: remove temporary shortcut controls

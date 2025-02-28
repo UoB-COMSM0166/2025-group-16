@@ -4,8 +4,8 @@ const Settings = Object.freeze({
     frameCtn: 0.4 * Constants.FramePerSecond,
     dyingFrameCtn: 3 * Constants.FramePerSecond,
     duration: Object.freeze({
-      [Constants.EntityStatus.HIT]: 500,
-      [Constants.EntityStatus.COOLDOWN]: 1500,
+      [Constants.EntityStatus.HIT]: 500, // 0s ~ 0.1s: prepare, 0.1s~ 0.5s: hit
+      [Constants.EntityStatus.COOLDOWN]: 1500, // 0.5s ~ 2s: cooldown
     }),
     scale: Object.freeze({
       [Constants.EntitySize.S]: 1 / 5,
