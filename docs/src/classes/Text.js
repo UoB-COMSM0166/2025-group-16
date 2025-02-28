@@ -17,6 +17,7 @@ class Text extends UIComponent {
    * @param {number} [params.strokeWeight] - The weight of the text's outline (stroke thickness).
    * @param {number} [params.maxWidth] - The maximum width of the text box.
    * @param {string} [params.textFont] - The font of text.
+   * @param {boolean} [params.isShadow] - The text shadow.
    */
   constructor(params) {
     super({ x: params?.x, y: params?.y });
@@ -31,34 +32,55 @@ class Text extends UIComponent {
     this.strokeWeight = params?.strokeWeight;
     this.maxWidth = params?.maxWidth;
     this.textFont = params?.textFont;
+    this.isShadow = params?.isShadow || false;
+    this.shadowColor = params?.shadowColor || Theme.palette.black;
+    this.shadowOffsetX = params?.shadowOffsetX || 5;
+    this.shadowOffsetY = params?.shadowOffsetY || 5;
   }
 
   draw(params) {
     push();
-    const config = {
-      ...this,
-      ...params,
-    };
+    const config = { ...this, ...params };
 
-    if (config.color !== undefined) fill(config.color);
-    if (config.textAlign !== undefined) {
-      textAlign(config.textAlign[0], config.textAlign[1]);
-    }
-    if (config.textLeading !== undefined) textLeading(config.textLeading);
-    if (config.textSize !== undefined) textSize(config.textSize);
-    if (config.textStyle !== undefined) textStyle(config.textStyle);
+    textSize(config.textSize);
+    textAlign(config.textAlign?.[0] || LEFT, config.textAlign?.[1] || TOP);
+    if (config.textFont) textFont(config.textFont);
+    if (config.textStyle) textStyle(config.textStyle);
+    if (config.textLeading) textLeading(config.textLeading);
     if (config.stroke && config.strokeWeight) {
       stroke(config.stroke);
       strokeWeight(config.strokeWeight);
     } else {
       noStroke();
     }
-    if (config.textFont !== undefined) textFont(config.textFont);
-    if (config.maxWidth !== undefined) {
+
+    // shadow
+    if (config.isShadow) {
+      fill(config.shadowColor);
+      if (config.maxWidth) {
+        text(
+          config.label,
+          config.x + config.shadowOffsetX,
+          config.y + config.shadowOffsetY,
+          config.maxWidth,
+        );
+      } else {
+        text(
+          config.label,
+          config.x + config.shadowOffsetX,
+          config.y + config.shadowOffsetY,
+        );
+      }
+    }
+
+    // main text
+    fill(config.color);
+    if (config.maxWidth) {
       text(config.label, config.x, config.y, config.maxWidth);
     } else {
       text(config.label, config.x, config.y);
     }
+
     pop();
   }
 }
