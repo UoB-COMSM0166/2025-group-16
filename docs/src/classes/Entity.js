@@ -203,8 +203,7 @@ class Entity {
 
   _updateHitStatus() {
     this.status = Constants.EntityStatus.HIT;
-    this.frameCtn = 0; // reset frame count and index in preparation of attack animation
-    this.frameIdx = 1;
+    this.frameCtn = 0; // reset frame count
     setTimeout(() => {
       this.status = Constants.EntityStatus.COOLDOWN;
 
@@ -222,7 +221,7 @@ class Entity {
       ...hitEntities[Constants.EntityType.ROBOT],
     ]) {
       entity.die();
-      onHitEntity(entity);
+      if (onHitEntity) onHitEntity(entity);
     }
   }
 
@@ -246,11 +245,10 @@ class Entity {
     const aniStatus = this._getAnimationStatus();
 
     // only allow the attack animation to play once, then keep the last frame
-    if (
-      aniStatus === Constants.EntityAnimationStatus.ATTACK &&
-      this.frameCtn > Settings.entity.frameCtn
-    ) {
-      this.frameIdx = 0;
+    if (aniStatus === Constants.EntityAnimationStatus.ATTACK) {
+      // 0s ~ 0.1s: prepare, 0.1s ~ 0.5s: hit
+      this.frameIdx =
+        this.frameCtn < (Settings.entity.frameCtn * 1) / 4 ? 0 : 1;
     } else if (this.isWalking && this.frameCtn > Settings.entity.frameCtn) {
       // walking animation switches back and forth
       this.frameIdx = this.frameIdx ? 0 : 1;

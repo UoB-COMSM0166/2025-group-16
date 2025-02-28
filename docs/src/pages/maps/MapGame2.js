@@ -1,11 +1,24 @@
+const positionBoundary = {
+  x: 64,
+  y: 90,
+  width: 1152,
+  height: 468,
+};
+
 class MapGame2 extends BaseMapGame {
   constructor() {
     super({
       shapeType: Constants.EntityType.ROBOT,
-      robotNumber: 15,
-      // TODO: change background and bgm
-      background: Resources.images.map.game1,
+      robotNumber: 10,
+      background: Resources.images.map.game2,
+      // TODO: change bgm
       bgm: Resources.sounds.bgm.playing1,
+      playerParams: {
+        positionBoundary,
+      },
+      robotParams: {
+        positionBoundary,
+      },
     });
   }
 

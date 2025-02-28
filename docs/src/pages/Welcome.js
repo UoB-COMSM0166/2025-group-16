@@ -177,7 +177,7 @@ class Welcome extends BasePage {
   keyPressed() {
     super.keyPressed();
     this.players.forEach((player) => {
-      player.keyPressed(event, [...this.players]);
+      player.keyPressed([...this.players]);
     });
 
     // TODO: remove temporary shortcut controls
