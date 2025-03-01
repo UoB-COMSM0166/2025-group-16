@@ -90,12 +90,26 @@ class Entity {
    * @returns {Object} Animation parameters for the dying effect
    */
   _checkDyingStatus() {
-    if (this.status !== Constants.EntityStatus.DIED)
+    if (
+      this.status !== Constants.EntityStatus.DIED &&
+      this.status !== Constants.EntityStatus.FAKEDIED
+    )
       return { dyingStatus: 'alive' };
 
-    if (this.dyingFrameCtn > Settings.entity.dyingFrameCtn)
+    if (
+      this.dyingFrameCtn > Settings.entity.dyingFrameCtn &&
+      this.status !== Constants.EntityStatus.FAKEDIED
+    )
       return { dyingStatus: 'died' };
 
+    if (
+      this.dyingFrameCtn > Settings.entity.dyingFrameCtn &&
+      this.status == Constants.EntityStatus.FAKEDIED
+    ) {
+      this.dyingFrameCtn = 0;
+      this.status = Constants.EntityStatus.ALIVE;
+      return { dyingStatus: 'alive' };
+    }
     this.dyingFrameCtn++;
     return {
       dyingStatus: 'dying',
