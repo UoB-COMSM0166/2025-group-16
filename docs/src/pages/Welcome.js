@@ -180,7 +180,9 @@ class Welcome extends BasePage {
   keyPressed() {
     super.keyPressed();
     this.players.forEach((player) => {
-      player.keyPressed([...this.players]);
+      player.keyPressed([...this.players], (player) => {
+        player.status = Constants.EntityStatus.FAKEDIED;
+      });
     });
 
     // TODO: remove temporary shortcut controls
