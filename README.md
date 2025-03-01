@@ -371,13 +371,24 @@ sequenceDiagram
 
 ### Evaluation
 
-- 15% ~750 words
+#### Two New Difficulty Levels
 
-- One qualitative evaluation (your choice)
+Our newly designed game architecture introduces additional difficulty levels, primarily based on map variations:
 
-- One quantitative evaluation (of your choice)
+##### 1. Expanded Map Boundaries
 
-- Description of how code was tested.
+More maps will be released in the coming weeks, featuring new boundaries that restrict player movement.
+
+- We observed that players tend to move in a specific direction at the start of the game to identify their character.
+- By introducing boundaries, this strategy will no longer be effective.
+- Players will now have to navigate using all four directions to determine their identity while also being cautious not to cross the restricted areas.
+
+##### 2. Randomized Machine Attacks
+
+In another map, AI-controlled machines will launch random attacks, forcing players to stay vigilant.
+
+- With robots actively attacking, players will no longer be able to distinguish between other players and robots by simply observing attack behavior.
+- This change increases the game’s challenge and unpredictability, making gameplay more dynamic and engaging.
 
 ### Process
 
