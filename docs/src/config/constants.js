@@ -43,6 +43,7 @@ const Constants = Object.freeze({
     HIT: 'HIT',
     COOLDOWN: 'COOLDOWN',
     DIED: 'DIED',
+    FAKEDIED: 'FAKEDIED',
   }),
   EntitySize: Object.freeze({
     S: 'S',

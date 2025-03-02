@@ -1,4 +1,3 @@
-//NOTE: no fight control
 class Welcome extends BasePage {
   constructor() {
     super({
@@ -10,6 +9,7 @@ class Welcome extends BasePage {
     this.debugMode = false;
     this.countdown = 3;
     this.isCountingDown = false;
+    this.countdownInterval = null;
     this.title = null;
     this.showComeHere = true;
     this.comehere = null;
@@ -153,14 +153,14 @@ class Welcome extends BasePage {
       }
     });
 
-    // this.drawPlayerAvatars(statusImage);
-
     if (this.players.every((player) => this.checkPlayersInStartArea(player))) {
       if (this.debugMode) {
         this.startButton?.draw();
       } else {
         this.startCountdown();
       }
+    } else {
+      this.cancelCountdown();
     }
 
     this.players.forEach((player) => {
@@ -173,28 +173,16 @@ class Welcome extends BasePage {
         this.loadCheckImg(player.color, moveDown);
       }
     });
-
-    if (this.isCountingDown && this.countdown > 0) {
-      const timerText = new Text({
-        label: this.countdown.toString(),
-        textSize: Theme.text.fontSize.title,
-        textAlign: [CENTER, CENTER],
-        color: Theme.palette.text.contrastText,
-        stroke: Theme.palette.text.contrastText,
-        strokeWeight: 3,
-        x: width / 2,
-        y: height / 2,
-      });
-
-      timerText.draw();
-    }
+    this.drawCountdown();
   }
 
   /** @override */
   keyPressed() {
     super.keyPressed();
     this.players.forEach((player) => {
-      player.keyPressed([...this.players]);
+      player.keyPressed([...this.players], (player) => {
+        player.status = Constants.EntityStatus.FAKEDIED;
+      });
     });
 
     // TODO: remove temporary shortcut controls
@@ -304,13 +292,39 @@ class Welcome extends BasePage {
   startCountdown() {
     if (this.isCountingDown) return;
     this.isCountingDown = true;
-    let interval = setInterval(() => {
+    this.countdownInterval = setInterval(() => {
       if (this.countdown > 1) {
         this.countdown--;
       } else {
-        clearInterval(interval);
+        clearInterval(this.countdownInterval);
         Controller.changePage(new MapIntro1(), Constants.Page.MAP_INTRO_1);
       }
     }, 1000);
+  }
+
+  cancelCountdown() {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+      this.countdownInterval = null;
+    }
+    this.isCountingDown = false;
+    this.countdown = 3;
+  }
+
+  drawCountdown() {
+    if (this.isCountingDown && this.countdown > 0) {
+      const timerText = new Text({
+        label: this.countdown.toString(),
+        textSize: Theme.text.fontSize.title,
+        textAlign: [CENTER, CENTER],
+        color: Theme.palette.text.contrastText,
+        stroke: Theme.palette.text.contrastText,
+        strokeWeight: 3,
+        x: width / 2,
+        y: height / 2,
+      });
+
+      timerText.draw();
+    }
   }
 }

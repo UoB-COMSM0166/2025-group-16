@@ -15,6 +15,7 @@ class MapIntro1 extends BaseMapIntro {
     this.isCountingDown = false;
     this.background = Resources.images.map.game1;
     this.playerRobot = null;
+    this.playerAvatar = null;
     this.enemyRobots = [];
     this.demoGif = null;
     this.gifStartTime = 0;

@@ -18,6 +18,9 @@ class Text extends UIComponent {
    * @param {number} [params.maxWidth] - The maximum width of the text box.
    * @param {string} [params.textFont] - The font of text.
    * @param {boolean} [params.isShadow] - The text shadow.
+   * @param {string} [params.shadowColor] - The shadow color.
+   * @param {number} [params.shadowOffsetX] - The shadow offset x.
+   * @param {number} [params.shadowOffsetY] - The shadow offset y.
    */
   constructor(params) {
     super({ x: params?.x, y: params?.y });

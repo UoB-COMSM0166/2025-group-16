@@ -371,13 +371,72 @@ sequenceDiagram
 
 ### Evaluation
 
-- 15% ~750 words
+#### Two New Difficulty Levels
 
-- One qualitative evaluation (your choice)
+Our newly designed game architecture introduces additional difficulty levels, primarily based on map variations:
 
-- One quantitative evaluation (of your choice)
+##### 1. Expanded Map Boundaries
 
-- Description of how code was tested.
+More maps will be released in the coming weeks, featuring new boundaries that restrict player movement.
+
+- We observed that players tend to move in a specific direction at the start of the game to identify their character.
+- By introducing boundaries, this strategy will no longer be effective.
+- Players will now have to navigate using all four directions to determine their identity while also being cautious not to cross the restricted areas.
+
+##### 2. Randomized Machine Attacks
+
+In another map, AI-controlled machines will launch random attacks, forcing players to stay vigilant.
+
+- With robots actively attacking, players will no longer be able to distinguish between other players and robots by simply observing attack behavior.
+- This change increases the game’s challenge and unpredictability, making gameplay more dynamic and engaging.
+
+### Analysis: Qualitative and Quantitative Evaluation
+
+In this analysis, we apply both **qualitative** and **quantitative** evaluation methods learned in class. The collected data provide clear insights from users, guiding us as developers to improve the game.
+
+#### Quantitative Evaluation (via Think Aloud)
+
+##### Feedback from Testers and Corresponding Solutions
+
+###### 1. Introduction Page
+
+- **Issue:** Unclear indication of how to close or skip the introduction page.
+- **Issue:** Users do not know how to start the game from the homepage.
+- **Overall Solution:** Redesign the introduction page with a clearer visual guide for key controls. Instead of the original textual instructions, we will use simple animations to demonstrate how to play the game.
+
+###### 2. During the Game
+
+- **Issue:** Players using the left-side keyboard struggled to find the correct attack key.
+  - **Solution:** The new version of controller instructions aims to resolve this issue. Additionally, we have adjusted some key mappings to make controls more intuitive.
+- **Issue:** The attack sound is too soft or not noticeable.
+  - **Solution:** The sound design is being reconsidered, and an updated version will be released soon.
+- **Issue:** Players did not realize that there is a delay time after each attack.
+  - **Solution:** The new gameplay tutorial animation will explicitly show the attack delay mechanic.
+- **Issue:** When robots are killed, the animations feel insufficient, reducing the gaming experience.
+  - **Solution:** We are exploring enhanced death animations to improve player immersion.
+
+---
+
+#### Qualitative Evaluation (via Heuristic Evaluation)
+
+##### Heuristic Evaluation
+
+| Heuristic Principle            | Observations                         | Score (0-4) |
+| ------------------------------ | ------------------------------------ | ----------- |
+| User Control and Freedom       | Exit/undo options are unclear        | 2           |
+| Recognition Rather Than Recall | Some instructions unclear or missing | 2           |
+
+##### Feedback from Testers and Corresponding Solutions
+
+###### 1. User Control and Freedom
+
+- **Feedback:** Players found the exit and undo options unclear, making it difficult to restart or exit the game.
+- **Solution:** We will add more intuitive options such as a **replay button** and a clearly labeled **exit key**, allowing players to restart or quit the game more easily.
+
+###### 2. Recognition Rather Than Recall
+
+- **Feedback:** Some instructions were unclear or missing, leading to confusion among players.
+- **Solution:** We plan to redesign the instruction set to provide **clearer guidance**. This will be further detailed in the **Quantitative Evaluation** section, where we discuss usability improvements.
 
 ### Process
 
