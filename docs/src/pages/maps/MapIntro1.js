@@ -208,53 +208,6 @@ class MapIntro1 extends BaseMapIntro {
     }
   }
 
-  // startDemoAttack() {
-  //   // Flag to track which robot we're attacking
-  //   let currentRobotIndex = 0;
-
-  //   this.attackInterval = setInterval(() => {
-  //     if (currentRobotIndex >= this.enemyRobots.length || this.demoCompleted) {
-  //       clearInterval(this.attackInterval);
-  //       this.demoCompleted = true;
-  //       return;
-  //     }
-
-  //     let targetRobot = this.enemyRobots[currentRobotIndex];
-
-  //     // Move avatar near the robot
-  //     this.playerAvatar.position = {
-  //       x: targetRobot.x - 50,
-  //       y: targetRobot.y,
-  //     };
-
-  //     // Add a visual attack indicator
-  //     setTimeout(() => {
-  //       // Simulate attack animation
-  //       this.playerAvatar.attack();
-
-  //       // Make robot show hit effect
-  //       setTimeout(() => {
-  //         targetRobot.status = Constants.EntityStatus.HIT;
-
-  //         // After a moment, move to next robot
-  //         setTimeout(() => {
-  //           currentRobotIndex++;
-
-  //           // If we've attacked two robots, end the demo
-  //           if (currentRobotIndex >= 2) {
-  //             this.demoCompleted = true;
-  //             clearInterval(this.attackInterval);
-  //             // Start countdown after showing demo
-  //             setTimeout(() => {
-  //               this.startCountdown();
-  //             }, 1000);
-  //           }
-  //         }, 500);
-  //       }, 200);
-  //     }, 300);
-  //   }, 2000); // Attack every 2 seconds
-  // }
-
   /** @override */
   mousePressed() {
     super.mousePressed();
@@ -275,25 +228,6 @@ class MapIntro1 extends BaseMapIntro {
       this.startCountdown();
     }
   }
-
-  // /** @override */
-  // mousePressed() {
-  //   super.mousePressed();
-  //   // Check if click is within the press button area
-  //   if (
-  //     mouseX >= this.pressButtonArea.x &&
-  //     mouseX <= this.pressButtonArea.x + this.pressButtonArea.width &&
-  //     mouseY >= this.pressButtonArea.y &&
-  //     mouseY <= this.pressButtonArea.y + this.pressButtonArea.height
-  //   ) {
-  //     // Skip the demo if it's still running and start countdown
-  //     if (!this.demoCompleted) {
-  //       this.demoCompleted = true;
-  //       clearInterval(this.attackInterval);
-  //     }
-  //     this.startCountdown();
-  //   }
-  // }
 
   /** @override */
   keyPressed() {
