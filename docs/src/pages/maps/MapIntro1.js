@@ -11,12 +11,15 @@ class MapIntro1 extends BaseMapIntro {
       ],
     });
 
-    this.countdown = 5;
+    this.countdown = 3;
     this.isCountingDown = false;
     this.background = Resources.images.map.game1;
     this.playerRobot = null;
-    this.playerAvatar = null;
     this.enemyRobots = [];
+    this.demoGif = null;
+    this.gifStartTime = 0;
+    this.gifDuration = 18000;
+    this.showGif = true;
     // For button "Press →"
     this.pressButtonArea = {
       x: 0,
@@ -30,6 +33,10 @@ class MapIntro1 extends BaseMapIntro {
   setup() {
     super.setup();
 
+    this.demoGif = loadImage(Resources.images.mapintro1page.demo2.path);
+    // Track when the GIF starts
+    this.gifStartTime = millis();
+
     // Create a static player robot
     this.playerRobot = new Player({
       idx: 0,
@@ -42,47 +49,6 @@ class MapIntro1 extends BaseMapIntro {
         y: height - 240,
       },
     });
-
-    // // Create a player avatar to demonstrate attacks
-    // this.playerAvatar = new Player({
-    //   idx: 0,
-    //   controls: {},
-    //   shapeType: Constants.EntityType.PLAYER,
-    //   size: Constants.EntitySize.M,
-    //   color: Theme.palette.player.red,
-    //   position: { x: width / 3, y: height / 2 },
-    // });
-
-    // Create a single robot for the demo
-    this.demoRobot = new Robot({
-      idx: 0,
-      x: width / 2,
-      y: height / 2 - 50,
-      size: Constants.EntitySize.M,
-      isMovable: false,
-    });
-
-    // Create robot for demo
-    const startX = width / 2;
-    const startY = height / 2 - 100;
-    const spacingX = 120;
-    const spacingY = 150;
-
-    for (let row = 0; row < 2; row++) {
-      for (let col = 0; col < 3; col++) {
-        const robotIdx = row * 3 + col;
-        this.enemyRobots.push(
-          new Robot({
-            idx: robotIdx,
-            x: startX + col * spacingX,
-            y: startY + row * spacingY,
-            size: Constants.EntitySize.M,
-            isMovable: false,
-          }),
-        );
-      }
-    }
-    // this.startDemoAttack();
   }
 
   /** @override */
@@ -95,42 +61,21 @@ class MapIntro1 extends BaseMapIntro {
       background(Theme.palette.lightGrey);
     }
 
-    // Draw the player avatar for demo
-    if (this.playerAvatar) {
-      this.playerAvatar.draw();
-    }
-
-    // Draw all enemy robots
-    this.enemyRobots.forEach((robot) => {
-      push();
-      translate(robot.x, robot.y);
-      translate(-robot.x, -robot.y);
-      robot.draw();
-      pop();
-
-      // Draw "ROBOT" labels under each enemyrobot
-      push();
-      fill(0);
-      noStroke();
-      textSize(18);
-      textStyle(BOLD);
-      textAlign(CENTER, CENTER);
-      text(
-        'ROBOT',
-        robot.x,
-        robot.y +
-          (Settings.entity.baseSize.height *
-            Settings.entity.scale[robot.size]) /
-            2 +
-          32,
-      );
-      pop();
-    });
-
     // Then draw player robot on top
     this.playerRobot.draw();
 
     this.drawInteractionBox();
+
+    // Check if GIF has finished playing
+    if (this.showGif) {
+      this.drawGifFrame();
+
+      // Check if GIF has completed
+      if (millis() - this.gifStartTime > this.gifDuration) {
+        this.showGif = false;
+        this.startCountdown();
+      }
+    }
   }
 
   drawInteractionBox() {
@@ -163,9 +108,19 @@ class MapIntro1 extends BaseMapIntro {
     text('Press →', width - 25, height - 25);
     pop();
 
+    // Update press button area based on text position
+    this.pressButtonArea = {
+      x: width - 150,
+      y: height - 50,
+      width: 125,
+      height: 50,
+    };
+
+    pop();
+
     // add progress box
     if (this.isCountingDown && this.countdown > 0) {
-      let progress = (5 - this.countdown) / 5;
+      let progress = (3 - this.countdown) / 3;
 
       let barWidth = 300;
       let barHeight = 30;
@@ -189,52 +144,68 @@ class MapIntro1 extends BaseMapIntro {
     }
   }
 
-  // startDemoAttack() {
-  //   // Flag to track which robot we're attacking
-  //   let currentRobotIndex = 0;
+  drawGifFrame() {
+    // Increase the size of the GIF frame
+    let gifBoxWidth = 600;
+    let gifBoxHeight = 400;
 
-  //   this.attackInterval = setInterval(() => {
-  //     if (currentRobotIndex >= this.enemyRobots.length || this.demoCompleted) {
-  //       clearInterval(this.attackInterval);
-  //       this.demoCompleted = true;
-  //       return;
-  //     }
+    // Position more to the right side (increase the offset to move more right)
+    let rightOffset = 100;
+    let gifboxX = width / 2 - gifBoxWidth / 2 + rightOffset;
 
-  //     let targetRobot = this.enemyRobots[currentRobotIndex];
+    // Adjust vertical position to avoid overlapping with interaction box
+    let gifBoxY = (height - gifBoxHeight) / 2 - 70;
 
-  //     // Move avatar near the robot
-  //     this.playerAvatar.position = {
-  //       x: targetRobot.x - 50,
-  //       y: targetRobot.y,
-  //     };
+    // Draw semi-transparent overlay over the entire screen
+    push();
+    fill(0, 0, 0, 100);
+    noStroke();
+    rect(0, 0, width, height);
+    pop();
 
-  //     // Add a visual attack indicator
-  //     setTimeout(() => {
-  //       // Simulate attack animation
-  //       this.playerAvatar.attack();
+    push();
+    // Add a background for the GIF frame
+    fill(255, 255, 255, 245);
+    stroke(0);
+    strokeWeight(3);
+    rect(gifboxX, gifBoxY, gifBoxWidth, gifBoxHeight, 15);
 
-  //       // Make robot show hit effect
-  //       setTimeout(() => {
-  //         targetRobot.status = Constants.EntityStatus.HIT;
+    // Add a frame title
+    fill(0);
+    textSize(35);
+    textStyle(NORMAL);
+    textAlign(CENTER, TOP);
+    text('DEMO', gifboxX + gifBoxWidth / 2, gifBoxY + 20);
 
-  //         // After a moment, move to next robot
-  //         setTimeout(() => {
-  //           currentRobotIndex++;
+    // Draw a line under the title
+    stroke(0);
+    strokeWeight(2);
+    line(gifboxX + 40, gifBoxY + 55, gifboxX + gifBoxWidth - 40, gifBoxY + 55);
 
-  //           // If we've attacked two robots, end the demo
-  //           if (currentRobotIndex >= 2) {
-  //             this.demoCompleted = true;
-  //             clearInterval(this.attackInterval);
-  //             // Start countdown after showing demo
-  //             setTimeout(() => {
-  //               this.startCountdown();
-  //             }, 1000);
-  //           }
-  //         }, 500);
-  //       }, 200);
-  //     }, 300);
-  //   }, 2000); // Attack every 2 seconds
-  // }
+    // Add skip text at bottom
+    textSize(20);
+    textStyle(ITALIC);
+    textAlign(CENTER, BOTTOM);
+    fill(100);
+    text(
+      'Press any key to skip',
+      gifboxX + gifBoxWidth / 2,
+      gifBoxY + gifBoxHeight - 10,
+    );
+    pop();
+
+    // Draw the GIF inside the frame
+    if (this.demoGif) {
+      imageMode(CORNER);
+      image(
+        this.demoGif,
+        gifboxX + 25,
+        gifBoxY + 65,
+        gifBoxWidth - 50,
+        gifBoxHeight - 100,
+      );
+    }
+  }
 
   /** @override */
   mousePressed() {
@@ -247,56 +218,25 @@ class MapIntro1 extends BaseMapIntro {
       mouseY >= this.pressButtonArea.y &&
       mouseY <= this.pressButtonArea.y + this.pressButtonArea.height
     ) {
+      // Skip the GIF if it's still showing
+      this.showGif = false;
       this.startCountdown();
-      // startCountdown(new MapGame1(), Constants.Page.MAP_GAME_1);
-      // Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
+    } else if (this.showGif) {
+      // Allow clicking anywhere to skip the GIF
+      this.showGif = false;
+      this.startCountdown();
     }
   }
-
-  // /** @override */
-  // mousePressed() {
-  //   super.mousePressed();
-  //   // Check if click is within the press button area
-  //   if (
-  //     mouseX >= this.pressButtonArea.x &&
-  //     mouseX <= this.pressButtonArea.x + this.pressButtonArea.width &&
-  //     mouseY >= this.pressButtonArea.y &&
-  //     mouseY <= this.pressButtonArea.y + this.pressButtonArea.height
-  //   ) {
-  //     // Skip the demo if it's still running and start countdown
-  //     if (!this.demoCompleted) {
-  //       this.demoCompleted = true;
-  //       clearInterval(this.attackInterval);
-  //     }
-  //     this.startCountdown();
-  //   }
-  // }
 
   /** @override */
   keyPressed() {
     super.keyPressed();
+    // Skip the GIF if it's still showing
+    this.showGif = false;
     this.startCountdown();
-    // Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
   }
 
-  // /** @override */
-  // keyPressed() {
-  //   super.keyPressed();
-  //   // Skip the demo if it's still running and start countdown
-  //   if (!this.demoCompleted) {
-  //     this.demoCompleted = true;
-  //     clearInterval(this.attackInterval);
-  //   }
-  //   this.startCountdown();
-  // }
-
   startCountdown() {
-    // Only start countdown if demo is completed or skipped
-    // if (!this.demoCompleted) {
-    //   this.demoCompleted = true;
-    //   clearInterval(this.attackInterval);
-    // }
-
     // Don't start countdown if it's already counting down
     if (this.isCountingDown) return;
     this.isCountingDown = true;

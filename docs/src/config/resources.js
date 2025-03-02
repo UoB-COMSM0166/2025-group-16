@@ -32,6 +32,9 @@ const _ASSET_PATHS = {
       game1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
       game2: `${_BASE_PATH}assets/images/backgrounds/level2_v1.png`,
     },
+    mapintro1page: {
+      demo2: `${_BASE_PATH}assets/images/mapintro1page/DEMO2.gif`,
+    },
     // Add more image paths here
   },
   sounds: {
@@ -188,6 +191,9 @@ const Resources = {
     map: {
       game1: new Img(_ASSET_PATHS.images.map.game1),
       game2: new Img(_ASSET_PATHS.images.map.game2),
+    },
+    mapintro1page: {
+      demo2: new Img(_ASSET_PATHS.images.mapintro1page.demo2),
     },
     playerlist: Object.values(Theme.palette.player).map(
       (fill) =>
