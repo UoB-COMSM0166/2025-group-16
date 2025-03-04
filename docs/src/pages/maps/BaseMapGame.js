@@ -74,6 +74,7 @@ class BaseMapGame extends BasePage {
     this.playerListUI = new PlayerList({
       label: 'Fight',
       textSize: Theme.text.fontSize.large,
+      isShadow: true,
     });
   }
 
@@ -92,6 +93,22 @@ class BaseMapGame extends BasePage {
 
     //draw player list
     this.playerListUI.drawPlayerAvatars();
+
+    // update player status
+    if (this.alivePlayerCtn === 1) {
+      const diePlayer = this.players.find(
+        ({ status }) => status === Constants.EntityStatus.DIED,
+      );
+
+      this.playerListUI.playerLose(diePlayer.idx);
+      this.playerListUI.updateStatus({
+        playerIdx: diePlayer.idx,
+        newStatus: 'K.O.',
+        textSize: Theme.text.fontSize.large,
+        color: Theme.palette.black,
+        isShadow: false,
+      });
+    }
 
     if (this.alivePlayerCtn === 1) {
       const alivePlayer = this.players.find(

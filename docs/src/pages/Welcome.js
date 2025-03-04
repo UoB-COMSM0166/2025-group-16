@@ -37,6 +37,7 @@ class Welcome extends BasePage {
     this.playerList = new PlayerList({
       label: 'Are you a robot?',
       textSize: Theme.text.fontSize.medium,
+      color: Theme.palette.black,
     });
 
     this.introText = this.createIntroText(this.introBox);

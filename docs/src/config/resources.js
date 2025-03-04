@@ -11,7 +11,10 @@ const _ASSET_PATHS = {
   images: {
     entity: `${_BASE_PATH}assets/images/entity/`,
     playerLose: `${_BASE_PATH}assets/images/entity/player_lose.svg`,
-    playerlist: `${_BASE_PATH}assets/images/welcomepage/player_avatar.svg`,
+    playerlist: {
+      ing: `${_BASE_PATH}assets/images/welcomepage/player_avatar.svg`,
+      lose: `${_BASE_PATH}assets/images/welcomepage/player_avatar_lose.svg`,
+    },
     welcomepage: {
       background: `${_BASE_PATH}assets/images/welcomepage/background_welcomepage.png`,
       title: `${_BASE_PATH}assets/images/welcomepage/text_unstoppable.svg`,
@@ -195,13 +198,18 @@ const Resources = {
     mapintro1page: {
       demo2: new Img(_ASSET_PATHS.images.mapintro1page.demo2),
     },
-    playerlist: Object.values(Theme.palette.player).map(
-      (fill) =>
-        new SVGImage(_ASSET_PATHS.images.playerlist, {
-          fill,
-          scale: Settings.entity.scale[Constants.EntitySize.XL],
-        }),
-    ),
+    playerlist: {
+      ing: Object.values(Theme.palette.player).map(
+        (fill) =>
+          new SVGImage(_ASSET_PATHS.images.playerlist.ing, {
+            fill,
+            scale: Settings.entity.scale[Constants.EntitySize.XL],
+          }),
+      ),
+      lose: new SVGImage(_ASSET_PATHS.images.playerlist.lose, {
+        scale: Settings.entity.scale[Constants.EntitySize.XL],
+      }),
+    },
   },
   sounds: {
     entity: {
