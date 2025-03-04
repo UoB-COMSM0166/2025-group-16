@@ -6,6 +6,7 @@ class PlayerList extends UIComponent {
    * @param {Object} [params] - The parameter for the player list.
    * @param {string} [params.label] - The text content to display.
    * @param {number | string} [params.textSize] - The font size to set for the text.
+   * @param {string} [params.color] - The text color. if not setting default is player's color.
    * @param {boolean} [params.isShadow] - The text shadow.
    */
   constructor(params) {
