@@ -5,29 +5,29 @@ class MapIntro1 extends BaseMapIntro {
       playerControlIntros: [
         '\n' +
           '\n' +
-          'Find your robot! \n' +
-          'Move to check which one responds.\n' +
-          'Attack 💥 with [Q] or [Shift] before your enemy does!\n',
+          '1️⃣Find your robot! \n' +
+          '2️⃣Hit the other player\n' +
+          '3️⃣Hit 💥 USE [Q] or [?] \n',
       ],
     });
 
-    this.countdown = 3;
-    this.isCountingDown = false;
+    // Refined state management for GIF and countdown
+    this.state = {
+      countdown: 8,
+      gifState: {
+        overlayOpacity: 0,
+        frameOpacity: 0,
+        gifOpacity: 0,
+        stage: 'init', // Stages: 'init' -> 'overlay' -> 'frame' -> 'gif'
+        startTime: 0,
+        delay: 2000,
+        transitionDuration: 500, // Smooth transition time
+      },
+    };
+
     this.background = Resources.images.map.game1;
     this.playerRobot = null;
-    this.playerAvatar = null;
-    this.enemyRobots = [];
     this.demoGif = null;
-    this.gifStartTime = 0;
-    this.gifDuration = 18000;
-    this.showGif = true;
-    // For button "Press →"
-    this.pressButtonArea = {
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0,
-    };
   }
 
   /** @override */
@@ -35,13 +35,11 @@ class MapIntro1 extends BaseMapIntro {
     super.setup();
 
     this.demoGif = loadImage(Resources.images.mapintro1page.demo2.path);
-    // Track when the GIF starts
-    this.gifStartTime = millis();
 
     // Create a static player robot
     this.playerRobot = new Player({
       idx: 0,
-      controls: {}, // Empty controls to prevent movement
+      controls: {}, // prevent movement
       shapeType: Constants.EntityType.PLAYER,
       size: Constants.EntitySize.XL,
       color: Theme.palette.player.blue,
@@ -50,42 +48,75 @@ class MapIntro1 extends BaseMapIntro {
         y: height - 240,
       },
     });
+
+    // Smooth GIF and countdown initialization
+    this.initializeGifTransition();
+  }
+
+  initializeGifTransition() {
+    const { gifState } = this.state;
+
+    // Start the transition sequence
+    setTimeout(() => {
+      // First, fade in overlay and frame simultaneously
+      this.transitionGifStage('overlay');
+
+      // Prepare for GIF appearance
+      setTimeout(() => {
+        this.transitionGifStage('gif');
+        this.startCountdown();
+      }, gifState.transitionDuration + 500); // Slight delay after overlay/frame
+    }, gifState.delay);
+  }
+
+  transitionGifStage(stage) {
+    const { gifState } = this.state;
+
+    switch (stage) {
+      case 'overlay':
+        // Simultaneously fade in overlay and frame
+        gifState.stage = 'overlay';
+        gifState.overlayOpacity = 100;
+        gifState.frameOpacity = 245;
+        break;
+
+      case 'gif':
+        // Fade in the GIF
+        gifState.stage = 'gif';
+        gifState.gifOpacity = 255;
+        break;
+    }
   }
 
   /** @override */
   draw() {
     // Draw background
+    this.drawBackground();
+
+    // Draw player robot
+    this.playerRobot.draw();
+
+    // Draw interaction elements
+    this.drawInteractionBox();
+
+    // Draw GIF presentation
+    this.drawGifPresentation();
+  }
+
+  drawBackground() {
     if (this.background?.image) {
       imageMode(CORNER);
       image(this.background.image, 0, 0, width, height);
     } else {
       background(Theme.palette.lightGrey);
     }
-
-    // Then draw player robot on top
-    this.playerRobot.draw();
-
-    this.drawInteractionBox();
-
-    // Check if GIF has finished playing
-    if (this.showGif) {
-      this.drawGifFrame();
-
-      // Check if GIF has completed
-      if (millis() - this.gifStartTime > this.gifDuration) {
-        this.showGif = false;
-        this.startCountdown();
-      }
-    }
   }
 
   drawInteractionBox() {
-    // Box parameters
     const boxHeight = 150;
     const boxWidth = width - 4;
     const boxX = 2;
     const boxY = height - boxHeight - 3;
-    // const borderRadius = 20;
 
     push();
     fill(255, 250, 240);
@@ -99,45 +130,31 @@ class MapIntro1 extends BaseMapIntro {
     textSize(33);
     textAlign(LEFT, CENTER);
     textLeading(38);
+    text(this.playerControlIntros[0], boxX + 20, boxY + boxHeight / 2 - 10);
 
-    const instructionText = this.playerControlIntros[0];
-    text(instructionText, boxX + 20, boxY + boxHeight / 2 - 10);
-
-    // Draw "Press →" with enhanced triangle
-    textSize(35);
-    textAlign(RIGHT, CENTER);
-    text('Press →', width - 25, height - 25);
-    pop();
-
-    // Update press button area based on text position
-    this.pressButtonArea = {
-      x: width - 150,
-      y: height - 50,
-      width: 125,
-      height: 50,
-    };
+    // Progress bar
+    this.drawProgressBar();
 
     pop();
+  }
 
-    // add progress box
-    if (this.isCountingDown && this.countdown > 0) {
-      let progress = (3 - this.countdown) / 3;
-
+  drawProgressBar() {
+    const { countdown } = this.state;
+    if (countdown > 0) {
+      let progress = (8 - countdown) / 8;
       let barWidth = 300;
       let barHeight = 30;
       let x = width - barWidth - 20;
       let y = 20;
 
-      // progress outside box
+      // Progress background
       push();
       stroke(255);
       strokeWeight(4);
       noFill();
       rect(x, y, barWidth, barHeight);
-      pop();
 
-      // Progress box
-      push();
+      // Progress fill
       noStroke();
       fill(50, 50, 50);
       rect(x, y, barWidth * progress, barHeight);
@@ -145,59 +162,49 @@ class MapIntro1 extends BaseMapIntro {
     }
   }
 
-  drawGifFrame() {
-    // Increase the size of the GIF frame
-    let gifBoxWidth = 600;
-    let gifBoxHeight = 400;
+  drawGifPresentation() {
+    const { gifState } = this.state;
 
-    // Position more to the right side (increase the offset to move more right)
-    let rightOffset = 100;
-    let gifboxX = width / 2 - gifBoxWidth / 2 + rightOffset;
+    // Check if GIF frame should be displayed
+    if (gifState.overlayOpacity === 0) return;
 
-    // Adjust vertical position to avoid overlapping with interaction box
-    let gifBoxY = (height - gifBoxHeight) / 2 - 70;
+    // Overlay and GIF frame parameters
+    const gifBoxWidth = 600;
+    const gifBoxHeight = 400;
+    const rightOffset = 100;
+    const gifboxX = width / 2 - gifBoxWidth / 2 + rightOffset;
+    const gifBoxY = (height - gifBoxHeight) / 2 - 70;
 
-    // Draw semi-transparent overlay over the entire screen
+    // Semi-transparent screen overlay
     push();
-    fill(0, 0, 0, 100);
+    fill(0, 0, 0, gifState.overlayOpacity);
     noStroke();
     rect(0, 0, width, height);
     pop();
 
+    // GIF frame with title
     push();
-    // Add a background for the GIF frame
-    fill(255, 255, 255, 245);
+    fill(255, 255, 255, gifState.frameOpacity);
     stroke(0);
     strokeWeight(3);
     rect(gifboxX, gifBoxY, gifBoxWidth, gifBoxHeight, 15);
 
-    // Add a frame title
+    // Title
     fill(0);
     textSize(35);
-    textStyle(NORMAL);
     textAlign(CENTER, TOP);
     text('DEMO', gifboxX + gifBoxWidth / 2, gifBoxY + 20);
 
-    // Draw a line under the title
+    // Separator line
     stroke(0);
     strokeWeight(2);
     line(gifboxX + 40, gifBoxY + 55, gifboxX + gifBoxWidth - 40, gifBoxY + 55);
-
-    // Add skip text at bottom
-    textSize(20);
-    textStyle(ITALIC);
-    textAlign(CENTER, BOTTOM);
-    fill(100);
-    text(
-      'Press any key to skip',
-      gifboxX + gifBoxWidth / 2,
-      gifBoxY + gifBoxHeight - 10,
-    );
     pop();
 
-    // Draw the GIF inside the frame
-    if (this.demoGif) {
+    // Draw GIF if visible
+    if (gifState.stage === 'gif' && this.demoGif) {
       imageMode(CORNER);
+      tint(255, gifState.gifOpacity);
       image(
         this.demoGif,
         gifboxX + 25,
@@ -205,45 +212,20 @@ class MapIntro1 extends BaseMapIntro {
         gifBoxWidth - 50,
         gifBoxHeight - 100,
       );
+      noTint();
     }
-  }
-
-  /** @override */
-  mousePressed() {
-    super.mousePressed();
-    // Check if click is within the press button area
-    // Can use two meathds to press
-    if (
-      mouseX >= this.pressButtonArea.x &&
-      mouseX <= this.pressButtonArea.x + this.pressButtonArea.width &&
-      mouseY >= this.pressButtonArea.y &&
-      mouseY <= this.pressButtonArea.y + this.pressButtonArea.height
-    ) {
-      // Skip the GIF if it's still showing
-      this.showGif = false;
-      this.startCountdown();
-    } else if (this.showGif) {
-      // Allow clicking anywhere to skip the GIF
-      this.showGif = false;
-      this.startCountdown();
-    }
-  }
-
-  /** @override */
-  keyPressed() {
-    super.keyPressed();
-    // Skip the GIF if it's still showing
-    this.showGif = false;
-    this.startCountdown();
   }
 
   startCountdown() {
-    // Don't start countdown if it's already counting down
+    // const { gifState } = this.state;
+
+    // Prevent multiple countdown initializations
     if (this.isCountingDown) return;
     this.isCountingDown = true;
+
     let interval = setInterval(() => {
-      if (this.countdown > 1) {
-        this.countdown--;
+      if (this.state.countdown > 1) {
+        this.state.countdown--;
       } else {
         clearInterval(interval);
         Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
