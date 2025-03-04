@@ -12,16 +12,22 @@ class PlayerList extends UIComponent {
     super({ x: params?.x || 0, y: params?.y || 0 });
 
     this.label = params?.label || '';
+    this.color = params?.color;
     this.textSize = params?.textSize;
     this.isShadow = params?.isShadow || false;
     this.playerAvatars = [];
+    this.playerStatus = [];
     this.statusTexts = []; //store players status in order.
     const numPlayers = Object.keys(Resources.images.playerlist).length;
     for (let i = 0; i < numPlayers; i++) {
-      this.playerAvatars.push(Resources.images.playerlist[i]);
+      const playerColor = this.color
+        ? this.color
+        : Object.values(Theme.palette.player)[i];
+      this.playerAvatars.push(Resources.images.playerlist.ing[i]);
+      this.playerStatus.push('playing');
       this.statusTexts.push({
         text: this.label,
-        color: Theme.palette.black,
+        color: playerColor, // default status Text use player color if not setting.
         textSize: this.textSize,
         isShadow: this.isShadow,
       });
@@ -29,22 +35,26 @@ class PlayerList extends UIComponent {
   }
 
   drawPlayerAvatars() {
-    const numPlayers = Object.keys(Resources.images.playerlist).length;
+    const numPlayers = this.playerAvatars.length;
     const spacing = width / (numPlayers + 1) - 10;
     for (let i = 0; i < numPlayers; i++) {
-      this.playerAvatars.push(Resources.images.playerlist[i]);
-      const avatarSize = this.playerAvatars[i].width;
+      const playerImage =
+        this.playerStatus[i] === 'lose'
+          ? Resources.images.playerlist.lose
+          : this.playerAvatars[i];
+
+      const avatarSize = playerImage?.width;
       const xPos = spacing * (i + 1) - avatarSize / 2 - 60;
       const yPos = height - avatarSize + 50;
 
-      if (this.playerAvatars[i]?.image) {
+      if (playerImage?.image) {
         imageMode(CENTER);
         image(
-          this.playerAvatars[i].image,
+          playerImage.image,
           xPos,
           yPos,
-          this.playerAvatars[i].width,
-          this.playerAvatars[i].height,
+          playerImage.width,
+          playerImage.height,
         );
 
         let textXPos = xPos + avatarSize / 2 + 10;
@@ -66,6 +76,12 @@ class PlayerList extends UIComponent {
           statusText.draw();
         }
       }
+    }
+  }
+
+  playerLose(playerIdx) {
+    if (playerIdx >= 0 && playerIdx < this.playerStatus.length) {
+      this.playerStatus[playerIdx] = 'lose';
     }
   }
 
