@@ -19,7 +19,7 @@ class Results extends BasePage {
     super.setup();
 
     this.gameOverText = new Text({
-      label: 'GAME\nOVER',
+      label: 'RESULT',
       x: width / 2,
       y: height / 3 - 24,
       color: Theme.palette.text.primary,
