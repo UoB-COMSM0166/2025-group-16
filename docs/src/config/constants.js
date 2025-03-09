@@ -4,6 +4,7 @@ const Constants = Object.freeze({
   }),
   Page: Object.freeze({
     WELCOME: 'WELCOME',
+    MAP_SELECTION: 'MAP_SELECTION',
     RESULTS: 'RESULTS',
     MAP_GAME_1: 'MAP_GAME_1',
     MAP_INTRO_1: 'MAP_INTRO_1',
@@ -57,4 +58,5 @@ const Constants = Object.freeze({
     WALK: 'WALK',
   }),
   FramePerSecond: 60, // default
+  Map: Object.freeze([{ name: 'Desert' }, { name: 'Grass' }, { name: 'Jail' }]),
 });
