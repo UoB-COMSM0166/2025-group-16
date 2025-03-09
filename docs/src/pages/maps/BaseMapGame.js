@@ -95,7 +95,7 @@ class BaseMapGame extends BasePage {
     this.playerListUI.drawPlayerAvatars();
 
     // update player status
-    if (this.alivePlayerCtn === 1) {
+    if (this.alivePlayerCtn <= 1) {
       const diePlayer = this.players.find(
         ({ status }) => status === Constants.EntityStatus.DIED,
       );
