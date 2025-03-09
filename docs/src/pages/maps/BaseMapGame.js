@@ -114,18 +114,21 @@ class BaseMapGame extends BasePage {
       const alivePlayer = this.players.find(
         ({ status }) => status !== Constants.EntityStatus.DIED,
       );
-      alivePlayer.updateParams({
+      alivePlayer?.updateParams({
         shapeType: Constants.EntityType.PLAYER,
         color: Object.values(Theme.palette.player)[alivePlayer.idx],
       });
       this.gameOverText?.draw({
-        label: `Winner is player ${alivePlayer.idx + 1}`,
+        label: alivePlayer
+          ? `Winner is Player ${alivePlayer.idx + 1}!`
+          : 'No Winner!',
       });
 
       // show winner text for 3 seconds, and add score to the winner
       if (this.isWaitingForGameOver) return;
       this.isWaitingForGameOver = true;
-      Controller.addPlayerScore(alivePlayer.idx, 1);
+
+      if (alivePlayer) Controller.addPlayerScore(alivePlayer.idx, 1);
       window.setTimeout(() => {
         Controller.changePage(new Results(), Constants.Page.RESULTS);
       }, 3000);
