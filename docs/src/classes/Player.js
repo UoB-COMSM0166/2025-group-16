@@ -14,6 +14,7 @@ class Player extends Entity {
    * @param {{ x: number, y: number, width: number, height: number }} [params.positionBoundary] - Optional. If provided and no `position`, will be randomly placed within the boundary.
    * @param {{ x: number, y: number, width: number, height: number }} [params.randomPositionArea] - Optional. If provided, the entity will be placed within the area.
    * @param {number} [params.randomPositionPadding] - Optional. If provided, the entity will be placed within the area with a padding.
+   * @param {number} [params.onHit] - Optional. Callback function when player hit.
    */
   constructor(params) {
     const initColor =
@@ -34,6 +35,7 @@ class Player extends Entity {
     this.controls = params.controls;
     this.isPaused = false;
     this.originColor = initColor;
+    this.onHit = params?.onHit;
   }
 
   /** @override */
@@ -60,6 +62,7 @@ class Player extends Entity {
       keyCode === hitControl.value &&
       this.status === Constants.EntityStatus.ALIVE
     ) {
+      if (this.onHit) this.onHit();
       this.hit(entities, onDie);
     }
   }

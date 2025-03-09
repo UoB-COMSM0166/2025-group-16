@@ -110,7 +110,7 @@ class BaseMapGame extends BasePage {
       });
     }
 
-    if (this.alivePlayerCtn === 1) {
+    if (this.alivePlayerCtn <= 1) {
       const alivePlayer = this.players.find(
         ({ status }) => status !== Constants.EntityStatus.DIED,
       );
