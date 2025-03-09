@@ -28,6 +28,11 @@ const _ASSET_PATHS = {
       keyboardP1: `${_BASE_PATH}assets/images/welcomepage/icon_keyboard_p1.svg`,
       keyboardP2: `${_BASE_PATH}assets/images/welcomepage/icon_keyboard_p2.svg`,
     },
+    mapSelection: [
+      `${_BASE_PATH}assets/images/mapSelection/map1_desert.svg`,
+      `${_BASE_PATH}assets/images/mapSelection/map2_grass.svg`,
+      `${_BASE_PATH}assets/images/mapSelection/map3_jail.svg`,
+    ],
     resultsPage: {
       confetti: `${_BASE_PATH}assets/images/results/confetti.gif`,
     },
@@ -191,6 +196,9 @@ const Resources = {
     resultsPage: {
       confetti: new Img(_ASSET_PATHS.images.resultsPage.confetti),
     },
+    mapSelection: _ASSET_PATHS.images.mapSelection.map(
+      (path) => new SVGImage(path, { scale: 2 }),
+    ),
     map: {
       game1: new Img(_ASSET_PATHS.images.map.game1),
       game2: new Img(_ASSET_PATHS.images.map.game2),

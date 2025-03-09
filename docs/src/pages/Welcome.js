@@ -298,7 +298,7 @@ class Welcome extends BasePage {
         this.countdown--;
       } else {
         clearInterval(this.countdownInterval);
-        Controller.changePage(new MapIntro1(), Constants.Page.MAP_INTRO_1);
+        Controller.changePage(new MapSelection(), Constants.Page.MAP_SELECTION);
       }
     }, 1000);
   }

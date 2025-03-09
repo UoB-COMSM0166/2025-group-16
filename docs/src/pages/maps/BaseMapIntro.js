@@ -3,6 +3,8 @@ class BaseMapIntro extends BasePage {
    * Creates a new MapGame page instance.
    * @param {Object} params - The parameters for the map page.
    * @param {string} params.title - The number of robots.
+   * @param {string} params.gamePage - The instance of game page.
+   * @param {string} params.gamePageKey - The key of game page.
    * @param {string[]} params.playerControlIntros - The number of robots.
    * @param {string} [params.additionalIntro] - The number of robots.
    */
@@ -18,6 +20,9 @@ class BaseMapIntro extends BasePage {
     this.playerControlIntroTexts = null;
     this.additionalIntroText = null;
     this.startButton = null;
+
+    this.gamePage = params.gamePage;
+    this.gamePageKey = params.gamePageKey;
   }
 
   /** @override */
@@ -63,12 +68,12 @@ class BaseMapIntro extends BasePage {
       y: (height / 4) * 3,
       width: 400,
       height: 80,
-      action: () =>
-        Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1),
+      action: () => Controller.changePage(this.gamePage, this.gamePageKey),
       color: Theme.palette.darkBlue,
       hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
       align: [CENTER, TOP],
       textParams: {
+        textSize: Theme.text.fontSize.medium,
         label: 'Ready!',
       },
     });
