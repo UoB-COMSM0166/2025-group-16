@@ -7,10 +7,8 @@ class MapIntro1 extends BaseMapIntro {
           '\n' +
           '1️⃣Find your robot! \n' +
           '2️⃣Hit the other player\n' +
-          `3️⃣Hit 💥 USE [${Settings.players[0].controls.HIT.name}] or [${Settings.players[1].controls.HIT.name}] \n`,
+          '3️⃣Hit 💥 USE [Q] or [?] \n',
       ],
-      gamePageKey: Constants.Page.MAP_GAME_1,
-      gamePage: new MapGame1(),
     });
 
     // Refined state management for GIF and countdown
@@ -134,8 +132,8 @@ class MapIntro1 extends BaseMapIntro {
     textLeading(38);
     text(this.playerControlIntros[0], boxX + 20, boxY + boxHeight / 2 - 10);
 
-    // Progress bar
-    this.drawProgressBar();
+    // // Progress bar
+    // this.drawProgressBar();
 
     pop();
   }
