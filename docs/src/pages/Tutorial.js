@@ -154,6 +154,8 @@ class Tutorial extends BasePage {
 
   /** @override */
   setup() {
+    super.setup();
+
     this.wallHeight = height;
     this.setupPlayers();
     this.resetMissionTitle();
