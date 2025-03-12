@@ -55,6 +55,7 @@ class Player extends Entity {
 
   keyPressed(entities, onDie) {
     if (this.status === Constants.EntityStatus.DIED) return;
+    if (this.isPaused) return;
 
     // when player press 'hit' while alive (not 'hit' or 'cooldown' status)
     const hitControl = this.controls[Constants.Control.HIT];
