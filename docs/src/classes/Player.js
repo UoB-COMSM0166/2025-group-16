@@ -33,7 +33,7 @@ class Player extends Entity {
     });
 
     this.controls = params.controls;
-    this.isPaused = false;
+    this.isPaused = params?.isPaused || false;
     this.originColor = initColor;
     this.onHit = params?.onHit;
   }
