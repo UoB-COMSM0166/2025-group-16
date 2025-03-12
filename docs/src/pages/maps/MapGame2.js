@@ -1,8 +1,8 @@
 const positionBoundary = {
-  x: 64,
-  y: 90,
-  width: 1152,
-  height: 468,
+  x: 70,
+  y: 92,
+  width: 1140,
+  height: 470,
 };
 
 class MapGame2 extends BaseMapGame {
