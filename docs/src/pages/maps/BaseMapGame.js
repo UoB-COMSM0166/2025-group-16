@@ -21,6 +21,9 @@ class BaseMapGame extends BasePage {
     this.playerListUI = null;
 
     this.isWaitingForGameOver = false;
+
+    this.countDown = 3;
+    this.countDownText;
   }
 
   /** @override */
@@ -49,6 +52,7 @@ class BaseMapGame extends BasePage {
         shapeType: this.shapeType,
         size: Constants.EntitySize.M,
         canDie: true,
+        isPaused: true,
       };
 
       if (this.shapeType == Constants.EntityType.PLAYER) {
@@ -66,6 +70,7 @@ class BaseMapGame extends BasePage {
           ...this.robotParams,
           idx: rIdx,
           size: Constants.EntitySize.M,
+          isPaused: true,
         }),
       );
     }
@@ -76,6 +81,42 @@ class BaseMapGame extends BasePage {
       textSize: Theme.text.fontSize.large,
       isShadow: true,
     });
+
+    this._setupCountDown();
+  }
+
+  _setupCountDown() {
+    this.countDownText = new Text({
+      label: this.countDown.toString(),
+      x: width / 2,
+      y: height / 2,
+      color: Theme.palette.yellow,
+      textSize: Theme.text.fontSize.largeTitle * 2.5,
+      textStyle: BOLD,
+      stroke: Theme.palette.text.primary,
+      strokeWeight: 12,
+      textAlign: [CENTER, CENTER],
+      textFont: 'Press Start 2P',
+    });
+
+    const intervalId = window.setInterval(() => {
+      this.countDown--;
+      this.countDownText.label = this.countDown
+        ? this.countDown.toString()
+        : 'GO'; // show 'GO' when countDown is 0
+      this.countDownText.textSize = Theme.text.fontSize.largeTitle * 2.5;
+
+      // start the game when count down finish
+      if (this.countDown === -1) {
+        this.players.forEach((player) => {
+          player.isPaused = false;
+        });
+        this.robots.forEach((robot) => {
+          robot.isPaused = false;
+        });
+        window.clearInterval(intervalId);
+      }
+    }, 400);
   }
 
   /** @override */
@@ -95,7 +136,7 @@ class BaseMapGame extends BasePage {
     this.playerListUI.drawPlayerAvatars();
 
     // update player status
-    if (this.alivePlayerCtn === 1) {
+    if (this.alivePlayerCtn <= 1) {
       const diePlayer = this.players.find(
         ({ status }) => status === Constants.EntityStatus.DIED,
       );
@@ -110,26 +151,55 @@ class BaseMapGame extends BasePage {
       });
     }
 
-    if (this.alivePlayerCtn === 1) {
+    if (this.alivePlayerCtn <= 1) {
       const alivePlayer = this.players.find(
         ({ status }) => status !== Constants.EntityStatus.DIED,
       );
-      alivePlayer.updateParams({
+      alivePlayer?.updateParams({
         shapeType: Constants.EntityType.PLAYER,
         color: Object.values(Theme.palette.player)[alivePlayer.idx],
       });
       this.gameOverText?.draw({
-        label: `Winner is player ${alivePlayer.idx + 1}`,
+        label: alivePlayer
+          ? `Winner is Player ${alivePlayer.idx + 1}!`
+          : 'No Winner!',
       });
 
       // show winner text for 3 seconds, and add score to the winner
       if (this.isWaitingForGameOver) return;
       this.isWaitingForGameOver = true;
-      Controller.addPlayerScore(alivePlayer.idx, 1);
+
+      if (alivePlayer) Controller.addPlayerScore(alivePlayer.idx, 1);
       window.setTimeout(() => {
         Controller.changePage(new Results(), Constants.Page.RESULTS);
       }, 3000);
     }
+
+    if (this.countDown >= 0) this._drawCountDown();
+  }
+
+  _drawCountDown() {
+    push();
+    if (this.countDown > 0) {
+      this.countDownText.textSize = this.countDownText.textSize * 0.97;
+      this.countDownText.draw();
+    } else if (this.countDown == 0) {
+      // shake 'GO' when countDown is 0
+      translate(this.countDownText.x, this.countDownText.y);
+      const angle = this._getRotateAngle();
+      rotate(angle * 0.05);
+      this.countDownText.draw({ x: 0, y: 0 });
+    }
+    pop();
+  }
+
+  // rotate angle: 0, 1, 2, 3, 2, 1, 0, -1, -2, -3, -2, -1
+  _getRotateAngle() {
+    const cycleLength = 12;
+    const index = frameCount % cycleLength;
+    if (index <= 3) return index;
+    if (index <= 9) return 6 - index;
+    return index - 12;
   }
 
   /** @override */

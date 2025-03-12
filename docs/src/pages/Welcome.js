@@ -19,8 +19,10 @@ class Welcome extends BasePage {
     this.checkiconP1 = null;
     this.checkiconP2 = null;
     this.introBox = { x: 20, y: 350, w: 400, h: 150 };
-    this.keyBoard_p1 = null;
-    this.keyBoard_p2 = null;
+    this.keyBoardP1 = null;
+    this.keyBoardP2 = null;
+
+    this.initTutorialState();
   }
 
   /** @override */
@@ -41,8 +43,8 @@ class Welcome extends BasePage {
     });
 
     this.introText = this.createIntroText(this.introBox);
-    this.keyBoard_p1 = Resources.images.welcome.keyboardP1;
-    this.keyBoard_p2 = Resources.images.welcome.keyboardP2;
+    this.keyBoardP1 = new KeyboardControl({ playerIdx: 0, scale: 3 / 4 });
+    this.keyBoardP2 = new KeyboardControl({ playerIdx: 1, scale: 3 / 4 });
 
     this.startButton = new Button({
       x: width / 2,
@@ -50,7 +52,7 @@ class Welcome extends BasePage {
       width: 300,
       height: 50,
       action: () =>
-        Controller.changePage(new MapIntro1(), Constants.Page.MAP_INTRO_1),
+        Controller.changePage(new MapSelection(), Constants.Page.MAP_SELECTION),
       color: Theme.palette.darkBlue,
       hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
       align: [CENTER, TOP],
@@ -76,6 +78,8 @@ class Welcome extends BasePage {
       const newPlayer = new Player(createPlayer);
       this.players.push(newPlayer);
     }
+
+    if (this.showTutorialDialog) this.openTutorialDialog();
   }
 
   /** @override */
@@ -109,27 +113,9 @@ class Welcome extends BasePage {
     //this.introText.p1.draw();
     //this.introText.p2.draw();
 
-    if (this.keyBoard_p1) {
-      imageMode(CENTER);
-      image(
-        this.keyBoard_p1.image,
-        width / 10,
-        height - 80,
-        this.keyBoard_p1.width * 1.5,
-        this.keyBoard_p1.height * 1.5,
-      );
-    }
+    this.keyBoardP1.draw({ x: width / 10, y: height - 80 });
+    this.keyBoardP2.draw({ x: (width / 10) * 9, y: height - 80 });
 
-    if (this.keyBoard_p2) {
-      imageMode(CENTER);
-      image(
-        this.keyBoard_p2.image,
-        (width / 10) * 9,
-        height - 80,
-        this.keyBoard_p2.width * 1.5,
-        this.keyBoard_p2.height * 1.5,
-      );
-    }
     // draw initialize playerList status
     this.playerList.drawPlayerAvatars();
 
@@ -175,16 +161,24 @@ class Welcome extends BasePage {
       }
     });
     this.drawCountdown();
+
+    // draw tutorial dialog
+    if (this.showTutorialDialog) this.drawTutorialDialog();
   }
 
   /** @override */
   keyPressed() {
     super.keyPressed();
-    this.players.forEach((player) => {
-      player.keyPressed([...this.players], (player) => {
-        player.status = Constants.EntityStatus.FAKEDIED;
+
+    if (this.showTutorialDialog) {
+      this.tutorialDialogKeyPressed();
+    } else {
+      this.players.forEach((player) => {
+        player.keyPressed([...this.players], (player) => {
+          player.status = Constants.EntityStatus.FAKEDIED;
+        });
       });
-    });
+    }
 
     // TODO: remove temporary shortcut controls
     if (keyCode === 49) {
@@ -326,6 +320,118 @@ class Welcome extends BasePage {
       });
 
       timerText.draw();
+    }
+  }
+
+  /* Tutorial Dialog */
+  // TODO: add "help" button to open tutorial dialog
+  initTutorialState() {
+    this.showTutorialDialog =
+      localStorage.getItem(Constants.TutorialCompletedKey) !== 'true';
+    this.tutorialDialogSelectingIdx = 0;
+
+    this.tutorialDialogTitle = new Text({
+      label: 'START TUTORIAL?',
+      x: width / 2,
+      y: height / 4,
+      color: Theme.palette.text.contrastText,
+      textSize: Theme.text.fontSize.large,
+      textStyle: BOLD,
+      textAlign: [CENTER, CENTER],
+      textFont: 'Press Start 2P',
+    });
+
+    this.tutorialDialogOptionYOffset = 36;
+    const xOffset = 12;
+    this.tutorialDialogOption1 = new Text({
+      label: 'YES',
+      x: width / 2 - xOffset,
+      y: height / 2 - this.tutorialDialogOptionYOffset,
+      color: Theme.palette.text.contrastText,
+      textSize: Theme.text.fontSize.medium,
+      textStyle: BOLD,
+      textAlign: [LEFT, CENTER],
+      textFont: 'Press Start 2P',
+    });
+    this.tutorialDialogOption2 = new Text({
+      label: 'NO',
+      x: width / 2 - xOffset,
+      y: height / 2 + this.tutorialDialogOptionYOffset,
+      color: Theme.palette.text.contrastText,
+      textSize: Theme.text.fontSize.medium,
+      textStyle: BOLD,
+      textAlign: [LEFT, CENTER],
+      textFont: 'Press Start 2P',
+    });
+    this.tutorialDialogOptionArrow = new Text({
+      label: '>',
+      x: width / 2 - xOffset * 3,
+      color: Theme.palette.yellow,
+      textSize: Theme.text.fontSize.medium,
+      textStyle: BOLD,
+      stroke: Theme.palette.text.contrastText,
+      strokeWeight: 4,
+      textAlign: [CENTER, CENTER],
+      textFont: 'Press Start 2P',
+    });
+  }
+
+  openTutorialDialog() {
+    this.players.forEach((player) => {
+      player.isPaused = true;
+    });
+    this.tutorialDialogSelectingIdx = 0;
+    this.showTutorialDialog = true;
+  }
+
+  closeTutorialDialog() {
+    this.players.forEach((player) => {
+      player.isPaused = false;
+    });
+    this.showTutorialDialog = false;
+  }
+
+  drawTutorialDialog() {
+    push();
+    fill(0, 0, 0, 180);
+    noStroke();
+    rect(0, 0, width, height);
+    pop();
+
+    this.tutorialDialogTitle.draw();
+    this.tutorialDialogOption1.draw();
+    this.tutorialDialogOption2.draw();
+
+    // blink every 0.4 seconds
+    if (Math.round(frameCount / (0.4 * Constants.FramePerSecond)) % 2) return;
+
+    this.tutorialDialogOptionArrow.draw({
+      y:
+        height / 2 +
+        this.tutorialDialogOptionYOffset *
+          (this.tutorialDialogSelectingIdx ? 1 : -1),
+    });
+  }
+
+  isPressed(control, keyCode) {
+    return Settings.players.some(
+      ({ controls }) => controls[control].value === keyCode,
+    );
+  }
+
+  tutorialDialogKeyPressed() {
+    // HIT or Enter to select
+    if (this.isPressed('HIT', keyCode) || keyCode === 13) {
+      if (this.tutorialDialogSelectingIdx === 0) {
+        Controller.changePage(new Tutorial(), Constants.Page.TUTORIAL);
+      } else {
+        this.closeTutorialDialog();
+        localStorage.setItem(Constants.TutorialCompletedKey, 'true');
+      }
+    }
+
+    if (this.isPressed('UP', keyCode) || this.isPressed('DOWN', keyCode)) {
+      this.tutorialDialogSelectingIdx = this.tutorialDialogSelectingIdx ? 0 : 1;
     }
   }
 }

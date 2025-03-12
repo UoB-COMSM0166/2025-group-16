@@ -25,8 +25,6 @@ const _ASSET_PATHS = {
       areYouARobot: `${_BASE_PATH}assets/images/welcomepage/text_areyouarobot.svg`,
       textOkP1: `${_BASE_PATH}assets/images/welcomepage/text_ok_p1.svg`,
       textOkP2: `${_BASE_PATH}assets/images/welcomepage/text_ok_p2.svg`,
-      keyboardP1: `${_BASE_PATH}assets/images/welcomepage/icon_keyboard_p1.svg`,
-      keyboardP2: `${_BASE_PATH}assets/images/welcomepage/icon_keyboard_p2.svg`,
     },
     mapSelection: [
       `${_BASE_PATH}assets/images/mapSelection/map1_desert.svg`,
@@ -43,6 +41,7 @@ const _ASSET_PATHS = {
     mapintro1page: {
       demo2: `${_BASE_PATH}assets/images/mapintro1page/DEMO2.gif`,
     },
+    keyboardControl: `${_BASE_PATH}assets/images/keyboardControl`,
     // Add more image paths here
   },
   sounds: {
@@ -141,6 +140,30 @@ const _playerLoseResources = Object.fromEntries(
   ]),
 );
 
+const _keyboardControlResources = Settings.players.map((_, pIdx) =>
+  Object.fromEntries(
+    Object.values(Constants.Control).map((control) => [
+      control,
+      Object.fromEntries(
+        ['active', 'inactive', 'default'].map((status) => [
+          status,
+          new SVGImage(
+            `${_ASSET_PATHS.images.keyboardControl}/keyboard_${control.toLowerCase()}_p${pIdx + 1}.svg`,
+            status !== 'default'
+              ? {
+                  fill:
+                    status === 'active'
+                      ? Theme.palette.orange
+                      : Theme.palette.mint,
+                }
+              : {},
+          ),
+        ]),
+      ),
+    ]),
+  ),
+);
+
 /* Main Resources */
 /**
  * Please find the reference structure below:
@@ -193,6 +216,7 @@ const Resources = {
     entity: _entityResources,
     playerLose: _playerLoseResources,
     welcome: _welomepageResources,
+    keyboardControl: _keyboardControlResources,
     resultsPage: {
       confetti: new Img(_ASSET_PATHS.images.resultsPage.confetti),
     },

@@ -20,33 +20,33 @@ function checkKnockedDown(hitterEntity, targetEntity) {
   };
   const hitDirection = hitterEntity.direction;
   switch (hitDirection) {
-    case Constants.EntityMove.RIGHT:
-      return (
-        target.y < hitter.y + hitter.h &&
-        target.y + target.h > hitter.y &&
-        hitter.x + hitter.w > target.x &&
-        hitter.x < target.x + target.w
-      );
     case Constants.EntityMove.LEFT:
       return (
-        target.y < hitter.y + hitter.h &&
-        target.y + target.h > hitter.y &&
+        hitter.x > target.x &&
         hitter.x < target.x + target.w &&
-        hitter.x + hitter.w > target.x
+        hitter.y + hitter.h / 2 < target.y + target.h &&
+        hitter.y + hitter.h / 2 > target.y
+      );
+    case Constants.EntityMove.RIGHT:
+      return (
+        hitter.x < target.x &&
+        hitter.x + hitter.w > target.x &&
+        hitter.y + hitter.h / 2 < target.y + target.h &&
+        hitter.y + hitter.h / 2 > target.y
       );
     case Constants.EntityMove.UP:
       return (
-        target.x < hitter.x + hitter.w &&
-        target.x + target.w > hitter.x &&
+        hitter.y > target.y &&
         hitter.y < target.y + target.h &&
-        hitter.y + hitter.h > target.y
+        hitter.x + hitter.w / 2 < target.x + target.w &&
+        hitter.x + hitter.w / 2 > target.x
       );
     case Constants.EntityMove.DOWN:
       return (
-        target.x < hitter.x + hitter.w &&
-        target.x + target.w > hitter.x &&
+        hitter.y < target.y &&
         hitter.y + hitter.h > target.y &&
-        hitter.y < target.y + target.h
+        hitter.x + hitter.w / 2 < target.x + target.w &&
+        hitter.x + hitter.w / 2 > target.x
       );
     default:
       return false;

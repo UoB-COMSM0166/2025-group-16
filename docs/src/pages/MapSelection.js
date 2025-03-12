@@ -59,12 +59,12 @@ class MapSelection extends BasePage {
 
     this.title?.draw();
     for (let i = 0; i < Constants.Map.length; i++) {
-      this._drawMapOption(i);
+      this.drawMapOption(i);
     }
     this.backHint?.draw();
   }
 
-  _drawMapOption(idx) {
+  drawMapOption(idx) {
     const scale = idx === this.selectingIdx ? 1 : 0.7;
     const img = Resources.images.mapSelection[idx];
     const imgWidth = img.image.width * scale;
@@ -84,12 +84,12 @@ class MapSelection extends BasePage {
     });
 
     if (idx === this.selectingIdx) {
-      this._drawSelectingPointer(x, y, imgHeight);
+      this.drawSelectingPointer(x, y, imgHeight);
     }
     pop();
   }
 
-  _drawSelectingPointer(x, y, imgHeight) {
+  drawSelectingPointer(x, y, imgHeight) {
     // blink every 0.5 seconds
     if (Math.round(frameCount / (0.5 * Constants.FramePerSecond)) % 2) return;
 
@@ -107,7 +107,7 @@ class MapSelection extends BasePage {
     );
   }
 
-  _isPressed(control, keyCode) {
+  isPressed(control, keyCode) {
     return Settings.players.some(
       ({ controls }) => controls[control].value === keyCode,
     );
@@ -117,14 +117,14 @@ class MapSelection extends BasePage {
   keyPressed() {
     super.keyPressed();
 
-    if (this._isPressed('LEFT', keyCode)) {
+    if (this.isPressed('LEFT', keyCode)) {
       this.selectingIdx =
         this.selectingIdx === 0
           ? Constants.Map.length - 1
           : this.selectingIdx - 1;
     }
 
-    if (this._isPressed('RIGHT', keyCode)) {
+    if (this.isPressed('RIGHT', keyCode)) {
       this.selectingIdx =
         this.selectingIdx === Constants.Map.length - 1
           ? 0
@@ -132,7 +132,7 @@ class MapSelection extends BasePage {
     }
 
     // HIT or Enter to select
-    if (this._isPressed('HIT', keyCode) || keyCode === 13) {
+    if (this.isPressed('HIT', keyCode) || keyCode === 13) {
       switch (this.selectingIdx) {
         case 0:
           Controller.changePage(new MapIntro1(), Constants.Page.MAP_INTRO_1);

@@ -11,6 +11,7 @@ class Robot extends Entity {
    * @param {{ x: number, y: number, width: number, height: number }} [params.positionBoundary] - Optional. If provided and no `position`, will be randomly placed within the boundary.
    * @param {{ x: number, y: number, width: number, height: number }} [params.randomPositionArea] - Optional. If provided, the entity will be placed within the area.
    * @param {number} [params.randomPositionPadding] - Optional. If provided, the entity will be placed within the positionBoundary with a padding.
+   * @param {boolean} [params.isPaused] - Optional. If true, the Robot will stay on the current position.
    */
   constructor(params) {
     super({
@@ -24,6 +25,8 @@ class Robot extends Entity {
       randomPositionArea: params?.randomPositionArea,
     });
 
+    this.isPaused = params?.isPaused ?? false;
+
     this.action = () => {};
     this.actionEndTime = millis();
   }
@@ -33,8 +36,10 @@ class Robot extends Entity {
     super.draw();
 
     if (this.status === Constants.EntityStatus.DIED) return;
-    if (millis() > this.actionEndTime) this.move();
-    this.action();
+    if (!this.isPaused) {
+      if (millis() > this.actionEndTime) this.move();
+      this.action();
+    }
   }
 
   /** @override */
