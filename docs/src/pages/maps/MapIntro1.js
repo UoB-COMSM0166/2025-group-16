@@ -9,16 +9,19 @@ class MapIntro1 extends BaseMapIntro {
           '2️⃣Hit the other player\n' +
           '3️⃣Hit 💥 USE [Q] or [?] \n',
       ],
+      hasCountdown: true,
+      countdownDuration: 8,
+      useFrameCountdown: false,
+      gamePage: new MapGame1(),
+      gamePageKey: Constants.Page.MAP_GAME_1,
     });
 
-    // Refined state management for GIF and countdown
     this.state = {
-      countdown: 8,
       gifState: {
         overlayOpacity: 0,
         frameOpacity: 0,
         gifOpacity: 0,
-        stage: 'init', // Stages: 'init' -> 'overlay' -> 'frame' -> 'gif'
+        stage: 'init', 
         startTime: 0,
         delay: 2000,
         transitionDuration: 500, // Smooth transition time
@@ -36,7 +39,6 @@ class MapIntro1 extends BaseMapIntro {
 
     this.demoGif = loadImage(Resources.images.mapintro1page.demo2.path);
 
-    // Create a static player robot
     this.playerRobot = new Player({
       idx: 0,
       controls: {}, // prevent movement
@@ -49,7 +51,6 @@ class MapIntro1 extends BaseMapIntro {
       },
     });
 
-    // Smooth GIF and countdown initialization
     this.initializeGifTransition();
   }
 
@@ -58,14 +59,12 @@ class MapIntro1 extends BaseMapIntro {
 
     // Start the transition sequence
     setTimeout(() => {
-      // First, fade in overlay and frame simultaneously
       this.transitionGifStage('overlay');
 
-      // Prepare for GIF appearance
       setTimeout(() => {
         this.transitionGifStage('gif');
         this.startCountdown();
-      }, gifState.transitionDuration + 500); // Slight delay after overlay/frame
+      }, gifState.transitionDuration + 500); 
     }, gifState.delay);
   }
 
@@ -81,7 +80,6 @@ class MapIntro1 extends BaseMapIntro {
         break;
 
       case 'gif':
-        // Fade in the GIF
         gifState.stage = 'gif';
         gifState.gifOpacity = 255;
         break;
@@ -90,16 +88,12 @@ class MapIntro1 extends BaseMapIntro {
 
   /** @override */
   draw() {
-    // Draw background
+    
+    super.draw();
+
     this.drawBackground();
-
-    // Draw player robot
     this.playerRobot.draw();
-
-    // Draw interaction elements
     this.drawInteractionBox();
-
-    // Draw GIF presentation
     this.drawGifPresentation();
   }
 
@@ -132,50 +126,22 @@ class MapIntro1 extends BaseMapIntro {
     textLeading(38);
     text(this.playerControlIntros[0], boxX + 20, boxY + boxHeight / 2 - 10);
 
-    // // Progress bar
-    // this.drawProgressBar();
+    this.drawProgressBar();
 
     pop();
-  }
-
-  drawProgressBar() {
-    const { countdown } = this.state;
-    if (countdown > 0) {
-      let progress = (8 - countdown) / 8;
-      let barWidth = 300;
-      let barHeight = 30;
-      let x = width - barWidth - 20;
-      let y = 20;
-
-      // Progress background
-      push();
-      stroke(255);
-      strokeWeight(4);
-      noFill();
-      rect(x, y, barWidth, barHeight);
-
-      // Progress fill
-      noStroke();
-      fill(50, 50, 50);
-      rect(x, y, barWidth * progress, barHeight);
-      pop();
-    }
   }
 
   drawGifPresentation() {
     const { gifState } = this.state;
 
-    // Check if GIF frame should be displayed
     if (gifState.overlayOpacity === 0) return;
 
-    // Overlay and GIF frame parameters
     const gifBoxWidth = 600;
     const gifBoxHeight = 400;
     const rightOffset = 100;
     const gifboxX = width / 2 - gifBoxWidth / 2 + rightOffset;
     const gifBoxY = (height - gifBoxHeight) / 2 - 70;
 
-    // Semi-transparent screen overlay
     push();
     fill(0, 0, 0, gifState.overlayOpacity);
     noStroke();
@@ -201,7 +167,6 @@ class MapIntro1 extends BaseMapIntro {
     line(gifboxX + 40, gifBoxY + 55, gifboxX + gifBoxWidth - 40, gifBoxY + 55);
     pop();
 
-    // Draw GIF if visible
     if (gifState.stage === 'gif' && this.demoGif) {
       imageMode(CORNER);
       tint(255, gifState.gifOpacity);
@@ -214,22 +179,5 @@ class MapIntro1 extends BaseMapIntro {
       );
       noTint();
     }
-  }
-
-  startCountdown() {
-    // const { gifState } = this.state;
-
-    // Prevent multiple countdown initializations
-    if (this.isCountingDown) return;
-    this.isCountingDown = true;
-
-    let interval = setInterval(() => {
-      if (this.state.countdown > 1) {
-        this.state.countdown--;
-      } else {
-        clearInterval(interval);
-        Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
-      }
-    }, 1000);
   }
 }

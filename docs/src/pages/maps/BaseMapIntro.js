@@ -7,6 +7,9 @@ class BaseMapIntro extends BasePage {
    * @param {string} params.gamePageKey - The key of game page.
    * @param {string[]} params.playerControlIntros - The number of robots.
    * @param {string} [params.additionalIntro] - The number of robots.
+   * @param {boolean} params.hasCountdown - Whether page has countdown
+   * @param {number} params.countdownDuration - Duration of countdown in seconds
+   * @param {boolean} params.useFrameCountdown - Whether to use frame-based countdown
    */
   constructor(params) {
     super({
@@ -23,6 +26,26 @@ class BaseMapIntro extends BasePage {
 
     this.gamePage = params.gamePage;
     this.gamePageKey = params.gamePageKey;
+
+    // Initialize countdown manager if countdown is enabled
+    this.hasCountdown = params.hasCountdown || false;
+    this.countdownDuration = params.countdownDuration || 8;
+    this.useFrameCountdown = params.useFrameCountdown || false;
+
+    if (this.hasCountdown) {
+      this.countdownManager = new CountdownManager({
+        duration: this.countdownDuration,
+        useFrameCount: this.useFrameCountdown,
+        onComplete: () => {
+          if (this.gamePage && this.gamePageKey) {
+            Controller.changePage(this.gamePage, this.gamePageKey);
+          }
+        },
+        onTick: (secondsRemaining) => {
+          // Can be extended by subclasses if needed
+        },
+      });
+    }
   }
 
   /** @override */
@@ -85,6 +108,61 @@ class BaseMapIntro extends BasePage {
     this.additionalIntroText?.draw();
     this.playerControlIntroTexts.map((text) => text?.draw());
     this.startButton?.draw();
+
+    // Update countdown if it exists
+    if (this.hasCountdown && this.countdownManager) {
+      if (this.useFrameCountdown) {
+        this.countdownManager.update();
+      }
+
+      // Draw progress bar if countdown is running
+      if (this.countdownManager.isRunning) {
+        this.drawProgressBar();
+      }
+    }
+  }
+
+  /**
+   * Start the countdown if it exists
+   */
+  startCountdown() {
+    if (this.hasCountdown && this.countdownManager) {
+      this.countdownManager.start();
+    }
+  }
+
+  /**
+   * Draw progress bar for countdown
+   * This can be overridden by subclasses to customize appearance
+   */
+  drawProgressBar() {
+    if (!this.countdownManager) return;
+
+    const barWidth = 200;
+    const barHeight = 30;
+    const barX = width - barWidth - 30;
+    const barY = 30;
+
+    push();
+
+    fill(50, 50, 50, 200);
+    noStroke();
+    rect(barX, barY, barWidth, barHeight, 15);
+
+    const progress = this.countdownManager.getProgress();
+    fill(255, 100, 100);
+    rect(barX, barY, barWidth * progress, barHeight, 15);
+
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textFont('Press Start 2P');
+    textSize(16);
+    text(
+      `${this.countdownManager.getSecondsRemaining()}s`,
+      barX + barWidth / 2,
+      barY + barHeight / 2,
+    );
+    pop();
   }
 
   /** @override */
