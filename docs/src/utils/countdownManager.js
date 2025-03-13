@@ -37,7 +37,9 @@ class CountdownManager {
    * Start the countdown
    */
   start() {
-    if (this.isRunning) return;
+    if (this.isRunning) {
+      return;
+    }
 
     this.isRunning = true;
     this.secondsRemaining = this.duration;
@@ -78,7 +80,9 @@ class CountdownManager {
    * Process a single countdown tick
    */
   tick() {
-    if (!this.isRunning) return;
+    if (!this.isRunning) {
+      return;
+    }
 
     if (this.secondsRemaining > 0) {
       this.secondsRemaining--;
@@ -95,7 +99,9 @@ class CountdownManager {
    * Update method to be called in draw() loop when using frame-based countdown
    */
   update() {
-    if (!this.isRunning || !this.useFrameCount) return;
+    if (!this.isRunning || !this.useFrameCount) {
+      return;
+    }
 
     // Check if a second has passed (approx 60 frames at 60fps)
     if (frameCount - this.lastFrameCount >= this.frameInterval) {
