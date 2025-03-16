@@ -5,6 +5,13 @@
  * please add them here and then also to `sketch.js`.
  */
 class BasePage {
+  /**
+   * @param {Img} [params.background] - Optional. Image resource.
+   * @param {Sound} [params.bgm] - Optional. Sound resource.
+   * @param {string} [params.shapeType] - Optional. ShapeType setting for player.
+   * @param {boolean} [params.turnOnSpeaker] - Optional. Should turn on speaker when loading. Default:true.
+   * @param {boolean} [params.initSound] - Optional. Setting if it's first time loading to the welcome page. Default:false
+   */
   constructor(params) {
     this.background = params?.background || null;
     this.bgm = params?.bgm || null;
