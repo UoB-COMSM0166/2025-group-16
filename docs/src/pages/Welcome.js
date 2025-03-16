@@ -1,12 +1,12 @@
 class Welcome extends BasePage {
-  constructor() {
+  constructor(params) {
     super({
       shapeType: Constants.EntityType.PLAYER,
       background: Resources.images.welcome.background,
       bgm: Resources.sounds.bgm.intro,
+      turnOnSpeaker: params?.turnOnSpeaker, // init:false, tutotial->welcome: true, result->welcome:true
+      initSound: params?.initSound, // init: true, others:false
     });
-    // turn on debugMode: not count down 3 sec, show start game button
-    this.debugMode = false;
     this.countdown = 3;
     this.isCountingDown = false;
     this.countdownInterval = null;
@@ -22,22 +22,30 @@ class Welcome extends BasePage {
     this.keyBoardP1 = null;
     this.keyBoardP2 = null;
 
+    this.tutorial = null;
     this.initTutorialState();
   }
 
   /** @override */
   setup() {
     super.setup();
+
+    this.tutorial = {
+      ...Resources.images.welcome.tutorial,
+      x: width * 0.95,
+      y: height * 0.05,
+    };
+
     this.title = Resources.images.welcome.title;
     this.comehere = Resources.images.welcome.comehere;
     this.gameStartArea = Resources.images.welcome.gamaStartArea;
-    this.gameStartArea.x = width / 2;
-    this.gameStartArea.y = height / 2;
+    this.gameStartArea.x = width / 2 - 5;
+    this.gameStartArea.y = height / 2 + 20;
     this.checkiconP1 = Resources.images.welcome.checkiconp1;
     this.checkiconP2 = Resources.images.welcome.checkiconp2;
     // init player list status
     this.playerList = new PlayerList({
-      label: 'Are you a robot?',
+      label: 'Ready?',
       textSize: Theme.text.fontSize.medium,
       color: Theme.palette.black,
     });
@@ -45,19 +53,6 @@ class Welcome extends BasePage {
     this.introText = this.createIntroText(this.introBox);
     this.keyBoardP1 = new KeyboardControl({ playerIdx: 0, scale: 3 / 4 });
     this.keyBoardP2 = new KeyboardControl({ playerIdx: 1, scale: 3 / 4 });
-
-    this.startButton = new Button({
-      x: width / 2,
-      y: (height + this.gameStartArea.height) / 2 + 10,
-      width: 300,
-      height: 50,
-      action: () =>
-        Controller.changePage(new MapSelection(), Constants.Page.MAP_SELECTION),
-      color: Theme.palette.darkBlue,
-      hoverColor: colorHelper.lighter(Theme.palette.darkBlue, 0.5),
-      align: [CENTER, TOP],
-      textParams: { label: 'Start Game' },
-    });
 
     // initialize players
     for (let pIdx = 0; pIdx < Settings.players.length; pIdx++) {
@@ -85,15 +80,25 @@ class Welcome extends BasePage {
   /** @override */
   draw() {
     super.draw();
+    if (this.tutorial) {
+      imageMode(CENTER);
+      image(
+        this.tutorial.image,
+        this.tutorial.x,
+        this.tutorial.y,
+        this.tutorial.width,
+        this.tutorial.height,
+      );
+    }
 
     if (this.title) {
       imageMode(CENTER);
       image(
         this.title.image,
         width / 2,
-        height / 2 - 250,
-        this.title.width,
-        this.title.height,
+        height * 0.12,
+        this.title.width * 0.9,
+        this.title.height * 0.9,
       );
     }
     if (this.gameStartArea) {
@@ -132,7 +137,7 @@ class Welcome extends BasePage {
       } else {
         this.playerList.updateStatus({
           playerIdx: idx,
-          newStatus: 'Are you a robot?',
+          newStatus: 'Ready?',
           textSize: Theme.text.fontSize.medium,
           color: Theme.palette.black,
           isShadow: false,
@@ -141,11 +146,7 @@ class Welcome extends BasePage {
     });
 
     if (this.players.every((player) => this.checkPlayersInStartArea(player))) {
-      if (this.debugMode) {
-        this.startButton?.draw();
-      } else {
-        this.startCountdown();
-      }
+      this.startCountdown();
     } else {
       this.cancelCountdown();
     }
@@ -169,7 +170,11 @@ class Welcome extends BasePage {
   /** @override */
   keyPressed() {
     super.keyPressed();
-
+    if (!this.turnOnSpeaker && this.initSound) {
+      userStartAudio();
+      this.initSound = false;
+      this.turnOnSpeaker = true;
+    }
     if (this.showTutorialDialog) {
       this.tutorialDialogKeyPressed();
     } else {
@@ -190,6 +195,15 @@ class Welcome extends BasePage {
     } else if (keyCode === 51) {
       // 3
       Controller.changePage(new MapGame3(), Constants.Page.MAP_GAME_3);
+    }
+  }
+
+  /**@override */
+  mousePressed() {
+    super.mousePressed();
+    if (this.isImagePressed(this.tutorial)) {
+      localStorage.removeItem(Constants.TutorialCompletedKey);
+      this.openTutorialDialog();
     }
   }
 
@@ -324,7 +338,6 @@ class Welcome extends BasePage {
   }
 
   /* Tutorial Dialog */
-  // TODO: add "help" button to open tutorial dialog
   initTutorialState() {
     this.showTutorialDialog =
       localStorage.getItem(Constants.TutorialCompletedKey) !== 'true';

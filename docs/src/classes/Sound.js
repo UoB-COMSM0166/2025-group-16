@@ -22,7 +22,7 @@ class Sound {
 
   /** Plays the sound in a loop */
   loop() {
-    if (this.sound && !this.sound.isLooping()) {
+    if (this.sound && !this.sound.isPlaying()) {
       this.sound.setLoop(true);
       this.sound.play();
     }
