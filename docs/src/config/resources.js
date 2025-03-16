@@ -18,13 +18,16 @@ const _ASSET_PATHS = {
     welcomepage: {
       background: `${_BASE_PATH}assets/images/welcomepage/background_welcomepage.png`,
       title: `${_BASE_PATH}assets/images/welcomepage/text_unstoppable.svg`,
-      comehere: `${_BASE_PATH}assets/images/welcomepage/text_comehere.svg`,
-      gamaStartArea: `${_BASE_PATH}assets/images/welcomepage/tileset_square_comehere.svg`,
+      comehere: `${_BASE_PATH}assets/images/welcomepage/text_comehere_v2.svg`,
+      gamaStartArea: `${_BASE_PATH}assets/images/welcomepage/tileset_square_comehere_v2.svg`,
       checkiconp1: `${_BASE_PATH}assets/images/welcomepage/icon_check_p1.svg`,
       checkiconp2: `${_BASE_PATH}assets/images/welcomepage/icon_check_p2.svg`,
       areYouARobot: `${_BASE_PATH}assets/images/welcomepage/text_areyouarobot.svg`,
       textOkP1: `${_BASE_PATH}assets/images/welcomepage/text_ok_p1.svg`,
       textOkP2: `${_BASE_PATH}assets/images/welcomepage/text_ok_p2.svg`,
+      speakerOn: `${_BASE_PATH}assets/images/welcomepage/icon_soundson.svg`,
+      speakerOff: `${_BASE_PATH}assets/images/welcomepage/icon_soundsoff.svg`,
+      tutorial: `${_BASE_PATH}assets/images/welcomepage/icon_tutorial.svg`,
     },
     mapSelection: [
       `${_BASE_PATH}assets/images/mapSelection/map1_desert.svg`,

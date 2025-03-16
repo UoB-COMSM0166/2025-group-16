@@ -10,6 +10,10 @@ class BasePage {
     this.bgm = params?.bgm || null;
     this.players = [];
     this.shapeType = params?.shapeType || Constants.EntityType.ROBOT;
+    this.speakerOn = null;
+    this.speakerOff = null;
+    this.turnOnSpeaker = params?.turnOnSpeaker ?? true;
+    this.initSound = params?.initSound ?? false;
   }
 
   /**
@@ -19,6 +23,16 @@ class BasePage {
    */
   setup() {
     this.bgm?.loop();
+    this.speakerOn = {
+      ...Resources.images.welcome.speakerOn,
+      x: width * 0.05,
+      y: height * 0.05,
+    };
+    this.speakerOff = {
+      ...Resources.images.welcome.speakerOff,
+      x: width * 0.05,
+      y: height * 0.05,
+    };
   }
 
   /**
@@ -30,6 +44,27 @@ class BasePage {
     if (this.background) {
       imageMode(CORNER);
       image(this.background.image, 0, 0, width, height);
+    }
+
+    if (!this.turnOnSpeaker) {
+      imageMode(CENTER);
+      image(
+        this.speakerOff.image,
+        this.speakerOff.x,
+        this.speakerOff.y,
+        this.speakerOff.width,
+        this.speakerOff.height,
+      );
+    }
+    if (this.turnOnSpeaker) {
+      imageMode(CENTER);
+      image(
+        this.speakerOn.image,
+        this.speakerOn.x,
+        this.speakerOn.y,
+        this.speakerOn.width,
+        this.speakerOn.height,
+      );
     }
   }
 
@@ -80,7 +115,19 @@ class BasePage {
    * @see https://p5js.org/reference/p5/mousePressed/
    */
   mousePressed() {
-    userStartAudio();
+    if (!this.turnOnSpeaker && this.initSound) {
+      userStartAudio();
+      this.initSound = false;
+      this.turnOnSpeaker = true;
+    }
+
+    if (this.turnOnSpeaker && this.isImagePressed(this.speakerOn)) {
+      this.bgm.sound.stop();
+      this.turnOnSpeaker = false;
+    } else if (!this.turnOnSpeaker && this.isImagePressed(this.speakerOff)) {
+      this.bgm.loop();
+      this.turnOnSpeaker = true;
+    }
   }
 
   /**
@@ -94,9 +141,7 @@ class BasePage {
    * Called when a key is pressed.
    * @see https://p5js.org/reference/p5/keyPressed/
    */
-  keyPressed() {
-    userStartAudio();
-  }
+  keyPressed() {}
 
   /**
    * Called when a key is released.
@@ -109,5 +154,14 @@ class BasePage {
    */
   remove() {
     this.bgm?.stop();
+  }
+
+  isImagePressed(imageObj) {
+    return (
+      mouseX >= imageObj.x - 20 &&
+      mouseX <= imageObj.x + imageObj.width &&
+      mouseY >= imageObj.y - 20 &&
+      mouseY <= imageObj.y + imageObj.height
+    );
   }
 }

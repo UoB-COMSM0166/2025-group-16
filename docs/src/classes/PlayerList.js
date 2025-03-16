@@ -59,7 +59,7 @@ class PlayerList extends UIComponent {
         );
 
         let textXPos = xPos + avatarSize / 2 + 10;
-        let textYPos = yPos + avatarSize / 2 - 70;
+        let textYPos = yPos + avatarSize / 2 - 60;
 
         let { text, color, textSize, isShadow } = this.statusTexts[i];
         if (this?.label) {

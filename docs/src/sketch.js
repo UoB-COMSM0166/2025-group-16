@@ -42,7 +42,10 @@ function setup() {
   document.getElementById('start-loading-text-wrapper').remove();
 
   createCanvas(Settings.canvas.width, Settings.canvas.height);
-  Controller.changePage(new Welcome(), Constants.Page.WELCOME);
+  Controller.changePage(
+    new Welcome({ turnOnSpeaker: false, initSound: true }),
+    Constants.Page.WELCOME,
+  );
 }
 
 const pageLabel = new Text(); // TODO: remove it
