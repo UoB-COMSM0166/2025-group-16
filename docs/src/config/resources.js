@@ -10,7 +10,7 @@ const _BASE_PATH = window.location.hostname.includes('github.io')
 const _ASSET_PATHS = {
   images: {
     entity: `${_BASE_PATH}assets/images/entity/`,
-    playerLose: `${_BASE_PATH}assets/images/entity/player_lose.svg`,
+    playerAnimation: `${_BASE_PATH}assets/images/entity/playerAnimation`,
     playerlist: {
       ing: `${_BASE_PATH}assets/images/welcomepage/player_avatar.svg`,
       lose: `${_BASE_PATH}assets/images/welcomepage/player_avatar_lose.svg`,
@@ -133,13 +133,21 @@ const _entityResources = Object.fromEntries(
   ]),
 );
 
-const _playerLoseResources = Object.fromEntries(
-  Object.values(Theme.palette.player).map((fill) => [
-    fill,
-    new SVGImage(_ASSET_PATHS.images.playerLose, {
-      scale: _entityBaseScale,
-      fill,
-    }),
+const _playerAniResources = Object.fromEntries(
+  ['lose', 'jump', 'wave_1', 'wave_2'].map((ani) => [
+    ani,
+    Object.fromEntries(
+      Object.values(Theme.palette.player).map((fill) => [
+        fill,
+        new SVGImage(
+          `${_ASSET_PATHS.images.playerAnimation}/player_${ani}.svg`,
+          {
+            scale: _entityBaseScale,
+            fill,
+          },
+        ),
+      ]),
+    ),
   ]),
 );
 
@@ -217,7 +225,7 @@ const _welomepageResources = Object.fromEntries(
 const Resources = {
   images: {
     entity: _entityResources,
-    playerLose: _playerLoseResources,
+    playerAnimation: _playerAniResources,
     welcome: _welomepageResources,
     keyboardControl: _keyboardControlResources,
     resultsPage: {

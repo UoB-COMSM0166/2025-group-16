@@ -15,9 +15,10 @@ const Controller = {
     if (page.setup) page.setup();
   },
 
-  addPlayerScore(playerIdx, addedScore) {
+  updateScoreAfterGame(winnerIdx) {
     const newPlayers = Store.getPlayers();
-    newPlayers[playerIdx].score += addedScore;
+    newPlayers[winnerIdx].score += 1;
+    newPlayers[winnerIdx].isJustWon = true;
     Store._updateState(newPlayers);
   },
 
@@ -27,10 +28,19 @@ const Controller = {
     Store._updateState(newPlayers);
   },
 
+  resetPlayerJustWon() {
+    const newPlayers = Store.getPlayers();
+    newPlayers.forEach((player) => {
+      player.isJustWon = false;
+    });
+    Store._updateState(newPlayers);
+  },
+
   resetPlayersScore() {
     const newPlayers = Store.getPlayers();
     newPlayers.forEach((player) => {
       player.score = 0;
+      player.isJustWon = false;
     });
     Store._updateState(newPlayers);
   },
