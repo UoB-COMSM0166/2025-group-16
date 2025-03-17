@@ -10,8 +10,13 @@ class Results extends BasePage {
 
     this.winner = { idx: null, score: 0 };
 
+    this.showDropScoreAniTime = millis() + 300;
     this.showPlayerAniTime = millis() + 1000;
     this.showBackHintTime = millis() + 1500;
+
+    this.dropStartY;
+    this.dropScoreSpeed = 8;
+    this.scoreHeight = 128;
   }
 
   /** @override */
@@ -26,7 +31,7 @@ class Results extends BasePage {
       textSize: Theme.text.fontSize.largeTitle,
       textStyle: BOLD,
       stroke: Theme.palette.text.primary,
-      strokeWeight: 1,
+      strokeWeight: 0,
       textAlign: [CENTER, CENTER],
       textFont: 'Press Start 2P',
     });
@@ -43,6 +48,8 @@ class Results extends BasePage {
 
     this.playerSettings = this._getPlayerSettings();
     this.winner = this._getWinner();
+
+    this.dropStartY = this.title.y - this.scoreHeight;
   }
 
   _getPlayerSettings() {
@@ -69,28 +76,73 @@ class Results extends BasePage {
   draw() {
     super.draw();
 
-    const scoreList = [];
+    this._drawTitle();
 
     // draw player images
     const scale = Settings.entity.scale[Constants.EntitySize.L];
     this.playerSettings.forEach((setting) => {
       this._drawPlayerImage(setting, scale);
-      scoreList.push(setting.score);
-
       // draw confetti for round winner
       if (setting.idx === this.winner.idx) {
         this._drawConfetti(setting.x, setting.y);
       }
     });
 
-    this.title?.draw({
-      label: this.winner.idx !== null ? 'Results' : scoreList.join(' : '),
-    });
-
     // draw backHint: check is after showBackHintTime and make it flicker
     const timeSinceHint = millis() - this.showBackHintTime;
     if (timeSinceHint && Math.floor(timeSinceHint / 1000) % 2) {
       this.backHint?.draw();
+    }
+  }
+
+  _drawTitle() {
+    if (!this.title) return;
+
+    if (this.winner.idx !== null) {
+      // draw title if win in round
+      this.title.draw();
+    } else {
+      // draw drop score animation if win in single game
+      const timeSinceDrop = millis() - this.showDropScoreAniTime;
+      const isDropping = timeSinceDrop < 1500;
+      if (isDropping) {
+        this.dropStartY = Math.min(
+          this.dropStartY + this.dropScoreSpeed,
+          this.title.y,
+        );
+        this.dropScoreSpeed *= 0.95;
+      }
+
+      this.playerSettings.forEach((setting) => {
+        if (setting.isJustWon && setting.score > 0) {
+          push();
+          clip(() => {
+            rectMode(CENTER);
+            rect(setting.x, this.title.y, 120, this.scoreHeight);
+          });
+          // dropping score animation for winner
+          this.title.draw({
+            label: setting.score - 1,
+            x: setting.x,
+            y: this.dropStartY + this.scoreHeight,
+          });
+          this.title.draw({
+            label: setting.score,
+            x: setting.x,
+            y: this.dropStartY,
+          });
+          pop();
+        } else {
+          // no score animation for loser
+          this.title.draw({
+            label: setting.score,
+            x: setting.x,
+          });
+        }
+      });
+      this.title.draw({
+        label: ':',
+      });
     }
   }
 
