@@ -18,7 +18,7 @@ class BaseMapGame extends BasePage {
     this.robotParams = params.robotParams || {};
 
     this.gameOverText = null;
-    this.playerListUI = null;
+    this.playerList = null;
 
     this.isWaitingForGameOver = false;
 
@@ -73,7 +73,7 @@ class BaseMapGame extends BasePage {
     }
 
     // initialize player list and text
-    this.playerListUI = new PlayerList({
+    this.playerList = new PlayerList({
       label: 'Fight',
       textSize: Theme.text.fontSize.large,
       isShadow: true,
@@ -135,8 +135,8 @@ class BaseMapGame extends BasePage {
         entity.type === Constants.EntityType.PLAYER &&
         entity.status === Constants.EntityStatus.DIED
       ) {
-        this.playerListUI.playerLose(entity.idx);
-        this.playerListUI.updateStatus({
+        this.playerList.playerLose(entity.idx);
+        this.playerList.updateStatus({
           playerIdx: entity.idx,
           newStatus: 'K.O.',
           textSize: Theme.text.fontSize.large,
@@ -146,7 +146,7 @@ class BaseMapGame extends BasePage {
       }
     });
 
-    this.playerListUI.drawPlayerAvatars();
+    this.playerList.drawPlayerAvatars();
     this._drawGameFinish();
     if (this.countDown >= 0) this._drawCountDown();
   }

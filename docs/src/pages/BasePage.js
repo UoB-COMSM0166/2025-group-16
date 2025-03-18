@@ -76,16 +76,16 @@ class BasePage {
   }
 
   drawPlayerAvatars(statusTextImage) {
-    let numPlayers = Object.keys(Resources.images.playerlist).length;
+    const numPlayers = Object.keys(Resources.images.playerAvatar.ing).length;
     if (numPlayers === 0) return;
 
-    let spacing = width / (numPlayers + 1);
+    const spacing = width / (numPlayers + 1);
 
     for (let i = 0; i < numPlayers; i++) {
-      let playerAvatar = Resources.images.playerlist[i];
-      let avatarSize = playerAvatar.width;
-      let xPos = spacing * (i + 1) - avatarSize / 2 - 50;
-      let yPos = height - avatarSize + 50;
+      const playerAvatar = Resources.images.playerAvatar.ing[i];
+      const avatarSize = playerAvatar.width;
+      const xPos = spacing * (i + 1) - avatarSize / 2 - 50;
+      const yPos = height - avatarSize + 50;
 
       if (playerAvatar?.image) {
         imageMode(CENTER);
@@ -98,9 +98,9 @@ class BasePage {
         );
       }
 
-      let fightXPos = xPos + avatarSize + 80;
-      let fightYPos = yPos + avatarSize / 2 - 70;
-      let fightImage = statusTextImage?.[i]
+      const fightXPos = xPos + avatarSize + 80;
+      const fightYPos = yPos + avatarSize / 2 - 70;
+      const fightImage = statusTextImage?.[i]
         ? statusTextImage[i]
         : Resources.images.playerlist[i]; // TODO: change to fight image
       if (fightImage?.image) {
