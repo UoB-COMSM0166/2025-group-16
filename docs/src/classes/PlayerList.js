@@ -19,12 +19,13 @@ class PlayerList extends UIComponent {
     this.playerAvatars = [];
     this.playerStatus = [];
     this.statusTexts = []; //store players status in order.
-    const numPlayers = Object.keys(Resources.images.playerlist).length;
+
+    const numPlayers = Resources.images.playerAvatar.ing.length;
     for (let i = 0; i < numPlayers; i++) {
       const playerColor = this.color
         ? this.color
         : Object.values(Theme.palette.player)[i];
-      this.playerAvatars.push(Resources.images.playerlist.ing[i]);
+      this.playerAvatars.push(Resources.images.playerAvatar.ing[i]);
       this.playerStatus.push('playing');
       this.statusTexts.push({
         text: this.label,
@@ -41,7 +42,7 @@ class PlayerList extends UIComponent {
     for (let i = 0; i < numPlayers; i++) {
       const playerImage =
         this.playerStatus[i] === 'lose'
-          ? Resources.images.playerlist.lose
+          ? Resources.images.playerAvatar.lose
           : this.playerAvatars[i];
 
       const avatarSize = playerImage?.width;

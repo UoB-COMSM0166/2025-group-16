@@ -21,7 +21,7 @@ class MapIntro1 extends BaseMapIntro {
         overlayOpacity: 0,
         frameOpacity: 0,
         gifOpacity: 0,
-        stage: 'init', 
+        stage: 'init',
         startTime: 0,
         delay: 2000,
         transitionDuration: 500, // Smooth transition time
@@ -37,7 +37,7 @@ class MapIntro1 extends BaseMapIntro {
   setup() {
     super.setup();
 
-    this.demoGif = loadImage(Resources.images.mapintro1page.demo2.path);
+    this.demoGif = loadImage(Resources.images.mapIntro.demo2.path);
 
     this.playerRobot = new Player({
       idx: 0,
@@ -64,7 +64,7 @@ class MapIntro1 extends BaseMapIntro {
       setTimeout(() => {
         this.transitionGifStage('gif');
         this.startCountdown();
-      }, gifState.transitionDuration + 500); 
+      }, gifState.transitionDuration + 500);
     }, gifState.delay);
   }
 
@@ -88,7 +88,6 @@ class MapIntro1 extends BaseMapIntro {
 
   /** @override */
   draw() {
-    
     super.draw();
 
     this.drawBackground();

@@ -11,23 +11,16 @@ const _ASSET_PATHS = {
   images: {
     entity: `${_BASE_PATH}assets/images/entity/`,
     playerAnimation: `${_BASE_PATH}assets/images/entity/playerAnimation`,
-    playerlist: {
-      ing: `${_BASE_PATH}assets/images/welcomepage/player_avatar.svg`,
-      lose: `${_BASE_PATH}assets/images/welcomepage/player_avatar_lose.svg`,
-    },
-    welcomepage: {
-      background: `${_BASE_PATH}assets/images/welcomepage/background_welcomepage.png`,
-      title: `${_BASE_PATH}assets/images/welcomepage/text_unstoppable.svg`,
-      comehere: `${_BASE_PATH}assets/images/welcomepage/text_comehere_v2.svg`,
-      gamaStartArea: `${_BASE_PATH}assets/images/welcomepage/tileset_square_comehere_v2.svg`,
-      checkiconp1: `${_BASE_PATH}assets/images/welcomepage/icon_check_p1.svg`,
-      checkiconp2: `${_BASE_PATH}assets/images/welcomepage/icon_check_p2.svg`,
-      areYouARobot: `${_BASE_PATH}assets/images/welcomepage/text_areyouarobot.svg`,
-      textOkP1: `${_BASE_PATH}assets/images/welcomepage/text_ok_p1.svg`,
-      textOkP2: `${_BASE_PATH}assets/images/welcomepage/text_ok_p2.svg`,
-      speakerOn: `${_BASE_PATH}assets/images/welcomepage/icon_soundson.svg`,
-      speakerOff: `${_BASE_PATH}assets/images/welcomepage/icon_soundsoff.svg`,
-      tutorial: `${_BASE_PATH}assets/images/welcomepage/icon_tutorial.svg`,
+    playerAvatar: `${_BASE_PATH}assets/images/welcome/player_avatar.svg`,
+    welcome: {
+      background: `${_BASE_PATH}assets/images/welcome/background.png`,
+      title: `${_BASE_PATH}assets/images/welcome/text_unstoppable.svg`,
+      comehere: `${_BASE_PATH}assets/images/welcome/text_comehere.svg`,
+      gamaStartArea: `${_BASE_PATH}assets/images/welcome/tileset_square_comehere.svg`,
+      check: `${_BASE_PATH}assets/images/welcome/icon_check.svg`,
+      speakerOn: `${_BASE_PATH}assets/images/welcome/icon_soundson.svg`,
+      speakerOff: `${_BASE_PATH}assets/images/welcome/icon_soundsoff.svg`,
+      tutorial: `${_BASE_PATH}assets/images/welcome/icon_tutorial.svg`,
     },
     mapSelection: [
       `${_BASE_PATH}assets/images/mapSelection/map1_desert.svg`,
@@ -41,8 +34,8 @@ const _ASSET_PATHS = {
       game1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
       game2: `${_BASE_PATH}assets/images/backgrounds/level2_v1.png`,
     },
-    mapintro1page: {
-      demo2: `${_BASE_PATH}assets/images/mapintro1page/DEMO2.gif`,
+    mapIntro: {
+      demo2: `${_BASE_PATH}assets/images/mapIntro/DEMO2.gif`,
     },
     keyboardControl: `${_BASE_PATH}assets/images/keyboardControl`,
     // Add more image paths here
@@ -91,7 +84,7 @@ const _entityVariants = Object.freeze({
 });
 
 const _entityBaseScale = 1 / Settings.entity.scale[Constants.EntitySize.S];
-const _welcomePageScale = Settings.entity.scale[Constants.EntitySize.XL];
+const _welcomeScale = Settings.entity.scale[Constants.EntitySize.XL];
 const _entityResources = Object.fromEntries(
   // Add entity type: player, robot
   Object.values(Constants.EntityType).map((type) => [
@@ -206,27 +199,44 @@ const _keyboardControlResources = Settings.players.map((_, pIdx) =>
  *     },
  *     welcome:{},
  *     map: {},
- *     playerlist: [p1_avatar, p2_avatar, ...],
+ *     playerAvatar: {
+ *       ing: {
+ *          [Constants.palette.entity[0]]: SVGImage,
+ *          [Constants.palette.entity[1]]: SVGImage,
+ *       },
+ *       lose: SVGImage,
+ *     },
  *   }
  *   sounds: {},
  * };
  * ```
  */
 
-const _welomepageResources = Object.fromEntries(
-  Object.entries(_ASSET_PATHS.images.welcomepage).map(([key, path]) => [
-    key,
-    path.endsWith('.svg')
-      ? new SVGImage(path, { scale: _welcomePageScale })
-      : new Img(path),
-  ]),
-);
+const _welcomeResources = {
+  ...Object.fromEntries(
+    Object.entries(_ASSET_PATHS.images.welcome).map(([key, path]) => [
+      key,
+      path.endsWith('.svg')
+        ? new SVGImage(path, { scale: _welcomeScale })
+        : new Img(path),
+    ]),
+  ),
+  check: Object.fromEntries(
+    Object.values(Theme.palette.player).map((fill) => [
+      fill,
+      new SVGImage(_ASSET_PATHS.images.welcome.check, {
+        scale: _welcomeScale,
+        fill,
+      }),
+    ]),
+  ),
+};
 
 const Resources = {
   images: {
     entity: _entityResources,
     playerAnimation: _playerAniResources,
-    welcome: _welomepageResources,
+    welcome: _welcomeResources,
     keyboardControl: _keyboardControlResources,
     resultsPage: {
       confetti: new Img(_ASSET_PATHS.images.resultsPage.confetti),
@@ -238,18 +248,19 @@ const Resources = {
       game1: new Img(_ASSET_PATHS.images.map.game1),
       game2: new Img(_ASSET_PATHS.images.map.game2),
     },
-    mapintro1page: {
-      demo2: new Img(_ASSET_PATHS.images.mapintro1page.demo2),
+    mapIntro: {
+      demo2: new Img(_ASSET_PATHS.images.mapIntro.demo2),
     },
-    playerlist: {
+    playerAvatar: {
       ing: Object.values(Theme.palette.player).map(
         (fill) =>
-          new SVGImage(_ASSET_PATHS.images.playerlist.ing, {
+          new SVGImage(_ASSET_PATHS.images.playerAvatar, {
             fill,
             scale: Settings.entity.scale[Constants.EntitySize.XL],
           }),
       ),
-      lose: new SVGImage(_ASSET_PATHS.images.playerlist.lose, {
+      lose: new SVGImage(_ASSET_PATHS.images.playerAvatar, {
+        fill: Theme.palette.robot.grey,
         scale: Settings.entity.scale[Constants.EntitySize.XL],
       }),
     },

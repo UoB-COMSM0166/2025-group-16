@@ -16,8 +16,6 @@ class Welcome extends BasePage {
     this.gameStartArea = null;
     this.startButton = null;
     this.introText = null;
-    this.checkiconP1 = null;
-    this.checkiconP2 = null;
     this.introBox = { x: 20, y: 350, w: 400, h: 150 };
     this.keyBoardP1 = null;
     this.keyBoardP2 = null;
@@ -41,8 +39,6 @@ class Welcome extends BasePage {
     this.gameStartArea = Resources.images.welcome.gamaStartArea;
     this.gameStartArea.x = width / 2 - 5;
     this.gameStartArea.y = height / 2 + 20;
-    this.checkiconP1 = Resources.images.welcome.checkiconp1;
-    this.checkiconP2 = Resources.images.welcome.checkiconp2;
     // init player list status
     this.playerList = new PlayerList({
       label: 'Ready?',
@@ -208,25 +204,15 @@ class Welcome extends BasePage {
   }
 
   loadCheckImg(color, moveDown = 0) {
-    if (color == Theme.palette.player.red) {
-      imageMode(CENTER);
-      image(
-        this.checkiconP1.image,
-        width / 2,
-        height / 2.5, // upper
-        this.checkiconP1.width,
-        this.checkiconP1.height,
-      );
-    } else if (color == Theme.palette.player.blue) {
-      imageMode(CENTER);
-      image(
-        this.checkiconP2.image,
-        width / 2,
-        height / 2 + moveDown,
-        this.checkiconP2.width,
-        this.checkiconP2.height,
-      );
-    }
+    const resource = Resources.images.welcome.check[color];
+    imageMode(CENTER);
+    image(
+      resource.image,
+      width / 2,
+      color == Theme.palette.player.red ? height / 2.5 : height / 2 + moveDown,
+      resource.width,
+      resource.height,
+    );
   }
 
   checkPlayersInStartArea(player) {
