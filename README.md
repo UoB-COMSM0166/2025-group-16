@@ -1,5 +1,6 @@
 # 2025-group-16
 
+![alt text](docs/assets/readme/Banner.png)
 2025 COMSM0166 group 16
 
 ## Our Game
