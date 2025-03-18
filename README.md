@@ -365,11 +365,19 @@ sequenceDiagram
 
 ### Implementation
 
-- 15% ~750 words
+#### Three Technical Challenges
 
-- Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.
+##### 1. Loading Too Many Assets (Images)
 
-### Evaluation
+A game consists of many different graphical elements. Initially, when designing our JavaScript architecture, image loading posed a serious challenge. To address this, we implemented a module that allows color modifications through code, significantly reducing the number of images required. Additionally, we applied an SVG compression tool to enhance loading speed. These optimizations helped save both time and memory in the game’s development.
+
+##### 2. Helping Users Understand the Game’s Rules
+
+Although our game logic appears simple and intuitive, some users still struggled to find where to start or how to use the control panel. To improve this, we redesigned the keyboard instruction panel and placed it on the welcome page, ensuring visibility for both players. Furthermore, to enhance the overall gaming experience, we introduced an interactive tutorial before entering the game. This allows players to practice controlling their characters and attacking robots in a simulated environment. Lastly, since each of our maps has unique characteristics, we now display a map preview before entering the game to familiarize players with its special features.
+
+##### 3. Designing Diverse Maps and Rules for Players
+
+Originally, our game featured only one map where players were the sole attackers. This limited gameplay depth, making it less engaging for extended play sessions of five to ten minutes. To enhance replayability, we introduced new maps and gameplay mechanics. Expanding on the original map, we developed additional variations incorporating new features, such as PC-controlled robots that can attack. These improvements have made the game more dynamic and enjoyable.
 
 #### Two New Difficulty Levels
 
@@ -390,7 +398,7 @@ In another map, AI-controlled machines will launch random attacks, forcing playe
 - With robots actively attacking, players will no longer be able to distinguish between other players and robots by simply observing attack behavior.
 - This change increases the game’s challenge and unpredictability, making gameplay more dynamic and engaging.
 
-### Analysis: Qualitative and Quantitative Evaluation
+### Evaluation: Qualitative and Quantitative Evaluation
 
 In this analysis, we apply both **qualitative** and **quantitative** evaluation methods learned in class. The collected data provide clear insights from users, guiding us as developers to improve the game.
 
