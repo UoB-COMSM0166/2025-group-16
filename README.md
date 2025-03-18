@@ -394,7 +394,7 @@ In another map, AI-controlled machines will launch random attacks, forcing playe
 
 In this analysis, we apply both **qualitative** and **quantitative** evaluation methods learned in class. The collected data provide clear insights from users, guiding us as developers to improve the game.
 
-#### Quantitative Evaluation (via Think Aloud)
+#### Qualitative Evaluation (via Think Aloud)
 
 ##### Feedback from Testers and Corresponding Solutions
 
@@ -437,6 +437,35 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 - **Feedback:** Some instructions were unclear or missing, leading to confusion among players.
 - **Solution:** We plan to redesign the instruction set to provide **clearer guidance**. This will be further detailed in the **Quantitative Evaluation** section, where we discuss usability improvements.
+
+#### Quantitative Evaluation
+
+##### Player Experience Analysis
+
+| Metric          | Level I Average | Level II Average |
+| --------------- | --------------- | ---------------- |
+| Mental Demand   | 9.8             | 9.8              |
+| Physical Demand | 10.2            | 9.8              |
+| Temporal Demand | 11.9            | 12.1             |
+| Performance     | 14.6            | 15.2             |
+| Effort          | 11.3            | 11.8             |
+| Frustration     | 3.7             | 5.1              |
+
+##### Briefing
+
+Quantitative Evaluation aims to provide user feedback through surveys conducted immediately after playing our game. Our data were collected from twelve users, each of whom played both Level I and Level II of the game.
+• Level I is an easier version where players only need to attack each other.
+• Level II introduces randomly attacking PC-controlled robots and adds boundaries to reduce the playing area, increasing the level of difficulty.
+
+##### Findings
+
+From the chart, we observe that Mental Demand and Physical Demand remain nearly the same across both levels. A slight increase can be seen in Temporal Demand, Performance, and Effort, indicating that players needed to invest more effort in handling the increased difficulty of Level II.
+
+However, the most noticeable change is the increase in Frustration, suggesting that the harder gaming experience led to higher player frustration. Possible reasons include unclear map logic or the longer adaptation time required to understand the mechanics.
+
+##### Conclusion
+
+Overall, we aim to develop a wider variety of gaming experiences to enhance the level of challenge that players seek. Additionally, improving map introductions will be a key focus to ensure better player adaptation.
 
 ### Process
 
