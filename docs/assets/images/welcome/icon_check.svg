@@ -1,0 +1,42 @@
+<svg
+  version="1.1"
+  width="56"
+  height="52"
+  xmlns="http://www.w3.org/2000/svg"
+  shape-rendering="crispEdges"
+  fill="#D04648"
+>
+  <style>
+    [fill="#597DCE"] .darken {
+      fill: #4E4A4E;
+    }
+    [fill="#D04648"] .darken {
+      fill: #442434;
+    }
+  </style>
+
+  <rect x="48" y="0" width="4" height="12" />
+  <rect x="52" y="0" width="4" height="8" />
+  <rect x="44" y="4" width="4" height="12" />
+  <rect x="40" y="8" width="4" height="13" />
+  <rect x="36" y="12" width="4" height="13" />
+  <rect x="32" y="16" width="4" height="12" />
+  <rect x="0" y="24" width="4" height="8" />
+  <rect x="4" y="24" width="4" height="16" />
+  <rect x="24" y="24" width="4" height="12" />
+  <rect x="8" y="28" width="4" height="20" />
+  <rect x="20" y="28" width="4" height="16" />
+  <rect x="28" y="20" width="4" height="12" />
+  <rect x="12" y="32" width="5" height="16" />
+  <rect x="17" y="32" width="3" height="12" />
+  <rect x="52" y="8" width="4" height="8" class="darken" />
+  <rect x="48" y="12" width="4" height="8" class="darken" />
+  <rect x="44" y="16" width="4" height="8" class="darken" />
+  <rect x="40" y="21" width="4" height="7" class="darken" />
+  <rect x="36" y="25" width="4" height="7" class="darken" />
+  <rect x="28" y="32" width="4" height="8" class="darken" />
+  <rect x="32" y="28" width="4" height="8" class="darken" />
+  <rect x="24" y="36" width="4" height="12" class="darken" />
+  <rect x="17" y="44" width="7" height="8" class="darken" />
+  <rect x="12" y="48" width="5" height="4" class="darken" />
+</svg>
