@@ -18,7 +18,7 @@ class BaseMapGame extends BasePage {
     this.robotParams = params.robotParams || {};
 
     this.gameOverText = null;
-    this.playerListUI = null;
+    this.playerList = null;
 
     this.isWaitingForGameOver = false;
 
@@ -45,7 +45,7 @@ class BaseMapGame extends BasePage {
 
     // initialize players
     for (let pIdx = 0; pIdx < Settings.players.length; pIdx++) {
-      const createPlayer = {
+      const newPlayer = {
         ...this.playerParams,
         idx: pIdx,
         controls: Settings.players[pIdx].controls,
@@ -54,13 +54,10 @@ class BaseMapGame extends BasePage {
         canDie: true,
         isPaused: true,
       };
-
       if (this.shapeType == Constants.EntityType.PLAYER) {
-        createPlayer.color = Object.values(Theme.palette.player)[pIdx];
+        newPlayer.color = Object.values(Theme.palette.player)[pIdx];
       }
-
-      const newPlayer = new Player(createPlayer);
-      this.players.push(newPlayer);
+      this.players.push(new Player(newPlayer));
     }
 
     // initialize robots
@@ -76,7 +73,7 @@ class BaseMapGame extends BasePage {
     }
 
     // initialize player list and text
-    this.playerListUI = new PlayerList({
+    this.playerList = new PlayerList({
       label: 'Fight',
       textSize: Theme.text.fontSize.large,
       isShadow: true,
@@ -130,51 +127,61 @@ class BaseMapGame extends BasePage {
         (b.status === Constants.EntityStatus.DIED) -
         (a.status === Constants.EntityStatus.DIED),
     );
-    sortedEntities.forEach((entity) => entity.draw());
+    sortedEntities.forEach((entity) => {
+      entity.draw();
 
-    //draw player list
-    this.playerListUI.drawPlayerAvatars();
-
-    // update player status
-    if (this.alivePlayerCtn <= 1) {
-      this.players.forEach((player) => {
-        if (player.status !== Constants.EntityStatus.DIED) return;
-        this.playerListUI.playerLose(player.idx);
-        this.playerListUI.updateStatus({
-          playerIdx: player.idx,
+      // update player list label
+      if (
+        entity.type === Constants.EntityType.PLAYER &&
+        entity.status === Constants.EntityStatus.DIED
+      ) {
+        this.playerList.playerLose(entity.idx);
+        this.playerList.updateStatus({
+          playerIdx: entity.idx,
           newStatus: 'K.O.',
           textSize: Theme.text.fontSize.large,
           color: Theme.palette.black,
           isShadow: false,
         });
-      });
-    }
+      }
+    });
 
-    if (this.alivePlayerCtn <= 1) {
-      const alivePlayer = this.players.find(
-        ({ status }) => status !== Constants.EntityStatus.DIED,
-      );
-      alivePlayer?.updateParams({
+    this.playerList.drawPlayerAvatars();
+    this._drawGameFinish();
+    if (this.countDown >= 0) this._drawCountDown();
+  }
+
+  _drawGameFinish() {
+    if (this.alivePlayerCtn > 1) return;
+
+    // get winner
+    const alivePlayer = this.players.find(
+      ({ status }) => status !== Constants.EntityStatus.DIED,
+    );
+
+    // if there is a winner, turn winner into player shape
+    if (alivePlayer) {
+      // turn winner into player shape
+      alivePlayer.updateParams({
         shapeType: Constants.EntityType.PLAYER,
         color: Object.values(Theme.palette.player)[alivePlayer.idx],
       });
-      this.gameOverText?.draw({
-        label: alivePlayer
-          ? `Winner is Player ${alivePlayer.idx + 1}!`
-          : 'No Winner!',
-      });
-
-      // show winner text for 3 seconds, and add score to the winner
-      if (this.isWaitingForGameOver) return;
-      this.isWaitingForGameOver = true;
-
-      if (alivePlayer) Controller.addPlayerScore(alivePlayer.idx, 1);
-      window.setTimeout(() => {
-        Controller.changePage(new Results(), Constants.Page.RESULTS);
-      }, 3000);
     }
 
-    if (this.countDown >= 0) this._drawCountDown();
+    // show winner text for 3 seconds
+    this.gameOverText?.draw({
+      label: alivePlayer
+        ? `Winner is Player ${alivePlayer.idx + 1}!`
+        : 'No Winner!',
+    });
+    if (this.isWaitingForGameOver) return;
+    this.isWaitingForGameOver = true;
+
+    // update score globally
+    if (alivePlayer) Controller.updateScoreAfterGame(alivePlayer.idx);
+    window.setTimeout(() => {
+      Controller.changePage(new Results(), Constants.Page.RESULTS);
+    }, 3000);
   }
 
   _drawCountDown() {
@@ -204,12 +211,12 @@ class BaseMapGame extends BasePage {
   /** @override */
   keyPressed() {
     super.keyPressed();
+
     this.players.forEach((player) => {
       if (player.status === Constants.EntityStatus.DIED) return;
       player.keyPressed([...this.robots, ...this.players], (diedEntity) => {
-        if (diedEntity.type === Constants.EntityType.PLAYER) {
-          this.alivePlayerCtn--;
-        }
+        if (diedEntity.type !== Constants.EntityType.PLAYER) return;
+        this.alivePlayerCtn--;
       });
     });
   }

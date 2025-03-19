@@ -35,6 +35,8 @@ class MapIntro1 extends BaseMapIntro {
   setup() {
     super.setup();
 
+    this.demoGif = loadImage(Resources.images.mapIntro.demo2.path);
+
     this.playerRobot = new Player({
       idx: 0,
       controls: {}, // prevent movement
@@ -48,6 +50,7 @@ class MapIntro1 extends BaseMapIntro {
     });
 
     this.startCountdown();
+
   }
 
   /** @override */

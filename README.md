@@ -1,5 +1,6 @@
 # 2025-group-16
 
+![alt text](docs/assets/readme/Banner.png)
 2025 COMSM0166 group 16
 
 ## Our Game
@@ -365,11 +366,19 @@ sequenceDiagram
 
 ### Implementation
 
-- 15% ~750 words
+#### Three Technical Challenges
 
-- Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.
+##### 1. Loading Too Many Assets (Images)
 
-### Evaluation
+A game consists of many different graphical elements. Initially, when designing our JavaScript architecture, image loading posed a serious challenge. To address this, we implemented a module that allows color modifications through code, significantly reducing the number of images required. Additionally, we applied an SVG compression tool to enhance loading speed. These optimizations helped save both time and memory in the game’s development.
+
+##### 2. Helping Users Understand the Game’s Rules
+
+Although our game logic appears simple and intuitive, some users still struggled to find where to start or how to use the control panel. To improve this, we redesigned the keyboard instruction panel and placed it on the welcome page, ensuring visibility for both players. Furthermore, to enhance the overall gaming experience, we introduced an interactive tutorial before entering the game. This allows players to practice controlling their characters and attacking robots in a simulated environment. Lastly, since each of our maps has unique characteristics, we now display a map preview before entering the game to familiarize players with its special features.
+
+##### 3. Designing Diverse Maps and Rules for Players
+
+Originally, our game featured only one map where players were the sole attackers. This limited gameplay depth, making it less engaging for extended play sessions of five to ten minutes. To enhance replayability, we introduced new maps and gameplay mechanics. Expanding on the original map, we developed additional variations incorporating new features, such as PC-controlled robots that can attack. These improvements have made the game more dynamic and enjoyable.
 
 #### Two New Difficulty Levels
 
@@ -390,11 +399,11 @@ In another map, AI-controlled machines will launch random attacks, forcing playe
 - With robots actively attacking, players will no longer be able to distinguish between other players and robots by simply observing attack behavior.
 - This change increases the game’s challenge and unpredictability, making gameplay more dynamic and engaging.
 
-### Analysis: Qualitative and Quantitative Evaluation
+### Evaluation: Qualitative and Quantitative Evaluation
 
 In this analysis, we apply both **qualitative** and **quantitative** evaluation methods learned in class. The collected data provide clear insights from users, guiding us as developers to improve the game.
 
-#### Quantitative Evaluation (via Think Aloud)
+#### Qualitative Evaluation (via Think Aloud)
 
 ##### Feedback from Testers and Corresponding Solutions
 
@@ -437,6 +446,35 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 - **Feedback:** Some instructions were unclear or missing, leading to confusion among players.
 - **Solution:** We plan to redesign the instruction set to provide **clearer guidance**. This will be further detailed in the **Quantitative Evaluation** section, where we discuss usability improvements.
+
+#### Quantitative Evaluation
+
+##### Player Experience Analysis
+
+| Metric          | Level I Average | Level II Average |
+| --------------- | --------------- | ---------------- |
+| Mental Demand   | 9.8             | 9.8              |
+| Physical Demand | 10.2            | 9.8              |
+| Temporal Demand | 11.9            | 12.1             |
+| Performance     | 14.6            | 15.2             |
+| Effort          | 11.3            | 11.8             |
+| Frustration     | 3.7             | 5.1              |
+
+##### Briefing
+
+Quantitative Evaluation aims to provide user feedback through surveys conducted immediately after playing our game. Our data were collected from twelve users, each of whom played both Level I and Level II of the game.
+• Level I is an easier version where players only need to attack each other.
+• Level II introduces randomly attacking PC-controlled robots and adds boundaries to reduce the playing area, increasing the level of difficulty.
+
+##### Findings
+
+From the chart, we observe that Mental Demand and Physical Demand remain nearly the same across both levels. A slight increase can be seen in Temporal Demand, Performance, and Effort, indicating that players needed to invest more effort in handling the increased difficulty of Level II.
+
+However, the most noticeable change is the increase in Frustration, suggesting that the harder gaming experience led to higher player frustration. Possible reasons include unclear map logic or the longer adaptation time required to understand the mechanics.
+
+##### Conclusion
+
+Overall, we aim to develop a wider variety of gaming experiences to enhance the level of challenge that players seek. Additionally, improving map introductions will be a key focus to ensure better player adaptation.
 
 ### Process
 

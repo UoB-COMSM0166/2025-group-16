@@ -11,9 +11,10 @@ const Store = (function () {
     currentPageKey: '',
     playerNumber: 2,
     players: [
-      { name: 'A', score: 0 },
-      { name: 'B', score: 0 },
+      { name: 'A', score: 0, isJustWon: false },
+      { name: 'B', score: 0, isJustWon: false },
     ],
+    targetScore: 3,
   };
 
   return {
@@ -36,6 +37,10 @@ const Store = (function () {
 
     getPlayers() {
       return _state.players;
+    },
+
+    getTargetScore() {
+      return _state.targetScore;
     },
   };
 })();
