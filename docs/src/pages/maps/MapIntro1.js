@@ -4,7 +4,7 @@ class MapIntro1 extends BaseMapIntro {
       title: 'Desert',
       playerControlIntros: Settings.players.map(({ controls }, idx) => {
         const { UP, LEFT, DOWN, RIGHT, HIT } = controls;
-        return `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
+        return `P${idx + 1}: Move with [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}]\nP${idx + 1}: Punch with [${HIT.name}]`;
       }),
       additionalIntro: '🌵Punch another player🌵',
       hasCountdown: true,
