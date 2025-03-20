@@ -30,10 +30,10 @@ const Settings = Object.freeze({
     }),
     Object.freeze({
       controls: Object.freeze({
-        [Constants.Control.LEFT]: { value: 37, name: 'Left Arrow' },
-        [Constants.Control.RIGHT]: { value: 39, name: 'Right Arrow' },
-        [Constants.Control.UP]: { value: 38, name: 'Up Arrow' },
-        [Constants.Control.DOWN]: { value: 40, name: 'Down Arrow' },
+        [Constants.Control.LEFT]: { value: 37, name: '←' },
+        [Constants.Control.RIGHT]: { value: 39, name: '→' },
+        [Constants.Control.UP]: { value: 38, name: '↑' },
+        [Constants.Control.DOWN]: { value: 40, name: '↓' },
         [Constants.Control.HIT]: { value: 191, name: '?' },
       }),
     }),
