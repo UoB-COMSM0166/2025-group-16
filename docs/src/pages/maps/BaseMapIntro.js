@@ -23,6 +23,17 @@ class BaseMapIntro extends BasePage {
     this.playerControlIntroTexts = null;
     this.additionalIntroText = null;
     this.startButton = null;
+    this.background = null;
+    this.playerRobot = null;
+
+    // Initialize score display state
+    this.state = {
+      scoreDisplay: {
+        opacity: 255,
+        value: '+1',
+        color: '#e69b5e',
+      },
+    };
 
     this.gamePage = params.gamePage;
     this.gamePageKey = params.gamePageKey;
@@ -104,6 +115,16 @@ class BaseMapIntro extends BasePage {
 
   /** @override */
   draw() {
+    // Draw background and game elements
+    this.drawBackground();
+    this.drawMapTitle();
+    if (this.playerRobot) {
+      this.playerRobot.draw();
+    }
+    this.drawScoreIndicator();
+    this.drawControlsBox();
+
+    // Draw UI elements
     this.titleText?.draw();
     this.additionalIntroText?.draw();
     this.playerControlIntroTexts.map((text) => text?.draw());
@@ -136,8 +157,9 @@ class BaseMapIntro extends BasePage {
    * This can be overridden by subclasses to customize appearance
    */
   drawProgressBar() {
-    if (!this.countdownManager) return;
-
+    if (!this.countdownManager) {
+      return;
+    }
     const barWidth = 200;
     const barHeight = 30;
     const barX = width - barWidth - 30;
@@ -169,5 +191,108 @@ class BaseMapIntro extends BasePage {
   mousePressed() {
     super.mousePressed();
     this.startButton?.mousePressed();
+  }
+
+  // /**
+  //  * Draw the background image or fallback color
+  //  */
+  drawBackground() {
+    if (this.background?.image) {
+      imageMode(CORNER);
+      image(this.background.image, 0, 0, width, height);
+    } else {
+      background(Theme.palette.lightGrey);
+    }
+  }
+
+  /**
+   * Draw the title of the map
+   */
+  drawMapTitle() {
+    push();
+    textFont('Press Start 2P');
+    textSize(65);
+    textStyle(BOLD);
+    textAlign(CENTER, CENTER);
+    fill(Theme.palette.text.primary);
+    stroke(Theme.palette.text.primary);
+    strokeWeight(1);
+    text(this.title, width / 2, 180);
+    pop();
+  }
+
+  /**
+   * Draw the score indicator and player instructions
+   */
+  drawScoreIndicator() {
+    if (this.playerRobot) {
+      this.playerRobot.draw();
+    }
+
+    const { scoreDisplay } = this.state;
+
+    push();
+    // Draw background rectangle with dotted line borders
+    fill(255, 225, 200, 149);
+    noStroke();
+    rect(0, 270, width, 270);
+
+    // Draw the dotted lines
+    stroke(255, 255, 255, 150);
+    strokeWeight(3);
+    drawingContext.setLineDash([10, 10]);
+    line(0, 270, width, 270);
+    line(0, 540, width, 540);
+    drawingContext.setLineDash([]);
+
+    // Draw score circle
+    fill(scoreDisplay.color);
+    noStroke();
+    ellipse(width / 2, 370, 150, 150);
+
+    // Draw score value
+    textSize(60);
+    textFont('Press Start 2P');
+    textAlign(CENTER, CENTER);
+    fill(0);
+    text(scoreDisplay.value, width / 2, 370);
+
+    // Draw instruction text if exists
+    if (this.additionalIntro) {
+      textSize(28);
+      textFont('Press Start 2P');
+      textAlign(CENTER, CENTER);
+      text(this.additionalIntro, width / 2, 500);
+    }
+    pop();
+  }
+
+  /**
+   * Draw the controls box with player instructions
+   */
+  drawControlsBox() {
+    if (!this.playerControlIntros || this.playerControlIntros.length === 0) {
+      return;
+    }
+
+    push();
+    // Draw controls container
+    fill(255, 255, 255, 240);
+    stroke(0);
+    strokeWeight(2);
+    rect(40, height - 150, 550, 100, 5);
+
+    // Draw control instructions
+    fill(0);
+    noStroke();
+    textSize(18);
+    textFont('Press Start 2P');
+    textAlign(LEFT, CENTER);
+
+    // Draw each control instruction
+    this.playerControlIntros.forEach((intro, index) => {
+      text(intro, 60, height - 120 + index * 40);
+    });
+    pop();
   }
 }
