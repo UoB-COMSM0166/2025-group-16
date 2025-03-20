@@ -125,6 +125,8 @@ class BaseMapIntro extends BasePage {
       textAlign: [CENTER, CENTER],
       textFont: 'Press Start 2P',
     });
+
+    this.startCountdown();
   }
 
   /** @override */
