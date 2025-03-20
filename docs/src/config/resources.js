@@ -33,6 +33,7 @@ const _ASSET_PATHS = {
     map: {
       game1: `${_BASE_PATH}assets/images/backgrounds/level1_v1.png`,
       game2: `${_BASE_PATH}assets/images/backgrounds/level2_v1.png`,
+      game3: `${_BASE_PATH}assets/images/backgrounds/level3_v1.png`,
     },
     mapIntro: {
       demo2: `${_BASE_PATH}assets/images/mapIntro/DEMO2.gif`,
@@ -247,6 +248,7 @@ const Resources = {
     map: {
       game1: new Img(_ASSET_PATHS.images.map.game1),
       game2: new Img(_ASSET_PATHS.images.map.game2),
+      game3: new Img(_ASSET_PATHS.images.map.game3),
     },
     mapIntro: {
       demo2: new Img(_ASSET_PATHS.images.mapIntro.demo2),
