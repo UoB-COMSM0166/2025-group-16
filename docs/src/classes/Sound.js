@@ -22,16 +22,28 @@ class Sound {
 
   /** Plays the sound in a loop */
   loop() {
-    if (this.sound && !this.sound.isPlaying()) {
-      this.sound.setLoop(true);
-      this.sound.play();
-    }
+    const speakerOn = Store.getSpeakerStatus();
+    if (!this.sound || speakerOn || this.sound.isPlaying()) return;
+
+    this.sound.loop();
+    Controller.updateSpeakerStatus(true);
   }
 
   /** Stops the sound */
   stop() {
-    if (this.sound?.isPlaying()) {
-      this.sound.stop();
+    const speakerOn = Store.getSpeakerStatus();
+    if (!this.sound || !this.sound.isPlaying() || !speakerOn) return;
+
+    this.sound.stop();
+    Controller.updateSpeakerStatus(false);
+  }
+
+  toggleSound() {
+    const speakerOn = Store.getSpeakerStatus();
+    if (speakerOn) {
+      this.stop();
+    } else {
+      this.loop();
     }
   }
 }

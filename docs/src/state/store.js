@@ -15,6 +15,7 @@ const Store = (function () {
       { name: 'B', score: 0, isJustWon: false },
     ],
     targetScore: 3,
+    speakerOn: false,
   };
 
   return {
@@ -41,6 +42,10 @@ const Store = (function () {
 
     getTargetScore() {
       return _state.targetScore;
+    },
+
+    getSpeakerStatus() {
+      return _state.speakerOn;
     },
   };
 })();

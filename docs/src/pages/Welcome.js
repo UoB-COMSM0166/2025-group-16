@@ -4,7 +4,6 @@ class Welcome extends BasePage {
       shapeType: Constants.EntityType.PLAYER,
       background: Resources.images.welcome.background,
       bgm: Resources.sounds.bgm.intro,
-      turnOnSpeaker: params?.turnOnSpeaker, // init:false, tutotial->welcome: true, result->welcome:true
       initSound: params?.initSound, // init: true, others:false
     });
     this.countdown = 3;
@@ -76,6 +75,9 @@ class Welcome extends BasePage {
   /** @override */
   draw() {
     super.draw();
+    if (this.isImagePressed(this.tutorial)) {
+      cursor('pointer');
+    }
     if (this.tutorial) {
       imageMode(CENTER);
       image(
@@ -166,11 +168,6 @@ class Welcome extends BasePage {
   /** @override */
   keyPressed() {
     super.keyPressed();
-    if (!this.turnOnSpeaker && this.initSound) {
-      userStartAudio();
-      this.initSound = false;
-      this.turnOnSpeaker = true;
-    }
     if (this.showTutorialDialog) {
       this.tutorialDialogKeyPressed();
     } else {

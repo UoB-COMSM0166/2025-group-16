@@ -44,4 +44,8 @@ const Controller = {
     });
     Store._updateState(newPlayers);
   },
+
+  updateSpeakerStatus(speakerOn) {
+    Store._updateState({ speakerOn });
+  },
 };
