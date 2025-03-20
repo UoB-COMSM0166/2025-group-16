@@ -9,7 +9,6 @@ class BasePage {
    * @param {Img} [params.background] - Optional. Image resource.
    * @param {Sound} [params.bgm] - Optional. Sound resource.
    * @param {string} [params.shapeType] - Optional. ShapeType setting for player.
-   * @param {boolean} [params.turnOnSpeaker] - Optional. Should turn on speaker when loading. Default:true.
    * @param {boolean} [params.initSound] - Optional. Setting if it's first time loading to the welcome page. Default:false
    */
   constructor(params) {
@@ -17,10 +16,10 @@ class BasePage {
     this.bgm = params?.bgm || null;
     this.players = [];
     this.shapeType = params?.shapeType || Constants.EntityType.ROBOT;
-    this.speakerOn = null;
-    this.speakerOff = null;
-    this.turnOnSpeaker = params?.turnOnSpeaker ?? true;
+    this.speakerOnImg = null;
+    this.speakerOffImg = null;
     this.initSound = params?.initSound ?? false;
+    this.speakerOn = Store.getSpeakerStatus();
   }
 
   /**
@@ -29,13 +28,12 @@ class BasePage {
    * @see https://p5js.org/reference/p5/setup/
    */
   setup() {
-    this.bgm?.loop();
-    this.speakerOn = {
+    this.speakerOnImg = {
       ...Resources.images.welcome.speakerOn,
       x: width * 0.05,
       y: height * 0.05,
     };
-    this.speakerOff = {
+    this.speakerOffImg = {
       ...Resources.images.welcome.speakerOff,
       x: width * 0.05,
       y: height * 0.05,
@@ -48,29 +46,39 @@ class BasePage {
    * @see https://p5js.org/reference/p5/draw/
    */
   draw() {
+    cursor('auto');
     if (this.background) {
       imageMode(CORNER);
       image(this.background.image, 0, 0, width, height);
     }
 
-    if (!this.turnOnSpeaker) {
+    if (
+      this.isImagePressed(this.speakerOnImg) ||
+      this.isImagePressed(this.speakerOffImg)
+    ) {
+      cursor('pointer');
+    }
+
+    if (!this.speakerOn) {
+      this.bgm?.stop();
       imageMode(CENTER);
       image(
-        this.speakerOff.image,
-        this.speakerOff.x,
-        this.speakerOff.y,
-        this.speakerOff.width,
-        this.speakerOff.height,
+        this.speakerOffImg.image,
+        this.speakerOffImg.x,
+        this.speakerOffImg.y,
+        this.speakerOffImg.width,
+        this.speakerOffImg.height,
       );
     }
-    if (this.turnOnSpeaker) {
+    if (this.speakerOn) {
+      this.bgm?.loop();
       imageMode(CENTER);
       image(
-        this.speakerOn.image,
-        this.speakerOn.x,
-        this.speakerOn.y,
-        this.speakerOn.width,
-        this.speakerOn.height,
+        this.speakerOnImg.image,
+        this.speakerOnImg.x,
+        this.speakerOnImg.y,
+        this.speakerOnImg.width,
+        this.speakerOnImg.height,
       );
     }
   }
@@ -122,18 +130,17 @@ class BasePage {
    * @see https://p5js.org/reference/p5/mousePressed/
    */
   mousePressed() {
-    if (!this.turnOnSpeaker && this.initSound) {
+    if (!this.speakerOn && this.initSound) {
       userStartAudio();
       this.initSound = false;
-      this.turnOnSpeaker = true;
-    }
-
-    if (this.turnOnSpeaker && this.isImagePressed(this.speakerOn)) {
-      this.bgm.sound.stop();
-      this.turnOnSpeaker = false;
-    } else if (!this.turnOnSpeaker && this.isImagePressed(this.speakerOff)) {
-      this.bgm.loop();
-      this.turnOnSpeaker = true;
+      this.speakerOn = true;
+    } else if (
+      this.isImagePressed(this.speakerOnImg) ||
+      this.isImagePressed(this.speakerOffImg)
+    ) {
+      this.bgm?.toggleSound();
+      this.speakerOn = !this.speakerOn;
+      Controller.updateSpeakerStatus(this.speakerOn);
     }
   }
 
@@ -148,7 +155,13 @@ class BasePage {
    * Called when a key is pressed.
    * @see https://p5js.org/reference/p5/keyPressed/
    */
-  keyPressed() {}
+  keyPressed() {
+    if (!this.speakerOn && this.initSound) {
+      userStartAudio();
+      this.initSound = false;
+      this.speakerOn = true;
+    }
+  }
 
   /**
    * Called when a key is released.
@@ -164,6 +177,8 @@ class BasePage {
   }
 
   isImagePressed(imageObj) {
+    if (!imageObj || !imageObj.width || !imageObj.height) return false;
+
     return (
       mouseX >= imageObj.x - 20 &&
       mouseX <= imageObj.x + imageObj.width &&

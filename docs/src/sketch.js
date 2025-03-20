@@ -43,7 +43,7 @@ function setup() {
 
   createCanvas(Settings.canvas.width, Settings.canvas.height);
   Controller.changePage(
-    new Welcome({ turnOnSpeaker: false, initSound: true }),
+    new Welcome({ initSound: true }),
     Constants.Page.WELCOME,
   );
 }
