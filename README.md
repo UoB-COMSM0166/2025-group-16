@@ -175,6 +175,12 @@ classDiagram
   BaseMapIntro <|-- MapIntro2
   BaseMapGame <|-- MapGame3
   BaseMapIntro <|-- MapIntro3
+  BaseMapGame <|-- MapGame4
+  BaseMapIntro <|-- MapIntro4
+  BaseMapGame <|-- MapGame5
+  BaseMapIntro <|-- MapIntro5
+  BaseMapGame <|-- MapGame6
+  BaseMapIntro <|-- MapIntro6
 
   %% Relationships
   BasePage o-- "0..n" UIComponent : contains
@@ -284,6 +290,18 @@ classDiagram
       <<singleton>>
   }
 
+  class MapIntro4 {
+      <<singleton>>
+  }
+
+  class MapIntro5 {
+      <<singleton>>
+  }
+
+  class MapIntro6 {
+      <<singleton>>
+  }
+
   class MapGame1 {
       <<singleton>>
   }
@@ -293,6 +311,18 @@ classDiagram
   }
 
   class MapGame3 {
+      <<singleton>>
+  }
+
+  class MapGame4 {
+      <<singleton>>
+  }
+
+  class MapGame5 {
+      <<singleton>>
+  }
+
+  class MapGame6 {
       <<singleton>>
   }
 

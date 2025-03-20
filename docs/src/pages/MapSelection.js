@@ -14,6 +14,7 @@ class MapSelection extends BasePage {
     };
   }
 
+  // TODO: add added map options
   /** @override */
   setup() {
     super.setup();
@@ -142,6 +143,15 @@ class MapSelection extends BasePage {
           break;
         case 2:
           Controller.changePage(new MapIntro3(), Constants.Page.MAP_INTRO_3);
+          break;
+        case 3:
+          Controller.changePage(new MapIntro4(), Constants.Page.MAP_INTRO_4);
+          break;
+        case 4:
+          Controller.changePage(new MapIntro5(), Constants.Page.MAP_INTRO_5);
+          break;
+        case 5:
+          Controller.changePage(new MapIntro6(), Constants.Page.MAP_INTRO_6);
           break;
         default:
           break;
