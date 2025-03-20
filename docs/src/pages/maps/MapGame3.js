@@ -10,8 +10,8 @@ class MapGame3 extends BaseMapGame {
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 15,
-      // TODO: change background & bgn
-      background: Resources.images.map.game1,
+      background: Resources.images.map.game3,
+      // TODO: change bgn
       bgm: Resources.sounds.bgm.playing1,
       robotParams: {
         positionBoundary: area,
