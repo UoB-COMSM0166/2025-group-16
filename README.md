@@ -1,7 +1,21 @@
 # 2025-group-16
 
-![alt text](docs/assets/readme/Banner.png)
 2025 COMSM0166 group 16
+![alt text](docs/assets/readme/Banner.png)
+
+- [Our Game](#our-game)
+- [Develop Team](#develop-team)
+- [Project Report](#project-report)
+  - [Introduction](#introduction)
+  - [Requirements](#requirements)
+  - [Design](#design)
+  - [Implementation](#implementation)
+  - [Evaluation: Qualitative and Quantitative Evaluation](#evaluation-qualitative-and-quantitative-evaluation)
+  - [Sustainability](#-sustainability)
+  - [Process](#process)
+  - [Conclusion](#conclusion-1)
+  - [Contribution Statement](#contribution-statement)
+  - [Additional Marks](#additional-marks)
 
 ## Our Game
 
@@ -11,95 +25,7 @@ Your game lives in the [/docs](/docs) folder, and is published using Github page
 
 Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
 
-## Original Game List
-
-| **Name**                   | **Introduction**                                                                                                                                                               | **Feasibility / Challenges**                                                                                                                                                          |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Unspottable**            | Multiple players join a party game where their goal is to blend in with robots and try to identify and beat other players among the robots.                                    | **Feasibility:** ★★★☆☆ <br> - Algorithm for robot behavior. <br> - Convert 3D to 2D. <br> - Support simultaneous player controls.                                                     |
-| **Taiko no Tatsujin**      | A rhythm music game where you choose your favorite song and score points by hitting notes with perfect timing as they reach the target spots.                                  | **Feasibility:** ★★★★☆ <br> - Sync controls, music, and visuals. <br> - Convert music to beat points.                                                                                 |
-| **Scream Chicken Jumpy**   | Control the chicken with your voice to move through obstacles and aim for the longest distance.                                                                                | **Feasibility:** ★★★☆☆ <br> - Voice detection mechanism. <br> - Overlay game graphics on player video. <br> - Record and replay gameplay.                                             |
-| **Super Bunny Man**        | A co-op physics platformer where players control a rabbit-costumed character. Team up locally or online to beat levels, find carrots, and race against the clock.              | **Feasibility:** ★☆☆☆☆ <br> - 3D to 2D transition may affect smoothness.                                                                                                              |
-| **PICO PARK**              | A cooperative puzzle game where players work together to solve unique challenges, compete in mini-games, or survive as long as possible to achieve high scores.                | **Feasibility:** ★★★★☆ <br> - Puzzles for cooperative play. <br> - Handle latency, sync, and disconnections. <br> - Infinite map generation.                                          |
-| **Pikachu Volleyball**     | A single-player or two-player game where characters move back and forth to catch the ball or jump to attack and block. Points are scored when the ball lands on the ground.    | **Feasibility:** ★☆☆☆☆ <br> - Calculate bounce based on position and attributes. <br> - Design 2D animations for different scenarios.                                                 |
-| **Gang Beasts**            | A hilarious multiplayer party game with chaotic gameplay. Modes include Melee (free-for-all fights), Gang (team battles), and Waves (co-op against AI enemies).                | **Feasibility:** ★☆☆☆☆ <br> - Mechanics require time to master. <br> - Creating strong yet soft characters is challenging.                                                            |
-| **King of Fighters**       | Up to 4 players can battle using a single keyboard. Modes include: versus, campaign, tournament, and War.                                                                      | **Feasibility:** ★☆☆☆☆ <br> - Many characters with unique skills. <br> - Actions and items need to be combined. <br> - Complex keyboard controls. <br> - NPC enemies appear randomly. |
-| **Ultimate Chicken Horse** | A party game where players build routes and place obstacles to challenge each other. Use simple movements to reach the goal while trying to block others.                      | **Feasibility:** ★☆☆☆☆ <br> - Simultaneous controls for players. <br> - Complex scoring system. <br> - Issues with block and obstacle combinations.                                   |
-| **King of Opera**          | A party game where characters continuously spin while idle. Players only need to control the forward button and try to knock others off by pushing them to fall from the edge. | **Feasibility:** ★☆☆☆☆ <br> - 3D to 2D transition may affect smoothness. <br> - Sliding-back effect needed on hit. <br> - Precise reactions for consecutive collisions.               |
-| **Ghost Invaders**         | A Space Invaders-inspired game featuring multiplayer controls for movement and shooting, with quick access to the menu and restart options.                                    | **Feasibility:** ★☆☆☆☆ <br> - Excessive repetition. <br> - Difficulty imbalance affects player retention.                                                                             |
-
-## Two Prototype Ideas GIFs
-
-![Prototype Idea 1](docs/assets/readme/prototype-demo-1.gif)
-![Prototype Idea 2](docs/assets/readme/prototype-demo-2.gif)
-
-1. <a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
-2. <a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
-
-## Idea - Unspottable / Taiko no Tatsujin
-
-<a href="https://store.steampowered.com/app/1243960/Unspottable/"><b>Unspottable</b></a>
-
-Multiple players join a party game where they blend in with a crowd of robots while identifying and hunting down the other human players hidden among them, under various environmental rules.
-
-Feasibility / Difficulty
-
-1. Develop an algorithm to make robots behave like real players.
-2. Convert 3D visual elements into a 2D style.
-3. Implement simultaneous controls for multiple players (single-player mode is not supported).
-4. Synchronize player actions and robot actions to ensure smooth gameplay.
-
-Features
-
-1. Simple controls: move, attack, run, and disturb.
-2. Realistic robots involved.
-3. Diverse maps with unique rules.
-4. Customizable score system.
-
-Twists / Stages
-
-1. Basic Gameplay: 2-player simplest mode. Robots have no special behavior. Basic controls include: up, right, down, left, and hit.
-2. More Maps: Add multiple maps with unique rules, such as Gym, Battlefield, Theater, and Nightclub.
-3. More Controls: Introduce additional controls like running and disturbing, making the game more dynamic.
-4. More Players: Support up to 4 local players.
-5. Score System: Implement a scoring system where players set a target score to win.
-6. Online Mode: Allow players to compete online with matchmaking or room creation.
-7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
-
-Simulation preview from p5js:
-![alt text](docs/assets/readme/prototype-screenshot.png)
-
-<a href="https://www.youtube.com/watch?v=perKCVKo-Mc"><b>Taiko no Tatsujin</b></a>
-
-A rhythm music game where players choose their favorite song and score points by hitting notes with perfect timing as they reach the target spots on the screen. The better the timing, the higher the score.
-
-Feasibility / Difficulty
-
-1. Controls, music, and visuals must be perfectly synced for providing an engaging experience..
-2. Transform songs into beat points for gameplay.
-
-Features
-
-1. Simple Controls: Only 2 buttons are needed.
-2. Multiplayer & Score System: Support multiple players and track scores.
-3. Multiple Songs & Levels: Offer a variety of songs with multiple level options of each.
-
-Twists / Stages
-
-1. Basic Gameplay: Playable with keyboard and only one song.
-2. Start Screen: Add a start page before gameplay.
-3. Song Selection: Allow players to choose from three or more songs.
-4. Motion Detection: Add a motion-based gameplay mode.
-5. Multiplayer: Add a two-player versus mode.
-6. Custom Songs: Enable players to import music and auto-generate rhythm points.
-7. Visual Recognition for Drumming Action: Integrate image recognition to track players' drumming actions in the air, increasing immersion and making the experience more interactive.
-
-## Final Idea
-
-To create an exciting and easy-to-play game, our goal is to develop Unspottable. The design of the characters and background maps will be our top priority. Additionally, we will be working on extra buttons and other visual indicators during this stage. At the same time, we will generate the first version of the p5.js code, maximizing our flexibility for future adjustments if needed.
-
-For more advanced development, we aim to integrate face detection through the front-facing camera, allowing users to control their character using their face direction. This face detection-based control method will reduce the time users spend observing others, enhancing their overall experience.
-
-## Your Group
+## Develop Team
 
 ![alt text](docs/assets/readme/group-photo.png)
 
@@ -117,7 +43,100 @@ For more advanced development, we aim to integrate face detection through the fr
 - 5% ~250 words
 - Describe your game, what is based on, what makes it novel?
 
+---
+
 ### Requirements
+
+_<p align="center">Team Game Idea Overview</p>_
+
+| **Name**                   | **Introduction**                                                                                                                                                               | **Feasibility / Challenges**                                                                                                                                                          |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Unspottable**            | Multiple players join a party game where their goal is to blend in with robots and try to identify and beat other players among the robots.                                    | **Feasibility:** ★★★☆☆ <br> - Algorithm for robot behavior. <br> - Convert 3D to 2D. <br> - Support simultaneous player controls.                                                     |
+| **Taiko no Tatsujin**      | A rhythm music game where you choose your favorite song and score points by hitting notes with perfect timing as they reach the target spots.                                  | **Feasibility:** ★★★★☆ <br> - Sync controls, music, and visuals. <br> - Convert music to beat points.                                                                                 |
+| **Scream Chicken Jumpy**   | Control the chicken with your voice to move through obstacles and aim for the longest distance.                                                                                | **Feasibility:** ★★★☆☆ <br> - Voice detection mechanism. <br> - Overlay game graphics on player video. <br> - Record and replay gameplay.                                             |
+| **Super Bunny Man**        | A co-op physics platformer where players control a rabbit-costumed character. Team up locally or online to beat levels, find carrots, and race against the clock.              | **Feasibility:** ★☆☆☆☆ <br> - 3D to 2D transition may affect smoothness.                                                                                                              |
+| **PICO PARK**              | A cooperative puzzle game where players work together to solve unique challenges, compete in mini-games, or survive as long as possible to achieve high scores.                | **Feasibility:** ★★★★☆ <br> - Puzzles for cooperative play. <br> - Handle latency, sync, and disconnections. <br> - Infinite map generation.                                          |
+| **Pikachu Volleyball**     | A single-player or two-player game where characters move back and forth to catch the ball or jump to attack and block. Points are scored when the ball lands on the ground.    | **Feasibility:** ★☆☆☆☆ <br> - Calculate bounce based on position and attributes. <br> - Design 2D animations for different scenarios.                                                 |
+| **Gang Beasts**            | A hilarious multiplayer party game with chaotic gameplay. Modes include Melee (free-for-all fights), Gang (team battles), and Waves (co-op against AI enemies).                | **Feasibility:** ★☆☆☆☆ <br> - Mechanics require time to master. <br> - Creating strong yet soft characters is challenging.                                                            |
+| **King of Fighters**       | Up to 4 players can battle using a single keyboard. Modes include: versus, campaign, tournament, and War.                                                                      | **Feasibility:** ★☆☆☆☆ <br> - Many characters with unique skills. <br> - Actions and items need to be combined. <br> - Complex keyboard controls. <br> - NPC enemies appear randomly. |
+| **Ultimate Chicken Horse** | A party game where players build routes and place obstacles to challenge each other. Use simple movements to reach the goal while trying to block others.                      | **Feasibility:** ★☆☆☆☆ <br> - Simultaneous controls for players. <br> - Complex scoring system. <br> - Issues with block and obstacle combinations.                                   |
+| **King of Opera**          | A party game where characters continuously spin while idle. Players only need to control the forward button and try to knock others off by pushing them to fall from the edge. | **Feasibility:** ★☆☆☆☆ <br> - 3D to 2D transition may affect smoothness. <br> - Sliding-back effect needed on hit. <br> - Precise reactions for consecutive collisions.               |
+| **Ghost Invaders**         | A Space Invaders-inspired game featuring multiplayer controls for movement and shooting, with quick access to the menu and restart options.                                    | **Feasibility:** ★☆☆☆☆ <br> - Excessive repetition. <br> - Difficulty imbalance affects player retention.                                                                             |
+
+#### Two Prototype Ideas GIFs
+
+<!-- ![Prototype Idea 1](docs/assets/readme/prototype-demo-1.gif) -->
+<!-- ![Prototype Idea 2](docs/assets/readme/prototype-demo-2.gif) -->
+
+<img width="600px" src="docs/assets/readme/prototype-demo-1.gif" />
+<img width="600px" src="docs/assets/readme/prototype-demo-2.gif" />
+
+1. <a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
+2. <a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
+
+#### Idea - Unspottable / Taiko no Tatsujin
+
+<a href="https://store.steampowered.com/app/1243960/Unspottable/"><b>Unspottable</b></a>
+
+Multiple players join a party game where they blend in with a crowd of robots while identifying and hunting down the other human players hidden among them, under various environmental rules.
+
+**Feasibility / Difficulty**
+
+1. Develop an algorithm to make robots behave like real players.
+2. Convert 3D visual elements into a 2D style.
+3. Implement simultaneous controls for multiple players (single-player mode is not supported).
+4. Synchronize player actions and robot actions to ensure smooth gameplay.
+
+**Features**
+
+1. Simple controls: move, attack, run, and disturb.
+2. Realistic robots involved.
+3. Diverse maps with unique rules.
+4. Customizable score system.
+
+**Twists / Stages**
+
+1. Basic Gameplay: 2-player simplest mode. Robots have no special behavior. Basic controls include: up, right, down, left, and hit.
+2. More Maps: Add multiple maps with unique rules, such as Gym, Battlefield, Theater, and Nightclub.
+3. More Controls: Introduce additional controls like running and disturbing, making the game more dynamic.
+4. More Players: Support up to 4 local players.
+5. Score System: Implement a scoring system where players set a target score to win.
+6. Online Mode: Allow players to compete online with matchmaking or room creation.
+7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
+
+Simulation preview from p5js:
+<img width="300px" src="docs/assets/readme/prototype-screenshot.png" />
+
+<a href="https://www.youtube.com/watch?v=perKCVKo-Mc"><b>Taiko no Tatsujin</b></a>
+
+A rhythm music game where players choose their favorite song and score points by hitting notes with perfect timing as they reach the target spots on the screen. The better the timing, the higher the score.
+
+**Feasibility / Difficulty**
+
+1. Controls, music, and visuals must be perfectly synced for providing an engaging experience..
+2. Transform songs into beat points for gameplay.
+
+**Features**
+
+1. Simple Controls: Only 2 buttons are needed.
+2. Multiplayer & Score System: Support multiple players and track scores.
+3. Multiple Songs & Levels: Offer a variety of songs with multiple level options of each.
+
+**Twists / Stages**
+
+1. Basic Gameplay: Playable with keyboard and only one song.
+2. Start Screen: Add a start page before gameplay.
+3. Song Selection: Allow players to choose from three or more songs.
+4. Motion Detection: Add a motion-based gameplay mode.
+5. Multiplayer: Add a two-player versus mode.
+6. Custom Songs: Enable players to import music and auto-generate rhythm points.
+7. Visual Recognition for Drumming Action: Integrate image recognition to track players' drumming actions in the air, increasing immersion and making the experience more interactive.
+
+#### Final Idea
+
+To create an exciting and easy-to-play game, our goal is to develop Unspottable. The design of the characters and background maps will be our top priority. Additionally, we will be working on extra buttons and other visual indicators during this stage. At the same time, we will generate the first version of the p5.js code, maximizing our flexibility for future adjustments if needed.
+
+For more advanced development, we aim to integrate face detection through the front-facing camera, allowing users to control their character using their face direction. This face detection-based control method will reduce the time users spend observing others, enhancing their overall experience.
 
 #### Stakeholder List
 
@@ -145,6 +164,8 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
   When working with epics, having a clear goal is essential, but understanding our users is equally crucial for building an efficient development environment. These epics can be further divided into smaller, actionable tasks based on actual requirements. For instance, in our game, one of our key epics is to create an intuitive and accessible experience for all players, regardless of whether they are first-time users or experienced ones. This epic consists of several user stories, including tailored experiences for new players, returning players, and those who prefer to skip tutorials at the beginning of the game.
 
   Breaking down large objectives into smaller, well-defined tasks significantly streamlines the development process. Additionally, setting clear acceptance criteria ensures that our progress stays on track. If any issues arise, we can systematically analyze each step to identify where the problem occurred and make necessary adjustments.
+
+---
 
 ### Design
 
@@ -394,6 +415,8 @@ sequenceDiagram
   ResultsPage->>WelcomePage: setup()
 ```
 
+---
+
 ### Implementation
 
 #### Three Technical Challenges
@@ -428,6 +451,8 @@ In another map, AI-controlled machines will launch random attacks, forcing playe
 
 - With robots actively attacking, players will no longer be able to distinguish between other players and robots by simply observing attack behavior.
 - This change increases the game’s challenge and unpredictability, making gameplay more dynamic and engaging.
+
+---
 
 ### Evaluation: Qualitative and Quantitative Evaluation
 
@@ -506,6 +531,70 @@ However, the most noticeable change is the increase in Frustration, suggesting t
 
 Overall, we aim to develop a wider variety of gaming experiences to enhance the level of challenge that players seek. Additionally, improving map introductions will be a key focus to ensure better player adaptation.
 
+---
+
+### 🌱 Sustainability
+
+#### 1. Sustainability Impact Analysis
+
+- **Overview Tale (Base on the Sustainability Awareness Framework)**
+
+  | **Dimension**     | **Guiding Question**                                        | **Impact / Insight**                                                                                             |
+  | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+  | **Individual**    | How can it affect physical, mental, or emotional health?    | Improves mental health by reducing social anxiety through fun interaction.                                       |
+  |                   | How can it affect competencies?                             | Enhances communication, observation, and social interaction skills.                                              |
+  |                   | How can it make a person feel more or less exposed to harm? | Offers a safe, inclusive environment that minimizes discomfort.                                                  |
+  | **Technical**     | What are likely vulnerabilities of the system?              | Outdated dependencies, lack of logging. <br> _Mitigation:_ Regular updates, security audits, monitoring.         |
+  |                   | How might OS/runtime changes affect it?                     | Requires cross-platform testing and adaptation for different environments (Windows/macOS/Linux).                 |
+  | **Economic**      | How does it affect customer relationships?                  | Enjoyable gameplay may lead to more players, enabling ad-based revenue opportunities.                            |
+  |                   | How does it impact finances?                                | Digital format lowers manufacturing costs and increases long-term value.                                         |
+  |                   | How does it affect the supply chain?                        | No physical production required → reduces material use and labor costs.                                          |
+  | **Environmental** | How does it affect material/resource consumption?           | Replaces traditional board games → reduces paper/plastic usage.                                                  |
+  |                   | What about waste and emissions?                             | Digital transition reduces manufacturing waste and associated emissions.                                         |
+  |                   | What about energy use?                                      | Saves energy from manufacturing; increases digital energy use. <br> _Mitigation:_ Use OLED-friendly dark themes. |
+  |                   | How can it impact nature?                                   | Frees up land and resources otherwise used for production → benefits natural habitats.                           |
+  | **Social**        | How does it affect group belonging?                         | Strengthens community bonds through cooperative gameplay.                                                        |
+  |                   | How does it affect perception of others?                    | Encourages observation and empathy, building stronger interpersonal connections.                                 |
+  |                   | How does it affect treatment of others?                     | Encourages knowledge-sharing; experienced players support beginners.                                             |
+  |                   | How does it affect social behaviors?                        | Promotes communication, teamwork, and collaborative problem-solving.                                             |
+
+  <br />
+
+- **Chains of Effects - Sustainability Dimensions**
+  | **Dimension / Topic** | **Chains of Effects** |
+  | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | **Individual: Health** | play in party → easy to make friends → reduce social anxiety → establish confidence <br> play in party → learn emotional management → develop social adaptability → reduce isolation and mental disease <br> play with others → increase perceptiveness → easier to make friends in the future |
+  | **Environmental: Material & Resources** | more on digital game → less board games → less consumption on making board games |
+  | **Environmental: Energy** | more on digital game → less board games → less energy consumption on making board games <br> more on digital game → more energy consumption to run computers & servers |
+  | **Technical: Maintainability** | structured code → easier for developer to maintain and upgrade system |
+  | **Social: Sense of Community** | require 2 to play → play game together → build connection → players feel a sense of belonging to community |
+  | **Social: Participation & Communication** | require 2 to play → experienced one may teach the other player → increase communication between players |
+  | **Economic: Customer Relationship** | people enjoy playing → spend more time on the game → game provider adds advertisements → company gains benefit → company improves features → players enjoy more → more users... |
+
+  <br />
+
+#### 2. Green Software Foundation Patterns – Game Integration
+
+| Plan to Add to Game             | Relevant Pattern                    | Link                                                                                     | Task Description                                                          | Jira                                                                |
+| ------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Minify web assets               | Minify Web Assets                   | [Pattern](https://patterns.greensoftware.foundation/catalog/web/minify-web-assets)       | Reduce size of SVG images in the game website to lower energy consumption | [DONE-TG-147](https://vivi2393142-0702.atlassian.net/browse/TG-147) |
+| Replace GIFs with SVG animation | Deprecate GIFs for animated content | [Pattern](https://patterns.greensoftware.foundation/catalog/web/deprecate-gifs)          | Use SVG animation instead of GIF for the loading animation                | [DONE-TG-74](https://vivi2393142-0702.atlassian.net/browse/TG-74)   |
+| Remove redundant assets         | Keep Request Counts Low             | [Pattern](https://patterns.greensoftware.foundation/catalog/web/keep-request-counts-low) | Delete unnecessary SVG files to reduce total number of HTTP requests      | [DONE-TG-149](https://vivi2393142-0702.atlassian.net/browse/TG-149) |
+
+<br />
+
+#### 3. Sustainability Requirements -> User stories
+
+| **Epic**                                          | **Story**                                                                                                                                                                                           | **Acceptance Criteria**                                                                                                                                                                                                                                                                                                                  | **Jira**                                                                                  |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Improve Website Performance**                   | - `As a` player <br> - `I want` to play lighter game <br> - `so that` I can use less energy when running this game <br> _(Environment: Energy)_                                                     | - `Given` the website contains images in the codebase <br> - `When` the website is loaded <br> - `Then` the total file size of all images should be reduced by at least 30% compared to the original size                                                                                                                                | [TG-147: Minify images file size](https://vivi2393142-0702.atlassian.net/browse/TG-147)   |
+|                                                   | - `As a` developer <br> - `I want` to make this game more secure <br> - `so that` players' data and gameplay experience are protected from potential security threats. <br> _(Technical: Security)_ | - `Given` the game project is set up to compile source code before deployment, ensuring that only the compiled version is accessible <br> - `When` the game is built and deployed to a public environment, <br> - `Then` the original source code remains hidden, and only the necessary executable files or compiled assets are exposed | [TG-148: Bundle code & hide source](https://vivi2393142-0702.atlassian.net/browse/TG-148) |
+| **Improve first-time user onboarding experience** | - `As a` player <br> - `I want` to understand how to play as quicker as possible <br> - `so that` I can enjoy the game sooner. <br> _(Individual: Health)_                                          | - `Given` instruction for players <br> - `When` users play the game at the first time <br> - `Then` an initial guide is provided for users to practice. They are required to finish all the practices to get the thorough understanding of the controls and gameplay.                                                                    | [TG-41: Add a guided tutorial](https://vivi2393142-0702.atlassian.net/browse/TG-41)       |
+
+More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/edit-v2/25919494?).
+
+---
+
 ### Process
 
 - 15% ~750 words
@@ -532,15 +621,21 @@ Our project management and documents are on Atlassian Jira. As the free plan doe
 
 Alternatively, if you prefer to use your own account, please request access from us.
 
+---
+
 ### Conclusion
 
 - 10% ~500 words
 
 - Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work.
 
+---
+
 ### Contribution Statement
 
 - Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent.
+
+---
 
 ### Additional Marks
 
