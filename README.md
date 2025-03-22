@@ -593,7 +593,11 @@ Overall, we aim to develop a wider variety of gaming experiences to enhance the 
 
 More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/edit-v2/25919494?).
 
----
+## <<<<<<< HEAD
+
+=======
+
+> > > > > > > cbfbf13852ac18cfd66021c9bb2f49901789c47a
 
 ### Process
 
