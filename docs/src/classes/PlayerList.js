@@ -21,6 +21,8 @@ class PlayerList extends UIComponent {
     this.statusTexts = []; //store players status in order.
 
     const numPlayers = Resources.images.playerAvatar.ing.length;
+    this.cooldowns = new Array(numPlayers).fill(null); //[null,null]
+
     for (let i = 0; i < numPlayers; i++) {
       const playerColor = this.color
         ? this.color
@@ -39,6 +41,7 @@ class PlayerList extends UIComponent {
   drawPlayerAvatars() {
     const numPlayers = this.playerAvatars.length;
     const spacing = width / (numPlayers + 1) - 10;
+
     for (let i = 0; i < numPlayers; i++) {
       const playerImage =
         this.playerStatus[i] === 'lose'
@@ -58,6 +61,9 @@ class PlayerList extends UIComponent {
           playerImage.width,
           playerImage.height,
         );
+
+        //cooldown effect
+        this.drawCooldownEffect(xPos, yPos, avatarSize, i);
 
         let textXPos = xPos + avatarSize / 2 + 10;
         let textYPos = yPos + avatarSize / 2 - 60;
@@ -95,6 +101,45 @@ class PlayerList extends UIComponent {
       if (color) update.color = color;
       if (typeof isShadow == 'boolean') update.isShadow = isShadow;
       this.statusTexts[playerIdx] = update;
+    }
+  }
+
+  // trigger cooldown when hit
+  startCooldown(
+    playerIdx,
+    duration = Settings.entity.duration[Constants.EntityStatus.COOLDOWN],
+  ) {
+    const now = millis();
+    this.cooldowns[playerIdx] = now + duration;
+  }
+
+  drawCooldownEffect(x, y, avatarSize, playerIdx) {
+    const now = millis();
+    const cooldownEnd = this.cooldowns[playerIdx];
+    const isCoolingDown = cooldownEnd && cooldownEnd > now;
+    if (isCoolingDown) {
+      // 1500-1001 ms -> 3
+      // 1000-501 ms -> 2
+      // 500-1 ms -> 1
+      const countdownTime = Math.ceil((cooldownEnd - now) / 500);
+
+      push();
+      fill(0, 0, 0, 150);
+      noStroke();
+      ellipse(x, y, avatarSize, avatarSize);
+      pop();
+
+      const countdownText = new Text({
+        x,
+        y,
+        label: countdownTime.toString(),
+        textSize: Theme.text.fontSize.large,
+        color: Theme.palette.white,
+
+        textAlign: [CENTER, CENTER],
+        isShadow: true,
+      });
+      countdownText.draw();
     }
   }
 }

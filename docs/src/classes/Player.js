@@ -36,6 +36,7 @@ class Player extends Entity {
     this.isPaused = params?.isPaused || false;
     this.originColor = initColor;
     this.onHit = params?.onHit;
+    this.hasCooldownEffect = false;
   }
 
   /** @override */

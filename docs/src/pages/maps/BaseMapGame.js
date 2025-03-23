@@ -24,6 +24,8 @@ class BaseMapGame extends BasePage {
 
     this.countDown = 3;
     this.countDownText;
+
+    this.hasCooldownEffect = false;
   }
 
   /** @override */
@@ -143,6 +145,12 @@ class BaseMapGame extends BasePage {
           color: Theme.palette.black,
           isShadow: false,
         });
+      } else if (
+        entity.type === Constants.EntityType.PLAYER &&
+        entity.status === Constants.EntityStatus.HIT &&
+        !entity.hasCooldownEffect
+      ) {
+        this.cooldownSession(entity);
       }
     });
 
@@ -219,5 +227,31 @@ class BaseMapGame extends BasePage {
         this.alivePlayerCtn--;
       });
     });
+  }
+
+  cooldownSession(entity) {
+    // Avatars effect
+    this.playerList.startCooldown(entity.idx);
+
+    // Text effect
+    entity.hasCooldownEffect = true;
+    this.playerList.updateStatus({
+      playerIdx: entity.idx,
+      newStatus: 'Fight',
+      textSize: Theme.text.fontSize.large,
+      color: Theme.palette.darkGrey,
+      isShadow: true,
+    });
+
+    setTimeout(() => {
+      this.playerList.updateStatus({
+        playerIdx: entity.idx,
+        newStatus: 'Fight',
+        color: Object.values(Theme.palette.player)[entity.idx],
+        textSize: Theme.text.fontSize.large,
+        isShadow: true,
+      });
+      entity.hasCooldownEffect = false;
+    }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
   }
 }
