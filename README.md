@@ -515,6 +515,8 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 | Effort          | 11.3            | 11.8             |
 | Frustration     | 3.7             | 5.1              |
 
+![NASA-TLX Chart](docs/assets/readme/NASA-TLX.png)
+
 ##### Briefing
 
 Quantitative Evaluation aims to provide user feedback through surveys conducted immediately after playing our game. Our data were collected from twelve users, each of whom played both Level I and Level II of the game.
