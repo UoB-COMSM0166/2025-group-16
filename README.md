@@ -508,12 +508,12 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 | Metric          | Level I Average | Level II Average |
 | --------------- | --------------- | ---------------- |
-| Mental Demand   | 9.8             | 9.8              |
-| Physical Demand | 10.2            | 9.8              |
-| Temporal Demand | 11.9            | 12.1             |
-| Performance     | 14.6            | 15.2             |
-| Effort          | 11.3            | 11.8             |
-| Frustration     | 3.7             | 5.1              |
+| Mental Demand   | 10.8            | 10.4             |
+| Physical Demand | 9.8             | 9.6              |
+| Temporal Demand | 12.7            | 12.1             |
+| Performance     | 14.4            | 16               |
+| Effort          | 10.9            | 11.6             |
+| Frustration     | 4.2             | 4.8              |
 
 ![NASA-TLX Chart](docs/assets/readme/NASA-TLX.png)
 
@@ -525,7 +525,7 @@ Quantitative Evaluation aims to provide user feedback through surveys conducted 
 
 ##### Findings
 
-From the chart, we observe that Mental Demand and Physical Demand remain nearly the same across both levels. A slight increase can be seen in Temporal Demand, Performance, and Effort, indicating that players needed to invest more effort in handling the increased difficulty of Level II.
+From the chart, we observe that Mental Demand and Physical Demand remain nearly the same across both levels. A slight decrease can be seen in Temporal Demand, which may suggest players became more accustomed to the game’s pacing. On the other hand, Performance and Effort scores increased, indicating that players needed to invest more energy and attention when tackling the added difficulty of Level II.
 
 However, the most noticeable change is the increase in Frustration, suggesting that the harder gaming experience led to higher player frustration. Possible reasons include unclear map logic or the longer adaptation time required to understand the mechanics.
 
