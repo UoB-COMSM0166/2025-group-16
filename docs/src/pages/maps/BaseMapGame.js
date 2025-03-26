@@ -130,7 +130,7 @@ class BaseMapGame extends BasePage {
         (a.status === Constants.EntityStatus.DIED),
     );
     sortedEntities.forEach((entity) => {
-      entity.draw();
+      this.drawEntity(entity);
 
       // update player list label
       if (
@@ -253,5 +253,10 @@ class BaseMapGame extends BasePage {
       });
       entity.hasCooldownEffect = false;
     }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
+  }
+
+  //override for game 6
+  drawEntity(entity) {
+    entity.draw?.();
   }
 }
