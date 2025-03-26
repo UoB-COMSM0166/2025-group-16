@@ -1,8 +1,8 @@
 const area = {
-  x: Settings.canvas.width / 5 / 2,
-  y: Settings.canvas.height / 5 / 2,
-  width: (Settings.canvas.width / 5) * 4,
-  height: (Settings.canvas.height / 5) * 4,
+  x: 64,
+  y: 120,
+  width: 1144,
+  height: 479,
 };
 
 class MapGame3 extends BaseMapGame {
@@ -26,11 +26,6 @@ class MapGame3 extends BaseMapGame {
 
   draw() {
     super.draw();
-
-    push();
-    noFill();
-    rect(area.x, area.y, area.width, area.height); // TODO: check area
-    pop();
 
     if (this.alivePlayerCtn <= 1) return;
 
