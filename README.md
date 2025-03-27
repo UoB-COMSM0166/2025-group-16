@@ -3,6 +3,8 @@
 2025 COMSM0166 group 16
 ![alt text](docs/assets/readme/Banner.png)
 
+## Contents
+
 - [Our Game](#our-game)
 - [Develop Team](#develop-team)
 - [Project Report](#project-report)
@@ -23,18 +25,36 @@ Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-16/)
 
 Your game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
 
-Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
+## Video Demonstration
+
+Find a game demonstration of the Unstoppable game below. This video is an overview of the gameplay mechanics and a sneak peek of our game.
 
 ## Develop Team
 
-![alt text](docs/assets/readme/group-photo.png)
+<figure style="text-align: center;">
+  <img src="docs/assets/readme/group-photo.png" width="500"/>
+  <figcaption><strong>Figure 1</strong>: Team Picture Week 1 with Team Role.</figcaption>
+</figure>
 
-- Group member 1, Yun-Fan Hsin, lt24003@bristol.ac.uk, hsinyunF
-- Group member 2, Yu-Qi Lin, rk24876@bristol.ac.uk, chiderlin
-- Group member 3, Wei Lin, tr24015@bristol.ac.uk, vivi2393142
-- Group member 4, Digo Tu, ma24030@bristol.ac.uk, digotu
-- Group member 5, Zih-Cing Lan, aw24252@bristol.ac.uk, ZihcingLan
-- Group member 6, Pin-Ru Chen , tz24192@bristol.ac.uk, nezii0331
+<div align="center">
+
+<strong>Table 1:</strong> Development Team Members<br />
+<em>Team members with their student emails and GitHub usernames.</em>
+
+</div>
+
+<div align="center">
+
+| No. | Name         | Email                 | GitHub Username |
+| --- | ------------ | --------------------- | --------------- |
+| 1   | Yun-Fan Hsin | lt24003@bristol.ac.uk | hsinyunF        |
+| 2   | Yu-Qi Lin    | rk24876@bristol.ac.uk | chiderlin       |
+| 3   | Wei Lin      | tr24015@bristol.ac.uk | vivi2393142     |
+| 4   | Digo Tu      | ma24030@bristol.ac.uk | digotu          |
+| 5   | Zih-Cing Lan | aw24252@bristol.ac.uk | ZihcingLan      |
+| 6   | Pin-Ru Chen  | tz24192@bristol.ac.uk | nezii0331       |
+
+</div>
 
 ## Project Report
 
@@ -68,8 +88,21 @@ _<p align="center">Team Game Idea Overview</p>_
 <!-- ![Prototype Idea 1](docs/assets/readme/prototype-demo-1.gif) -->
 <!-- ![Prototype Idea 2](docs/assets/readme/prototype-demo-2.gif) -->
 
-<img width="600px" src="docs/assets/readme/prototype-demo-1.gif" />
-<img width="600px" src="docs/assets/readme/prototype-demo-2.gif" />
+<div align="center">
+  <figure>
+    <img width="600px" src="docs/assets/readme/prototype-demo-1.gif" alt="Prototype Demo 1" />
+    <figcaption><strong>Figure 2:</strong> Early prototype demonstration – basic player movement and interaction.</figcaption>
+  </figure>
+</div>
+
+<br>
+
+<div align="center">
+  <figure>
+    <img width="600px" src="docs/assets/readme/prototype-demo-2.gif" alt="Prototype Demo 2" />
+    <figcaption><strong>Figure 3:</strong> Advanced prototype demonstration – attacking, AI interaction and effects.</figcaption>
+  </figure>
+</div>
 
 1. <a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
 2. <a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
@@ -104,8 +137,12 @@ Multiple players join a party game where they blend in with a crowd of robots wh
 6. Online Mode: Allow players to compete online with matchmaking or room creation.
 7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
 
-Simulation preview from p5js:<br />
-<img width="300px" src="docs/assets/readme/prototype-screenshot.png" />
+<div align="center">
+  <figure>
+    <img width="300px" src="docs/assets/readme/prototype-screenshot.png" alt="Prototype Screenshot from p5.js" />
+    <figcaption><strong>Figure 4:</strong> Simulation preview from p5.js showing early-stage interaction design.</figcaption>
+  </figure>
+</div>
 
 <a href="https://www.youtube.com/watch?v=perKCVKo-Mc"><b>Taiko no Tatsujin</b></a>
 
@@ -485,10 +522,21 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 ##### Heuristic Evaluation
 
+<div align="center">
+
+<strong>Table 2:</strong> Heuristic Evaluation Summary<br />
+<em>Identified usability issues based on Nielsen’s heuristics.</em>
+
+</div>
+
+<div align="center">
+
 | Heuristic Principle            | Observations                         | Score (0-4) |
 | ------------------------------ | ------------------------------------ | ----------- |
 | User Control and Freedom       | Exit/undo options are unclear        | 2           |
 | Recognition Rather Than Recall | Some instructions unclear or missing | 2           |
+
+</div>
 
 ##### Feedback from Testers and Corresponding Solutions
 
@@ -506,6 +554,15 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 ##### Player Experience Analysis
 
+<div align="center">
+
+<strong>Table 3:</strong> NASA TLX Average Scores of Level I and Level II<br />
+<em>Player-reported cognitive load comparison between levels.</em>
+
+</div>
+
+<div align="center">
+
 | Metric          | Level I Average | Level II Average |
 | --------------- | --------------- | ---------------- |
 | Mental Demand   | 10.8            | 10.4             |
@@ -515,7 +572,16 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 | Effort          | 10.9            | 11.6             |
 | Frustration     | 4.2             | 4.8              |
 
-![NASA-TLX Chart](docs/assets/readme/NASA-TLX.png)
+</div>
+
+</div>
+
+<div align="center">
+  <figure>
+    <img width="600px" src="docs/assets/readme/NASA-TLX.png" alt="NASA TLX Results Chart" />
+    <figcaption><strong>Figure 5:</strong> NASA TLX results showing user-perceived workload across Levels I and II.</figcaption>
+  </figure>
+</div>
 
 ##### Briefing
 
@@ -539,7 +605,7 @@ Overall, we aim to develop a wider variety of gaming experiences to enhance the 
 
 #### 1. Sustainability Impact Analysis
 
-- **Overview Tale (Base on the Sustainability Awareness Framework)**
+- **Overview Table (Base on the Sustainability Awareness Framework)**
 
   | **Dimension**     | **Guiding Question**                                        | **Impact / Insight**                                                                                             |
   | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
