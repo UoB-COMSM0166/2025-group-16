@@ -32,10 +32,9 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
 ## Develop Team
 
 <div align="center">
-  <figure>
-    <img src="docs/assets/readme/group-photo.png" width="500"/>
-    <figcaption><strong>Figure 1</strong>: Team Picture Week 1 with Team Role.</figcaption>
-  </figure>
+  <img src="docs/assets/readme/group-photo.png" width="500" alt="Team Photo" />
+  <br>
+  <strong>Figure 1:</strong> Team Picture Week 1 with Team Role.
 </div>
 
 <div align="center">
