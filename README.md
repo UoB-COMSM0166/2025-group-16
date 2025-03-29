@@ -31,30 +31,40 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
 
 ## Develop Team
 
-<figure style="text-align: center;">
-  <img src="docs/assets/readme/group-photo.png" width="500"/>
-  <figcaption><strong>Figure 1</strong>: Team Picture Week 1 with Team Role.</figcaption>
-</figure>
-
 <div align="center">
-
-<strong>Table 1:</strong> Development Team Members<br />
-<em>Team members with their student emails and GitHub usernames.</em>
-
+  <figure>
+    <img src="docs/assets/readme/group-photo.png" width="500"/>
+    <figcaption><strong>Figure 1</strong>: Team Picture Week 1 with Team Role.</figcaption>
+  </figure>
 </div>
 
 <div align="center">
-
-| No. | Name         | Email                 | GitHub Username |
-| --- | ------------ | --------------------- | --------------- |
-| 1   | Yun-Fan Hsin | lt24003@bristol.ac.uk | hsinyunF        |
-| 2   | Yu-Qi Lin    | rk24876@bristol.ac.uk | chiderlin       |
-| 3   | Wei Lin      | tr24015@bristol.ac.uk | vivi2393142     |
-| 4   | Digo Tu      | ma24030@bristol.ac.uk | digotu          |
-| 5   | Zih-Cing Lan | aw24252@bristol.ac.uk | ZihcingLan      |
-| 6   | Pin-Ru Chen  | tz24192@bristol.ac.uk | nezii0331       |
-
+  <strong>Table 1:</strong> Development Team Members<br />
+  <em>Team members with their student emails and GitHub usernames.</em>
 </div>
+
+<div align="center">
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>GitHub Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Yun-Fan Hsin</td><td>lt24003@bristol.ac.uk</td><td>hsinyunF</td></tr>
+      <tr><td>2</td><td>Yu-Qi Lin</td><td>rk24876@bristol.ac.uk</td><td>chiderlin</td></tr>
+      <tr><td>3</td><td>Wei Lin</td><td>tr24015@bristol.ac.uk</td><td>vivi2393142</td></tr>
+      <tr><td>4</td><td>Digo Tu</td><td>ma24030@bristol.ac.uk</td><td>digotu</td></tr>
+      <tr><td>5</td><td>Zih-Cing Lan</td><td>aw24252@bristol.ac.uk</td><td>ZihcingLan</td></tr>
+      <tr><td>6</td><td>Pin-Ru Chen</td><td>tz24192@bristol.ac.uk</td><td>nezii0331</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div align="left"></div>
 
 ## Project Report
 
@@ -85,24 +95,18 @@ _<p align="center">Team Game Idea Overview</p>_
 
 #### Two Prototype Ideas GIFs
 
-<!-- ![Prototype Idea 1](docs/assets/readme/prototype-demo-1.gif) -->
-<!-- ![Prototype Idea 2](docs/assets/readme/prototype-demo-2.gif) -->
-
 <div align="center">
-  <figure>
-    <img width="600px" src="docs/assets/readme/prototype-demo-1.gif" alt="Prototype Demo 1" />
-    <figcaption><strong>Figure 2:</strong> Early prototype demonstration – basic player movement and interaction.</figcaption>
-  </figure>
+  <img width="600px" src="docs/assets/readme/prototype-demo-1.gif" alt="Prototype Demo 1" />
 </div>
 
-<br>
+<p align="center"><strong>Figure 2:</strong> Early prototype demonstration – basic player movement and interaction.</p>
 
 <div align="center">
-  <figure>
-    <img width="600px" src="docs/assets/readme/prototype-demo-2.gif" alt="Prototype Demo 2" />
-    <figcaption><strong>Figure 3:</strong> Advanced prototype demonstration – attacking, AI interaction and effects.</figcaption>
-  </figure>
+  <img width="600px" src="docs/assets/readme/prototype-demo-2.gif" alt="Prototype Demo 2" />
+  <p><strong>Figure 3:</strong> Advanced prototype demonstration – attacking, AI interaction and effects.</p>
 </div>
+
+<div align="left"></div>
 
 1. <a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
 2. <a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
@@ -138,10 +142,9 @@ Multiple players join a party game where they blend in with a crowd of robots wh
 7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
 
 <div align="center">
-  <figure>
-    <img width="300px" src="docs/assets/readme/prototype-screenshot.png" alt="Prototype Screenshot from p5.js" />
-    <figcaption><strong>Figure 4:</strong> Simulation preview from p5.js showing early-stage interaction design.</figcaption>
-  </figure>
+  <img width="300px" src="docs/assets/readme/prototype-screenshot.png" alt="Prototype Screenshot from p5.js" />
+  <br>
+  <strong>Figure 4:</strong> Simulation preview from p5.js showing early-stage interaction design.
 </div>
 
 <a href="https://www.youtube.com/watch?v=perKCVKo-Mc"><b>Taiko no Tatsujin</b></a>
@@ -577,10 +580,9 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 </div>
 
 <div align="center">
-  <figure>
-    <img width="600px" src="docs/assets/readme/NASA-TLX.png" alt="NASA TLX Results Chart" />
-    <figcaption><strong>Figure 5:</strong> NASA TLX results showing user-perceived workload across Levels I and II.</figcaption>
-  </figure>
+  <img width="600px" src="docs/assets/readme/NASA-TLX.png" alt="NASA TLX Results Chart" />
+  <br>
+  <strong>Figure 5:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
 </div>
 
 ##### Briefing
