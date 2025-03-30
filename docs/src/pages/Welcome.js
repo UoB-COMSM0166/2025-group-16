@@ -19,15 +19,15 @@ class Welcome extends BasePage {
     this.keyBoardP1 = null;
     this.keyBoardP2 = null;
 
-    this.tutorial = null;
-    this.initTutorialState();
+    this.tutorialButton = null;
+    this.tutorialDialog = new TutorialDialog();
   }
 
   /** @override */
   setup() {
     super.setup();
 
-    this.tutorial = {
+    this.tutorialButton = {
       ...Resources.images.welcome.tutorial,
       x: width * 0.95,
       y: height * 0.05,
@@ -68,24 +68,22 @@ class Welcome extends BasePage {
       const newPlayer = new Player(createPlayer);
       this.players.push(newPlayer);
     }
-
-    if (this.showTutorialDialog) this.openTutorialDialog();
   }
 
   /** @override */
   draw() {
     super.draw();
-    if (this.isImagePressed(this.tutorial)) {
+    if (this.isImagePressed(this.tutorialButton)) {
       cursor('pointer');
     }
-    if (this.tutorial) {
+    if (this.tutorialButton) {
       imageMode(CENTER);
       image(
-        this.tutorial.image,
-        this.tutorial.x,
-        this.tutorial.y,
-        this.tutorial.width,
-        this.tutorial.height,
+        this.tutorialButton.image,
+        this.tutorialButton.x,
+        this.tutorialButton.y,
+        this.tutorialButton.width,
+        this.tutorialButton.height,
       );
     }
 
@@ -162,15 +160,16 @@ class Welcome extends BasePage {
     this.drawCountdown();
 
     // draw tutorial dialog
-    if (this.showTutorialDialog) this.drawTutorialDialog();
+    this.tutorialDialog.draw();
   }
 
   /** @override */
   keyPressed() {
     super.keyPressed();
-    if (this.showTutorialDialog) {
-      this.tutorialDialogKeyPressed();
-    } else {
+
+    // enable tutorial keyPressed only when open
+    this.tutorialDialog.keyPressed();
+    if (!this.tutorialDialog.isOpen) {
       this.players.forEach((player) => {
         player.keyPressed([...this.players], (player) => {
           player.status = Constants.EntityStatus.FAKEDIED;
@@ -203,9 +202,13 @@ class Welcome extends BasePage {
   /**@override */
   mousePressed() {
     super.mousePressed();
-    if (this.isImagePressed(this.tutorial)) {
-      localStorage.removeItem(Constants.TutorialCompletedKey);
-      this.openTutorialDialog();
+
+    // when clock tutorialButton, open dialog and stop players
+    if (this.isImagePressed(this.tutorialButton)) {
+      this.tutorialDialog.open();
+      this.players.forEach((player) => {
+        player.isPaused = true;
+      });
     }
   }
 
@@ -326,117 +329,6 @@ class Welcome extends BasePage {
       });
 
       timerText.draw();
-    }
-  }
-
-  /* Tutorial Dialog */
-  initTutorialState() {
-    this.showTutorialDialog =
-      localStorage.getItem(Constants.TutorialCompletedKey) !== 'true';
-    this.tutorialDialogSelectingIdx = 0;
-
-    this.tutorialDialogTitle = new Text({
-      label: 'START TUTORIAL?',
-      x: width / 2,
-      y: height / 4,
-      color: Theme.palette.text.contrastText,
-      textSize: Theme.text.fontSize.large,
-      textStyle: BOLD,
-      textAlign: [CENTER, CENTER],
-      textFont: 'Press Start 2P',
-    });
-
-    this.tutorialDialogOptionYOffset = 36;
-    const xOffset = 12;
-    this.tutorialDialogOption1 = new Text({
-      label: 'YES',
-      x: width / 2 - xOffset,
-      y: height / 2 - this.tutorialDialogOptionYOffset,
-      color: Theme.palette.text.contrastText,
-      textSize: Theme.text.fontSize.medium,
-      textStyle: BOLD,
-      textAlign: [LEFT, CENTER],
-      textFont: 'Press Start 2P',
-    });
-    this.tutorialDialogOption2 = new Text({
-      label: 'NO',
-      x: width / 2 - xOffset,
-      y: height / 2 + this.tutorialDialogOptionYOffset,
-      color: Theme.palette.text.contrastText,
-      textSize: Theme.text.fontSize.medium,
-      textStyle: BOLD,
-      textAlign: [LEFT, CENTER],
-      textFont: 'Press Start 2P',
-    });
-    this.tutorialDialogOptionArrow = new Text({
-      label: '>',
-      x: width / 2 - xOffset * 3,
-      color: Theme.palette.yellow,
-      textSize: Theme.text.fontSize.medium,
-      textStyle: BOLD,
-      stroke: Theme.palette.text.contrastText,
-      strokeWeight: 4,
-      textAlign: [CENTER, CENTER],
-      textFont: 'Press Start 2P',
-    });
-  }
-
-  openTutorialDialog() {
-    this.players.forEach((player) => {
-      player.isPaused = true;
-    });
-    this.tutorialDialogSelectingIdx = 0;
-    this.showTutorialDialog = true;
-  }
-
-  closeTutorialDialog() {
-    this.players.forEach((player) => {
-      player.isPaused = false;
-    });
-    this.showTutorialDialog = false;
-  }
-
-  drawTutorialDialog() {
-    push();
-    fill(0, 0, 0, 180);
-    noStroke();
-    rect(0, 0, width, height);
-    pop();
-
-    this.tutorialDialogTitle.draw();
-    this.tutorialDialogOption1.draw();
-    this.tutorialDialogOption2.draw();
-
-    // blink every 0.4 seconds
-    if (Math.round(frameCount / (0.4 * Constants.FramePerSecond)) % 2) return;
-
-    this.tutorialDialogOptionArrow.draw({
-      y:
-        height / 2 +
-        this.tutorialDialogOptionYOffset *
-          (this.tutorialDialogSelectingIdx ? 1 : -1),
-    });
-  }
-
-  isPressed(control, keyCode) {
-    return Settings.players.some(
-      ({ controls }) => controls[control].value === keyCode,
-    );
-  }
-
-  tutorialDialogKeyPressed() {
-    // HIT or Enter to select
-    if (this.isPressed('HIT', keyCode) || keyCode === 13) {
-      if (this.tutorialDialogSelectingIdx === 0) {
-        Controller.changePage(new Tutorial(), Constants.Page.TUTORIAL);
-      } else {
-        this.closeTutorialDialog();
-        localStorage.setItem(Constants.TutorialCompletedKey, 'true');
-      }
-    }
-
-    if (this.isPressed('UP', keyCode) || this.isPressed('DOWN', keyCode)) {
-      this.tutorialDialogSelectingIdx = this.tutorialDialogSelectingIdx ? 0 : 1;
     }
   }
 }

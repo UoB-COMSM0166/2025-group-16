@@ -21,6 +21,7 @@ const _ASSET_PATHS = {
       speakerOn: `${_BASE_PATH}assets/images/welcome/icon_soundson.svg`,
       speakerOff: `${_BASE_PATH}assets/images/welcome/icon_soundsoff.svg`,
       tutorial: `${_BASE_PATH}assets/images/welcome/icon_tutorial.svg`,
+      dialog: `${_BASE_PATH}assets/images/welcome/dialog.svg`,
     },
     mapSelection: [
       `${_BASE_PATH}assets/images/mapSelection/map1_desert.svg`,
