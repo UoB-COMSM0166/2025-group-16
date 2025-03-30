@@ -48,4 +48,8 @@ const Controller = {
   updateSpeakerStatus(speakerOn) {
     Store._updateState({ speakerOn });
   },
+
+  updateTargetScore(targetScore) {
+    Store._updateState({ targetScore });
+  },
 };
