@@ -124,6 +124,18 @@ class BasePage {
     }
   }
 
+  stopAllPlayers() {
+    this.players.forEach((player) => {
+      player.isPaused = true;
+    });
+  }
+
+  resumeAllPlayers() {
+    this.players.forEach((player) => {
+      player.isPaused = false;
+    });
+  }
+
   // Mouse Events
   /**
    * Called when mouse is pressed.
