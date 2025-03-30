@@ -107,12 +107,8 @@ class BaseMapGame extends BasePage {
 
       // start the game when count down finish
       if (this.countDown === -1) {
-        this.players.forEach((player) => {
-          player.isPaused = false;
-        });
-        this.robots.forEach((robot) => {
-          robot.isPaused = false;
-        });
+        this.setAllEntitiesPaused(Constants.EntityType.PLAYER, false);
+        this.setAllEntitiesPaused(Constants.EntityType.ROBOT, false);
         window.clearInterval(intervalId);
       }
     }, 400);

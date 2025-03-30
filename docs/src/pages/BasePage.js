@@ -124,16 +124,17 @@ class BasePage {
     }
   }
 
-  stopAllPlayers() {
-    this.players.forEach((player) => {
-      player.isPaused = true;
-    });
-  }
-
-  resumeAllPlayers() {
-    this.players.forEach((player) => {
-      player.isPaused = false;
-    });
+  setAllEntitiesPaused(type, isPaused) {
+    if (type === Constants.EntityType.PLAYER) {
+      this.players.forEach((player) => {
+        player.isPaused = isPaused;
+      });
+    }
+    if (type === Constants.EntityType.ROBOT) {
+      this.robots.forEach((robot) => {
+        robot.isPaused = isPaused;
+      });
+    }
   }
 
   // Mouse Events

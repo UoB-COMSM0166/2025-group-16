@@ -412,7 +412,7 @@ class Tutorial extends BasePage {
     const currPhase = this.missions[3].setupPhase;
     switch (currPhase) {
       case 0: {
-        this.changePlayersControlPause(true);
+        this.setAllEntitiesPaused(Constants.EntityType.PLAYER, true);
         this.missions[3].setupPhase = 1;
         break;
       }
@@ -426,7 +426,7 @@ class Tutorial extends BasePage {
         this.turnPlayersToRobots();
         break;
       case 4: {
-        this.changePlayersControlPause(false);
+        this.setAllEntitiesPaused(Constants.EntityType.PLAYER, false);
         this.missions[3].setupPhase = 5;
         break;
       }
@@ -471,12 +471,6 @@ class Tutorial extends BasePage {
       if (this.robots[idx].status === Constants.EntityStatus.DIED) {
         this.updateMissionStatus(idx, this.playerMissionProgress[idx] + 1);
       }
-    });
-  }
-
-  changePlayersControlPause(isPaused) {
-    this.players.forEach((player) => {
-      player.isPaused = isPaused;
     });
   }
 

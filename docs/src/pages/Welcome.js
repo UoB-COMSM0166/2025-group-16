@@ -331,10 +331,10 @@ class Welcome extends BasePage {
   getDialogParams() {
     return {
       onOpen: () => {
-        this.stopAllPlayers();
+        this.setAllEntitiesPaused(Constants.EntityType.PLAYER, true);
       },
       onClose: () => {
-        this.resumeAllPlayers();
+        this.setAllEntitiesPaused(Constants.EntityType.PLAYER, false);
       },
     };
   }
