@@ -1,7 +1,9 @@
 class RulesSettingDialog extends Dialog {
-  constructor() {
+  constructor(params) {
     super({
       title: 'RULES',
+      onOpen: params?.onOpen,
+      onClose: params?.onClose,
     });
 
     this.targetScoreOptions = [1, 3, 5];

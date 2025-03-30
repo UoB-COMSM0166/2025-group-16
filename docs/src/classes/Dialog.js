@@ -6,10 +6,14 @@ class Dialog {
    * @param {Object} params - The parameters for the dialog.
    * @param {string} params.title - The title of the dialog.
    * @param {boolean} [params.isOpen=false] - Indicates whether the dialog is open.
+   * @param {Function|null} [params.onOpen=null] - Callback function to execute when the dialog is opened.
+   * @param {Function|null} [params.onClose=null] - Callback function to execute when the dialog is closed.
    */
   constructor(params) {
     this.title = params.title;
     this.isOpen = params?.isOpen || false;
+    this.onOpen = params?.onOpen || null;
+    this.onClose = params?.onClose || null;
 
     /**
      * - dialog content center position
@@ -71,10 +75,12 @@ class Dialog {
   }
 
   open() {
+    this.onOpen?.();
     this.isOpen = true;
   }
 
   close() {
     this.isOpen = false;
+    this.onClose?.();
   }
 }

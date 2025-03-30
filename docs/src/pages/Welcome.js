@@ -20,9 +20,10 @@ class Welcome extends BasePage {
     this.keyBoardP2 = null;
 
     this.tutorialButton = null;
-    this.tutorialDialog = new TutorialDialog();
 
-    this.rulesSettingDialog = new RulesSettingDialog();
+    // stop all players when dialog is open
+    this.tutorialDialog = new TutorialDialog(this.getDialogParams());
+    this.rulesSettingDialog = new RulesSettingDialog(this.getDialogParams());
   }
 
   /** @override */
@@ -171,18 +172,8 @@ class Welcome extends BasePage {
   /** @override */
   keyPressed() {
     super.keyPressed();
-
     this.tutorialDialog.keyPressed();
     this.rulesSettingDialog.keyPressed();
-
-    // disable players' controls when dialog open
-    if (!this.tutorialDialog.isOpen || !this.rulesSettingDialog.isOpen) {
-      this.players.forEach((player) => {
-        player.keyPressed([...this.players], (player) => {
-          player.status = Constants.EntityStatus.FAKEDIED;
-        });
-      });
-    }
 
     // TODO: remove temporary shortcut controls
     if (keyCode === 49) {
@@ -210,12 +201,9 @@ class Welcome extends BasePage {
   mousePressed() {
     super.mousePressed();
 
-    // when click tutorialButton, open dialog and stop players
+    // when click tutorialButton, open dialog
     if (this.isImagePressed(this.tutorialButton)) {
       this.tutorialDialog.open();
-      this.players.forEach((player) => {
-        player.isPaused = true;
-      });
     }
   }
 
@@ -308,11 +296,8 @@ class Welcome extends BasePage {
         this.countdown--;
       } else {
         clearInterval(this.countdownInterval);
-        // when game is going to start, open rules setting dialog and stop players
+        // when game is going to start, open rules setting dialog
         this.rulesSettingDialog.open();
-        this.players.forEach((player) => {
-          player.isPaused = true;
-        });
       }
     }, 1000);
   }
@@ -341,5 +326,16 @@ class Welcome extends BasePage {
 
       timerText.draw();
     }
+  }
+
+  getDialogParams() {
+    return {
+      onOpen: () => {
+        this.stopAllPlayers();
+      },
+      onClose: () => {
+        this.resumeAllPlayers();
+      },
+    };
   }
 }

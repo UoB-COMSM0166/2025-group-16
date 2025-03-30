@@ -1,8 +1,10 @@
 class TutorialDialog extends Dialog {
-  constructor() {
+  constructor(params) {
     super({
       title: 'START TUTORIAL?',
       isOpen: localStorage.getItem(Constants.TutorialCompletedKey) !== 'true',
+      onOpen: params?.onOpen,
+      onClose: params?.onClose,
     });
 
     this.selectingIdx = 0;
