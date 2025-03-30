@@ -8,12 +8,19 @@ class Dialog {
    * @param {boolean} [params.isOpen=false] - Indicates whether the dialog is open.
    * @param {Function|null} [params.onOpen=null] - Callback function to execute when the dialog is opened.
    * @param {Function|null} [params.onClose=null] - Callback function to execute when the dialog is closed.
+   * @param {Array} [params.options=[]] - List of options available in the dialog.
+   * @param {number} [params.optionGap=48] - The vertical offset between options in the dialog.
+   * @param {number} [params.selectingIdx=0] - The index of the currently selected option.
    */
   constructor(params) {
     this.title = params.title;
     this.isOpen = params?.isOpen || false;
     this.onOpen = params?.onOpen || null;
     this.onClose = params?.onClose || null;
+
+    this.options = params?.options || [];
+    this.optionGap = params?.optionGap || 48;
+    this.selectingIdx = params?.selectingIdx || 0;
 
     /**
      * - dialog content center position
@@ -36,7 +43,9 @@ class Dialog {
   drawDialog() {
     this._drawBackdrop();
     this._drawDialogBox();
-    this.tutorialDialogTitle.draw();
+    this.titleText.draw();
+    this._drawOptions();
+    this._drawOptionArrow();
   }
 
   _drawBackdrop() {
@@ -62,7 +71,7 @@ class Dialog {
   }
 
   initDialog() {
-    this.tutorialDialogTitle = new Text({
+    this.titleText = new Text({
       label: this.title,
       x: width / 2,
       y: 255,
@@ -72,9 +81,52 @@ class Dialog {
       textAlign: [CENTER, CENTER],
       textFont: 'Press Start 2P',
     });
+
+    this.optionObjects = this.options.map(
+      (opt, idx) =>
+        new Text({
+          label: opt.label,
+          x: this.contentBounds.x,
+          y:
+            this.contentBounds.y +
+            (idx - (this.options.length - 1) / 2) * this.optionGap,
+          color: Theme.palette.text.primary,
+          textSize: Theme.text.fontSize.small,
+          textStyle: BOLD,
+          textAlign: [CENTER, CENTER],
+          textFont: 'Press Start 2P',
+        }),
+    );
+
+    this.optionArrow = new Text({
+      label: '>',
+      color: Theme.palette.text.primary,
+      stroke: Theme.palette.text.primary,
+      strokeWeight: 2,
+      textSize: Theme.text.fontSize.small * (2 / 3),
+      textStyle: BOLD,
+      textAlign: [CENTER, CENTER],
+      textFont: 'Press Start 2P',
+    });
+  }
+
+  _drawOptions() {
+    this.optionObjects.forEach((opt) => opt.draw());
+  }
+
+  _drawOptionArrow() {
+    // option arrow blink every 0.4 seconds
+    if (Math.round(frameCount / (0.4 * Constants.FramePerSecond)) % 2) return;
+
+    const currOption = this.optionObjects[this.selectingIdx];
+    this.optionArrow.draw({
+      x: currOption.x - currOption.textWidth / 2 - 24,
+      y: currOption.y,
+    });
   }
 
   open() {
+    this.selectingIdx = 0;
     this.onOpen?.();
     this.isOpen = true;
   }
@@ -82,5 +134,34 @@ class Dialog {
   close() {
     this.isOpen = false;
     this.onClose?.();
+  }
+
+  keyPressed() {
+    if (!this.isOpen) return;
+
+    // use 'HIT' or press 'Enter' to select
+    if (this.isPressed('HIT', keyCode) || keyCode === 13) {
+      this.onSelect(this.selectingIdx);
+    }
+
+    // use 'UP' or 'DOWN' to switch selection
+    if (this.isPressed('UP', keyCode)) {
+      this.selectingIdx = Math.max(0, this.selectingIdx - 1);
+    } else if (this.isPressed('DOWN', keyCode)) {
+      this.selectingIdx = Math.min(
+        this.options.length - 1,
+        this.selectingIdx + 1,
+      );
+    }
+  }
+
+  isPressed(control, keyCode) {
+    return Settings.players.some(
+      ({ controls }) => controls[control].value === keyCode,
+    );
+  }
+
+  onSelect() {
+    throw new Error('onSelect must be implemented by subclass');
   }
 }
