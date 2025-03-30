@@ -21,6 +21,8 @@ class Welcome extends BasePage {
 
     this.tutorialButton = null;
     this.tutorialDialog = new TutorialDialog();
+
+    this.rulesSettingDialog = new RulesSettingDialog();
   }
 
   /** @override */
@@ -161,15 +163,20 @@ class Welcome extends BasePage {
 
     // draw tutorial dialog
     this.tutorialDialog.draw();
+
+    // draw rules setting dialog
+    this.rulesSettingDialog.draw();
   }
 
   /** @override */
   keyPressed() {
     super.keyPressed();
 
-    // enable tutorial keyPressed only when open
     this.tutorialDialog.keyPressed();
-    if (!this.tutorialDialog.isOpen) {
+    this.rulesSettingDialog.keyPressed();
+
+    // disable players' controls when dialog open
+    if (!this.tutorialDialog.isOpen || !this.rulesSettingDialog.isOpen) {
       this.players.forEach((player) => {
         player.keyPressed([...this.players], (player) => {
           player.status = Constants.EntityStatus.FAKEDIED;
@@ -203,7 +210,7 @@ class Welcome extends BasePage {
   mousePressed() {
     super.mousePressed();
 
-    // when clock tutorialButton, open dialog and stop players
+    // when click tutorialButton, open dialog and stop players
     if (this.isImagePressed(this.tutorialButton)) {
       this.tutorialDialog.open();
       this.players.forEach((player) => {
@@ -301,7 +308,11 @@ class Welcome extends BasePage {
         this.countdown--;
       } else {
         clearInterval(this.countdownInterval);
-        Controller.changePage(new MapSelection(), Constants.Page.MAP_SELECTION);
+        // when game is going to start, open rules setting dialog and stop players
+        this.rulesSettingDialog.open();
+        this.players.forEach((player) => {
+          player.isPaused = true;
+        });
       }
     }, 1000);
   }

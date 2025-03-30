@@ -39,6 +39,8 @@ class Text extends UIComponent {
     this.shadowColor = params?.shadowColor || Theme.palette.black;
     this.shadowOffsetX = params?.shadowOffsetX || 5;
     this.shadowOffsetY = params?.shadowOffsetY || 5;
+
+    this.textWidth = 0;
   }
 
   draw(params) {
@@ -83,6 +85,8 @@ class Text extends UIComponent {
     } else {
       text(config.label, config.x, config.y);
     }
+
+    this.textWidth = textWidth(config.label);
 
     pop();
   }

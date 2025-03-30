@@ -1,5 +1,3 @@
-const optionYOffset = 24;
-
 class TutorialDialog extends Dialog {
   constructor() {
     super({
@@ -16,37 +14,33 @@ class TutorialDialog extends Dialog {
 
     this.option1.draw();
     this.option2.draw();
-
-    // option arrow blink every 0.4 seconds
-    if (Math.round(frameCount / (0.4 * Constants.FramePerSecond)) % 2) {
-      this.optionArrow.draw({
-        y: this.contentBounds.y + optionYOffset * (this.selectingIdx ? 1 : -1),
-      });
-    }
+    this._drawOptionArrow();
   }
 
   /** @override */
   initDialog() {
     super.initDialog();
 
+    this.optionYOffset = 24;
+
     this.option1 = new Text({
-      label: 'YES',
+      label: 'Yes',
       x: this.contentBounds.x,
-      y: this.contentBounds.y - optionYOffset,
+      y: this.contentBounds.y - this.optionYOffset,
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.small,
       textStyle: BOLD,
-      textAlign: [LEFT, CENTER],
+      textAlign: [CENTER, CENTER],
       textFont: 'Press Start 2P',
     });
     this.option2 = new Text({
-      label: 'NO',
+      label: 'No',
       x: this.contentBounds.x,
-      y: this.contentBounds.y + optionYOffset,
+      y: this.contentBounds.y + this.optionYOffset,
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.small,
       textStyle: BOLD,
-      textAlign: [LEFT, CENTER],
+      textAlign: [CENTER, CENTER],
       textFont: 'Press Start 2P',
     });
     this.optionArrow = new Text({
@@ -57,8 +51,19 @@ class TutorialDialog extends Dialog {
       strokeWeight: 2,
       textSize: Theme.text.fontSize.small * (2 / 3),
       textStyle: BOLD,
-      textAlign: [RIGHT, CENTER],
+      textAlign: [CENTER, CENTER],
       textFont: 'Press Start 2P',
+    });
+  }
+
+  _drawOptionArrow() {
+    // option arrow blink every 0.4 seconds
+    if (Math.round(frameCount / (0.4 * Constants.FramePerSecond)) % 2) return;
+
+    const currentOption = this.selectingIdx ? this.option2 : this.option1;
+    this.optionArrow.draw({
+      x: currentOption.x - currentOption.textWidth / 2 - 24,
+      y: currentOption.y,
     });
   }
 
