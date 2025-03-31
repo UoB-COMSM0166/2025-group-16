@@ -34,8 +34,10 @@ class MapGame5 extends BaseMapGame {
       return;
     }
 
-    const secondsLeft = Math.ceil(this.attackCountdown / Constants.FramePerSecond);
-    if (secondsLeft <= 3){
+    const secondsLeft = Math.ceil(
+      this.attackCountdown / Constants.FramePerSecond,
+    );
+    if (secondsLeft <= 3) {
       this.aa.label = secondsLeft > 0 ? String(secondsLeft) : '';
       this.aa.draw();
     }
@@ -56,5 +58,4 @@ class MapGame5 extends BaseMapGame {
       this.attackCountdown--;
     }
   }
-
 }

@@ -42,6 +42,18 @@ class Robot extends Entity {
     }
   }
 
+  pause() {
+    this.action = () => {}; // 清空當前動作
+    this.actionEndTime = millis() + 1000; // 立即停止
+  }
+
+  controlMove(direction) {
+    this.action = () => {
+      super.move(direction);
+    };
+    this.actionEndTime = millis() + 1000; // 持續時間可自訂
+  }
+
   /** @override */
   move() {
     if (this.status === Constants.EntityStatus.DIED) return;
