@@ -1,11 +1,28 @@
+const areaMap5 = {
+  x: 121,
+  y: 21,
+  width: 980,
+  height: 610,
+};
+
 class MapGame5 extends BaseMapGame {
   constructor() {
     // TODO: change bg & bgm
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
-      background: Resources.images.map.game1,
+      background: Resources.images.map.game5,
       bgm: Resources.sounds.bgm.playing1,
+      robotParams: {
+        randomPositionArea: areaMap5,
+        randomPositionPadding: 0,
+        positionBoundary: areaMap5,
+      },
+      playerParams: {
+        randomPositionArea: areaMap5,
+        randomPositionPadding: 0,
+        positionBoundary: areaMap5,
+      },
     });
 
     this.attackCountdown = 3 * Constants.FramePerSecond;
