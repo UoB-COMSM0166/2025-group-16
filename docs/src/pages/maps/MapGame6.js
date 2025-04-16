@@ -1,20 +1,48 @@
+const areaMap6 = {
+  x: 121,
+  y: 21,
+  width: 1024,
+  height: 700,
+};
+
+
 class MapGame6 extends BaseMapGame {
   constructor() {
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
-      background: Resources.images.map.game1,
+      background: Resources.images.map.game6,
       bgm: Resources.sounds.bgm.playing1,
+      robotParams: {
+        randomPositionArea: areaMap6,
+        randomPositionPadding: 0,
+        positionBoundary: areaMap6,
+      },
+      playerParams: {
+        randomPositionArea: areaMap6,
+        randomPositionPadding: 0,
+        positionBoundary: areaMap6,
+      },
     });
 
-    const zoneSize = 100;
+    this.zoneSize = 100;
     const margin = 50;
     this.swapZones = [
-      { x: margin, y: margin },
-      { x: width - zoneSize - margin, y: margin },
-      { x: margin, y: height - zoneSize - margin },
-      { x: width - zoneSize - margin, y: height - zoneSize - margin },
+      {
+        x: 150,
+        y: height / 2 - this.zoneSize / 2,
+      },
+      {
+        x: width - 150 - this.zoneSize,
+        y: height / 2 - this.zoneSize / 2,
+      },
     ];
+        this.zoneRotations = this.swapZones.map(() => ({
+          angle: 0,
+          speed: 0,
+          isSpinning: false,
+          stopAt: null,
+        }));
 
     this.swapPlayer = null;
     this.swapTargets = [];
@@ -34,97 +62,69 @@ class MapGame6 extends BaseMapGame {
 
   /** Main game draw logic */
   draw() {
-    super.draw();
-
-    // Draw yellow swap zones
-    this.swapZones.forEach((zone) => {
-      push();
-      noFill();
-      stroke(255, 255, 0);
-      strokeWeight(3);
-      rect(zone.x, zone.y, 100, 100);
-      pop();
-    });
-
-    // Handle flashing toggle logic
-    if (this.isSwapping || this.isPostFlashing) {
-      const shouldShow = Math.floor(millis() / 200) % 2 === 0;
-      this.swapTargets.forEach((e) => {
-        e._shouldDraw = shouldShow;
-      });
+    // Step 1: Draw background
+    background(this.background.color || 255);
+    if (this.background?.image) {
+      image(this.background.image, 0, 0, width, height);
     }
 
-    // Swap process: in flashing phase
-    if (this.isSwapping) {
-      if (!this._inSwapZone(this.swapPlayer)) {
-        this._cancelSwap();
-        return;
-      }
+    // Step 2: Draw magic circles (swap zones)
+    this._drawSwapZones();
 
-      const elapsed = millis() - this.swapFlashStart;
-      if (elapsed > 2000) {
-        this._endFlashingAndSwap();
-      }
-      return;
-    }
+    // Step 3: Draw entities
+    const sortedEntities = [...this.players, ...this.robots];
+    sortedEntities.sort(
+      (a, b) =>
+        (b.status === Constants.EntityStatus.DIED) -
+        (a.status === Constants.EntityStatus.DIED)
+    );
+    sortedEntities.forEach((entity) => {
+      this.drawEntity(entity);
 
-    // Post-swap: single flash for effect
-    if (this.isPostFlashing) {
-      const elapsed = millis() - this.postFlashStart;
-      if (elapsed > 200) {
-        this.swapTargets.forEach((e) => {
-          delete e._isFlashing;
-          delete e._shouldDraw;
+      if (
+        entity.type === Constants.EntityType.PLAYER &&
+        entity.status === Constants.EntityStatus.DIED
+      ) {
+        this.playerList.playerLose(entity.idx);
+        this.playerList.updateStatus({
+          playerIdx: entity.idx,
+          newStatus: "K.O.",
+          textSize: Theme.text.fontSize.large,
+          color: Theme.palette.black,
+          isShadow: false,
         });
-        this.isPostFlashing = false;
-        this.swapTargets = [];
-      }
-      return;
-    }
-
-    // Pre-swap wait logic
-    if (this.isPreSwapping) {
-      if (!this._inSwapZone(this.swapPlayer)) {
-        this._cancelSwap();
-        return;
-      }
-
-      if (millis() - this.enteredAt >= 1000) {
-        this._startFlashing();
-      }
-      return;
-    }
-
-    // Player enters swap zone detection
-    this.players.forEach((player) => {
-      if (this._inSwapZone(player)) {
-        if (!this.swapPlayer || this.swapPlayer.idx !== player.idx) {
-          this.swapPlayer = player;
-          this.enteredAt = millis();
-          this.isPreSwapping = true;
-        }
-      } else {
-        if (this.swapPlayer && this.swapPlayer.idx === player.idx) {
-          this._cancelSwap();
-        }
+      } else if (
+        entity.type === Constants.EntityType.PLAYER &&
+        entity.status === Constants.EntityStatus.HIT &&
+        !entity.hasCooldownEffect
+      ) {
+        this.cooldownSession(entity);
       }
     });
+
+    // Step 4: UI
+    this.playerList.drawPlayerAvatars();
+    if (this.countDown >= 0) this._drawCountDown();
+    this._drawGameFinish();
+
+    // Step 5: Swap zone logic
+    this._handleSwapLogic();
   }
 
   _inSwapZone(player) {
     return this.swapZones.some(
       (zone) =>
         player.x >= zone.x &&
-        player.x <= zone.x + 100 &&
+        player.x <= zone.x + this.zoneSize &&
         player.y >= zone.y &&
-        player.y <= zone.y + 100,
+        player.y <= zone.y + this.zoneSize
     );
   }
 
   /** Start flashing phase before swap */
   _startFlashing() {
     const aliveRobots = this.robots.filter(
-      (r) => r.status !== Constants.EntityStatus.DIED,
+      (r) => r.status !== Constants.EntityStatus.DIED
     );
     if (aliveRobots.length < 3) {
       this._cancelSwap();
@@ -209,6 +209,14 @@ class MapGame6 extends BaseMapGame {
         this.robots.push(newRobot);
         this.swapTargets[i] = newRobot;
       }
+
+    //Stop the spinning effect of the magic circle
+    this.zoneRotations.forEach((z) => {
+      if (z.isSpinning) {
+        z.stopAt = millis();
+      }
+    });
+
     }
 
     // Post-flash effect after new entities are created (1 blink)
@@ -228,6 +236,23 @@ class MapGame6 extends BaseMapGame {
       delete e._shouldDraw;
     });
 
+  this.swapZones.forEach((zone, i) => {
+    const inZone =
+      this.swapPlayer &&
+      this.swapPlayer.x >= zone.x &&
+      this.swapPlayer.x <= zone   .x + this.zoneSize &&
+      this.swapPlayer.y >= zone.y &&
+      this.swapPlayer.y <= zone.y + this.zoneSize;
+
+    this.zoneRotations.forEach((z) => {
+      if (z.isSpinning && z.stopAt === null) {
+        z.stopAt = millis();
+      }
+    });
+
+  });
+
+
     this.swapPlayer = null;
     this.swapTargets = [];
     this.enteredAt = null;
@@ -237,4 +262,122 @@ class MapGame6 extends BaseMapGame {
     this.isPostFlashing = false;
     this.postFlashStart = null;
   }
+
+  _drawSwapZones() {
+    const magicCircle = Resources.images.mapElements.magicCircle;
+    imageMode(CENTER);
+
+    this.swapZones.forEach((zone, index) => {
+      const z = this.zoneRotations[index];
+
+      if (z.isSpinning) {
+        if (z.stopAt && millis() > z.stopAt) {
+          const elapsed = millis() - z.stopAt;
+          const decelDuration = 3000; // Deceleration duration
+          const t = constrain(elapsed / decelDuration, 0, 1);
+          z.speed = lerp(z.speed, 0, t);
+          if (t >= 1 || z.speed < 0.001) {
+            z.speed = 0;
+            z.isSpinning = false;
+          }
+        }
+        z.angle += z.speed;
+      }
+
+      push();
+      translate(zone.x + this.zoneSize / 2, zone.y + this.zoneSize / 2);
+      rotate(z.angle);
+      image(magicCircle.image, 0, 0, this.zoneSize, this.zoneSize);
+      pop();
+    });
+
+    imageMode(CORNER);
+  }
+
+
+
+  _handleSwapLogic() {
+    if (this.isSwapping || this.isPostFlashing) {
+      const shouldShow = Math.floor(millis() / 200) % 2 === 0;
+      this.swapTargets.forEach((e) => {
+        e._shouldDraw = shouldShow;
+      });
+    }
+
+    if (this.isSwapping) {
+      if (!this._inSwapZone(this.swapPlayer)) {
+        this._cancelSwap();
+        return;
+      }
+
+      if (millis() - this.swapFlashStart > 2000) {
+        this._endFlashingAndSwap();
+      }
+      return;
+    }
+
+    if (this.isPostFlashing) {
+      if (millis() - this.postFlashStart > 200) {
+        this.swapTargets.forEach((e) => {
+          delete e._isFlashing;
+          delete e._shouldDraw;
+        });
+        this.isPostFlashing = false;
+        this.swapTargets = [];
+      }
+      return;
+    }
+
+    if (this.isPreSwapping) {
+      if (!this._inSwapZone(this.swapPlayer)) {
+        this._cancelSwap();
+        return;
+      }
+
+      if (millis() - this.enteredAt >= 1000) {
+        this._startFlashing();
+      }
+      return;
+    }
+
+    this.players.forEach((player) => {
+      if (this._inSwapZone(player)) {
+        if (!this.swapPlayer || this.swapPlayer.idx !== player.idx) {
+          this.swapPlayer = player;
+          this.enteredAt = millis();
+          this.isPreSwapping = true;
+          this._startSwapZoneSpin();
+        }
+      } else {
+        if (this.swapPlayer && this.swapPlayer.idx === player.idx) {
+          this._cancelSwap();
+        }
+      }
+    });
+  }
+  _startSwapZoneSpin() {
+    this.swapZones.forEach((zone, i) => {
+      const inZone =
+        this.swapPlayer.x >= zone.x &&
+        this.swapPlayer.x <= zone.x + this.zoneSize &&
+        this.swapPlayer.y >= zone.y &&
+        this.swapPlayer.y <= zone.y + this.zoneSize;
+
+      if (inZone) {
+        const totalDuration = 3200;
+        const spinRounds = 0.8;
+        const totalAngle = spinRounds * TWO_PI;
+        const spinSpeed = totalAngle * (3000 / totalDuration);
+
+        this.zoneRotations[i] = {
+          angle: 0,
+          speed: spinSpeed / 60,
+          isSpinning: true,
+          stopAt: null,
+        };
+      }
+    });
+  }
+
+
 }
