@@ -36,11 +36,15 @@ const _ASSET_PATHS = {
       game2: `${_BASE_PATH}assets/images/backgrounds/level2_v1.png`,
       game3: `${_BASE_PATH}assets/images/backgrounds/level3_v1.png`,
       game5: `${_BASE_PATH}assets/images/backgrounds/level5_v2.png`,
+      game6: `${_BASE_PATH}assets/images/backgrounds/level6_v1.png`,
     },
     mapIntro: {
       demo2: `${_BASE_PATH}assets/images/mapIntro/DEMO2.gif`,
     },
     keyboardControl: `${_BASE_PATH}assets/images/keyboardControl`,
+    mapElements: {
+      magicCircle: `${_BASE_PATH}assets/images/mapElements/magic_circle.svg`,
+    },
     // Add more image paths here
   },
   sounds: {
@@ -252,6 +256,7 @@ const Resources = {
       game2: new Img(_ASSET_PATHS.images.map.game2),
       game3: new Img(_ASSET_PATHS.images.map.game3),
       game5: new Img(_ASSET_PATHS.images.map.game5),
+      game6: new Img(_ASSET_PATHS.images.map.game6),
     },
     mapIntro: {
       demo2: new Img(_ASSET_PATHS.images.mapIntro.demo2),
@@ -268,6 +273,9 @@ const Resources = {
         fill: Theme.palette.robot.grey,
         scale: Settings.entity.scale[Constants.EntitySize.XL],
       }),
+    },
+    mapElements: {
+      magicCircle: new Img(_ASSET_PATHS.images.mapElements.magicCircle),
     },
   },
   sounds: {
