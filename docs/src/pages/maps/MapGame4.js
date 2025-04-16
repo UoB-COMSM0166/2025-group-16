@@ -11,7 +11,7 @@ class MapGame4 extends BaseMapGame {
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
-      // background: Resources.images.map.game1,
+      background: Resources.images.map.game4,
       // bgm: Resources.sounds.bgm.playing1,
       robotParams: {
         randomPositionArea: areaMap4,
