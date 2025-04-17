@@ -12,7 +12,7 @@ class MapGame3 extends BaseMapGame {
       robotNumber: 15,
       background: Resources.images.map.game3,
       // TODO: change bgn
-      bgm: Resources.sounds.bgm.playing1,
+      bgm: Resources.sounds.bgm.playing3,
       robotParams: {
         positionBoundary: area,
         randomPositionPadding: 0,

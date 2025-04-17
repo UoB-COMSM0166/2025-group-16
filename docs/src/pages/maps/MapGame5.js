@@ -12,7 +12,7 @@ class MapGame5 extends BaseMapGame {
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
       background: Resources.images.map.game5,
-      bgm: Resources.sounds.bgm.playing1,
+      bgm: Resources.sounds.bgm.playing5,
       robotParams: {
         randomPositionArea: areaMap5,
         randomPositionPadding: 0,

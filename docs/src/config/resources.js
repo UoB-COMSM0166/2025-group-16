@@ -57,6 +57,15 @@ const _ASSET_PATHS = {
     bgm: {
       intro: `${_BASE_PATH}assets/sounds/intro.wav`,
       playing1: `${_BASE_PATH}assets/sounds/playing1.wav`,
+      playing2: `${_BASE_PATH}assets/sounds/playing2.wav`,
+      playing3: `${_BASE_PATH}assets/sounds/playing3.wav`,
+      playing4: `${_BASE_PATH}assets/sounds/playing4.wav`,
+      playing5: `${_BASE_PATH}assets/sounds/playing5.wav`,
+      playing6: `${_BASE_PATH}assets/sounds/playing6.wav`,
+      resultpage: `${_BASE_PATH}assets/sounds/resultpage.wav`,
+    },
+    sound_effect: {
+      countdown: `${_BASE_PATH}assets/sounds/321.wav`,
     },
   },
 };
@@ -289,6 +298,15 @@ const Resources = {
     bgm: {
       intro: new Sound(_ASSET_PATHS.sounds.bgm.intro),
       playing1: new Sound(_ASSET_PATHS.sounds.bgm.playing1),
+      playing2: new Sound(_ASSET_PATHS.sounds.bgm.playing2),
+      playing3: new Sound(_ASSET_PATHS.sounds.bgm.playing3),
+      playing4: new Sound(_ASSET_PATHS.sounds.bgm.playing4),
+      playing5: new Sound(_ASSET_PATHS.sounds.bgm.playing5),
+      playing6: new Sound(_ASSET_PATHS.sounds.bgm.playing6),
+      resultpage: new Sound(_ASSET_PATHS.sounds.bgm.resultpage),
+    },
+    sound_effect: {
+      countdown: new Sound(_ASSET_PATHS.sounds.sound_effect.countdown),
     },
   },
 };

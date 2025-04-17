@@ -8,7 +8,10 @@ class MapIntro2 extends BaseMapIntro {
         const controlText = `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
 
         if (idx === 0) {
-          return `🤖 Be careful, the robots are\n  here to fight too!\n` + controlText;
+          return (
+            `🤖 Be careful, the robots are\n  here to fight too!\n` +
+            controlText
+          );
         }
 
         return controlText;
@@ -19,6 +22,7 @@ class MapIntro2 extends BaseMapIntro {
       gamePage: new MapGame2(),
       gamePageKey: Constants.Page.MAP_GAME_2,
       background: Resources.images.map.game2,
+      bgm: Resources.sounds.bgm.playing2,
     });
   }
 }

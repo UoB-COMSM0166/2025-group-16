@@ -13,6 +13,7 @@ class MapIntro4 extends BaseMapIntro {
       gamePage: new MapGame4(),
       gamePageKey: Constants.Page.MAP_GAME_4,
       background: Resources.images.map.game4,
+      bgm: Resources.sounds.bgm.playing4,
     });
   }
 }
