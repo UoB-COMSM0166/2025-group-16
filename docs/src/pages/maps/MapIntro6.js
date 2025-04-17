@@ -8,7 +8,7 @@ class MapIntro6 extends BaseMapIntro {
         const controlText = `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
 
         if (idx === 0) {
-          return `🪄 Circle in, problem out!\n` + controlText;
+          return `🪄 Enter the circle, vanish\n  like magic!\n` + controlText;
         }
 
         return controlText;
