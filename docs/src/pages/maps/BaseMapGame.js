@@ -85,6 +85,7 @@ class BaseMapGame extends BasePage {
   }
 
   _setupCountDown() {
+    // Resources.sounds.sound_effect.countdown.play();
     this.countDownText = new Text({
       label: this.countDown.toString(),
       x: width / 2,

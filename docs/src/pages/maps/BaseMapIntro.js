@@ -13,7 +13,8 @@ class BaseMapIntro extends BasePage {
    */
   constructor(params) {
     super({
-      bgm: Resources.sounds.bgm.intro,
+      // bgm: Resources.sounds.bgm.intro,
+      bgm: params?.bgm,
       background: params?.background,
     });
     this.title = params.title;

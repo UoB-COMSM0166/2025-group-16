@@ -8,7 +8,9 @@ class MapIntro3 extends BaseMapIntro {
         const controlText = `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
 
         if (idx === 0) {
-          return `🤖 Robots fight back!\n⚡ The fence will fry you!\n` + controlText;
+          return (
+            `🤖 Robots fight back!\n⚡ The fence will fry you!\n` + controlText
+          );
         }
 
         return controlText;
@@ -19,6 +21,7 @@ class MapIntro3 extends BaseMapIntro {
       gamePage: new MapGame3(),
       gamePageKey: Constants.Page.MAP_GAME_3,
       background: Resources.images.map.game3,
+      bgm: Resources.sounds.bgm.playing3,
     });
   }
 }

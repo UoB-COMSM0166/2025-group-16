@@ -5,14 +5,13 @@ const areaMap6 = {
   height: 700,
 };
 
-
 class MapGame6 extends BaseMapGame {
   constructor() {
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
       background: Resources.images.map.game6,
-      bgm: Resources.sounds.bgm.playing1,
+      bgm: Resources.sounds.bgm.playing6,
       robotParams: {
         randomPositionArea: areaMap6,
         randomPositionPadding: 0,
@@ -37,12 +36,12 @@ class MapGame6 extends BaseMapGame {
         y: height / 2 - this.zoneSize / 2,
       },
     ];
-        this.zoneRotations = this.swapZones.map(() => ({
-          angle: 0,
-          speed: 0,
-          isSpinning: false,
-          stopAt: null,
-        }));
+    this.zoneRotations = this.swapZones.map(() => ({
+      angle: 0,
+      speed: 0,
+      isSpinning: false,
+      stopAt: null,
+    }));
 
     this.swapPlayer = null;
     this.swapTargets = [];
@@ -76,7 +75,7 @@ class MapGame6 extends BaseMapGame {
     sortedEntities.sort(
       (a, b) =>
         (b.status === Constants.EntityStatus.DIED) -
-        (a.status === Constants.EntityStatus.DIED)
+        (a.status === Constants.EntityStatus.DIED),
     );
     sortedEntities.forEach((entity) => {
       this.drawEntity(entity);
@@ -88,7 +87,7 @@ class MapGame6 extends BaseMapGame {
         this.playerList.playerLose(entity.idx);
         this.playerList.updateStatus({
           playerIdx: entity.idx,
-          newStatus: "K.O.",
+          newStatus: 'K.O.',
           textSize: Theme.text.fontSize.large,
           color: Theme.palette.black,
           isShadow: false,
@@ -117,14 +116,14 @@ class MapGame6 extends BaseMapGame {
         player.x >= zone.x &&
         player.x <= zone.x + this.zoneSize &&
         player.y >= zone.y &&
-        player.y <= zone.y + this.zoneSize
+        player.y <= zone.y + this.zoneSize,
     );
   }
 
   /** Start flashing phase before swap */
   _startFlashing() {
     const aliveRobots = this.robots.filter(
-      (r) => r.status !== Constants.EntityStatus.DIED
+      (r) => r.status !== Constants.EntityStatus.DIED,
     );
     if (aliveRobots.length < 3) {
       this._cancelSwap();
@@ -210,13 +209,12 @@ class MapGame6 extends BaseMapGame {
         this.swapTargets[i] = newRobot;
       }
 
-    //Stop the spinning effect of the magic circle
-    this.zoneRotations.forEach((z) => {
-      if (z.isSpinning) {
-        z.stopAt = millis();
-      }
-    });
-
+      //Stop the spinning effect of the magic circle
+      this.zoneRotations.forEach((z) => {
+        if (z.isSpinning) {
+          z.stopAt = millis();
+        }
+      });
     }
 
     // Post-flash effect after new entities are created (1 blink)
@@ -236,22 +234,20 @@ class MapGame6 extends BaseMapGame {
       delete e._shouldDraw;
     });
 
-  this.swapZones.forEach((zone, i) => {
-    const inZone =
-      this.swapPlayer &&
-      this.swapPlayer.x >= zone.x &&
-      this.swapPlayer.x <= zone   .x + this.zoneSize &&
-      this.swapPlayer.y >= zone.y &&
-      this.swapPlayer.y <= zone.y + this.zoneSize;
+    this.swapZones.forEach((zone, i) => {
+      const inZone =
+        this.swapPlayer &&
+        this.swapPlayer.x >= zone.x &&
+        this.swapPlayer.x <= zone.x + this.zoneSize &&
+        this.swapPlayer.y >= zone.y &&
+        this.swapPlayer.y <= zone.y + this.zoneSize;
 
-    this.zoneRotations.forEach((z) => {
-      if (z.isSpinning && z.stopAt === null) {
-        z.stopAt = millis();
-      }
+      this.zoneRotations.forEach((z) => {
+        if (z.isSpinning && z.stopAt === null) {
+          z.stopAt = millis();
+        }
+      });
     });
-
-  });
-
 
     this.swapPlayer = null;
     this.swapTargets = [];
@@ -293,8 +289,6 @@ class MapGame6 extends BaseMapGame {
 
     imageMode(CORNER);
   }
-
-
 
   _handleSwapLogic() {
     if (this.isSwapping || this.isPostFlashing) {
@@ -378,6 +372,4 @@ class MapGame6 extends BaseMapGame {
       }
     });
   }
-
-
 }
