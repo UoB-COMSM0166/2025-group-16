@@ -119,6 +119,9 @@ class BaseMapGame extends BasePage {
   draw() {
     super.draw();
 
+    // Override for game 6 to draw additional items, Default: do nothing
+    this._preDrawEntities();
+
     // draw dying entities first to show alive entities on the top
     const sortedEntities = [...this.players, ...this.robots];
     sortedEntities.sort(
@@ -255,5 +258,9 @@ class BaseMapGame extends BasePage {
   //override for game 6
   drawEntity(entity) {
     entity.draw?.();
+  }
+
+  //override for game 6 to draw additional items, Default: do nothing
+  _preDrawEntities() {
   }
 }
