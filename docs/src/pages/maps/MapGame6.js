@@ -61,52 +61,7 @@ class MapGame6 extends BaseMapGame {
 
   /** Main game draw logic */
   draw() {
-    // Step 1: Draw background
-    background(this.background.color || 255);
-    if (this.background?.image) {
-      image(this.background.image, 0, 0, width, height);
-    }
-
-    // Step 2: Draw magic circles (swap zones)
-    this._drawSwapZones();
-
-    // Step 3: Draw entities
-    const sortedEntities = [...this.players, ...this.robots];
-    sortedEntities.sort(
-      (a, b) =>
-        (b.status === Constants.EntityStatus.DIED) -
-        (a.status === Constants.EntityStatus.DIED),
-    );
-    sortedEntities.forEach((entity) => {
-      this.drawEntity(entity);
-
-      if (
-        entity.type === Constants.EntityType.PLAYER &&
-        entity.status === Constants.EntityStatus.DIED
-      ) {
-        this.playerList.playerLose(entity.idx);
-        this.playerList.updateStatus({
-          playerIdx: entity.idx,
-          newStatus: 'K.O.',
-          textSize: Theme.text.fontSize.large,
-          color: Theme.palette.black,
-          isShadow: false,
-        });
-      } else if (
-        entity.type === Constants.EntityType.PLAYER &&
-        entity.status === Constants.EntityStatus.HIT &&
-        !entity.hasCooldownEffect
-      ) {
-        this.cooldownSession(entity);
-      }
-    });
-
-    // Step 4: UI
-    this.playerList.drawPlayerAvatars();
-    if (this.countDown >= 0) this._drawCountDown();
-    this._drawGameFinish();
-
-    // Step 5: Swap zone logic
+    super.draw();
     this._handleSwapLogic();
   }
 
@@ -371,5 +326,9 @@ class MapGame6 extends BaseMapGame {
         };
       }
     });
+  }
+
+  _preDrawEntities() {
+    this._drawSwapZones();
   }
 }
