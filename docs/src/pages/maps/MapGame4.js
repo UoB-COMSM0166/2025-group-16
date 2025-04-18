@@ -7,7 +7,6 @@ const areaMap4 = {
 
 class MapGame4 extends BaseMapGame {
   constructor() {
-    // TODO: change bg & bgm
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
@@ -24,8 +23,8 @@ class MapGame4 extends BaseMapGame {
         positionBoundary: areaMap4,
       },
     });
-    this.rectH = height / 4;
-    this.keyX = width;
+    this.rectH = height / 4 - 30;
+    this.keyX = width - width / 4;
     this.keyY = this.rectH / 4;
     this.lineX = width / 4;
 
@@ -39,15 +38,14 @@ class MapGame4 extends BaseMapGame {
   }
 
   draw() {
-    this._drawDanceBar();
     super.draw();
+    this._drawDanceline();
 
     if (this.timeBeforeDanceCountdown > 0) {
       this.timeBeforeDanceCountdown -= 1;
       return;
     }
 
-    this._displayPreDanceCountdown();
     this._renderDanceKeys();
 
     if (this.danceCountdownTimer === 0) {
@@ -55,34 +53,10 @@ class MapGame4 extends BaseMapGame {
     }
   }
 
-  _drawDanceBar() {
-    push();
-    fill(Theme.palette.darkBlue);
-    noStroke();
-    rect(0, 0, width, this.rectH);
-    pop();
-
+  _drawDanceline() {
     stroke(Theme.palette.white);
-    strokeWeight(2);
+    strokeWeight(3);
     line(this.lineX, 0, this.lineX, this.rectH);
-  }
-
-  _displayPreDanceCountdown() {
-    const timeLeft = Math.ceil(
-      this.danceCountdownTimer / Constants.FramePerSecond,
-    );
-
-    if (timeLeft <= 3) {
-      const countdownText = new Text({
-        x: width / 2,
-        y: height / 4,
-        label: timeLeft.toString(),
-        textSize: Theme.text.fontSize.large,
-        color: Theme.palette.black,
-        textAlign: [CENTER, CENTER],
-      });
-      countdownText.draw();
-    }
   }
 
   _renderDanceKeys() {
@@ -113,6 +87,15 @@ class MapGame4 extends BaseMapGame {
 
     for (let k of this.keys) {
       // text
+      const textFrame = new Text({
+        x: k.x,
+        y: k.y,
+        label: k.label,
+        color: Theme.palette.black,
+        stroke: 2,
+        strokeWeight: 4,
+        textSize: Theme.text.fontSize.largeTitle,
+      });
       const keyText = new Text({
         x: k.x,
         y: k.y,
@@ -120,6 +103,7 @@ class MapGame4 extends BaseMapGame {
         color: Theme.palette.white,
         textSize: Theme.text.fontSize.largeTitle,
       });
+      textFrame.draw();
       keyText.draw();
       k.x -= 2; // make key move left
 
@@ -136,6 +120,8 @@ class MapGame4 extends BaseMapGame {
         });
       }
     }
+    // key dispear if over left line
+    this.keys = this.keys.filter((k) => k.x > 150);
   }
 
   _resetTimer() {
