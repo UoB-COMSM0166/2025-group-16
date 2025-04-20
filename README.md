@@ -600,6 +600,72 @@ However, the most noticeable change is the increase in Frustration, suggesting t
 
 Overall, we aim to develop a wider variety of gaming experiences to enhance the level of challenge that players seek. Additionally, improving map introductions will be a key focus to ensure better player adaptation.
 
+#### 🎮 Manual Testing Report
+
+##### Welcome Page
+
+| Feature Description                                                  | Expected Behavior                                         | Actual Result  | Conclusion |
+| -------------------------------------------------------------------- | --------------------------------------------------------- | -------------- | ---------- |
+| Two characters enter the "Come Here" area → countdown starts (3-2-1) | Game starts after countdown                               | ✅ As expected | Passed     |
+| If one player exits and re-enters during countdown                   | Countdown restarts                                        | ✅ As expected | Passed     |
+| On game load, sound is muted                                         | No background music or sound initially                    | ✅ As expected | Passed     |
+| Pressing any key activates sound                                     | Background music starts playing                           | ✅ As expected | Passed     |
+| Clicking the speaker icon toggles mute                               | Sound is turned off again                                 | ✅ As expected | Passed     |
+| First-time player sees "Start Tutorial?" popup                       | Tutorial prompt appears after first load                  | ✅ As expected | Passed     |
+| Choosing "Yes" starts the tutorial                                   | Tutorial sequence begins                                  | ✅ As expected | Passed     |
+| Choosing "No" skips tutorial and disables auto-popup next time       | Tutorial won't show again unless manually triggered       | ✅ As expected | Passed     |
+| Clicking the "?" icon shows tutorial prompt again                    | Tutorial dialog appears again                             | ✅ As expected | Passed     |
+| In tutorial, standing on yellow zone → area moves and score +1       | Area shifts and score increases                           | ✅ As expected | Passed     |
+| After completing tutorial, pressing any key returns to main screen   | Welcome page is shown again                               | ✅ As expected | Passed     |
+| Entering "Come Here" zone updates player status indicator to "OK"    | Status text below character shows “OK”                    | ✅ As expected | Passed     |
+| After countdown, a game mode selection window appears                | Players choose score goal before entering the actual game | ✅ As expected | Passed     |
+
+##### Charactor Control
+
+| Feature              | Action Description                      | Expected Result              | Actual Result      | Conclusion |
+| -------------------- | --------------------------------------- | ---------------------------- | ------------------ | ---------- |
+| Arrow Key Movement   | Use arrow keys to move the character    | Character moves in direction | ✅ Moves correctly | Passed     |
+| Valid Key Response   | Press correct key in game ("Q" and "?") | Character performs action    | ✅ Correct action  | Passed     |
+| Invalid Key Handling | Press invalid key (e.g., spacebar)      | No effect                    | ✅ No error        | Passed     |
+
+##### Map and Game Flow
+
+| Feature Description                                              | Expected Behavior                             | Actual Result  | Conclusion |
+| ---------------------------------------------------------------- | --------------------------------------------- | -------------- | ---------- |
+| Selecting map using directional keys enlarges selected map       | Selected map is visually highlighted          | ✅ As expected | Passed     |
+| Pressing "Q", "?" or "Enter" loads corresponding map             | Game map is entered                           | ✅ As expected | Passed     |
+| Entering map shows game intro screen                             | Game instructions displayed                   | ✅ As expected | Passed     |
+| Robots move randomly                                             | Robots continuously move in random directions | ✅ As expected | Passed     |
+| Player attacks robot → robot flickers and disappears             | Robot vanishes after being hit                | ✅ As expected | Passed     |
+| During attack, UI shows cooldown (blacked out button)            | Attack button grayed out, shows countdown     | ✅ As expected | Passed     |
+| Player cannot act during cooldown (move or attack)               | Player is locked out until cooldown ends      | ✅ As expected | Passed     |
+| Player attacks another player → target flickers, winner is shown | Target flashes and win screen appears         | ✅ As expected | Passed     |
+| Attacked player becomes "K.O."                                   | Player marked with "K.O." status visually     | ✅ As expected | Passed     |
+| **Grass Map** – Robots randomly attack players                   | Robots can attack player                      | ✅ As expected | Passed     |
+| **Jail Map** – Player touching wall dies                         | Colliding with wall results in instant death  | ✅ As expected | Passed     |
+| **Dance Map** – Random direction keys appear on timer            | Keys appear periodically at top               | ✅ As expected | Passed     |
+| **Dance Map** – Keys move from right to left                     | Keys slide toward center line                 | ✅ As expected | Passed     |
+| **Dance Map** – When key reaches white line, all robots move     | Robots execute synchronized action            | ✅ As expected | Passed     |
+| **Fighting Map** – Countdown 3-2-1 appears periodically          | Countdown shows on screen before action       | ✅ As expected | Passed     |
+| **Fighting Map** – Robots act after countdown ends               | Robots attack together after countdown        | ✅ As expected | Passed     |
+| **Transfer Point Map** – Player steps on portal → portal spins   | Portal starts rotating                        | ✅ As expected | Passed     |
+| **Transfer Point Map** – Player triggers robot character switch  | Two robots swap characters                    | ✅ As expected | Passed     |
+
+##### Scoring and Feedback
+
+| Feature Description                                           | Expected Behavior                                     | Actual Result  | Conclusion |
+| ------------------------------------------------------------- | ----------------------------------------------------- | -------------- | ---------- |
+| Winning player performs victory waving animation              | Winner waves on screen                                | ✅ As expected | Passed     |
+| Losing player performs kneeling animation                     | Loser kneels or collapses visually                    | ✅ As expected | Passed     |
+| Score increases with animation                                | Score counter animates upwards                        | ✅ As expected | Passed     |
+| Pressing any key mid-game returns to map selection            | Game exits to map selection screen                    | ✅ As expected | Passed     |
+| If game round ends, pressing any key returns to welcome page  | Game resets to welcome screen                         | ✅ As expected | Passed     |
+| Final result: winning character jumps with confetti animation | Player jumps and colorful confetti falls from the top | ✅ As expected | Passed     |
+
+The following manual testing log records the major features of the game and their expected outcomes.
+All tests were performed by the developer through real-time interaction using mouse and keyboard.
+Each test includes the test action, the expected result, the actual behavior, and whether it passed.
+
 ---
 
 ### 🌱 Sustainability
