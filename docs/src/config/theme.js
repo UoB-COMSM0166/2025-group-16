@@ -20,6 +20,8 @@ const Theme = Object.freeze({
     yellow: '#DAD45E',
     mint: '#DEEED6',
 
+    mapIntroScore: '#E69B5E',
+
     black: '#000000',
     white: '#FFFFFF',
     text: Object.freeze({
@@ -32,14 +34,9 @@ const Theme = Object.freeze({
     player: Object.freeze({
       red: '#D04648',
       blue: '#597DCE',
-      // green: '#6DC2CA', // TODO: add more players
-      // orange: '#D27D2C',
     }),
     robot: Object.freeze({
       grey: '#8594A1',
-      // blue: '#597DCE',
-      // green: '#6DC2CA', // TODO: add more players
-      // orange: '#D27D2C',
     }),
   }),
   text: Object.freeze({

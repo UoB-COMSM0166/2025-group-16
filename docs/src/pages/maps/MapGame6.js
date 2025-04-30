@@ -7,25 +7,22 @@ const areaMap6 = {
 
 class MapGame6 extends BaseMapGame {
   constructor() {
+    const entityParams = {
+      randomPositionArea: areaMap6,
+      randomPositionPadding: 0,
+      positionBoundary: areaMap6,
+    };
+
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
       background: Resources.images.map.game6,
       bgm: Resources.sounds.bgm.playing6,
-      robotParams: {
-        randomPositionArea: areaMap6,
-        randomPositionPadding: 0,
-        positionBoundary: areaMap6,
-      },
-      playerParams: {
-        randomPositionArea: areaMap6,
-        randomPositionPadding: 0,
-        positionBoundary: areaMap6,
-      },
+      robotParams: entityParams,
+      playerParams: entityParams,
     });
 
     this.zoneSize = 100;
-    const margin = 50;
     this.swapZones = [
       {
         x: 150,
@@ -164,7 +161,7 @@ class MapGame6 extends BaseMapGame {
         this.swapTargets[i] = newRobot;
       }
 
-      //Stop the spinning effect of the magic circle
+      // Stop the spinning effect of the magic circle
       this.zoneRotations.forEach((z) => {
         if (z.isSpinning) {
           z.stopAt = millis();
@@ -304,6 +301,7 @@ class MapGame6 extends BaseMapGame {
       }
     });
   }
+
   _startSwapZoneSpin() {
     this.swapZones.forEach((zone, i) => {
       const inZone =

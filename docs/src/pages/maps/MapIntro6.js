@@ -1,8 +1,7 @@
 class MapIntro6 extends BaseMapIntro {
   constructor() {
     super({
-      title: 'Space',
-      // TODO: update description
+      title: Constants.Map[5].name,
       playerControlIntros: Settings.players.map(({ controls }, idx) => {
         const { UP, LEFT, DOWN, RIGHT, HIT } = controls;
         const controlText = `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;

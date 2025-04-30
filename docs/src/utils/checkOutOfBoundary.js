@@ -15,9 +15,9 @@
  */
 function checkOutOfBoundary(rect, boundary) {
   return (
-    rect.x - rect.width / 2 <= boundary.x || // Left edge
-    rect.x + rect.width / 2 >= boundary.x + boundary.width || // Right edge
-    rect.y - rect.height / 2 <= boundary.y || // Top edge
-    rect.y + rect.height / 2 >= boundary.y + boundary.height // Bottom edge
+    rect.x - rect.width / 2 <= boundary.x || // left edge
+    rect.x + rect.width / 2 >= boundary.x + boundary.width || // right edge
+    rect.y - rect.height / 2 <= boundary.y || // top edge
+    rect.y + rect.height / 2 >= boundary.y + boundary.height // bottom edge
   );
 }

@@ -48,18 +48,8 @@ function setup() {
   );
 }
 
-const pageLabel = new Text(); // TODO: remove it
 function draw() {
   background(Theme.palette.lightGrey);
-  pageLabel.draw({
-    label: Store.getCurrentPageKey(),
-    x: 15,
-    y: 15,
-    color: Theme.palette.text.primary,
-    textSize: Theme.text.fontSize.small,
-    textStyle: BOLD,
-    textAlign: [LEFT, TOP],
-  });
 
   push();
   Store.getCurrentPage().draw();

@@ -7,28 +7,25 @@ const areaMap5 = {
 
 class MapGame5 extends BaseMapGame {
   constructor() {
-    // TODO: change bg & bgm
+    const entityParams = {
+      randomPositionArea: areaMap5,
+      randomPositionPadding: 0,
+      positionBoundary: areaMap5,
+    };
+
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
       background: Resources.images.map.game5,
       bgm: Resources.sounds.bgm.playing5,
-      robotParams: {
-        randomPositionArea: areaMap5,
-        randomPositionPadding: 0,
-        positionBoundary: areaMap5,
-      },
-      playerParams: {
-        randomPositionArea: areaMap5,
-        randomPositionPadding: 0,
-        positionBoundary: areaMap5,
-      },
+      robotParams: entityParams,
+      playerParams: entityParams,
     });
 
     this.attackCountdown = 3 * Constants.FramePerSecond;
     // Due the game countdown at the start, daley the attack countdown
     this.startCountdownDelay = 5 * Constants.FramePerSecond;
-    this.aa = new Text({
+    this.hitCountDownText = new Text({
       label: '',
       x: width / 2,
       y: height * 0.2,
@@ -42,7 +39,6 @@ class MapGame5 extends BaseMapGame {
     });
   }
 
-  // TODO: add map rules
   draw() {
     super.draw();
 
@@ -55,8 +51,8 @@ class MapGame5 extends BaseMapGame {
       this.attackCountdown / Constants.FramePerSecond,
     );
     if (secondsLeft <= 3) {
-      this.aa.label = secondsLeft > 0 ? String(secondsLeft) : '';
-      this.aa.draw();
+      this.hitCountDownText.label = secondsLeft > 0 ? String(secondsLeft) : '';
+      this.hitCountDownText.draw();
     }
 
     if (this.attackCountdown === 0) {

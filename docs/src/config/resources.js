@@ -42,9 +42,6 @@ const _ASSET_PATHS = {
       game5: `${_BASE_PATH}assets/images/backgrounds/level5_v2.png`,
       game6: `${_BASE_PATH}assets/images/backgrounds/level6_v1.png`,
     },
-    mapIntro: {
-      demo2: `${_BASE_PATH}assets/images/mapIntro/DEMO2.gif`,
-    },
     keyboardControl: `${_BASE_PATH}assets/images/keyboardControl`,
     mapElements: {
       magicCircle: `${_BASE_PATH}assets/images/mapElements/magic_circle.svg`,
@@ -65,9 +62,9 @@ const _ASSET_PATHS = {
       playing4: `${_BASE_PATH}assets/sounds/playing4.wav`,
       playing5: `${_BASE_PATH}assets/sounds/playing5.wav`,
       playing6: `${_BASE_PATH}assets/sounds/playing6.wav`,
-      resultpage: `${_BASE_PATH}assets/sounds/resultpage.wav`,
+      resultPage: `${_BASE_PATH}assets/sounds/result-page.wav`,
     },
-    sound_effect: {
+    soundEffect: {
       countdown: `${_BASE_PATH}assets/sounds/321.wav`,
     },
   },
@@ -272,9 +269,6 @@ const Resources = {
       game5: new Img(_ASSET_PATHS.images.map.game5),
       game6: new Img(_ASSET_PATHS.images.map.game6),
     },
-    mapIntro: {
-      demo2: new Img(_ASSET_PATHS.images.mapIntro.demo2),
-    },
     playerAvatar: {
       ing: Object.values(Theme.palette.player).map(
         (fill) =>
@@ -306,10 +300,10 @@ const Resources = {
       playing4: new Sound(_ASSET_PATHS.sounds.bgm.playing4),
       playing5: new Sound(_ASSET_PATHS.sounds.bgm.playing5),
       playing6: new Sound(_ASSET_PATHS.sounds.bgm.playing6),
-      resultpage: new Sound(_ASSET_PATHS.sounds.bgm.resultpage),
+      resultPage: new Sound(_ASSET_PATHS.sounds.bgm.resultPage),
     },
-    sound_effect: {
-      countdown: new Sound(_ASSET_PATHS.sounds.sound_effect.countdown),
+    soundEffect: {
+      countdown: new Sound(_ASSET_PATHS.sounds.soundEffect.countdown),
     },
   },
 };

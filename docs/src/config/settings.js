@@ -44,11 +44,11 @@ const Settings = Object.freeze({
   },
   playerPositions: [
     Object.freeze({
-      x: 640 - 300, // (width/2 - 300), but couldn't get canvas.with here (may have better way to do it)
+      x: 640 - 300, // (width / 2 - 300), but couldn't get canvas.with here (may have better way to do it)
       y: 360,
     }),
     Object.freeze({
-      x: 640 + 300, //(width/2 + 300), but couldn't get canvas.with here (may have better way to do it)
+      x: 640 + 300, // (width / 2 + 300), but couldn't get canvas.with here (may have better way to do it)
       y: 360,
     }),
   ],

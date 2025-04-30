@@ -18,10 +18,10 @@ class PlayerList extends UIComponent {
     this.isShadow = params?.isShadow || false;
     this.playerAvatars = [];
     this.playerStatus = [];
-    this.statusTexts = []; //store players status in order.
+    this.statusTexts = []; // store players status in order.
 
     const numPlayers = Resources.images.playerAvatar.ing.length;
-    this.cooldowns = new Array(numPlayers).fill(null); //[null,null]
+    this.cooldowns = new Array(numPlayers).fill(null); // [null, null]
 
     for (let i = 0; i < numPlayers; i++) {
       const playerColor = this.color
@@ -62,7 +62,7 @@ class PlayerList extends UIComponent {
           playerImage.height,
         );
 
-        //cooldown effect
+        // cooldown effect
         this.drawCooldownEffect(xPos, yPos, avatarSize, i);
 
         let textXPos = xPos + avatarSize / 2 + 10;

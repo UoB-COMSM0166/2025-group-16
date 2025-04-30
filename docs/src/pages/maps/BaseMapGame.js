@@ -85,7 +85,7 @@ class BaseMapGame extends BasePage {
   }
 
   _setupCountDown() {
-    Resources.sounds.sound_effect.countdown.play(true);
+    Resources.sounds.soundEffect.countdown.play(true);
     this.countDownText = new Text({
       label: this.countDown.toString(),
       x: width / 2,
@@ -119,7 +119,7 @@ class BaseMapGame extends BasePage {
   draw() {
     super.draw();
 
-    // Override for game 6 to draw additional items, Default: do nothing
+    // override for game 6 to draw additional items, Default: do nothing
     this._preDrawEntities();
 
     // draw dying entities first to show alive entities on the top
