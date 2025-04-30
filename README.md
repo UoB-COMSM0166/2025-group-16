@@ -734,13 +734,35 @@ More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/
 
 - Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
-#### Github Workflow
+Our team collaborated through a structured software development workflow:
 
-Please find the link to check our [workflow](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/8159293/GitHub+Workflow+Guideline).
+#### Code Collaboration
 
-#### Kanban, Meeting Minutes & Documentation
+All code is hosted on GitHub. We use Pull Requests (PRs) for every code change — direct push to the main branch is not allowed. Check our [workflow](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/8159293/GitHub+Workflow+Guideline) for more details.
 
-Our project management and documents are on Atlassian Jira. As the free plan doesn't support public sharing, please use the credentials below to access them.
+#### Project Management (Kanban & Sprints)
+
+We manage tasks on Jira, using the Epic/User Story structure. We organize our work in bi-weekly sprints:
+
+1. At the end of each sprint, we hold a Sprint Review to check progress, demonstrate features, and discuss blockers.
+
+2. Then we conduct Sprint Planning to decide what tasks move forward in the next sprint.
+
+3. Unfinished tasks remain in the Backlog for future prioritization.
+
+#### Documentation & Coding Standards
+
+To help developers contribute smoothly:
+
+- We maintain a detailed [Developer README](/docs/README.md) with setup instructions, project structure, and coding guidelines.
+
+- We enforce code style using `ESLint` and `Prettier`.
+
+- We unify editor settings using `EditorConfig` and shared `.vscode` configurations.
+
+#### Access to Jira Board & Documents
+
+Since Jira's free plan doesn’t allow public sharing, we provide a shared account for reviewers:
 
 <u>Access Links</u>
 
@@ -752,7 +774,7 @@ Our project management and documents are on Atlassian Jira. As the free plan doe
 - Email: team16_access@outlook.com
 - Password: team16_password
 
-Alternatively, if you prefer to use your own account, please request access from us.
+Alternatively, request access using your own account.
 
 ---
 
