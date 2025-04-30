@@ -13,7 +13,6 @@ class BaseMapIntro extends BasePage {
    */
   constructor(params) {
     super({
-      // bgm: Resources.sounds.bgm.intro,
       bgm: params?.bgm,
       background: params?.background,
     });
@@ -30,12 +29,10 @@ class BaseMapIntro extends BasePage {
     this.playerRobot = null;
 
     // Initialize score display state
-    this.state = {
-      scoreDisplay: {
-        opacity: 255,
-        value: '+1',
-        color: '#e69b5e',
-      },
+    this.scoreDisplayState = {
+      opacity: 255,
+      value: '+1',
+      color: Theme.palette.mapIntroScore,
     };
 
     this.gamePage = params.gamePage;
@@ -55,7 +52,7 @@ class BaseMapIntro extends BasePage {
             Controller.changePage(this.gamePage, this.gamePageKey);
           }
         },
-        onTick: (secondsRemaining) => {
+        onTick: (_secondsRemaining) => {
           // Can be extended by subclasses if needed
         },
       });
@@ -188,8 +185,6 @@ class BaseMapIntro extends BasePage {
   drawScoreIndicator() {
     if (this.playerRobot) this.playerRobot.draw();
 
-    const { scoreDisplay } = this.state;
-
     push();
     // Draw background rectangle with dotted line borders
     fill(255, 225, 200, 149);
@@ -205,13 +200,13 @@ class BaseMapIntro extends BasePage {
     drawingContext.setLineDash([]);
 
     // Draw score circle
-    fill(scoreDisplay.color);
+    fill(this.scoreDisplayState.color);
     noStroke();
     ellipse(width / 2, 370, 150, 150);
 
     // Draw score value
     this.scoreIndicatorText.draw({
-      label: scoreDisplay.value,
+      label: this.scoreDisplayState.value,
       x: width / 2,
       y: 370,
     });

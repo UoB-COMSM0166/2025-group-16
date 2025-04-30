@@ -7,21 +7,19 @@ const areaMap4 = {
 
 class MapGame4 extends BaseMapGame {
   constructor() {
+    const entityParams = {
+      randomPositionArea: areaMap4,
+      randomPositionPadding: 0,
+      positionBoundary: areaMap4,
+    };
+
     super({
       shapeType: Constants.EntityType.ROBOT,
       robotNumber: 10,
       background: Resources.images.map.game4,
       bgm: Resources.sounds.bgm.playing4,
-      robotParams: {
-        randomPositionArea: areaMap4,
-        randomPositionPadding: 0,
-        positionBoundary: areaMap4,
-      },
-      playerParams: {
-        randomPositionArea: areaMap4,
-        randomPositionPadding: 0,
-        positionBoundary: areaMap4,
-      },
+      robotParams: entityParams,
+      playerParams: entityParams,
     });
     this.rectH = height / 4 - 30;
     this.keyX = width - width / 4;
@@ -29,7 +27,7 @@ class MapGame4 extends BaseMapGame {
     this.lineX = width / 4;
 
     this.keys = [];
-    this.keylimit = 5;
+    this.keyLimit = 5;
     this.keyAmount = 0;
 
     this.dancePeriod = 20;
@@ -72,7 +70,7 @@ class MapGame4 extends BaseMapGame {
   _updateKeys() {
     if (
       frameCount % Constants.FramePerSecond === 0 &&
-      this.keyAmount < this.keylimit
+      this.keyAmount < this.keyLimit
     ) {
       const { text, key } = this._generateRandomDirectionKey();
       this.keys.push({
@@ -120,7 +118,7 @@ class MapGame4 extends BaseMapGame {
         });
       }
     }
-    // key dispear if over left line
+    // key disappear if over left line
     this.keys = this.keys.filter((k) => k.x > 150);
   }
 
@@ -131,7 +129,7 @@ class MapGame4 extends BaseMapGame {
   }
 
   _generateRandomDirectionKey() {
-    //right,left,up,down,stop, punch(?)
+    // right, left, up, down, stop
     const directionKey = [
       { text: '⬅', key: Constants.EntityMove.LEFT },
       { text: '⮕', key: Constants.EntityMove.RIGHT },

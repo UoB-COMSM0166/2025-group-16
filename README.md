@@ -1,7 +1,7 @@
 # 2025-group-16
 
 2025 COMSM0166 group 16
-![alt text](docs/assets/readme/Banner.png)
+![alt text](docs/assets/readme/banner.png)
 
 ## Contents
 

@@ -113,10 +113,6 @@ class Welcome extends BasePage {
 
     this.drawComeHere();
 
-    //this.drawIntroStroke(this.introBox);
-    //this.introText.p1.draw();
-    //this.introText.p2.draw();
-
     this.keyBoardP1.draw({ x: width / 10, y: height - 80 });
     this.keyBoardP2.draw({ x: (width / 10) * 9, y: height - 80 });
 
@@ -174,27 +170,6 @@ class Welcome extends BasePage {
     super.keyPressed();
     this.tutorialDialog.keyPressed();
     this.rulesSettingDialog.keyPressed();
-
-    // TODO: remove temporary shortcut controls
-    if (keyCode === 49) {
-      // 1
-      Controller.changePage(new MapGame1(), Constants.Page.MAP_GAME_1);
-    } else if (keyCode === 50) {
-      // 2
-      Controller.changePage(new MapGame2(), Constants.Page.MAP_GAME_2);
-    } else if (keyCode === 51) {
-      // 3
-      Controller.changePage(new MapGame3(), Constants.Page.MAP_GAME_3);
-    } else if (keyCode === 52) {
-      // 4
-      Controller.changePage(new MapGame4(), Constants.Page.MAP_GAME_4);
-    } else if (keyCode === 53) {
-      // 5
-      Controller.changePage(new MapGame5(), Constants.Page.MAP_GAME_5);
-    } else if (keyCode === 54) {
-      // 6
-      Controller.changePage(new MapGame6(), Constants.Page.MAP_GAME_6);
-    }
   }
 
   /**@override */

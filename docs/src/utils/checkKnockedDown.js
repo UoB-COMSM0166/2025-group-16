@@ -20,7 +20,7 @@ const originSize = {
  * @returns {boolean} - Returns true if the target entity is knocked down, otherwise false.
  */
 function checkKnockedDown(hitterEntity, targetEntity) {
-  const hitterFist = getFistPosition(hitterEntity); // 使用新函數取得拳頭位置
+  const hitterFist = getFistPosition(hitterEntity); // get the fist position of the hitter entity
   const target = {
     x: targetEntity.x,
     y: targetEntity.y,

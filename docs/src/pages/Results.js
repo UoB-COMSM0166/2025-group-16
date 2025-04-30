@@ -1,7 +1,7 @@
 class Results extends BasePage {
   constructor() {
     super({
-      bgm: Resources.sounds.bgm.resultpage, // TODO: check bgm
+      bgm: Resources.sounds.bgm.resultPage,
       background: Resources.images.welcome.background,
     });
 
