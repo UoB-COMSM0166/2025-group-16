@@ -5,7 +5,16 @@ class MapIntro4 extends BaseMapIntro {
       // TODO: update description
       playerControlIntros: Settings.players.map(({ controls }, idx) => {
         const { UP, LEFT, DOWN, RIGHT, HIT } = controls;
-        return `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
+        const controlText = `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
+
+        if (idx === 0) {
+          return (
+            `Follow the arrows on the wall\n🔼and move with them!!\n` +
+            controlText
+          );
+        }
+
+        return controlText;
       }),
       additionalIntro: '🌵Punch another player🌵',
       hasCountdown: true,
