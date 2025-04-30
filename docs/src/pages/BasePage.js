@@ -14,12 +14,12 @@ class BasePage {
   constructor(params) {
     this.background = params?.background || null;
     this.bgm = params?.bgm || null;
-    this.players = [];
     this.shapeType = params?.shapeType || Constants.EntityType.ROBOT;
-    this.speakerOnImg = null;
-    this.speakerOffImg = null;
-    this.initSound = params?.initSound ?? false;
-    this.speakerOn = Store.getSpeakerStatus();
+
+    this.players = [];
+    this.speakerIconButton = new SpeakerIconButton({
+      initSound: params?.initSound,
+    });
   }
 
   /**
@@ -28,16 +28,7 @@ class BasePage {
    * @see https://p5js.org/reference/p5/setup/
    */
   setup() {
-    this.speakerOnImg = {
-      ...Resources.images.welcome.speakerOn,
-      x: width * 0.05,
-      y: height * 0.05,
-    };
-    this.speakerOffImg = {
-      ...Resources.images.welcome.speakerOff,
-      x: width * 0.05,
-      y: height * 0.05,
-    };
+    this.speakerIconButton.setup();
   }
 
   /**
@@ -46,41 +37,13 @@ class BasePage {
    * @see https://p5js.org/reference/p5/draw/
    */
   draw() {
-    cursor('auto');
     if (this.background) {
       imageMode(CORNER);
       image(this.background.image, 0, 0, width, height);
     }
 
-    if (
-      this.isImagePressed(this.speakerOnImg) ||
-      this.isImagePressed(this.speakerOffImg)
-    ) {
-      cursor('pointer');
-    }
-
-    if (!this.speakerOn) {
-      this.bgm?.stop();
-      imageMode(CENTER);
-      image(
-        this.speakerOffImg.image,
-        this.speakerOffImg.x,
-        this.speakerOffImg.y,
-        this.speakerOffImg.width,
-        this.speakerOffImg.height,
-      );
-    }
-    if (this.speakerOn) {
-      this.bgm?.loop();
-      imageMode(CENTER);
-      image(
-        this.speakerOnImg.image,
-        this.speakerOnImg.x,
-        this.speakerOnImg.y,
-        this.speakerOnImg.width,
-        this.speakerOnImg.height,
-      );
-    }
+    this.speakerIconButton.draw(width * 0.05, height * 0.05);
+    this.bgm?.loop();
   }
 
   setAllEntitiesPaused(type, isPaused) {
@@ -102,18 +65,7 @@ class BasePage {
    * @see https://p5js.org/reference/p5/mousePressed/
    */
   mousePressed() {
-    if (!this.speakerOn && this.initSound) {
-      userStartAudio();
-      this.initSound = false;
-      this.speakerOn = true;
-    } else if (
-      this.isImagePressed(this.speakerOnImg) ||
-      this.isImagePressed(this.speakerOffImg)
-    ) {
-      this.bgm?.toggleSound();
-      this.speakerOn = !this.speakerOn;
-      Controller.updateSpeakerStatus(this.speakerOn);
-    }
+    this.speakerIconButton.mousePressed();
   }
 
   /**
@@ -128,11 +80,7 @@ class BasePage {
    * @see https://p5js.org/reference/p5/keyPressed/
    */
   keyPressed() {
-    if (!this.speakerOn && this.initSound) {
-      userStartAudio();
-      this.initSound = false;
-      this.speakerOn = true;
-    }
+    this.speakerIconButton.keyPressed();
   }
 
   /**

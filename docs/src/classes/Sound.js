@@ -20,42 +20,32 @@ class Sound {
     this.sound = loadSound(this.path);
   }
 
-  /** Plays the sound in a loop */
+  // plays the sound in a loop
   loop() {
-    const speakerOn = Store.getSpeakerStatus();
-    if (!this.sound || speakerOn || this.sound.isPlaying()) return;
-
+    if (!this.sound || this.sound.isPlaying()) return;
     this.sound.loop();
-    Controller.updateSpeakerStatus(true);
   }
 
-  /** Stops the sound */
+  // stops the sound
   stop() {
-    const speakerOn = Store.getSpeakerStatus();
-    if (!this.sound || !this.sound.isPlaying() || !speakerOn) return;
-
+    if (!this.sound || !this.sound.isPlaying()) return;
     this.sound.stop();
-    Controller.updateSpeakerStatus(false);
   }
 
-  toggleSound() {
-    const speakerOn = Store.getSpeakerStatus();
-    if (speakerOn) {
-      this.stop();
-    } else {
-      this.loop();
-    }
-  }
-
-  /** @override **/
-  play(playInPureJs = false) {
-    if (playInPureJs) {
-      new Audio(this.path).play().catch((error) => {
-        console.error('Playback failed:', error);
-        throw error;
-      });
+  // plays the sound once
+  play(isPlayInPureJs = false) {
+    if (isPlayInPureJs) {
+      if (!Store.getSpeakerStatus()) return;
+      this._playInPureJs();
     } else {
       this.sound.play();
     }
+  }
+
+  _playInPureJs() {
+    new Audio(this.path).play().catch((error) => {
+      console.error('Playback failed:', error);
+      throw error;
+    });
   }
 }
