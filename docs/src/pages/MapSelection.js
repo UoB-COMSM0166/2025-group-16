@@ -1,11 +1,13 @@
 class MapSelection extends BasePage {
   constructor() {
     super({
-      bgm: Resources.sounds.bgm.intro, // TODO: check bgm
+      bgm: Resources.sounds.bgm.intro,
       background: Resources.images.welcome.background,
     });
 
     this.selectingIdx = 0;
+    this.aniProgress = 0; // scroll progress (0-1)
+    this.aniDirection = 0; // -1 to left, 1 to right, 0 no ani
 
     this.pointerSetting = {
       side: 30,
@@ -14,7 +16,6 @@ class MapSelection extends BasePage {
     };
   }
 
-  // TODO: add added map options
   /** @override */
   setup() {
     super.setup();
@@ -58,36 +59,98 @@ class MapSelection extends BasePage {
   draw() {
     super.draw();
 
-    this.title?.draw();
-    for (let i = 0; i < Constants.Map.length; i++) {
-      this.drawMapOption(i);
+    push();
+    // crop options
+    clip(() => {
+      rectMode(CENTER);
+      rect(width / 2, height / 2, width * (8 / 9), height);
+    });
+
+    // only show 5 options at a time
+    for (let i = -2; i <= 2; i++) {
+      const idx =
+        (this.selectingIdx + i + Constants.Map.length) % Constants.Map.length;
+      this.drawMapOption(idx, i);
     }
+
+    // update scroll animation progress
+    const isAnimating = this.aniDirection != 0;
+    if (isAnimating) {
+      this.aniProgress += 0.1;
+      if (this.aniProgress >= 1) {
+        // reset animation when finish
+        this.aniProgress = 0;
+        this.aniDirection = 0;
+      }
+    }
+    pop();
+
+    // draw title and back hint
+    this.title?.draw();
     this.backHint?.draw();
   }
 
-  drawMapOption(idx) {
-    const scale = idx === this.selectingIdx ? 1 : 0.7;
+  drawMapOption(idx, position) {
+    // settings
+    const gap = 290;
+    const baseScale = 0.6;
+    const selectedScale = 1;
+    const y = height / 2 + 24;
+
+    // states
+    const isSelected = position === 0;
+    const isAnimating = this.aniDirection != 0;
     const img = Resources.images.mapSelection[idx];
+
+    // get animated states
+    const targetX = width / 2 + position * gap;
+    const x = this.getAnimatedX(targetX, gap);
+    const scale = this.getAnimatedScale(position, baseScale, selectedScale);
+
     const imgWidth = img.image.width * scale;
     const imgHeight = img.image.height * scale;
 
     push();
-    const gap = 340;
-    const x = width / 2 + (idx - (Constants.Map.length - 1) / 2) * gap;
-    const y = height / 2 + 24;
-
     imageMode(CENTER);
     image(img?.image, x, y, imgWidth, imgHeight);
+
+    // draw map name
     this.mapName.draw({
       label: Constants.Map[idx].name,
       x,
       y: y + imgHeight / 2 + 32,
     });
 
-    if (idx === this.selectingIdx) {
-      this.drawSelectingPointer(x, y, imgHeight);
-    }
+    // show pointer at the top of the selected map
+    if (isSelected) this.drawSelectingPointer(x, y, imgHeight);
     pop();
+  }
+
+  // calculate animated x position
+  getAnimatedX(targetX, gap) {
+    if (this.aniDirection == 0) return targetX; // not animating
+    return targetX - (1 - this.aniProgress) * gap * this.aniDirection;
+  }
+
+  // calculate animated x scale
+  getAnimatedScale(position, baseScale, selectedScale) {
+    // no animation: return selectedScale for position 0, otherwise baseScale
+    if (this.aniDirection === 0) {
+      return position === 0 ? selectedScale : baseScale;
+    }
+
+    // animation: check if position is the target for scaling
+    const isTarget = position === this.aniDirection;
+    const isCenter = position === 0;
+    const scaleRange = selectedScale - baseScale;
+
+    if (isTarget) {
+      return selectedScale - scaleRange * this.aniProgress;
+    } else if (isCenter) {
+      return baseScale + scaleRange * this.aniProgress;
+    }
+
+    return baseScale;
   }
 
   drawSelectingPointer(x, y, imgHeight) {
@@ -118,19 +181,9 @@ class MapSelection extends BasePage {
   keyPressed() {
     super.keyPressed();
 
-    if (this.isPressed('LEFT', keyCode)) {
-      this.selectingIdx =
-        this.selectingIdx === 0
-          ? Constants.Map.length - 1
-          : this.selectingIdx - 1;
-    }
+    if (this.isPressed('LEFT', keyCode)) this.scrollOption(-1);
 
-    if (this.isPressed('RIGHT', keyCode)) {
-      this.selectingIdx =
-        this.selectingIdx === Constants.Map.length - 1
-          ? 0
-          : this.selectingIdx + 1;
-    }
+    if (this.isPressed('RIGHT', keyCode)) this.scrollOption(1);
 
     // HIT or Enter to select
     if (this.isPressed('HIT', keyCode) || keyCode === 13) {
@@ -157,5 +210,13 @@ class MapSelection extends BasePage {
           break;
       }
     }
+  }
+
+  scrollOption(direction) {
+    this.selectingIdx =
+      (this.selectingIdx - direction + Constants.Map.length) %
+      Constants.Map.length;
+    this.aniDirection = direction;
+    this.aniProgress = 0;
   }
 }
