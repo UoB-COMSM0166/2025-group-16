@@ -46,4 +46,16 @@ class Sound {
       this.loop();
     }
   }
+
+  /** @override **/
+  play(playInPureJs = false) {
+    if (playInPureJs) {
+      new Audio(this.path).play().catch((error) => {
+        console.error('Playback failed:', error);
+        throw error;
+      });
+    } else {
+      this.sound.play();
+    }
+  }
 }

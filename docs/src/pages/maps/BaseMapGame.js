@@ -85,7 +85,7 @@ class BaseMapGame extends BasePage {
   }
 
   _setupCountDown() {
-    // Resources.sounds.sound_effect.countdown.play();
+    Resources.sounds.sound_effect.countdown.play(true);
     this.countDownText = new Text({
       label: this.countDown.toString(),
       x: width / 2,
@@ -112,7 +112,7 @@ class BaseMapGame extends BasePage {
         this.setAllEntitiesPaused(Constants.EntityType.ROBOT, false);
         window.clearInterval(intervalId);
       }
-    }, 400);
+    }, 528);
   }
 
   /** @override */
@@ -255,12 +255,11 @@ class BaseMapGame extends BasePage {
     }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
   }
 
-  //override for game 6
+  // override for game 6
   drawEntity(entity) {
     entity.draw?.();
   }
 
-  //override for game 6 to draw additional items, Default: do nothing
-  _preDrawEntities() {
-  }
+  // override for game 6 to draw additional items, Default: do nothing
+  _preDrawEntities() {}
 }
