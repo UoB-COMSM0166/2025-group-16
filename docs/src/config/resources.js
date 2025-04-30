@@ -27,6 +27,9 @@ const _ASSET_PATHS = {
       `${_BASE_PATH}assets/images/mapSelection/map1_desert.svg`,
       `${_BASE_PATH}assets/images/mapSelection/map2_grass.svg`,
       `${_BASE_PATH}assets/images/mapSelection/map3_jail.svg`,
+      `${_BASE_PATH}assets/images/mapSelection/map4_party.svg`,
+      `${_BASE_PATH}assets/images/mapSelection/map5_kongfu.svg`,
+      `${_BASE_PATH}assets/images/mapSelection/map6_magic.svg`,
     ],
     resultsPage: {
       confetti: `${_BASE_PATH}assets/images/results/confetti.gif`,

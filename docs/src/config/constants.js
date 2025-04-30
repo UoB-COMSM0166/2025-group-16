@@ -67,6 +67,13 @@ const Constants = Object.freeze({
     WALK: 'WALK',
   }),
   FramePerSecond: 60, // default
-  Map: Object.freeze([{ name: 'Desert' }, { name: 'Grass' }, { name: 'Jail' }]),
+  Map: Object.freeze([
+    { name: 'Desert' },
+    { name: 'Grass' },
+    { name: 'Jail' },
+    { name: 'Party' },
+    { name: 'Kongfu' },
+    { name: 'Magic' },
+  ]),
   TutorialCompletedKey: 'hasCompletedTutorial',
 });
