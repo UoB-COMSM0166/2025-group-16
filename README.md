@@ -434,57 +434,99 @@ classDiagram
 sequenceDiagram
   actor Users
   participant WelcomePage
+  participant TutorialPage
+  participant MapSelectionPage
   participant MapIntroPage
   participant MapGamePage
   participant Player
   participant Robot
   participant ResultsPage
 
-  Users->>WelcomePage: Enter into game
+  Users->>WelcomePage: enterGame()
   activate WelcomePage
-  WelcomePage-->>Users: Show welcome page
-  deactivate WelcomePage
+  WelcomePage->>Users: showWelcome()
 
-  Users->>WelcomePage: Click start button
+  alt firstTimeEntering
+      Users->>WelcomePage: confirmTutorial()
+      WelcomePage->>TutorialPage: navigateToTutorial()
+      deactivate WelcomePage
+      activate TutorialPage
+      TutorialPage->>Users: showTutorial()
+      Users->>TutorialPage: completeTutorial()
+      TutorialPage->>WelcomePage: navigateToWelcome()
+      deactivate TutorialPage
+      activate WelcomePage
+      WelcomePage->>Users: showWelcome()
+  else returningUser
+      Users->>WelcomePage: skipTutorial()
+  end
+
+  Users->>WelcomePage: clickTutorialButton()
+  WelcomePage->>TutorialPage: navigateToTutorial()
+  deactivate WelcomePage
+  activate TutorialPage
+  TutorialPage->>Users: showTutorial()
+  Users->>TutorialPage: completeTutorial()
+  TutorialPage->>WelcomePage: navigateToWelcome()
+  deactivate TutorialPage
   activate WelcomePage
-  WelcomePage->>MapIntroPage: setup()
+  WelcomePage->>Users: showWelcome()
+
+  Users->>WelcomePage: playersGathered()
+  WelcomePage->>Users: showRulesSetting()
+  Users->>WelcomePage: setWinScore()
+  WelcomePage->>MapSelectionPage: navigateToMapSelection()
   deactivate WelcomePage
+  activate MapSelectionPage
 
+  MapSelectionPage->>Users: displayMaps()
+  Users->>MapSelectionPage: selectMap()
+  MapSelectionPage->>MapIntroPage: navigateToMapIntro()
+  deactivate MapSelectionPage
   activate MapIntroPage
-  MapIntroPage-->>Users: Show map & control introduction
-  deactivate MapIntroPage
 
-  Users->>MapIntroPage: Click start button
-  activate MapIntroPage
-  MapIntroPage->>MapGamePage: setup()
+  MapIntroPage->>Users: displayIntro()
+  Note over MapIntroPage: auto countdown and start
+  MapIntroPage->>MapGamePage: navigateToMapGame()
   deactivate MapIntroPage
-
   activate MapGamePage
-  MapGamePage->>Player: new Player(params)
-  MapGamePage->>Robot: new Robot(params)
 
-  loop Game Loop
+  MapGamePage->>Player: initPlayer()
+  activate Player
+  MapGamePage->>Robot: initRobot()
+  activate Robot
+
+  loop gameLoop()
       MapGamePage->>Player: draw()
       MapGamePage->>Robot: draw()
 
-      alt Users Input
+      alt usersInput()
           Users->>MapGamePage: keyPressed()
           MapGamePage->>Player: keyPressed()
+      end
 
-          alt Attack Key Pressed
-              Player->>MapGamePage: checkKnockedDown()
-              MapGamePage->>MapGamePage: checkRemainingPlayers()
-          end
+      alt attackKeyPressed()
+          Player->>MapGamePage: checkKnockedDown()
+          MapGamePage->>MapGamePage: checkRemainingPlayers()
       end
   end
 
-  MapGamePage->>ResultsPage: Only One Player Remaining
+  MapGamePage->>ResultsPage: navigateToResults()
+  deactivate Player
+  deactivate Robot
   deactivate MapGamePage
   activate ResultsPage
-  ResultsPage-->>Users: Show game results
+  ResultsPage->>Users: displayResults()
+
+  alt noWinnerYet
+      Users->>ResultsPage: nextRound()
+      ResultsPage->>MapSelectionPage: navigateToMapSelection()
+  else hasWinner
+      ResultsPage->>Users: showWinner()
+      Users->>ResultsPage: restartGame()
+      ResultsPage->>WelcomePage: navigateToWelcome()
+  end
   deactivate ResultsPage
-  Users->>ResultsPage: Click button to restart
-  ResultsPage->>WelcomePage: setup()
 ```
 
 <div align="center">
