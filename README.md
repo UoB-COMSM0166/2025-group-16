@@ -861,29 +861,112 @@ More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/
 
 Our team collaborated through a structured software development workflow:
 
-#### Code Collaboration
+#### Code Collaboration & Roles
 
-All code is hosted on GitHub. We use Pull Requests (PRs) for every code change — direct push to the main branch is not allowed. Check our [workflow](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/8159293/GitHub+Workflow+Guideline) for more details.
+All code is hosted on GitHub, and we use Pull Requests (PRs) for every change — direct pushes to the main branch are not allowed. See our Git workflow diagram:
+
+```mermaid
+graph LR
+    %% Role
+    Developer(("Developer"))
+    Tester(("Tester"))
+
+    %% Action
+    CreateBranch["Create Branch: Jira-xxx"]
+    WriteCode["Coding"]
+    PushBranch["Push Branch"]
+    CodeReview["Code Review"]
+    IntegrationTest["Integration Test"]
+
+    %% System
+    GitHub[("GitHub")]
+
+    %% Event
+    PR{"Pull Request"}
+    Merge{"Merge to Main"}
+    Bug{"Bug"}
+    Task{"Feature"}
+
+    %% Process
+    Developer --> CreateBranch
+    CreateBranch --> WriteCode
+    WriteCode --> PushBranch
+    PushBranch --> GitHub
+    GitHub --> PR
+    PR --> CodeReview
+    CodeReview -->|Approve| Merge
+    Merge --> GitHub
+
+    %% Sub-process
+    PR -.->|Without Review| Merge
+    Tester --> IntegrationTest
+    IntegrationTest -->|Found| Bug
+    Bug --> Developer
+    Task --> Developer
+```
+
+- Roles
+
+  As a learning exercise, our team does not assign fixed roles. Everyone can contribute to different tasks, which are categorized in Jira as:
+
+  - **Design**: UI/UX for pages like WelcomePage and MapGamePage.
+  - **Development**: New features, debugging, and testing (e.g., player-robot interactions).
+  - **Documentation**: Updating README, manuals, and other files.
+  - **Other**: Miscellaneous tasks like project setup or meeting coordination.
+
+- Branching Strategy
+
+  - **Main Branch**: Stable, production-ready code.
+  - **Other Branches**: Named based on Jira ticket numbers (e.g., GAME-123-map-selection).
+  - **Commit Messages**: Follow Conventional Commits format (e.g., feat: add map selection, fix: resolve keypress bug, docs: update README).
+  - **Pull Requests**: Use the pull_request_template.md in the repo to ensure consistent PR formatting.
+
+- Testing and Deployment
+  - **Testing**: Primarily manual, with details in the README’s “Manual Testing Report” section. We test features like player keypress handling and page transitions.
+  - **Deployment**: Automated via GitHub Pages, redeployed on every PR merge to the main branch.
 
 #### Project Management (Kanban & Sprints)
 
-We manage tasks on Jira, using the Epic/User Story structure. We organize our work in bi-weekly sprints:
+We manage tasks on Jira using the Epic/User Story structure, organized in bi-weekly sprints. See our sprint workflow diagram:
 
-1. At the end of each sprint, we hold a Sprint Review to check progress, demonstrate features, and discuss blockers.
+```mermaid
+flowchart LR
+    %% Processes (Rectangles)
+    Plan@{shape: lin-rect, label: "Sprint Planning (2w)" }
+    Work["Sprint Work"]
+    Sync@{shape: lin-rect, label: "Sync Meeting" }
+    Review@{shape: lin-rect, label: "Sprint Review & Retrospective" }
 
-2. Then we conduct Sprint Planning to decide what tasks move forward in the next sprint.
+    %% Events (Diamonds)
+    Done{"Done?"}
 
-3. Unfinished tasks remain in the Backlog for future prioritization.
+    %% Flow
+    Backlog -->|Prioritize| Plan
+    Plan -->|Assign| Work
+    Work -->|Weekly| Sync
+    Work -->|Biweekly| Review
+    Review --> Done
+    Done -->|Yes| Main["Demo & Review"]
+    Done -->|No| Backlog
+```
+
+- **Weekly Meetings**: Every Thursday, we discuss progress, report issues, or raise specific concerns.
+- **Sprint Review & Retrospective**: At the end of each two-week sprint, we demo features, reflect on the process, and identify improvements.
+- **Sprint Planning**: Post-review, we prioritize tasks for the next sprint.
+
+#### Communication
+
+- **Group Chat**: We use a team chat for real-time questions and issue discussions.
+- **Weekly Meetings**: Held every Thursday to address specific problems or updates.
+- **Jira Updates**: Task progress, issues, or blockers are recorded in Jira ticket comments. Linked issues and “is blocked by” relationships are set to clarify dependencies, helping developers know when to start their tasks.
 
 #### Documentation & Coding Standards
 
 To help developers contribute smoothly:
 
-- We maintain a detailed [Developer README](/docs/README.md) with setup instructions, project structure, and coding guidelines.
-
-- We enforce code style using `ESLint` and `Prettier`.
-
-- We unify editor settings using `EditorConfig` and shared `.vscode` configurations.
+- **[Developer README](/docs/README.md)**: Includes setup instructions, project structure, and coding guidelines.
+- **Code Style**: Enforced using `ESLint` and `Prettier`.
+- **Editor Settings**: Unified with `EditorConfig` and shared `.vscode` configurations.
 
 #### Access to Jira Board & Documents
 
@@ -896,8 +979,8 @@ Since Jira's free plan doesn’t allow public sharing, we provide a shared accou
 
 <u>Access Credentials</u>
 
-- Email: team16_access@outlook.com
-- Password: team16_password
+- **Email**: team16_access@outlook.com
+- **Password**: team16_password
 
 Alternatively, request access using your own account.
 
