@@ -38,7 +38,7 @@ class PlayerList extends UIComponent {
     }
   }
 
-  drawPlayerAvatars() {
+  draw() {
     const numPlayers = this.playerAvatars.length;
     const spacing = width / (numPlayers + 1) - 10;
 
@@ -63,7 +63,7 @@ class PlayerList extends UIComponent {
         );
 
         // cooldown effect
-        this.drawCooldownEffect(xPos, yPos, avatarSize, i);
+        this._drawCooldownEffect(xPos, yPos, avatarSize, i);
 
         let textXPos = xPos + avatarSize / 2 + 10;
         let textYPos = yPos + avatarSize / 2 - 60;
@@ -113,7 +113,7 @@ class PlayerList extends UIComponent {
     this.cooldowns[playerIdx] = now + duration;
   }
 
-  drawCooldownEffect(x, y, avatarSize, playerIdx) {
+  _drawCooldownEffect(x, y, avatarSize, playerIdx) {
     const now = millis();
     const cooldownEnd = this.cooldowns[playerIdx];
     const isCoolingDown = cooldownEnd && cooldownEnd > now;

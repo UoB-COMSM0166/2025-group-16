@@ -213,7 +213,11 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
 classDiagram
   %% UI Component Hierarchy
   UIComponent <|-- Text
-  UIComponent <|-- Button
+  UIComponent <|-- KeyboardControl
+  UIComponent <|-- PlayerList
+
+   %% Functional Component Hierarchy
+  Img <|-- SVGImage
 
   %% Entity Hierarchy
   Entity <|-- Player
@@ -221,27 +225,18 @@ classDiagram
 
   %% Page Hierarchy
   BasePage <|-- Welcome
+  BasePage <|-- MapSelection
   BasePage <|-- Results
+  BasePage <|-- Tutorial
   BasePage <|-- BaseMapGame
   BasePage <|-- BaseMapIntro
 
-  BaseMapGame <|-- MapGame1
-  BaseMapIntro <|-- MapIntro1
-  BaseMapGame <|-- MapGame2
-  BaseMapIntro <|-- MapIntro2
-  BaseMapGame <|-- MapGame3
-  BaseMapIntro <|-- MapIntro3
-  BaseMapGame <|-- MapGame4
-  BaseMapIntro <|-- MapIntro4
-  BaseMapGame <|-- MapGame5
-  BaseMapIntro <|-- MapIntro5
-  BaseMapGame <|-- MapGame6
-  BaseMapIntro <|-- MapIntro6
-
   %% Relationships
   BasePage o-- "0..n" UIComponent : contains
-  BasePage o-- "2..n" Player : contains
-  BasePage o-- "0..n" Robot : contains
+  BasePage o-- "0..n" Entity : contains
+  BasePage o-- "0..n" Img : contains
+  BasePage o-- "0..n" Sound : contains
+  BasePage o-- "0..n" Dialog : contains
 
   class UIComponent {
       <<abstract>>
@@ -251,142 +246,179 @@ classDiagram
   }
 
   class Text {
-      +string label
-      +string color
-      +string textAlign
-      +number textLeading
-      +string/number textSize
-      +string textStyle
-      +string stroke
-      +number strokeWeight
-      ^draw(params)
+      +[string] label
+      +[string] color
+      +[string] textAlign
+      +[number] textLeading
+      +[string/number] textSize
+      +[string] textStyle
+      +[string] textWrap
+      +[string] stroke
+      +[number] strokeWeight
+      +[number] maxWidth
+      +[string] textFont
+      +[boolean] isShadow
+      +[string] shadowColor
+      +[number] shadowOffsetX
+      +[number] shadowOffsetY
+
+      +draw(params)
   }
 
-  class Button {
-      +number width
-      +number height
+  class KeyboardControl {
+      +number playerIdx
+      +object color
+      +number scale
+
+      +draw(params)
+  }
+
+  class PlayerList {
       +string label
-      +Function action
-      +string color
-      +string hoverColor
-      +boolean disabled
-      +number fontSize
-      +boolean isHovered
-      ^draw()
-      +isMouseOver()
-      +mousePressed()
-      +setDisabled()
+      +[string/number] textSize
+      +[string] color
+      +[boolean] isShadow
+
+      +draw()
+      +playerLose()
+      +updateStatus()
+      +startCooldown()
+  }
+
+  class Img {
+      +string path
+      +object image
+
+      +loadImage()
+  }
+
+  class SVGImage {
+      +[object] attributes
+
+      +updateAttributes(newAttributes)
+      +loadImage()
+  }
+
+  class Sound {
+      +string path
+      +[string[]] formats
+
+      +loadSound()
+      +loop()
+      +stop()
+      +play(isPlayInPureJs)
+  }
+
+  class Dialog {
+      +string title
+      +[boolean] isOpen
+      +[function] onOpen
+      +[function] onClose
+      +[Text[]] options
+      +[number] optionGap
+      +[number] selectingIdx
+
+      +draw()
+      +drawDialog()
+      +initDialog()
+      +open()
+      +close()
+      +keyPressed()
+      +isPressed(control, keyCode) boolean
+      +onSelect()*
   }
 
   class Entity {
       +number idx
       +string type
-      +string status
-      +string color
-      +string size
-      +number speed
-      +number x
-      +number y
+      +string shapeType
+      +[string] direction
+      +[string] color
+      +[string] size
+      +[object] position
+      +[object] positionBoundary
+      +[object] randomPositionArea
+      +[number] randomPositionPadding
+      +[boolean] canDie
+
       +draw()
-      +move(direction)
-      +getShape()
+      +move(direction) boolean
+      +hit(entities, onHitEntity)
+      +die()
+      +getShape() object
   }
 
   class Player {
-      +Object controls
-      ^draw()
+      +object controls
+      +[function] onHit
+
+      +draw()
       +keyPressed(entities, onDie)
+      +updateParams(params)
   }
 
   class Robot {
-      +Function action
-      +number actionEndTime
-      ^draw()
-      ^move()
+      +[boolean] isPaused
+
+      +draw()
+      +move()
+      +pause()
+      +controlMove(direction)
   }
 
   class BasePage {
       <<abstract>>
-      +setup()*
-      +draw()*
-      +mousePressed()*
+      +[Img] background
+      +[Sound] bgm
+      +[string] shapeType
+      +[boolean] initSound
+
+      +setup()
+      +draw()
+      +setAllEntitiesPaused(type, isPaused)
+      +mousePressed()
       +mouseReleased()*
-      +keyPressed()*
+      +keyPressed()
       +keyReleased()*
+      +remove()
+      +isImagePressed(imageObj)
   }
 
   class BaseMapGame {
-      +number robotNumber
-      +[Object] playerParams
-      +[Object] robotParams
-      ^setup()
-      ^draw()
-      ^mousePressed()
-      ^keyPressed()
+      +[number] robotNumber
+      +[object] playerParams
+      +[object] robotParams
+
+      +setup()
+      +draw()
+      +keyPressed()
   }
 
   class BaseMapIntro {
       +string title
+      +string gamePage
+      +string gamePageKey
       +string[] playerControlIntros
       +[string] additionalIntro
-      ^setup()
-      ^draw()
-      ^mousePressed()
-  }
 
-  class MapIntro1 {
-      <<singleton>>
-  }
-
-  class MapIntro2 {
-      <<singleton>>
-  }
-
-  class MapIntro3 {
-      <<singleton>>
-  }
-
-  class MapIntro4 {
-      <<singleton>>
-  }
-
-  class MapIntro5 {
-      <<singleton>>
-  }
-
-  class MapIntro6 {
-      <<singleton>>
-  }
-
-  class MapGame1 {
-      <<singleton>>
-  }
-
-  class MapGame2 {
-      <<singleton>>
-  }
-
-  class MapGame3 {
-      <<singleton>>
-  }
-
-  class MapGame4 {
-      <<singleton>>
-  }
-
-  class MapGame5 {
-      <<singleton>>
-  }
-
-  class MapGame6 {
-      <<singleton>>
+      +setup()
+      +draw()
+      +mousePressed()
   }
 
   class Welcome {
       <<singleton>>
   }
 
+  class MapSelection {
+      <<singleton>>
+  }
+
   class Results {
+      <<singleton>>
+  }
+
+  class Tutorial {
       <<singleton>>
   }
 ```
@@ -459,6 +491,7 @@ sequenceDiagram
   <br>
   <strong>Figure 6:</strong> Sequence Diagram
 </div>
+
 ---
 
 ### Implementation

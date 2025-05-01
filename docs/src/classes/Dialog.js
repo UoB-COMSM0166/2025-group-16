@@ -8,7 +8,7 @@ class Dialog {
    * @param {boolean} [params.isOpen=false] - Indicates whether the dialog is open.
    * @param {Function|null} [params.onOpen=null] - Callback function to execute when the dialog is opened.
    * @param {Function|null} [params.onClose=null] - Callback function to execute when the dialog is closed.
-   * @param {Array} [params.options=[]] - List of options available in the dialog.
+   * @param {Text[]} [params.options=[]] - List of options available in the dialog.
    * @param {number} [params.optionGap=48] - The vertical offset between options in the dialog.
    * @param {number} [params.selectingIdx=0] - The index of the currently selected option.
    */

@@ -15,7 +15,7 @@ class Entity {
    * @param {{ x: number, y: number, width: number, height: number }} [params.positionBoundary] - Optional. If provided and no `position`, will be randomly placed within the boundary.
    * @param {{ x: number, y: number, width: number, height: number }} [params.randomPositionArea] - Optional. If provided, the entity will be placed within the area.
    * @param {number} [params.randomPositionPadding] - Optional. If provided, the entity will be placed within the area with a padding.
-   * @param {boolean} params.canDie - Setting if the entity would die after hitting. default is true
+   * @param {boolean} [params.canDie] - Optional. Setting if the entity would die after hitting. default is true
    */
   constructor(params) {
     this.idx = params.idx;

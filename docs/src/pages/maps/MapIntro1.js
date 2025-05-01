@@ -7,9 +7,6 @@ class MapIntro1 extends BaseMapIntro {
         return `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
       }),
       additionalIntro: '🌵Punch another player🌵',
-      hasCountdown: true,
-      countdownDuration: 4,
-      useFrameCountdown: false,
       gamePage: new MapGame1(),
       gamePageKey: Constants.Page.MAP_GAME_1,
       background: Resources.images.map.game1,

@@ -14,6 +14,7 @@ class TutorialDialog extends Dialog {
     this.selectingIdx = 0;
   }
 
+  /** @override */
   onSelect(index) {
     if (index === 0) {
       Controller.changePage(new Tutorial(), Constants.Page.TUTORIAL);

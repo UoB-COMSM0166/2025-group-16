@@ -16,8 +16,6 @@ class MapIntro2 extends BaseMapIntro {
         return controlText;
       }),
       additionalIntro: '🌱Punch another player🌱',
-      hasCountdown: true,
-      countdownDuration: 4,
       gamePage: new MapGame2(),
       gamePageKey: Constants.Page.MAP_GAME_2,
       background: Resources.images.map.game2,

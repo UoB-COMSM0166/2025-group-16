@@ -117,7 +117,7 @@ class Welcome extends BasePage {
     this.keyBoardP2.draw({ x: (width / 10) * 9, y: height - 80 });
 
     // draw initialize playerList status
-    this.playerList.drawPlayerAvatars();
+    this.playerList.draw();
 
     // update playerList status
     this.players.forEach((player, idx) => {
