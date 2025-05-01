@@ -917,12 +917,12 @@ graph LR
 - Branching Strategy
 
   - **Main Branch**: Stable, production-ready code.
-  - **Other Branches**: Named based on Jira ticket numbers (e.g., GAME-123-map-selection).
-  - **Commit Messages**: Follow Conventional Commits format (e.g., feat: add map selection, fix: resolve keypress bug, docs: update README).
-  - **Pull Requests**: Use the pull_request_template.md in the repo to ensure consistent PR formatting.
+  - **Other Branches**: Named based on Jira ticket numbers (e.g., TG-123).
+  - **Commit Messages**: Follow _Conventional Commits_ format (e.g., feat: add map selection, fix: resolve keypress bug, docs: update README).
+  - **Pull Requests**: Use the `pull_request_template.md` in the repo to ensure consistent PR formatting.
 
 - Testing and Deployment
-  - **Testing**: Primarily manual, with details in the README’s “Manual Testing Report” section. We test features like player keypress handling and page transitions.
+  - **Testing**: Primarily manual, with details in the README’s _Manual Testing Report_ section. We test features like player keypress handling and page transitions.
   - **Deployment**: Automated via GitHub Pages, redeployed on every PR merge to the main branch.
 
 #### Project Management (Kanban & Sprints)
