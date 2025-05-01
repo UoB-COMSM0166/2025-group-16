@@ -14,7 +14,6 @@ const originSize = {
 
 /**
  * Checks if the target entity is knocked down by the hitter entity based on the hit direction.
- *
  * @param {Entity} hitterEntity - The entity that is hitting.
  * @param {Object} targetEntity - The entity that is being hit.
  * @returns {boolean} - Returns true if the target entity is knocked down, otherwise false.
@@ -38,7 +37,6 @@ function checkKnockedDown(hitterEntity, targetEntity) {
 
 /**
  * Calculates the fist position of the hitter entity based on its direction and scale.
- *
  * @param {Entity} hitterEntity - The entity that is hitting.
  * @returns {Object} - The fist's position and size { x, y, w, h }.
  */

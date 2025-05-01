@@ -1,5 +1,6 @@
 /**
- * Represents a text in the game interface.
+ * Display text component with styling and shadow effects
+ * Supports various text formatting options and measurements
  */
 class Text extends UIComponent {
   /**
@@ -43,6 +44,11 @@ class Text extends UIComponent {
     this.textWidth = 0;
   }
 
+  /**
+   * draw text with current or override parameters
+   * @param {Object} [params] - Optional override parameters
+   * @override
+   */
   draw(params) {
     push();
     const config = { ...this, ...params };
@@ -59,7 +65,7 @@ class Text extends UIComponent {
       noStroke();
     }
 
-    // shadow
+    // render shadow if enabled
     if (config.isShadow) {
       fill(config.shadowColor);
       if (config.maxWidth) {
@@ -78,7 +84,7 @@ class Text extends UIComponent {
       }
     }
 
-    // main text
+    // render main text
     fill(config.color);
     if (config.maxWidth) {
       text(config.label, config.x, config.y, config.maxWidth);
@@ -87,7 +93,6 @@ class Text extends UIComponent {
     }
 
     this.textWidth = textWidth(config.label);
-
     pop();
   }
 }

@@ -1,11 +1,14 @@
+/**
+ * Base class for all map game pages
+ * Handles common game mechanics and entity management
+ */
 class BaseMapGame extends BasePage {
   /**
-   * Creates a new MapGame page instance.
    * @param {Object} params - The parameters for the map page.
-   * @param {number} [params.robotNumber] - Optional. The number of robots.
-   * @param {image} [params.background] - Optional. Image resources path.
-   * @param {{ size: keyof typeof Constants.EntitySize }} [params.playerParams] - Optional. The params of players.
-   * @param {{ size: keyof typeof Constants.EntitySize }} [params.robotParams] - Optional. The params of robots.
+   * @param {number} [params.robotNumber] - The number of robots.
+   * @param {image} [params.background] - Image resources path.
+   * @param {{ size: keyof typeof Constants.EntitySize }} [params.playerParams] - The params of players.
+   * @param {{ size: keyof typeof Constants.EntitySize }} [params.robotParams] - The params of robots.
    */
   constructor(params) {
     super(params);
@@ -19,16 +22,18 @@ class BaseMapGame extends BasePage {
 
     this.gameOverText = null;
     this.playerList = null;
-
     this.isWaitingForGameOver = false;
 
     this.countDown = 3;
-    this.countDownText;
+    this.countDownText = null;
 
     this.hasCooldownEffect = false;
   }
 
-  /** @override */
+  /**
+   * Initialize game elements
+   * @override
+   */
   setup() {
     super.setup();
 
@@ -63,7 +68,7 @@ class BaseMapGame extends BasePage {
     }
 
     // initialize robots
-    for (var rIdx = 0; rIdx < this.robotNumber; rIdx++) {
+    for (let rIdx = 0; rIdx < this.robotNumber; rIdx++) {
       this.robots.push(
         new Robot({
           ...this.robotParams,
@@ -84,6 +89,7 @@ class BaseMapGame extends BasePage {
     this._setupCountDown();
   }
 
+  /** Setup countdown before game starts */
   _setupCountDown() {
     Resources.sounds.soundEffect.countdown.play(true);
     this.countDownText = new Text({
@@ -115,12 +121,15 @@ class BaseMapGame extends BasePage {
     }, 528);
   }
 
-  /** @override */
+  /**
+   * Render game page
+   * @override
+   */
   draw() {
     super.draw();
 
     // override for game 6 to draw additional items, Default: do nothing
-    this._preDrawEntities();
+    this.preDrawEntities();
 
     // draw dying entities first to show alive entities on the top
     const sortedEntities = [...this.players, ...this.robots];
@@ -159,6 +168,7 @@ class BaseMapGame extends BasePage {
     if (this.countDown >= 0) this._drawCountDown();
   }
 
+  /** Handle game finish conditions */
   _drawGameFinish() {
     if (this.alivePlayerCtn > 1) return;
 
@@ -192,6 +202,7 @@ class BaseMapGame extends BasePage {
     }, 3000);
   }
 
+  /** Draw countdown animation */
   _drawCountDown() {
     push();
     if (this.countDown > 0) {
@@ -207,7 +218,11 @@ class BaseMapGame extends BasePage {
     pop();
   }
 
-  // rotate angle: 0, 1, 2, 3, 2, 1, 0, -1, -2, -3, -2, -1
+  /**
+   * Calculate rotation angle for GO animation
+   * Rotate angle: 0, 1, 2, 3, 2, 1, 0, -1, -2, -3, -2, -1
+   * @returns {number} Rotation angle
+   */
   _getRotateAngle() {
     const cycleLength = 12;
     const index = frameCount % cycleLength;
@@ -216,7 +231,10 @@ class BaseMapGame extends BasePage {
     return index - 12;
   }
 
-  /** @override */
+  /**
+   * Handle key press events
+   * @override
+   */
   keyPressed() {
     super.keyPressed();
 
@@ -229,11 +247,15 @@ class BaseMapGame extends BasePage {
     });
   }
 
+  /**
+   * Handle player cooldown effects
+   * @param {Entity} entity - Player entity
+   */
   _cooldownSession(entity) {
-    // Avatars effect
+    // avatars effect
     this.playerList.startCooldown(entity.idx);
 
-    // Text effect
+    // text effect
     entity.hasCooldownEffect = true;
     this.playerList.updateStatus({
       playerIdx: entity.idx,
@@ -255,11 +277,16 @@ class BaseMapGame extends BasePage {
     }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
   }
 
-  // override for game 6
+  /**
+   * Draw game entity
+   * @param {Entity} entity - Entity to draw
+   */
   drawEntity(entity) {
     entity.draw?.();
   }
 
-  // override for game 6 to draw additional items, Default: do nothing
-  _preDrawEntities() {}
+  /**
+   * Pre-draw hook for additional elements
+   */
+  preDrawEntities() {}
 }

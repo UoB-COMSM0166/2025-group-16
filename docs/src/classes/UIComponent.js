@@ -1,5 +1,6 @@
 /**
- * Base class for UI components in the game.
+ * Base component for UI elements
+ * Provides common positioning and drawing interface
  */
 class UIComponent {
   /**
@@ -13,7 +14,8 @@ class UIComponent {
   }
 
   /**
-   * Draws the component (to be implemented by subclasses).
+   * Draw UI component
+   * @throws {Error} Must be implemented by subclass
    */
   draw() {
     throw new Error('draw() must be implemented in subclasses');

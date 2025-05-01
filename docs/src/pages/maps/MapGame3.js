@@ -1,3 +1,4 @@
+// boundary configuration for game entities
 const area = {
   x: 64,
   y: 120,
@@ -5,6 +6,10 @@ const area = {
   height: 479,
 };
 
+/**
+ * Game implementation for Map 3
+ * Rule: entities die if they are out of the area
+ */
 class MapGame3 extends BaseMapGame {
   constructor() {
     super({
@@ -23,6 +28,10 @@ class MapGame3 extends BaseMapGame {
     });
   }
 
+  /**
+   * Render game with boundary check
+   * @override
+   */
   draw() {
     super.draw();
 

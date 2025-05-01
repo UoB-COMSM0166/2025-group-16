@@ -1,3 +1,4 @@
+// boundary configuration for game entities
 const positionBoundary = {
   x: 70,
   y: 92,
@@ -5,6 +6,10 @@ const positionBoundary = {
   height: 470,
 };
 
+/**
+ * Game implementation for Map 2
+ * Rule: robot attacks randomly
+ */
 class MapGame2 extends BaseMapGame {
   constructor() {
     super({
@@ -21,9 +26,17 @@ class MapGame2 extends BaseMapGame {
     });
   }
 
+  /**
+   * Render game with random robot attack behavior
+   * @override
+   */
   draw() {
     super.draw();
+    this._handleRobotAttacks();
+  }
 
+  /** Handle random robot attack timing */
+  _handleRobotAttacks() {
     // robots hit randomly when there are more than 1 player alive
     if (this.alivePlayerCtn <= 1) return;
     this.robots.forEach((robot) => {
@@ -48,6 +61,9 @@ class MapGame2 extends BaseMapGame {
   }
 }
 
-// robot hit next time after 5-15 seconds
+/**
+ * Calculate random interval for robot attacks
+ * @returns {number} Frame count until next attack (5-15 seconds)
+ */
 const getNextHitFrameCtn = () =>
   (Math.floor(Math.random() * 10) + 5) * Constants.FramePerSecond;

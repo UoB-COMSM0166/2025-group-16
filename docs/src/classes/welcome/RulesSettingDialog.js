@@ -1,4 +1,11 @@
+/**
+ * Manage the rules setting dialog in the game
+ * Allow players to set target score and start the game
+ */
 class RulesSettingDialog extends Dialog {
+  /**
+   * @param {Object} params - Configuration parameters
+   */
   constructor(params) {
     super({
       ...params,
@@ -7,31 +14,43 @@ class RulesSettingDialog extends Dialog {
       options: [{ label: 'Play to:  ' }, { label: 'Start' }],
     });
 
-    this.selectingIdx = 0;
-    this.targetScoreOptions = [1, 3, 5];
+    this.selectingIdx = 0; // current selected option index
+    this.targetScoreOptions = [1, 3, 5]; // available target score options
     this.targetScoreOptionIdx = this._getTargetScoreIdx(Store.getTargetScore());
   }
 
-  /** @override */
+  /**
+   * Draw the dialog with updated target score
+   * @override
+   */
   drawDialog() {
     const score = this.targetScoreOptions[this.targetScoreOptionIdx];
-    this.optionObjects[0].label = `Play to:   ${score}`;
+    this.optionObjects[0].label = `Play to:   ${score}`; // update score label
     super.drawDialog();
   }
 
-  // if initial score is not in the target score options, set it to the default
+  /**
+   * Get index of current target score
+   * @param {number} currentScore - Current target score from store
+   * @returns {number} Index of target score or default index
+   */
   _getTargetScoreIdx(currentScore) {
     const DEFAULT_SCORE_IDX = 1;
 
     const scoreIdx = this.targetScoreOptions.indexOf(currentScore);
     const isValid = scoreIdx !== -1;
     if (!isValid) {
+      // set default score if current score is invalid
       Controller.updateTargetScore(this.targetScoreOptions[1]);
     }
     return isValid ? scoreIdx : DEFAULT_SCORE_IDX;
   }
 
-  /** @override */
+  /**
+   * Handle option selection
+   * @param {number} index - Selected option index
+   * @override
+   */
   onSelect(index) {
     // change to next page when player select 'Start'
     if (index === 1) {
@@ -41,7 +60,10 @@ class RulesSettingDialog extends Dialog {
     }
   }
 
-  /** @override */
+  /**
+   * Handle key press events
+   * @override
+   */
   keyPressed() {
     if (!this.isOpen) return;
 

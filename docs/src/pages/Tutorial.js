@@ -1,3 +1,7 @@
+/**
+ * Tutorial page for teaching game mechanics
+ * Handles mission progression and player guidance
+ */
 class Tutorial extends BasePage {
   constructor() {
     super({
@@ -6,14 +10,14 @@ class Tutorial extends BasePage {
       bgm: Resources.sounds.bgm.intro,
     });
 
-    this.initMissions();
-    this.initGameState();
-    this.initUI();
-    this.initPlayers();
+    this._initMissions();
+    this._initGameState();
+    this._initUI();
+    this._initPlayers();
   }
 
-  /* Initialization */
-  initMissions() {
+  /** Initialize tutorial missions with objectives and settings */
+  _initMissions() {
     this.missions = [
       {
         title: 'Move to Area',
@@ -62,7 +66,8 @@ class Tutorial extends BasePage {
     ];
   }
 
-  initGameState() {
+  /** Initialize tutorial game state variables */
+  _initGameState() {
     this.robots = [];
 
     this.currMissionIdx = 0;
@@ -83,7 +88,8 @@ class Tutorial extends BasePage {
     };
   }
 
-  initUI() {
+  /** Initialize tutorial UI elements */
+  _initUI() {
     this.missionTitle = new Text({
       label: '',
       x: width / 2,
@@ -130,13 +136,19 @@ class Tutorial extends BasePage {
     });
   }
 
-  initPlayers() {
+  /** Initialize tutorial players and controls */
+  _initPlayers() {
     const playerCtn = Settings.players.length;
-    this.playerBoundaries = this.createPlayerBoundaries(playerCtn);
-    this.keyboards = this.createKeyboardControls(playerCtn);
+    this.playerBoundaries = this._createPlayerBoundaries(playerCtn);
+    this.keyboards = this._createKeyboardControls(playerCtn);
   }
 
-  createPlayerBoundaries(playerCtn) {
+  /**
+   * Create player boundaries based on player count
+   * @param {number} playerCtn - Number of players
+   * @returns {Array} Array of boundary objects
+   */
+  _createPlayerBoundaries(playerCtn) {
     return Array.from({ length: playerCtn }, (_, idx) => ({
       x: (Settings.canvas.width / playerCtn) * idx,
       y: 0,
@@ -145,31 +157,44 @@ class Tutorial extends BasePage {
     }));
   }
 
-  createKeyboardControls(playerCtn) {
+  /**
+   * Create keyboard controls for players
+   * @param {number} playerCtn - Number of players
+   * @returns {Array} Array of KeyboardControl instances
+   */
+  _createKeyboardControls(playerCtn) {
     return Array.from(
       { length: playerCtn },
       (_, idx) => new KeyboardControl({ playerIdx: idx, scale: 3 / 4 }),
     );
   }
 
-  /** @override */
+  /**
+   * Setup tutorial page
+   * @override
+   */
   setup() {
     super.setup();
-
     this.wallHeight = height;
-    this.setupPlayers();
-    this.resetMissionTitle();
+    this._setupPlayers();
+    this._resetMissionTitle();
   }
 
-  setupPlayers() {
+  /** Setup tutorial players */
+  _setupPlayers() {
     for (let idx = 0; idx < Settings.players.length; idx++) {
-      const player = this.createPlayer(idx);
+      const player = this._createPlayer(idx);
       this.players.push(player);
     }
   }
 
-  createPlayer(playerIndex) {
-    const color = this.getPlayerColor(playerIndex);
+  /**
+   * Create player instance
+   * @param {number} playerIndex - Player index
+   * @returns {Player} New player instance
+   */
+  _createPlayer(playerIndex) {
+    const color = this._getPlayerColor(playerIndex);
     const boundary = this.playerBoundaries[playerIndex];
 
     return new Player({
@@ -179,71 +204,90 @@ class Tutorial extends BasePage {
       size: Constants.EntitySize.M,
       color,
       positionBoundary: boundary,
-      position: this.calculatePlayerStartPosition(boundary),
-      onHit: () => this.handlePlayerHit(playerIndex),
+      position: this._calculatePlayerStartPosition(boundary),
+      onHit: () => this._handlePlayerHit(playerIndex),
     });
   }
 
-  getPlayerColor(playerIndex) {
+  /**
+   * Get player color based on shape type
+   * @param {number} playerIndex - Player index
+   * @returns {string} Player color
+   */
+  _getPlayerColor(playerIndex) {
     return this.shapeType === Constants.EntityType.PLAYER
       ? Object.values(Theme.palette.player)[playerIndex]
       : undefined;
   }
 
-  calculatePlayerStartPosition(boundary) {
+  /**
+   * Calculate player start position
+   * @param {Object} boundary - Player boundary
+   * @returns {Object} Start position coordinates
+   */
+  _calculatePlayerStartPosition(boundary) {
     return {
       x: boundary.x + boundary.width / 2,
       y: boundary.y + boundary.height / 2,
     };
   }
 
-  handlePlayerHit(pIdx) {
-    // update mission progress for mission 2
+  /**
+   * Handle player hit event
+   * @param {number} pIdx - Player index
+   */
+  _handlePlayerHit(pIdx) {
     if (this.currMissionIdx === 1) {
-      this.updateMissionStatus(pIdx, this.playerMissionProgress[pIdx] + 1);
+      this._updateMissionStatus(pIdx, this.playerMissionProgress[pIdx] + 1);
     }
   }
 
-  /** @override */
+  /**
+   * Draw tutorial page
+   * @override
+   */
   draw() {
     super.draw();
-
-    this.drawGameElements();
-    this.checkMissionCompletion();
-    this.drawUI();
+    this._drawGameElements();
+    this._checkMissionCompletion();
+    this._drawUI();
   }
 
-  drawGameElements() {
-    if (this.wallHeight) this.drawWall(width / 2);
-    this.drawCurrMission();
-    this.drawRobots();
-    this.drawPlayers();
+  /** Draw game elements for current mission */
+  _drawGameElements() {
+    if (this.wallHeight) this._drawWall(width / 2);
+    this._drawCurrMission();
+    this._drawRobots();
+    this._drawPlayers();
   }
 
-  drawCurrMission() {
+  /** Draw current mission content */
+  _drawCurrMission() {
     switch (this.currMissionIdx) {
       case 0:
-        this.drawMission1();
+        this._drawMission1();
         break;
-      case 1: // Empty implementation - hit counting handled by handlePlayerHit
-        this.drawMission2();
+      case 1:
+        this._drawMission2();
         break;
       case 2:
-        this.drawMission3();
+        this._drawMission3();
         break;
       case 3:
-        this.drawMission4();
+        this._drawMission4();
         break;
     }
   }
 
-  drawRobots() {
+  /** Draw all robots */
+  _drawRobots() {
     this.robots.forEach((robot) => {
       robot.draw();
     });
   }
 
-  drawPlayers() {
+  /** Draw all players with status */
+  _drawPlayers() {
     const sortedPlayers = [...this.players];
     sortedPlayers.sort(
       (a, b) =>
@@ -252,34 +296,42 @@ class Tutorial extends BasePage {
     );
     sortedPlayers.forEach((player, idx) => {
       player.draw();
-      this.drawStatus(player, idx);
+      this._drawStatus(player, idx);
     });
   }
 
-  drawUI() {
+  /** Draw tutorial UI elements */
+  _drawUI() {
     if (this.isMissionsFinished) {
-      this.drawFinish();
+      this._drawFinish();
     } else {
-      this.drawKeyboards();
-      this.updateMissionTitle();
+      this._drawKeyboards();
+      this._updateMissionTitle();
       this.missionTitle.draw();
     }
   }
 
-  drawKeyboards() {
+  /** Draw keyboard controls for players */
+  _drawKeyboards() {
     this.players.forEach((_, idx) => {
       const keyboard = this.keyboards[idx];
       const boundary = this.playerBoundaries[idx];
-      const position = this.calculateKeyboardPosition(idx, boundary);
+      const position = this._calculateKeyboardPosition(idx, boundary);
 
       keyboard.draw({
         ...position,
-        color: this.getKeyboardControlColors(),
+        color: this._getKeyboardControlColors(),
       });
     });
   }
 
-  calculateKeyboardPosition(playerIndex, boundary) {
+  /**
+   * Calculate keyboard position
+   * @param {number} playerIndex - Player index
+   * @param {Object} boundary - Player boundary
+   * @returns {Object} Keyboard position
+   */
+  _calculateKeyboardPosition(playerIndex, boundary) {
     const isFirstPlayer = playerIndex === 0;
     const x = isFirstPlayer
       ? boundary.x + 111
@@ -291,7 +343,11 @@ class Tutorial extends BasePage {
     };
   }
 
-  getKeyboardControlColors() {
+  /**
+   * Get keyboard control colors based on current mission
+   * @returns {Object} Control color mapping
+   */
+  _getKeyboardControlColors() {
     return Object.fromEntries(
       Object.values(Constants.Control).map((control) => {
         let color = 'default';
@@ -316,21 +372,24 @@ class Tutorial extends BasePage {
     );
   }
 
-  checkMissionCompletion() {
+  /** Check if current mission is completed */
+  _checkMissionCompletion() {
     const isCurrentMissionComplete = this.playerMissionProgress.every(
       (progress) => progress === this.missions[this.currMissionIdx].targetCtn,
     );
 
-    if (isCurrentMissionComplete) this.nextMission();
+    if (isCurrentMissionComplete) this._nextMission();
   }
 
-  updateMissionTitle() {
-    this.updateTypingAni();
-    this.updateTitleAni();
-    this.updateTextDisplay();
+  /** Update mission title animation */
+  _updateMissionTitle() {
+    this._updateTypingAni();
+    this._updateTitleAni();
+    this._updateTextDisplay();
   }
 
-  updateTypingAni() {
+  /** Update typing animation */
+  _updateTypingAni() {
     const { message, typingSpeed, lastTypingTime, typingIndex } =
       this.missionTitleAni;
 
@@ -343,7 +402,8 @@ class Tutorial extends BasePage {
     }
   }
 
-  updateTitleAni() {
+  /** Update title animation */
+  _updateTitleAni() {
     const { message, typingIndex, fontSize, positionY } = this.missionTitleAni;
     const isTypingComplete = typingIndex >= message.length;
     const isAnimating =
@@ -361,7 +421,8 @@ class Tutorial extends BasePage {
     }
   }
 
-  updateTextDisplay() {
+  /** Update text display based on animation state */
+  _updateTextDisplay() {
     const { message, typingIndex, fontSize, positionY } = this.missionTitleAni;
     const displayText = message.substring(0, typingIndex);
 
@@ -371,7 +432,8 @@ class Tutorial extends BasePage {
     this.missionTitle.textSize = fontSize;
   }
 
-  resetMissionTitle() {
+  /** Reset mission title animation */
+  _resetMissionTitle() {
     this.missionTitleAni = {
       positionY: height / 2,
       fontSize: Theme.text.fontSize.title,
@@ -383,32 +445,37 @@ class Tutorial extends BasePage {
   }
 
   /* Mission Methods */
-  drawMission1() {
+
+  /** Draw mission 1 (move to area) */
+  _drawMission1() {
     this.players.forEach((player, idx) => {
-      if (this.isPlayerCompletedCurrMission(idx)) return;
+      if (this._isPlayerCompletedCurrMission(idx)) return;
 
-      const targetPosition = this.getTargetPosition(idx);
-      this.drawShineFloor(...targetPosition);
+      const targetPosition = this._getTargetPosition(idx);
+      this._drawShineFloor(...targetPosition);
 
-      if (this.checkPlayerReachedTarget(player, targetPosition)) {
-        this.updateMissionStatus(idx, this.playerMissionProgress[idx] + 1);
+      if (this._checkPlayerReachedTarget(player, targetPosition)) {
+        this._updateMissionStatus(idx, this.playerMissionProgress[idx] + 1);
       }
     });
   }
 
-  drawMission2() {
-    // Empty implementation - hit counting handled by handlePlayerHit
+  /** Draw mission 2 (hit count) */
+  _drawMission2() {
+    // hit counting handled by handlePlayerHit
   }
 
-  drawMission3() {
-    if (this.isInitialSetup(2)) {
-      this.addRobotsForMission3();
+  /** Draw mission 3 (hit robot) */
+  _drawMission3() {
+    if (this._isInitialSetup(2)) {
+      this._addRobotsForMission3();
     } else {
-      this.checkRobotDefeats();
+      this._checkRobotDefeats();
     }
   }
 
-  drawMission4() {
+  /** Draw mission 4 (hit player) */
+  _drawMission4() {
     const currPhase = this.missions[3].setupPhase;
     switch (currPhase) {
       case 0: {
@@ -417,13 +484,13 @@ class Tutorial extends BasePage {
         break;
       }
       case 1:
-        this.startWallRemovalAni();
+        this._startWallRemovalAni();
         break;
       case 2:
-        this.addRobotsForMission4();
+        this._addRobotsForMission4();
         break;
       case 3:
-        this.turnPlayersToRobots();
+        this._turnPlayersToRobots();
         break;
       case 4: {
         this.setAllEntitiesPaused(Constants.EntityType.PLAYER, false);
@@ -431,32 +498,49 @@ class Tutorial extends BasePage {
         break;
       }
       case 5:
-        this.checkPlayerDefeat();
+        this._checkPlayerDefeat();
         break;
     }
   }
 
   /* Mission Helper Methods */
-  isPlayerCompletedCurrMission(playerIndex) {
+
+  /**
+   * Check if player completed current mission
+   * @param {number} playerIndex - Player index
+   * @returns {boolean} True if completed
+   */
+  _isPlayerCompletedCurrMission(playerIndex) {
     return (
       this.playerMissionProgress[playerIndex] >=
       this.missions[this.currMissionIdx].targetCtn
     );
   }
 
-  getTargetPosition(playerIndex) {
+  /**
+   * Get target position for player
+   * @param {number} playerIndex - Player index
+   * @returns {Array} Target position coordinates
+   */
+  _getTargetPosition(playerIndex) {
     return this.targetPositions[playerIndex][
       this.playerMissionProgress[playerIndex]
     ];
   }
 
-  isInitialSetup(missionIndex) {
+  /**
+   * Check if mission is in initial setup phase
+   * @param {number} missionIndex - Mission index
+   * @returns {boolean} True if in setup phase
+   */
+  _isInitialSetup(missionIndex) {
     return this.missions[missionIndex].setupPhase === 0;
   }
 
-  addRobotsForMission3() {
+  /** Add robots for mission 3 */
+  _addRobotsForMission3() {
     this.playerBoundaries.forEach((boundary) => {
-      this.addRobot(
+      this._addRobot(
         boundary.x + boundary.width / 4,
         boundary.height / 2,
         boundary,
@@ -465,16 +549,18 @@ class Tutorial extends BasePage {
     this.missions[2].setupPhase = 1;
   }
 
-  checkRobotDefeats() {
+  /** Check robot defeats for mission 3 */
+  _checkRobotDefeats() {
     this.players.forEach((_, idx) => {
       if (this.playerMissionProgress[idx] !== 0) return;
       if (this.robots[idx].status === Constants.EntityStatus.DIED) {
-        this.updateMissionStatus(idx, this.playerMissionProgress[idx] + 1);
+        this._updateMissionStatus(idx, this.playerMissionProgress[idx] + 1);
       }
     });
   }
 
-  startWallRemovalAni() {
+  /** Start wall removal animation */
+  _startWallRemovalAni() {
     const aniInterval = 50;
     const intervalId = window.setInterval(() => {
       this.wallHeight--;
@@ -486,12 +572,13 @@ class Tutorial extends BasePage {
     }, aniInterval);
   }
 
-  addRobotsForMission4() {
+  /** Add robots for mission 4 */
+  _addRobotsForMission4() {
     if (this.hasAddedMission4Robots) return;
 
     this.hasAddedMission4Robots = true;
     this.playerBoundaries.forEach((boundary) => {
-      this.addRobotFormation(boundary);
+      this._addRobotFormation(boundary);
     });
 
     window.setTimeout(() => {
@@ -499,7 +586,11 @@ class Tutorial extends BasePage {
     }, 300);
   }
 
-  addRobotFormation(boundary) {
+  /**
+   * Add robot formation in boundary
+   * @param {Object} boundary - Boundary area
+   */
+  _addRobotFormation(boundary) {
     const positions = [
       [1 / 4, 1 / 4],
       [3 / 4, 1 / 4],
@@ -507,7 +598,7 @@ class Tutorial extends BasePage {
       [3 / 4, 3 / 4],
     ];
     positions.forEach(([xRatio, yRatio]) => {
-      this.addRobot(
+      this._addRobot(
         boundary.x + boundary.width * xRatio,
         boundary.height * yRatio,
         { x: 0, y: 0, width, height },
@@ -515,7 +606,8 @@ class Tutorial extends BasePage {
     });
   }
 
-  turnPlayersToRobots() {
+  /** Turn players to robots for mission 4 */
+  _turnPlayersToRobots() {
     this.players.forEach((player) => {
       player.positionBoundary = { x: 0, y: 0, width, height };
       player.shapeType = Constants.EntityType.ROBOT;
@@ -524,7 +616,8 @@ class Tutorial extends BasePage {
     this.missions[3].setupPhase = 4;
   }
 
-  checkPlayerDefeat() {
+  /** Check player defeat for mission 4 */
+  _checkPlayerDefeat() {
     const isSomeoneHit = this.players.some(
       (player) => player.status === Constants.EntityStatus.DIED,
     );
@@ -532,13 +625,14 @@ class Tutorial extends BasePage {
       this.isMissionsFinished = true;
       this.players.forEach((player, idx) => {
         player.shapeType = Constants.EntityType.PLAYER;
-        player.color = this.getPlayerColor(idx);
+        player.color = this._getPlayerColor(idx);
       });
       localStorage.setItem(Constants.TutorialCompletedKey, 'true');
     }
   }
 
-  drawFinish() {
+  /** Draw finish screen */
+  _drawFinish() {
     this.finishText.draw();
     if (!this.showFinishHintEndTime) {
       this.showFinishHintEndTime = millis() + 1500;
@@ -551,7 +645,12 @@ class Tutorial extends BasePage {
     }
   }
 
-  drawStatus(player, pIdx) {
+  /**
+   * Draw player status
+   * @param {Player} player - Player instance
+   * @param {number} pIdx - Player index
+   */
+  _drawStatus(player, pIdx) {
     if (this.currMissionIdx !== 3)
       this.progressText.draw({
         label: `${this.playerMissionProgress[pIdx]}/${this.missions[this.currMissionIdx].targetCtn}`,
@@ -560,18 +659,28 @@ class Tutorial extends BasePage {
       });
   }
 
-  updateMissionStatus(playerIdx, newCtn) {
+  /**
+   * Update mission status
+   * @param {number} playerIdx - Player index
+   * @param {number} newCtn - New progress count
+   */
+  _updateMissionStatus(playerIdx, newCtn) {
     this.playerMissionProgress[playerIdx] = newCtn;
   }
 
-  nextMission() {
+  /** Advance to next mission */
+  _nextMission() {
     this.currMissionIdx++;
     this.missionTargetCtn = this.missions[this.currMissionIdx].targetCtn;
     this.playerMissionProgress = this.playerMissionProgress.map(() => 0);
-    this.resetMissionTitle();
+    this._resetMissionTitle();
   }
 
-  drawWall(x) {
+  /**
+   * Draw dividing wall
+   * @param {number} x - Wall x position
+   */
+  _drawWall(x) {
     push();
     const strokeSettings = [
       {
@@ -591,7 +700,12 @@ class Tutorial extends BasePage {
     pop();
   }
 
-  drawShineFloor(x, y) {
+  /**
+   * Draw shine floor indicator
+   * @param {number} x - X position
+   * @param {number} y - Y position
+   */
+  _drawShineFloor(x, y) {
     push();
     const singleBlurWidth = 10;
     const blurLayer = 10;
@@ -615,7 +729,13 @@ class Tutorial extends BasePage {
     pop();
   }
 
-  checkPlayerReachedTarget(player, area) {
+  /**
+   * Check if player reached target area
+   * @param {Player} player - Player instance
+   * @param {Array} area - Target area coordinates
+   * @returns {boolean} True if reached
+   */
+  _checkPlayerReachedTarget(player, area) {
     const playerWidth = player.getShape().scaledWidth;
     const playerHeight = player.getShape().scaledHeight;
     return (
@@ -626,7 +746,13 @@ class Tutorial extends BasePage {
     );
   }
 
-  addRobot(x, y, positionBoundary) {
+  /**
+   * Add robot with drop animation
+   * @param {number} x - X position
+   * @param {number} y - Y position
+   * @param {Object} positionBoundary - Movement boundary
+   */
+  _addRobot(x, y, positionBoundary) {
     const aniCtn = 20;
     const aniInterval = 10;
     const dropSpeed = 2;
@@ -658,7 +784,10 @@ class Tutorial extends BasePage {
     }, aniCtn * aniInterval);
   }
 
-  /** @override */
+  /**
+   * Handle key press events
+   * @override
+   */
   keyPressed() {
     super.keyPressed();
 

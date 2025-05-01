@@ -1,47 +1,48 @@
 /**
- * Represents a customized SVG image.
+ * Manage customized SVG images in the game
+ * Handle SVG loading and attribute modification
  *
  * Usage:
  * 1. Add SVG path and instance in `src/config/resources` file
- *
  * 2. Make sure it preload in `sketch.js`
- *
- * 3. In `draw()`, display the image using `image(Resources.images.xxx.image)`.
- *
+ * 3. In `draw()`, display the image using `image(Resources.images.xxx.image)`
  * 4. If you want to update the SVG's attributes, call `img.updateAttributes()`.
  * Be careful, it will change this image globally.
  */
 class SVGImage extends Img {
   /**
-   * @param {string} path - The path to the SVG file.
-   * @param {Object} [attributes] - Attributes to modify in the SVG.
-   * @param {number} [attributes.scale] - Custom scaling factor,
-   *                                      will be ignored if width, height, or viewBox are specified.
+   * @param {string} path - Path to the SVG file
+   * @param {Object} [attributes] - SVG attributes to modify
+   * @param {number} [attributes.scale] - Scaling factor, ignored if width, height, or viewBox is set
    */
   constructor(path, attributes = {}) {
     super(path);
 
     this.attributes = attributes;
-    this.image = null;
-    this.width = 0;
-    this.height = 0;
+    this.image = null; // loaded SVG image
+    this.width = 0; // image width after scaling
+    this.height = 0; // image height after scaling
   }
 
   /**
-   * Updates the attributes of the SVG, including the custom `scale`.
-   * @param {Object} newAttributes - New attributes to apply.
-   * @param {number} [newAttributes.scale] - New scale to apply.
+   * Update SVG attributes and reload image
+   * @param {Object} newAttributes - New attributes to apply
+   * @param {number} [newAttributes.scale] - New scaling factor
    */
   updateAttributes(newAttributes) {
     Object.assign(this.attributes, newAttributes);
     this.loadImage();
   }
 
-  /** override */
+  /**
+   * Load and modify SVG image with attributes
+   * @override
+   */
   loadImage() {
     fetch(this.path)
       .then((res) => res.text())
       .then((svgText) => {
+        // parse SVG text into DOM
         const svgDoc = new DOMParser().parseFromString(
           svgText,
           'image/svg+xml',
@@ -50,7 +51,7 @@ class SVGImage extends Img {
         const originalAttrs = this._parseSVGAttrs(svgText);
         const newAttributes = { ...originalAttrs, ...this.attributes };
 
-        // Compute viewBox and apply scaling, only apply scale if no custom width, height or viewBox is set
+        // apply scale if no custom width, height, or viewBox is set
         if (
           this.attributes.scale &&
           !this.attributes?.width &&
@@ -69,12 +70,12 @@ class SVGImage extends Img {
         this.width = newAttributes.width;
         this.height = newAttributes.height;
 
-        // Update attributes
+        // update SVG attributes
         Object.entries(newAttributes).forEach(([key, value]) =>
           svgElement.setAttribute(key, value),
         );
 
-        // Convert SVG to a blob and load it
+        // convert modified SVG to blob and load as image
         const modifiedSvgText = new XMLSerializer().serializeToString(
           svgElement,
         );
@@ -84,11 +85,16 @@ class SVGImage extends Img {
 
         loadImage(url, (img) => {
           this.image = img;
-          URL.revokeObjectURL(url);
+          URL.revokeObjectURL(url); // clean up blob URL
         });
       });
   }
 
+  /**
+   * Parse SVG attributes from text
+   * @param {string} svgText - Raw SVG text
+   * @returns {Object} Parsed SVG attributes
+   */
   _parseSVGAttrs(svgText) {
     const svg = new DOMParser().parseFromString(
       svgText,
