@@ -1,3 +1,4 @@
+// boundary configuration for game entities
 const areaMap6 = {
   x: 121,
   y: 21,
@@ -5,13 +6,27 @@ const areaMap6 = {
   height: 700,
 };
 
+/**
+ * Generate random position within specified area
+ * @param {Object} area - Boundary area {x, y, width, height}
+ * @param {number} [padding=0] - Inner padding from boundaries
+ * @returns {Object} Random position {x, y}
+ */
 function getRandomPositionIn(area, padding = 0) {
   return {
-    x: Math.floor(Math.random() * (area.width - 2 * padding)) + area.x + padding,
-    y: Math.floor(Math.random() * (area.height - 2 * padding)) + area.y + padding,
+    x:
+      Math.floor(Math.random() * (area.width - 2 * padding)) + area.x + padding,
+    y:
+      Math.floor(Math.random() * (area.height - 2 * padding)) +
+      area.y +
+      padding,
   };
 }
 
+/**
+ * Game implementation for Map 6
+ * Rule: player can swap with robots within magical swap zones
+ */
 class MapGame6 extends BaseMapGame {
   constructor() {
     super({
@@ -31,6 +46,7 @@ class MapGame6 extends BaseMapGame {
       },
     });
 
+    // swap zone configuration
     this.zoneSize = 100;
     this.swapZones = [
       {
@@ -43,6 +59,7 @@ class MapGame6 extends BaseMapGame {
       },
     ];
 
+    // zone animation states
     this.zoneRotations = this.swapZones.map(() => ({
       angle: 0,
       speed: 0,
@@ -50,6 +67,7 @@ class MapGame6 extends BaseMapGame {
       stopAt: null,
     }));
 
+    // swap state management
     this.swapPlayer = null;
     this.swapTargets = [];
     this.enteredAt = null;
@@ -60,17 +78,23 @@ class MapGame6 extends BaseMapGame {
     this.postFlashStart = null;
   }
 
-  /** Support custom flashing control */
+  /**
+   * Custom entity drawing with flash effect support
+   * @override
+   */
   drawEntity(entity) {
     if (entity._isFlashing && !entity._shouldDraw) return;
     entity.draw?.();
   }
 
-  /** Main game draw logic */
+  /**
+   * Main game loop with swap zone logic
+   * @override
+   */
   draw() {
     super.draw();
 
-    // Handle flashing toggle logic
+    // handle flashing toggle logic
     if (this.isSwapping || this.isPostFlashing) {
       const shouldShow = Math.floor(millis() / 200) % 2 === 0;
       this.swapTargets.forEach((e) => {
@@ -78,7 +102,7 @@ class MapGame6 extends BaseMapGame {
       });
     }
 
-    // Swap process: in flashing phase
+    // swap process: in flashing phase
     if (this.isSwapping) {
       if (!this._inSwapZone(this.swapPlayer)) {
         this._cancelSwap();
@@ -92,7 +116,7 @@ class MapGame6 extends BaseMapGame {
       return;
     }
 
-    // Post-swap: single flash for effect
+    // post-swap: single flash for effect
     if (this.isPostFlashing) {
       const elapsed = millis() - this.postFlashStart;
       if (elapsed > 200) {
@@ -106,7 +130,7 @@ class MapGame6 extends BaseMapGame {
       return;
     }
 
-    // Pre-swap wait logic
+    // pre-swap wait logic
     if (this.isPreSwapping) {
       if (!this._inSwapZone(this.swapPlayer)) {
         this._cancelSwap();
@@ -119,7 +143,7 @@ class MapGame6 extends BaseMapGame {
       return;
     }
 
-    // Player enters swap zone detection
+    // player enters swap zone detection
     this.players.forEach((player) => {
       if (this._inSwapZone(player)) {
         if (!this.swapPlayer || this.swapPlayer.idx !== player.idx) {
@@ -136,6 +160,11 @@ class MapGame6 extends BaseMapGame {
     });
   }
 
+  /**
+   * Check if entity is within any swap zone
+   * @param {Entity} entity - Entity to check
+   * @returns {boolean} True if in swap zone
+   */
   _inSwapZone(player) {
     return this.swapZones.some(
       (zone) =>
@@ -179,14 +208,13 @@ class MapGame6 extends BaseMapGame {
     });
   }
 
-
   /** Cancel swap or flashing at any point */
   _cancelSwap() {
     this.swapTargets.forEach((e) => {
       delete e._isFlashing;
       delete e._shouldDraw;
     });
-    //if canceling swap, reset the spinning state
+    // if canceling swap, reset the spinning state
     this.zoneRotations.forEach((z) => {
       if (z.isSpinning && z.stopAt === null) {
         z.stopAt = millis();
@@ -203,34 +231,44 @@ class MapGame6 extends BaseMapGame {
     this.postFlashStart = null;
   }
 
-  _preDrawEntities() {
+  /**
+   * Draw swap zones with rotation effects
+   * @override
+   */
+  preDrawEntities() {
     this._drawSwapZones();
   }
 
+  /** Render animated swap zones */
   _drawSwapZones() {
+    // get the magic circle image
     const magicCircle = Resources.images.mapElements.magicCircle;
     imageMode(CENTER);
 
+    // draw each swap zone
     this.swapZones.forEach((zone, index) => {
       const z = this.zoneRotations[index];
 
+      // handle spinning animation
       if (z.isSpinning) {
+        // apply slow-down effect if stopping
         if (z.stopAt !== null) {
           const elapsed = millis() - z.stopAt;
-          const decelDuration = 3000;
+          const decelDuration = 3000; // 3 second slowdown
           const t = constrain(elapsed / decelDuration, 0, 1);
-          z.speed = lerp(z.speed, 0, t);
+          z.speed = lerp(z.speed, 0, t); // gradually reduce speed
 
+          // stop completely when slowed enough
           if (t >= 1 || z.speed < 0.001) {
             z.speed = 0;
             z.isSpinning = false;
             z.stopAt = null;
           }
         }
-        z.angle += z.speed;
+        z.angle += z.speed; // update rotation
       }
 
-
+      // draw the spinning zone
       push();
       translate(zone.x + this.zoneSize / 2, zone.y + this.zoneSize / 2);
       rotate(z.angle);
@@ -238,9 +276,10 @@ class MapGame6 extends BaseMapGame {
       pop();
     });
 
-    imageMode(CORNER);
+    imageMode(CORNER); // reset drawing mode
   }
 
+  /** Start spinning animation for active swap zone */
   _startSwapZoneSpin() {
     this.swapZones.forEach((zone, i) => {
       const inZone =
@@ -265,31 +304,37 @@ class MapGame6 extends BaseMapGame {
     });
   }
 
+  /** Starts the flash effect before swapping positions */
   _startFlashing() {
+    // get living robots
     const aliveRobots = this.robots.filter(
       (r) => r.status !== Constants.EntityStatus.DIED,
     );
+
+    // need at least 3 robots to swap
     if (aliveRobots.length < 3) {
       this._cancelSwap();
       return;
     }
 
+    // pick 3 random robots
     const selected = [];
     while (selected.length < 3) {
       const r = aliveRobots[Math.floor(Math.random() * aliveRobots.length)];
       if (!selected.includes(r)) selected.push(r);
     }
 
+    // start flash effect
     this.swapTargets = [this.swapPlayer, ...selected];
     this.swapFlashStart = millis();
     this.isSwapping = true;
     this.isPreSwapping = false;
 
+    // make targets flash and freeze
     this.swapTargets.forEach((e) => {
       e._isFlashing = true;
       e._shouldDraw = true;
       e.isPaused = true;
     });
   }
-
 }

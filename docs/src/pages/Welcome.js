@@ -1,4 +1,12 @@
+/**
+ * Welcome page for game introduction and player preparation
+ * Handles player ready check and game start countdown
+ */
 class Welcome extends BasePage {
+  /**
+   * @param {Object} params - Configuration parameters
+   * @param {boolean} [params.initSound] - Initial audio setup flag
+   */
   constructor(params) {
     super({
       shapeType: Constants.EntityType.PLAYER,
@@ -6,9 +14,13 @@ class Welcome extends BasePage {
       bgm: Resources.sounds.bgm.intro,
       initSound: params?.initSound, // init: true, others:false
     });
+
+    // countdown properties
     this.countdown = 3;
     this.isCountingDown = false;
     this.countdownInterval = null;
+
+    // UI elements
     this.title = null;
     this.showComeHere = true;
     this.comehere = null;
@@ -18,37 +30,43 @@ class Welcome extends BasePage {
     this.introBox = { x: 20, y: 350, w: 400, h: 150 };
     this.keyBoardP1 = null;
     this.keyBoardP2 = null;
-
     this.tutorialButton = null;
 
-    // stop all players when dialog is open
-    this.tutorialDialog = new TutorialDialog(this.getDialogParams());
-    this.rulesSettingDialog = new RulesSettingDialog(this.getDialogParams());
+    // dialogs, stop all players when dialog is open
+    this.tutorialDialog = new TutorialDialog(this._getDialogParams());
+    this.rulesSettingDialog = new RulesSettingDialog(this._getDialogParams());
   }
 
-  /** @override */
+  /**
+   * Initialize welcome page elements
+   * @override
+   */
   setup() {
     super.setup();
 
+    // setup tutorial button
     this.tutorialButton = {
       ...Resources.images.welcome.tutorial,
       x: width * 0.95,
       y: height * 0.05,
     };
 
+    // load images
     this.title = Resources.images.welcome.title;
     this.comehere = Resources.images.welcome.comehere;
     this.gameStartArea = Resources.images.welcome.gamaStartArea;
     this.gameStartArea.x = width / 2 - 5;
     this.gameStartArea.y = height / 2 + 20;
-    // init player list status
+
+    // initialize player list status
     this.playerList = new PlayerList({
       label: 'Ready?',
       textSize: Theme.text.fontSize.medium,
       color: Theme.palette.black,
     });
 
-    this.introText = this.createIntroText(this.introBox);
+    // create UI elements
+    this.introText = this._createIntroText(this.introBox);
     this.keyBoardP1 = new KeyboardControl({ playerIdx: 0, scale: 3 / 4 });
     this.keyBoardP2 = new KeyboardControl({ playerIdx: 1, scale: 3 / 4 });
 
@@ -73,9 +91,14 @@ class Welcome extends BasePage {
     }
   }
 
-  /** @override */
+  /**
+   * Render welcome page
+   * @override
+   */
   draw() {
     super.draw();
+
+    // draw tutorial button with hover effect
     if (this.isImagePressed(this.tutorialButton)) {
       cursor('pointer');
     }
@@ -90,6 +113,7 @@ class Welcome extends BasePage {
       );
     }
 
+    // draw title
     if (this.title) {
       imageMode(CENTER);
       image(
@@ -100,6 +124,8 @@ class Welcome extends BasePage {
         this.title.height * 0.9,
       );
     }
+
+    // draw game start area
     if (this.gameStartArea) {
       imageMode(CENTER);
       image(
@@ -111,17 +137,17 @@ class Welcome extends BasePage {
       );
     }
 
-    this.drawComeHere();
-
+    this._drawComeHere();
     this.keyBoardP1.draw({ x: width / 10, y: height - 80 });
     this.keyBoardP2.draw({ x: (width / 10) * 9, y: height - 80 });
 
-    // draw initialize playerList status
+    // draw initialized playerList status
     this.playerList.draw();
 
     // update playerList status
     this.players.forEach((player, idx) => {
-      if (this.checkPlayersInStartArea(player)) {
+      // handle countdown logic
+      if (this._checkPlayersInStartArea(player)) {
         this.playerList.updateStatus({
           playerIdx: idx,
           newStatus: 'OK',
@@ -140,39 +166,44 @@ class Welcome extends BasePage {
       }
     });
 
-    if (this.players.every((player) => this.checkPlayersInStartArea(player))) {
-      this.startCountdown();
+    if (this.players.every((player) => this._checkPlayersInStartArea(player))) {
+      this._startCountdown();
     } else {
-      this.cancelCountdown();
+      this._cancelCountdown();
     }
 
+    // draw players and check marks
     this.players.forEach((player) => {
       player.draw();
     });
 
     this.players.forEach((player, idx) => {
-      if (this.checkPlayersInStartArea(player)) {
+      if (this._checkPlayersInStartArea(player)) {
         const moveDown = 40 * idx;
-        this.loadCheckImg(player.color, moveDown);
+        this._loadCheckImg(player.color, moveDown);
       }
     });
-    this.drawCountdown();
 
-    // draw tutorial dialog
+    // draw countdown and dialogs
+    this._drawCountdown();
     this.tutorialDialog.draw();
-
-    // draw rules setting dialog
     this.rulesSettingDialog.draw();
   }
 
-  /** @override */
+  /**
+   * Handle key press events
+   * @override
+   */
   keyPressed() {
     super.keyPressed();
     this.tutorialDialog.keyPressed();
     this.rulesSettingDialog.keyPressed();
   }
 
-  /**@override */
+  /**
+   * Handle mouse press events
+   * @override
+   */
   mousePressed() {
     super.mousePressed();
 
@@ -182,7 +213,12 @@ class Welcome extends BasePage {
     }
   }
 
-  loadCheckImg(color, moveDown = 0) {
+  /**
+   * Load and display check mark image
+   * @param {string} color - Player color for check mark
+   * @param {number} [moveDown=0] - Vertical offset
+   */
+  _loadCheckImg(color, moveDown = 0) {
     const resource = Resources.images.welcome.check[color];
     imageMode(CENTER);
     image(
@@ -194,7 +230,12 @@ class Welcome extends BasePage {
     );
   }
 
-  checkPlayersInStartArea(player) {
+  /**
+   * Check if player is in start area
+   * @param {Player} player - Player instance
+   * @returns {boolean} True if player is in start area
+   */
+  _checkPlayersInStartArea(player) {
     const areaX = this.gameStartArea.x;
     const areaY = this.gameStartArea.y;
     const areaWidth = this.gameStartArea.width;
@@ -211,16 +252,12 @@ class Welcome extends BasePage {
     );
   }
 
-  drawIntroStroke(position) {
-    push();
-    noFill();
-    stroke(0);
-    strokeWeight(3);
-    rect(position.x, position.y, position.w, position.h);
-    pop();
-  }
-
-  createIntroText(position) {
+  /**
+   * Create introduction text elements
+   * @param {Object} position - Text box position and size
+   * @returns {Object} Text objects for player instructions
+   */
+  _createIntroText(position) {
     const p1 = new Text({
       x: position.x + 10,
       y: position.y + 30,
@@ -241,7 +278,8 @@ class Welcome extends BasePage {
     return { p1, p2 };
   }
 
-  drawComeHere() {
+  /** Draw animated "come here" indicator */
+  _drawComeHere() {
     if (!this.comehere || !this.comehere.image) {
       console.warn('comehere image not loaded!');
       return;
@@ -263,7 +301,8 @@ class Welcome extends BasePage {
     }
   }
 
-  startCountdown() {
+  /** Start game start countdown */
+  _startCountdown() {
     if (this.isCountingDown) return;
     this.isCountingDown = true;
     this.countdownInterval = setInterval(() => {
@@ -277,7 +316,8 @@ class Welcome extends BasePage {
     }, 1000);
   }
 
-  cancelCountdown() {
+  /** Cancel current countdown */
+  _cancelCountdown() {
     if (this.countdownInterval) {
       clearInterval(this.countdownInterval);
       this.countdownInterval = null;
@@ -286,7 +326,8 @@ class Welcome extends BasePage {
     this.countdown = 3;
   }
 
-  drawCountdown() {
+  /** Draw countdown timer */
+  _drawCountdown() {
     if (this.isCountingDown && this.countdown > 0) {
       const timerText = new Text({
         label: this.countdown.toString(),
@@ -303,7 +344,11 @@ class Welcome extends BasePage {
     }
   }
 
-  getDialogParams() {
+  /**
+   * Get common dialog parameters
+   * @returns {Object} Dialog configuration
+   */
+  _getDialogParams() {
     return {
       onOpen: () => {
         this.setAllEntitiesPaused(Constants.EntityType.PLAYER, true);

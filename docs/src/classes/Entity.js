@@ -1,5 +1,6 @@
 /**
- * Represents a generic entity in the game.
+ * Manage a generic entity in the game
+ * Handle entity appearance, movement, and interactions
  */
 class Entity {
   /**
@@ -28,15 +29,15 @@ class Entity {
         : params?.color || Theme.palette.player.red;
     this.size = params?.size || Constants.EntitySize.L;
 
-    this.status = Constants.EntityStatus.ALIVE;
+    this.status = Constants.EntityStatus.ALIVE; // initial entity status
     this.speed = Settings.entity.speed;
     this.isWalking = false;
     this.canDie = params?.canDie ?? true; // default player will die after hitting
 
-    this.frameIdx = 0;
-    this.frameCtn = 0;
+    this.frameIdx = 0; // current animation frame index
+    this.frameCtn = 0; // frame counter for animation timing
 
-    this.dyingFrameCtn = 0;
+    this.dyingFrameCtn = 0; // counter for dying animation
     this.positionBoundary = params?.positionBoundary || {
       x: 0,
       y: 0,
@@ -44,11 +45,11 @@ class Entity {
       height: Settings.canvas.height,
     };
 
-    // sets the initial position
     if (params?.position) {
       this.x = params.position.x;
       this.y = params.position.y;
     } else {
+      // randomly place within area or boundary
       const initArea = params?.randomPositionArea || this.positionBoundary;
       const initPadding =
         Settings.entity.baseSize.height * Settings.entity.scale[this.size] +
@@ -64,9 +65,7 @@ class Entity {
     }
   }
 
-  /**
-   * Draws the entity on the canvas
-   */
+  /** Draw the entity on the canvas */
   draw() {
     const { dyingStatus, alpha } = this._checkDyingStatus();
     if (dyingStatus === 'died') return;
@@ -108,7 +107,7 @@ class Entity {
     ) {
       this.dyingFrameCtn = 0;
       this.status = Constants.EntityStatus.ALIVE;
-      return { dyingStatus: 'alive' };
+      return { dyingStatus: 'alive' }; // reset for fake death effect
     }
     this.dyingFrameCtn++;
     return {
@@ -181,12 +180,18 @@ class Entity {
    * @param {(hitEntity: Entity) => void} onHitEntity - Callback for hit entity processing
    */
   hit(entities, onHitEntity) {
+    // check collisions, play sound, update status, and handle hit entities
     const hitEntities = this._checkCollisions(entities);
     this._playHitSound(hitEntities, 100); // play sound to sync with hit animation (fist out on 0.1s)
     this._updateHitStatus();
     this._handleHitEntities(hitEntities, onHitEntity);
   }
 
+  /**
+   * Check collisions with other entities
+   * @param {Entity[]} entities - List of entities to check
+   * @returns {Object} Collided entities grouped by type
+   */
   _checkCollisions(entities) {
     const hitEntities = {
       [Constants.EntityType.PLAYER]: [],
@@ -205,6 +210,11 @@ class Entity {
     return hitEntities;
   }
 
+  /**
+   * Play sound based on hit entities
+   * @param {Object} hitEntities - Collided entities grouped by type
+   * @param {number} [delay=0] - Delay before playing sound
+   */
   _playHitSound(hitEntities, delay = 0) {
     setTimeout(() => {
       if (hitEntities[Constants.EntityType.PLAYER].length) {
@@ -217,6 +227,7 @@ class Entity {
     }, delay);
   }
 
+  /** Update entity status after hit */
   _updateHitStatus() {
     this.status = Constants.EntityStatus.HIT;
     this.frameCtn = 0; // reset frame count
@@ -231,6 +242,11 @@ class Entity {
     }, Settings.entity.duration[Constants.EntityStatus.COOLDOWN]);
   }
 
+  /**
+   * Process hit entities
+   * @param {Object} hitEntities - Collided entities grouped by type
+   * @param {(hitEntity: Entity) => void} onHitEntity - Callback for hit entity
+   */
   _handleHitEntities(hitEntities, onHitEntity) {
     for (const entity of [
       ...hitEntities[Constants.EntityType.PLAYER],
@@ -249,29 +265,32 @@ class Entity {
     if (!this.canDie) return;
 
     this.status = Constants.EntityStatus.DIED;
-    // if entity is player, reset shape and color to showup as player
     if (this.type === Constants.EntityType.PLAYER) {
+      // reset player appearance
       this.shapeType = Constants.EntityType.PLAYER;
       this.color = this?.originColor || this.color;
     }
   }
 
-  /*** getShape ***/
+  /**
+   * Get entity shape for rendering
+   * @returns {Object} Shape data with image and dimensions
+   */
   getShape() {
     const aniStatus = this._getAnimationStatus();
 
-    // only allow the attack animation to play once, then keep the last frame
     if (aniStatus === Constants.EntityAnimationStatus.ATTACK) {
-      // 0s ~ 0.1s: prepare, 0.1s ~ 0.5s: hit
+      // play attack animation once
       this.frameIdx =
         this.frameCtn < (Settings.entity.frameCtn * 1) / 4 ? 0 : 1;
     } else if (this.isWalking && this.frameCtn > Settings.entity.frameCtn) {
-      // walking animation switches back and forth
+      // toggle walking animation
       this.frameIdx = this.frameIdx ? 0 : 1;
       this.frameCtn = 0;
     }
     this.frameCtn++;
 
+    // extract shape from nested Resources.images structure
     const targetShape =
       Resources.images.entity[this.shapeType]?.[this.color]?.[aniStatus]?.[
         this.direction
@@ -286,6 +305,10 @@ class Entity {
     if (targetShape) return targetShape;
   }
 
+  /**
+   * Determine animation status
+   * @returns {string} Current animation status
+   */
   _getAnimationStatus() {
     if (this.status === Constants.EntityStatus.DIED) {
       return Constants.EntityAnimationStatus.IDLE;

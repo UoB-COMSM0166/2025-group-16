@@ -1,3 +1,6 @@
+/**
+ * Game Introduction implementation for Map 3
+ */
 class MapIntro3 extends BaseMapIntro {
   constructor() {
     super({

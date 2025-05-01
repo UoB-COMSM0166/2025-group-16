@@ -12,16 +12,16 @@ class PlayerList extends UIComponent {
   constructor(params) {
     super({ x: params?.x || 0, y: params?.y || 0 });
 
-    this.label = params?.label || '';
-    this.color = params?.color;
-    this.textSize = params?.textSize;
-    this.isShadow = params?.isShadow || false;
-    this.playerAvatars = [];
-    this.playerStatus = [];
-    this.statusTexts = []; // store players status in order.
+    this.label = params?.label || ''; // default text content
+    this.color = params?.color; // custom text color
+    this.textSize = params?.textSize; // custom text size
+    this.isShadow = params?.isShadow || false; // text shadow flag
+    this.playerAvatars = []; // player avatar images
+    this.playerStatus = []; // player status ('playing' or 'lose')
+    this.statusTexts = []; // player status text configurations
 
     const numPlayers = Resources.images.playerAvatar.ing.length;
-    this.cooldowns = new Array(numPlayers).fill(null); // [null, null]
+    this.cooldowns = new Array(numPlayers).fill(null); // cooldown timers
 
     for (let i = 0; i < numPlayers; i++) {
       const playerColor = this.color
@@ -38,9 +38,12 @@ class PlayerList extends UIComponent {
     }
   }
 
+  /** Draw player list UI
+   * @override
+   */
   draw() {
     const numPlayers = this.playerAvatars.length;
-    const spacing = width / (numPlayers + 1) - 10;
+    const spacing = width / (numPlayers + 1) - 10; // spacing between avatars
 
     for (let i = 0; i < numPlayers; i++) {
       const playerImage =
@@ -70,9 +73,10 @@ class PlayerList extends UIComponent {
 
         let { text, color, textSize, isShadow } = this.statusTexts[i];
         if (this?.label) {
+          // render status text
           const statusText = new Text({
-            x: textXPos,
-            y: textYPos,
+            x: xPos + avatarSize / 2 + 10,
+            y: yPos + avatarSize / 2 - 60,
             label: text,
             textAlign: [LEFT, CENTER],
             textSize: textSize,
@@ -87,24 +91,44 @@ class PlayerList extends UIComponent {
     }
   }
 
+  /**
+   * Mark player as lost
+   * @param {number} playerIdx - Player index
+   */
   playerLose(playerIdx) {
     if (playerIdx >= 0 && playerIdx < this.playerStatus.length) {
       this.playerStatus[playerIdx] = 'lose';
     }
   }
 
+  /**
+   * Update player status text
+   * @param {Object} params - Update parameters
+   * @param {number} params.playerIdx - Player index
+   * @param {string} [params.newStatus] - New status text
+   * @param {number | string} [params.textSize] - New text size
+   * @param {string} [params.color] - New text color
+   * @param {boolean} [params.isShadow] - Whether to apply text shadow
+   */
   updateStatus({ playerIdx, newStatus, textSize, color, isShadow }) {
     if (playerIdx >= 0 && playerIdx < this.statusTexts.length) {
       const update = {};
       if (newStatus) update.text = newStatus;
       if (textSize) update.textSize = textSize;
       if (color) update.color = color;
-      if (typeof isShadow == 'boolean') update.isShadow = isShadow;
-      this.statusTexts[playerIdx] = update;
+      if (typeof isShadow === 'boolean') update.isShadow = isShadow;
+      this.statusTexts[playerIdx] = {
+        ...this.statusTexts[playerIdx],
+        ...update,
+      };
     }
   }
 
-  // trigger cooldown when hit
+  /**
+   * Start cooldown effect for a player
+   * @param {number} playerIdx - Player index
+   * @param {number} [duration] - Cooldown duration in milliseconds
+   */
   startCooldown(
     playerIdx,
     duration = Settings.entity.duration[Constants.EntityStatus.COOLDOWN],
@@ -113,6 +137,13 @@ class PlayerList extends UIComponent {
     this.cooldowns[playerIdx] = now + duration;
   }
 
+  /**
+   * Draw cooldown effect for a player
+   * @param {number} x - X-coordinate of avatar
+   * @param {number} y - Y-coordinate of avatar
+   * @param {number} avatarSize - Avatar size
+   * @param {number} playerIdx - Player index
+   */
   _drawCooldownEffect(x, y, avatarSize, playerIdx) {
     const now = millis();
     const cooldownEnd = this.cooldowns[playerIdx];
@@ -135,7 +166,6 @@ class PlayerList extends UIComponent {
         label: countdownTime.toString(),
         textSize: Theme.text.fontSize.large,
         color: Theme.palette.white,
-
         textAlign: [CENTER, CENTER],
         isShadow: true,
       });
