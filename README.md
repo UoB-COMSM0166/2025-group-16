@@ -53,7 +53,7 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
       </tr>
     </thead>
     <tbody>
-      <tr><td>1</td><td>Yun-Fan Hsin</td><td>lt24003@bristol.ac.uk</td><td>hsinyunF</td></tr>
+      <tr><td>1</td><td>Hsin-Yun Fan</td><td>lt24003@bristol.ac.uk</td><td>hsinyunF</td></tr>
       <tr><td>2</td><td>Yu-Qi Lin</td><td>rk24876@bristol.ac.uk</td><td>chiderlin</td></tr>
       <tr><td>3</td><td>Wei Lin</td><td>tr24015@bristol.ac.uk</td><td>vivi2393142</td></tr>
       <tr><td>4</td><td>Pin-Ru Chen</td><td>tz24192@bristol.ac.uk</td><td>nezii0331</td></tr>
