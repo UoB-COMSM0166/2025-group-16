@@ -98,13 +98,13 @@ Maps 2 to 6 build upon this foundation with diverse game rules, environments, an
 #### Two Prototype Ideas GIFs
 
 <div align="center">
-  <img width="600px" src="docs/assets/readme/prototype-demo-1.gif" alt="Prototype Demo 1" />
+  <img width="600px" src="docs/assets/readme/prototype-demo-one.gif" alt="Prototype Demo 1" />
 </div>
 
 <p align="center"><strong>Figure 2:</strong> Early prototype demonstration – basic player movement and interaction.</p>
 
 <div align="center">
-  <img width="600px" src="docs/assets/readme/prototype-demo-2.gif" alt="Prototype Demo 2" />
+  <img width="600px" src="docs/assets/readme/prototype-demo-two.gif" alt="Prototype Demo 2" />
   <p><strong>Figure 3:</strong> Advanced prototype demonstration – attacking, AI interaction and effects.</p>
 </div>
 
