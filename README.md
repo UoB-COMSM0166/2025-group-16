@@ -39,7 +39,7 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
 
 <div align="center">
   <strong>Table 1:</strong> Development Team Members<br />
-  <em>Team members with their student emails and GitHub usernames.</em>
+  <em>Team members with their student emails and GitHub usernames. From left to right.</em>
 </div>
 
 <div align="center">
@@ -56,9 +56,9 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
       <tr><td>1</td><td>Yun-Fan Hsin</td><td>lt24003@bristol.ac.uk</td><td>hsinyunF</td></tr>
       <tr><td>2</td><td>Yu-Qi Lin</td><td>rk24876@bristol.ac.uk</td><td>chiderlin</td></tr>
       <tr><td>3</td><td>Wei Lin</td><td>tr24015@bristol.ac.uk</td><td>vivi2393142</td></tr>
-      <tr><td>4</td><td>Digo Tu</td><td>ma24030@bristol.ac.uk</td><td>digotu</td></tr>
+      <tr><td>4</td><td>Pin-Ru Chen</td><td>tz24192@bristol.ac.uk</td><td>nezii0331</td></tr>
       <tr><td>5</td><td>Zih-Cing Lan</td><td>aw24252@bristol.ac.uk</td><td>ZihcingLan</td></tr>
-      <tr><td>6</td><td>Pin-Ru Chen</td><td>tz24192@bristol.ac.uk</td><td>nezii0331</td></tr>
+      <tr><td>6</td><td>Digo Tu</td><td>ma24030@bristol.ac.uk</td><td>digotu</td></tr>
     </tbody>
   </table>
 </div>
@@ -69,14 +69,17 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
 
 ### Introduction
 
-- 5% ~250 words
-- Describe your game, what is based on, what makes it novel?
+Unspottable is a two-player party game where the ultimate goal is to find and eliminate your opponent. From Map 1 to Map 6, each stage offers a unique and progressively more challenging gameplay experience.<br />
+Map 1 introduces the core mechanic: locate your opponent among NPCs and knock them out.<br />
+Maps 2 to 6 build upon this foundation with diverse game rules, environments, and mechanics — all designed to make the game more dynamic, fun, and competitive.
 
 ---
 
 ### Requirements
 
-_<p align="center">Team Game Idea Overview</p>_
+<div align="center">
+  <strong>Table 2:</strong> Team Game Idea Overview<br />
+</div>
 
 | **Name**                   | **Introduction**                                                                                                                                                               | **Feasibility / Challenges**                                                                                                                                                          |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -175,8 +178,6 @@ A rhythm music game where players choose their favorite song and score points by
 
 To create an exciting and easy-to-play game, our goal is to develop Unspottable. The design of the characters and background maps will be our top priority. Additionally, we will be working on extra buttons and other visual indicators during this stage. At the same time, we will generate the first version of the p5.js code, maximizing our flexibility for future adjustments if needed.
 
-For more advanced development, we aim to integrate face detection through the front-facing camera, allowing users to control their character using their face direction. This face detection-based control method will reduce the time users spend observing others, enhancing their overall experience.
-
 #### Stakeholder List
 
 - User
@@ -193,8 +194,6 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
 
 #### Reflection
 
-- 15% ~750 words
-- Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop?
 - Brief Reflection:
   Before taking the agile development class, we primarily focused on developing our own game, aiming to create a unique, user-friendly, and entertaining party game. While we had plenty of ideas, we lacked concrete plans for developing this game. However, after the class, our objectives were broken down into smaller, more manageable pieces, which makes our development goals much clearer.
 
@@ -207,9 +206,6 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
 ---
 
 ### Design
-
-- 15% ~750 words
-- System architecture. Class diagrams, behavioural diagrams.
 
 #### Class Diagram
 
@@ -395,6 +391,11 @@ classDiagram
   }
 ```
 
+<div align="center">
+  <br>
+  <strong>Figure 5:</strong> Class diagram
+</div>
+
 #### Sequence Diagram
 
 ```mermaid
@@ -454,6 +455,10 @@ sequenceDiagram
   ResultsPage->>WelcomePage: setup()
 ```
 
+<div align="center">
+  <br>
+  <strong>Figure 6:</strong> Sequence Diagram
+</div>
 ---
 
 ### Implementation
@@ -526,7 +531,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 <div align="center">
 
-<strong>Table 2:</strong> Heuristic Evaluation Summary<br />
+<strong>Table 3:</strong> Heuristic Evaluation Summary<br />
 <em>Identified usability issues based on Nielsen’s heuristics.</em>
 
 </div>
@@ -558,7 +563,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 <div align="center">
 
-<strong>Table 3:</strong> NASA TLX Average Scores of Level I and Level II<br />
+<strong>Table 4:</strong> NASA TLX Average Scores of Level I and Level II<br />
 <em>Player-reported cognitive load comparison between levels.</em>
 
 </div>
@@ -581,7 +586,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 <div align="center">
   <img width="600px" src="docs/assets/readme/NASA-TLX.png" alt="NASA TLX Results Chart" />
   <br>
-  <strong>Figure 5:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
+  <strong>Figure 7:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
 </div>
 
 ##### Briefing
@@ -602,7 +607,17 @@ Overall, we aim to develop a wider variety of gaming experiences to enhance the 
 
 #### 🎮 Manual Testing Report
 
+The following manual testing log records the major features of the game and their expected outcomes.
+All tests were performed by the developer through real-time interaction using mouse and keyboard.
+Each test includes the test action, the expected result, the actual behavior, and whether it passed.
+
 ##### Welcome Page
+
+<div align="center">
+
+<strong>Table 5:</strong> Welcome page<br />
+
+</div>
 
 | Feature Description                                                  | Expected Behavior                                         | Actual Result  | Conclusion |
 | -------------------------------------------------------------------- | --------------------------------------------------------- | -------------- | ---------- |
@@ -622,6 +637,12 @@ Overall, we aim to develop a wider variety of gaming experiences to enhance the 
 
 ##### Charactor Control
 
+<div align="center">
+
+<strong>Table 6:</strong> Charactor control<br />
+
+</div>
+
 | Feature              | Action Description                      | Expected Result              | Actual Result      | Conclusion |
 | -------------------- | --------------------------------------- | ---------------------------- | ------------------ | ---------- |
 | Arrow Key Movement   | Use arrow keys to move the character    | Character moves in direction | ✅ Moves correctly | Passed     |
@@ -629,6 +650,12 @@ Overall, we aim to develop a wider variety of gaming experiences to enhance the 
 | Invalid Key Handling | Press invalid key (e.g., spacebar)      | No effect                    | ✅ No error        | Passed     |
 
 ##### Map and Game Flow
+
+<div align="center">
+
+<strong>Table 7:</strong> Map and game flow<br />
+
+</div>
 
 | Feature Description                                              | Expected Behavior                             | Actual Result  | Conclusion |
 | ---------------------------------------------------------------- | --------------------------------------------- | -------------- | ---------- |
@@ -653,6 +680,12 @@ Overall, we aim to develop a wider variety of gaming experiences to enhance the 
 
 ##### Scoring and Feedback
 
+<div align="center">
+
+<strong>Table 8:</strong> Scoring and feedback<br />
+
+</div>
+
 | Feature Description                                           | Expected Behavior                                     | Actual Result  | Conclusion |
 | ------------------------------------------------------------- | ----------------------------------------------------- | -------------- | ---------- |
 | Winning player performs victory waving animation              | Winner waves on screen                                | ✅ As expected | Passed     |
@@ -662,10 +695,6 @@ Overall, we aim to develop a wider variety of gaming experiences to enhance the 
 | If game round ends, pressing any key returns to welcome page  | Game resets to welcome screen                         | ✅ As expected | Passed     |
 | Final result: winning character jumps with confetti animation | Player jumps and colorful confetti falls from the top | ✅ As expected | Passed     |
 
-The following manual testing log records the major features of the game and their expected outcomes.
-All tests were performed by the developer through real-time interaction using mouse and keyboard.
-Each test includes the test action, the expected result, the actual behavior, and whether it passed.
-
 ---
 
 ### 🌱 Sustainability
@@ -674,41 +703,60 @@ Each test includes the test action, the expected result, the actual behavior, an
 
 - **Overview Table (Base on the Sustainability Awareness Framework)**
 
-  | **Dimension**     | **Guiding Question**                                        | **Impact / Insight**                                                                                             |
-  | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-  | **Individual**    | How can it affect physical, mental, or emotional health?    | Improves mental health by reducing social anxiety through fun interaction.                                       |
-  |                   | How can it affect competencies?                             | Enhances communication, observation, and social interaction skills.                                              |
-  |                   | How can it make a person feel more or less exposed to harm? | Offers a safe, inclusive environment that minimizes discomfort.                                                  |
-  | **Technical**     | What are likely vulnerabilities of the system?              | Outdated dependencies, lack of logging. <br> _Mitigation:_ Regular updates, security audits, monitoring.         |
-  |                   | How might OS/runtime changes affect it?                     | Requires cross-platform testing and adaptation for different environments (Windows/macOS/Linux).                 |
-  | **Economic**      | How does it affect customer relationships?                  | Enjoyable gameplay may lead to more players, enabling ad-based revenue opportunities.                            |
-  |                   | How does it impact finances?                                | Digital format lowers manufacturing costs and increases long-term value.                                         |
-  |                   | How does it affect the supply chain?                        | No physical production required → reduces material use and labor costs.                                          |
-  | **Environmental** | How does it affect material/resource consumption?           | Replaces traditional board games → reduces paper/plastic usage.                                                  |
-  |                   | What about waste and emissions?                             | Digital transition reduces manufacturing waste and associated emissions.                                         |
-  |                   | What about energy use?                                      | Saves energy from manufacturing; increases digital energy use. <br> _Mitigation:_ Use OLED-friendly dark themes. |
-  |                   | How can it impact nature?                                   | Frees up land and resources otherwise used for production → benefits natural habitats.                           |
-  | **Social**        | How does it affect group belonging?                         | Strengthens community bonds through cooperative gameplay.                                                        |
-  |                   | How does it affect perception of others?                    | Encourages observation and empathy, building stronger interpersonal connections.                                 |
-  |                   | How does it affect treatment of others?                     | Encourages knowledge-sharing; experienced players support beginners.                                             |
-  |                   | How does it affect social behaviors?                        | Promotes communication, teamwork, and collaborative problem-solving.                                             |
+<div align="center">
+
+<strong>Table 9:</strong> Overview table<br />
+
+</div>
+
+| **Dimension**     | **Guiding Question**                                        | **Impact / Insight**                                                                                             |
+| ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Individual**    | How can it affect physical, mental, or emotional health?    | Improves mental health by reducing social anxiety through fun interaction.                                       |
+|                   | How can it affect competencies?                             | Enhances communication, observation, and social interaction skills.                                              |
+|                   | How can it make a person feel more or less exposed to harm? | Offers a safe, inclusive environment that minimizes discomfort.                                                  |
+| **Technical**     | What are likely vulnerabilities of the system?              | Outdated dependencies, lack of logging. <br> _Mitigation:_ Regular updates, security audits, monitoring.         |
+|                   | How might OS/runtime changes affect it?                     | Requires cross-platform testing and adaptation for different environments (Windows/macOS/Linux).                 |
+| **Economic**      | How does it affect customer relationships?                  | Enjoyable gameplay may lead to more players, enabling ad-based revenue opportunities.                            |
+|                   | How does it impact finances?                                | Digital format lowers manufacturing costs and increases long-term value.                                         |
+|                   | How does it affect the supply chain?                        | No physical production required → reduces material use and labor costs.                                          |
+| **Environmental** | How does it affect material/resource consumption?           | Replaces traditional board games → reduces paper/plastic usage.                                                  |
+|                   | What about waste and emissions?                             | Digital transition reduces manufacturing waste and associated emissions.                                         |
+|                   | What about energy use?                                      | Saves energy from manufacturing; increases digital energy use. <br> _Mitigation:_ Use OLED-friendly dark themes. |
+|                   | How can it impact nature?                                   | Frees up land and resources otherwise used for production → benefits natural habitats.                           |
+| **Social**        | How does it affect group belonging?                         | Strengthens community bonds through cooperative gameplay.                                                        |
+|                   | How does it affect perception of others?                    | Encourages observation and empathy, building stronger interpersonal connections.                                 |
+|                   | How does it affect treatment of others?                     | Encourages knowledge-sharing; experienced players support beginners.                                             |
+|                   | How does it affect social behaviors?                        | Promotes communication, teamwork, and collaborative problem-solving.                                             |
 
   <br />
 
 - **Chains of Effects - Sustainability Dimensions**
-  | **Dimension / Topic** | **Chains of Effects** |
-  | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | **Individual: Health** | play in party → easy to make friends → reduce social anxiety → establish confidence <br> play in party → learn emotional management → develop social adaptability → reduce isolation and mental disease <br> play with others → increase perceptiveness → easier to make friends in the future |
-  | **Environmental: Material & Resources** | more on digital game → less board games → less consumption on making board games |
-  | **Environmental: Energy** | more on digital game → less board games → less energy consumption on making board games <br> more on digital game → more energy consumption to run computers & servers |
-  | **Technical: Maintainability** | structured code → easier for developer to maintain and upgrade system |
-  | **Social: Sense of Community** | require 2 to play → play game together → build connection → players feel a sense of belonging to community |
-  | **Social: Participation & Communication** | require 2 to play → experienced one may teach the other player → increase communication between players |
-  | **Economic: Customer Relationship** | people enjoy playing → spend more time on the game → game provider adds advertisements → company gains benefit → company improves features → players enjoy more → more users... |
+
+<div align="center">
+
+<strong>Table 10:</strong> Chains of Effects - Sustainability Dimensions<br />
+
+</div>
+
+| **Dimension / Topic**                     | **Chains of Effects**                                                                                                                                                                                                                                                                          |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Individual: Health**                    | play in party → easy to make friends → reduce social anxiety → establish confidence <br> play in party → learn emotional management → develop social adaptability → reduce isolation and mental disease <br> play with others → increase perceptiveness → easier to make friends in the future |
+| **Environmental: Material & Resources**   | more on digital game → less board games → less consumption on making board games                                                                                                                                                                                                               |
+| **Environmental: Energy**                 | more on digital game → less board games → less energy consumption on making board games <br> more on digital game → more energy consumption to run computers & servers                                                                                                                         |
+| **Technical: Maintainability**            | structured code → easier for developer to maintain and upgrade system                                                                                                                                                                                                                          |
+| **Social: Sense of Community**            | require 2 to play → play game together → build connection → players feel a sense of belonging to community                                                                                                                                                                                     |
+| **Social: Participation & Communication** | require 2 to play → experienced one may teach the other player → increase communication between players                                                                                                                                                                                        |
+| **Economic: Customer Relationship**       | people enjoy playing → spend more time on the game → game provider adds advertisements → company gains benefit → company improves features → players enjoy more → more users...                                                                                                                |
 
   <br />
 
 #### 2. Green Software Foundation Patterns – Game Integration
+
+<div align="center">
+
+<strong>Table 11:</strong> Green Software Foundation Patterns – Game Integration<br />
+
+</div>
 
 | Plan to Add to Game             | Relevant Pattern                    | Link                                                                                     | Task Description                                                          | Jira                                                                |
 | ------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------- |
@@ -720,6 +768,12 @@ Each test includes the test action, the expected result, the actual behavior, an
 
 #### 3. Sustainability Requirements -> User stories
 
+<div align="center">
+
+<strong>Table 12:</strong> Sustainability Requirements -> User stories<br />
+
+</div>
+
 | **Epic**                                          | **Story**                                                                                                                                                                                           | **Acceptance Criteria**                                                                                                                                                                                                                                                                                                                  | **Jira**                                                                                  |
 | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | **Improve Website Performance**                   | - `As a` player <br> - `I want` to play lighter game <br> - `so that` I can use less energy when running this game <br> _(Environment: Energy)_                                                     | - `Given` the website contains images in the codebase <br> - `When` the website is loaded <br> - `Then` the total file size of all images should be reduced by at least 30% compared to the original size                                                                                                                                | [TG-147: Minify images file size](https://vivi2393142-0702.atlassian.net/browse/TG-147)   |
@@ -729,10 +783,6 @@ Each test includes the test action, the expected result, the actual behavior, an
 More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/edit-v2/25919494?).
 
 ### Process
-
-- 15% ~750 words
-
-- Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
 Our team collaborated through a structured software development workflow:
 
@@ -786,21 +836,27 @@ Alternatively, request access using your own account.
 
 ---
 
-### Contribution Statement
+### Future Possibility
 
-- Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent.
+For more advanced development, we aim to integrate face detection through the front-facing camera, allowing users to control their character using their face direction. This face detection-based control method will reduce the time users spend observing others, enhancing their overall experience.
 
 ---
 
-### Additional Marks
+### Contribution Statement
 
-You can delete this section in your own repo, it's just here for information. in addition to the marks above, we will be marking you on the following two points:
+<div align="center">
 
-- **Quality** of report writing, presentation, use of figures and visual material (5%)
+<strong>Table 13:</strong> Contribution table<br />
 
-  - Please write in a clear concise manner suitable for an interested layperson. Write as if this repo was publicly available.
+</div>
 
-- **Documentation** of code (5%)
+| Name                       | Role                       | Key Contributions                                                                                                                                                    |
+| -------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Vivi (Wei Lin)**         | 🧩 Project Lead            | - Led overall workflow and task distribution<br>- Designed system architecture and codebase<br>- Managed team communication and progress using Jira                  |
+| **Negi (Chen Pin Ru)**     | 🎨 UX & Visual Designer    | - Designed guidance/navigation screens and map visuals<br>- Built the full navigation system<br>- Directed intro video production (script, storyboard, editing)      |
+| **Chi (Yu-Qi Lin)**        | 🧪 Game Developer & Tester | - Built the Welcome Page<br>- Developed Map 4 and designed layout for Map 5<br>- Conducted full gameplay testing and visual polish                                   |
+| **Cynthia (Hsin-Yun Fan)** | 🖼️ Visual Designer         | - Designed game scene visuals<br>- Led development of Map 5                                                                                                          |
+| **Digo (Hsing-Min Tu)**    | 📚 Documentation Manager   | - Collected data and maintained documentation<br>- Managed GitHub README<br>- Analyzed user feedback<br>- Prototyped Map 3 & developed Game 6 logic                  |
+| **Susan (Zih-Cing Lan)**   | 🎬 Content & Demo Designer | - Designed Map 6 and its music<br>- Created intro content for Maps 2–6 & Welcome Page<br>- Managed demo process and co-edited the final video with subtitles & sound |
 
-  - Is your repo clearly organised?
-  - Is code well commented throughout?
+---
