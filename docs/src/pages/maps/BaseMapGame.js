@@ -150,11 +150,11 @@ class BaseMapGame extends BasePage {
         entity.status === Constants.EntityStatus.HIT &&
         !entity.hasCooldownEffect
       ) {
-        this.cooldownSession(entity);
+        this._cooldownSession(entity);
       }
     });
 
-    this.playerList.drawPlayerAvatars();
+    this.playerList.draw();
     this._drawGameFinish();
     if (this.countDown >= 0) this._drawCountDown();
   }
@@ -229,7 +229,7 @@ class BaseMapGame extends BasePage {
     });
   }
 
-  cooldownSession(entity) {
+  _cooldownSession(entity) {
     // Avatars effect
     this.playerList.startCooldown(entity.idx);
 

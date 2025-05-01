@@ -50,10 +50,6 @@ class Player extends Entity {
     });
   }
 
-  setPauseState(pauseState) {
-    this.isPaused = pauseState;
-  }
-
   keyPressed(entities, onDie) {
     if (this.status === Constants.EntityStatus.DIED) return;
     if (this.isPaused) return;

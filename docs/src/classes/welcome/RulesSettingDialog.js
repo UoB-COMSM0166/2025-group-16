@@ -31,6 +31,7 @@ class RulesSettingDialog extends Dialog {
     return isValid ? scoreIdx : DEFAULT_SCORE_IDX;
   }
 
+  /** @override */
   onSelect(index) {
     // change to next page when player select 'Start'
     if (index === 1) {
@@ -40,6 +41,7 @@ class RulesSettingDialog extends Dialog {
     }
   }
 
+  /** @override */
   keyPressed() {
     if (!this.isOpen) return;
 

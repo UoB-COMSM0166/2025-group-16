@@ -7,9 +7,6 @@ class BaseMapIntro extends BasePage {
    * @param {string} params.gamePageKey - The key of game page.
    * @param {string[]} params.playerControlIntros - The number of robots.
    * @param {string} [params.additionalIntro] - The number of robots.
-   * @param {boolean} params.hasCountdown - Whether page has countdown
-   * @param {number} params.countdownDuration - Duration of countdown in seconds
-   * @param {boolean} params.useFrameCountdown - Whether to use frame-based countdown
    */
   constructor(params) {
     super({
@@ -39,24 +36,15 @@ class BaseMapIntro extends BasePage {
     this.gamePageKey = params.gamePageKey;
 
     // Initialize countdown manager if countdown is enabled
-    this.hasCountdown = params.hasCountdown || false;
-    this.countdownDuration = params.countdownDuration || 8;
-    this.useFrameCountdown = params.useFrameCountdown || false;
-
-    if (this.hasCountdown) {
-      this.countdownManager = new CountdownManager({
-        duration: this.countdownDuration,
-        useFrameCount: this.useFrameCountdown,
-        onComplete: () => {
-          if (this.gamePage && this.gamePageKey) {
-            Controller.changePage(this.gamePage, this.gamePageKey);
-          }
-        },
-        onTick: (_secondsRemaining) => {
-          // Can be extended by subclasses if needed
-        },
-      });
-    }
+    this.countdownManager = new CountdownManager({
+      duration: 4,
+      useFrameCount: false,
+      onComplete: () => {
+        if (this.gamePage && this.gamePageKey) {
+          Controller.changePage(this.gamePage, this.gamePageKey);
+        }
+      },
+    });
   }
 
   /** @override */
@@ -124,7 +112,7 @@ class BaseMapIntro extends BasePage {
       textFont: 'Press Start 2P',
     });
 
-    this.startCountdown();
+    this._startCountdown();
   }
 
   /** @override */
@@ -132,26 +120,24 @@ class BaseMapIntro extends BasePage {
     super.draw();
 
     this.titleText.draw();
-    this.drawScoreIndicator();
+    this._drawScoreIndicator();
     this.playerRobot.draw();
-    this.drawControlsBox();
-    this.drawProgressBar();
+    this._drawControlsBox();
+    this._drawProgressBar();
   }
 
   /**
    * Start the countdown if it exists
    */
-  startCountdown() {
-    if (this.hasCountdown && this.countdownManager) {
-      this.countdownManager.start();
-    }
+  _startCountdown() {
+    this.countdownManager.start();
   }
 
   /**
    * Draw progress bar for countdown
    * This can be overridden by subclasses to customize appearance
    */
-  drawProgressBar() {
+  _drawProgressBar() {
     if (!this.countdownManager) {
       return;
     }
@@ -182,7 +168,7 @@ class BaseMapIntro extends BasePage {
   /**
    * Draw the score indicator and player instructions
    */
-  drawScoreIndicator() {
+  _drawScoreIndicator() {
     if (this.playerRobot) this.playerRobot.draw();
 
     push();
@@ -219,7 +205,7 @@ class BaseMapIntro extends BasePage {
   /**
    * Draw the controls box with player instructions
    */
-  drawControlsBox() {
+  _drawControlsBox() {
     if (!this.playerControlIntros || this.playerControlIntros.length === 0) {
       return;
     }
