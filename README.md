@@ -207,7 +207,36 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
 
 ### Design
 
+#### System Architecture Overview
+
+The game is a multiplayer party game where players blend with robots and attack each other across varied maps. Its architecture is modular, comprising pages (e.g., `WelcomePage`, `MapGamePage`), entities (e.g., `Player`, `Robot`), UI components (e.g., `Text`, `Dialog`), and a global state manager.
+
+The `sketch.js` entry point preloads assets (images, sounds) and delegates rendering to the current page, encapsulating page-specific logic for clean development. The state manager coordinates page transitions and game progress, supporting dynamic map selection. The architecture diagram illustrates these module interactions.
+
+```mermaid
+graph LR
+  A[Users] --> B[sketch.js]
+  B --> C[Pages]
+  B --> D[State Manager]
+  C --> E[UI Components]
+  C --> F[Entities]
+  C --> G[Assets]
+  D --> C
+  G --> H[Resources Config]
+```
+
+<div align="center">
+  <br>
+  <strong>Figure 5:</strong> Architecture Diagram
+</div>
+
 #### Class Diagram
+
+The class diagram organizes the system into UI Components, Functional Components, Entities, and Pages. Design decisions include:
+
+- **Abstract Base Classes**: `BasePage` standardizes page lifecycle methods for consistent rendering and event handling. `Entity` unifies `Player` and `Robot` logic for movement and collisions.
+- **Singleton Pages**: Pages like `WelcomePage` and map-specific classes (e.g., `MapGame1`, `MapIntro1`), derived from `BaseMapGame` and `BaseMapIntro` for six unique maps, use singletons to optimize resources.
+- **Modular Components**: Components like `Text`, `Dialog`, and `IconButton` enable reusable rendering across pages.
 
 ```mermaid
 classDiagram
@@ -436,10 +465,12 @@ classDiagram
 
 <div align="center">
   <br>
-  <strong>Figure 5:</strong> Class diagram
+  <strong>Figure 6:</strong> Class diagram
 </div>
 
 #### Sequence Diagram
+
+The sequence diagram captures the game flow from `WelcomePage` to `ResultsPage`, showing interactions like map selection and gameplay loops with conditional restarts or completion.
 
 ```mermaid
 sequenceDiagram
@@ -542,8 +573,15 @@ sequenceDiagram
 
 <div align="center">
   <br>
-  <strong>Figure 6:</strong> Sequence Diagram
+  <strong>Figure 7:</strong> Sequence Diagram
 </div>
+
+#### Core Design Features
+
+- **Modular Architecture**: The design separates pages, assets (images, sounds), constants, and global states into distinct modules. New pages inherit from `BasePage`, using predefined interfaces (e.g., `setup()`, `draw()`) to add logic without affecting other components. For example, adding a new map involves creating a `MapGame` subclass, ensuring clean, component-based development.
+- **Map Flexibility**: `MapSelectionPage` and `MapGame` subclasses support six maps with unique rules, derived from `BaseMapGame` and `BaseMapIntro`.
+- **Player-NPC Interaction**: `Player` and `Robot` provide pre-defined API interfaces (e.g., `move()`, `hit()`), enabling easy integration of new map-specific logic.
+- **Onboarding**: `TutorialPage` and `TutorialDialog` provide onboarding, with a mandatory prompt for first-time users and a button-triggered option for returning players.
 
 ---
 
@@ -672,7 +710,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 <div align="center">
   <img width="600px" src="docs/assets/readme/NASA-TLX.png" alt="NASA TLX Results Chart" />
   <br>
-  <strong>Figure 7:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
+  <strong>Figure 8:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
 </div>
 
 ##### Briefing
@@ -916,6 +954,11 @@ graph LR
     Task --> Developer
 ```
 
+<div align="center">
+  <br>
+  <strong>Figure 9:</strong> Git Workflow Diagram
+</div>
+
 - Roles
 
   As a learning exercise, our team does not assign fixed roles. Everyone can contribute to different tasks, which are categorized in Jira as:
@@ -960,6 +1003,11 @@ flowchart LR
     Done -->|Yes| Main["Demo & Review"]
     Done -->|No| Backlog
 ```
+
+<div align="center">
+  <br>
+  <strong>Figure 10:</strong> Sprint Workflow Diagram
+</div>
 
 - **Weekly Meetings**: Every Thursday, we discuss progress, report issues, or raise specific concerns.
 - **Sprint Review & Retrospective**: At the end of each two-week sprint, we demo features, reflect on the process, and identify improvements.
