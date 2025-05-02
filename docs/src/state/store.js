@@ -16,6 +16,7 @@ const Store = (function () {
     ],
     targetScore: 3,
     speakerOn: false,
+    lastMapIdx: 0,
   };
 
   return {
@@ -46,6 +47,10 @@ const Store = (function () {
 
     getSpeakerStatus() {
       return _state.speakerOn;
+    },
+
+    getLastMapIdx() {
+      return _state.lastMapIdx;
     },
   };
 })();
