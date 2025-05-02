@@ -2,18 +2,23 @@
  * Toggle button for controlling game audio speaker state
  * Handles visual icon display and audio volume management
  */
-class SpeakerIconButton {
+class SpeakerIconButton extends IconButton {
   /**
    * @param {Object} params - Configuration parameters for the speaker icon button.
    * @param {number} [params.x=0] - The x-coordinate of the button's center.
    * @param {number} [params.y=0] - The y-coordinate of the button's center.
-   * @param {boolean} [params.initSound=false] - Optional. Whether this is the first load of the game page, enabling initial audio setup.
+   * @param {boolean} [params.initSound=false] - Whether this is the first load of the game page, enabling initial audio setup.
    */
   constructor({ x = 0, y = 0, initSound = false }) {
-    this.x = x;
-    this.y = y;
+    super({
+      x,
+      y,
+      iconImg: null,
+      onClick: () => {
+        this._toggleSpeaker();
+      },
+    });
     this.initSound = initSound;
-    this.iconImg = null; // current speaker icon (on/off)
   }
 
   /** Initialize button and set initial volume state */
@@ -22,64 +27,43 @@ class SpeakerIconButton {
   }
 
   /**
-   * Draw button at current or specified position
-   * @param {number} [x] - New x position
-   * @param {number} [y] - New y position
+   * Draw speaker icon based on current state
+   * @override
    */
-  draw(x, y) {
-    if (x !== undefined) this.x = x;
-    if (y !== undefined) this.y = y;
-
-    push();
-    this._drawIcon();
-    cursor(this._isHovered() ? 'pointer' : 'auto');
-    pop();
-  }
-
-  /** Handle mouse press for audio initialization or speaker toggle */
-  mousePressed() {
+  drawIcon() {
     const isSpeakerOn = Store.getSpeakerStatus();
-    if (!isSpeakerOn && this.initSound) {
-      this._initializeAudio();
-    } else if (this._isHovered()) {
-      this._toggleSpeaker(!isSpeakerOn);
-    }
+    this.iconImg =
+      Resources.images.common[isSpeakerOn ? 'speakerOn' : 'speakerOff'];
+    super.drawIcon();
   }
 
   /** Handle key press for audio initialization */
   keyPressed() {
-    const isSpeakerOn = Store.getSpeakerStatus();
-    if (!isSpeakerOn && this.initSound) {
-      this._initializeAudio();
-    }
+    this._tryInitializeAudio();
   }
 
-  /** Draw speaker icon based on current state */
-  _drawIcon() {
-    const isSpeakerOn = Store.getSpeakerStatus();
-    this.iconImg =
-      Resources.images.welcome[isSpeakerOn ? 'speakerOn' : 'speakerOff'];
-    if (!this.iconImg) return;
-
-    imageMode(CENTER);
-    image(
-      this.iconImg.image,
-      this.x,
-      this.y,
-      this.iconImg.width,
-      this.iconImg.height,
-    );
+  /**
+   * Handle mouse press for audio initialization or speaker toggle
+   * @override
+   */
+  mousePressed() {
+    const isInitializing = this._tryInitializeAudio();
+    if (!isInitializing) super.mousePressed();
   }
 
   /** Initialize game audio system */
-  _initializeAudio() {
-    userStartAudio();
-    this.initSound = false;
-    this._toggleSpeaker(true);
+  _tryInitializeAudio() {
+    const isInitializing = !Store.getSpeakerStatus() && this.initSound;
+    if (isInitializing) {
+      userStartAudio();
+      this.initSound = false;
+      this._toggleSpeaker(true);
+    }
+    return isInitializing;
   }
 
   /** Toggle speaker state and update volume */
-  _toggleSpeaker(isSpeakerOn) {
+  _toggleSpeaker(isSpeakerOn = !Store.getSpeakerStatus()) {
     Controller.updateSpeakerStatus(isSpeakerOn);
     this._setVolume(isSpeakerOn);
   }
@@ -87,21 +71,5 @@ class SpeakerIconButton {
   /** Set audio output volume */
   _setVolume(isSpeakerOn = Store.getSpeakerStatus()) {
     outputVolume(isSpeakerOn ? 1 : 0);
-  }
-
-  /** Check if mouse is hovering over button */
-  _isHovered() {
-    if (!this.iconImg || !this.iconImg.width || !this.iconImg.height) {
-      return false;
-    }
-
-    const { width, height } = this.iconImg;
-    const padding = 20;
-    return (
-      mouseX >= this.x - padding &&
-      mouseX <= this.x + width &&
-      mouseY >= this.y - padding &&
-      mouseY <= this.y + height
-    );
   }
 }

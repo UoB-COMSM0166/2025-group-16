@@ -76,7 +76,7 @@ class Dialog {
     this.titleText = new Text({
       label: this.title,
       x: width / 2,
-      y: 255,
+      y: 270,
       color: Theme.palette.text.primary,
       textSize: Theme.text.fontSize.medium,
       textStyle: BOLD,

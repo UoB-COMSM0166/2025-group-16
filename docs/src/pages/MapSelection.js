@@ -18,6 +18,15 @@ class MapSelection extends BasePage {
       height: (Math.sqrt(3) * 30) / 2,
       gap: 16,
     };
+
+    // exit button & dialog
+    this.exitIconButton = new IconButton({
+      iconImg: Resources.images.common.exit,
+      onClick: () => {
+        this.exitDialog.open();
+      },
+    });
+    this.exitDialog = new ExitDialog();
   }
 
   /**
@@ -94,6 +103,10 @@ class MapSelection extends BasePage {
       }
     }
     pop();
+
+    // draw exit icon & dialog
+    this.exitIconButton.draw(width * 0.95, height * 0.05);
+    this.exitDialog.draw();
 
     // draw title and back hint
     this.title?.draw();
@@ -220,8 +233,15 @@ class MapSelection extends BasePage {
   keyPressed() {
     super.keyPressed();
 
-    if (this._isPressed('LEFT', keyCode)) this._scrollOption(-1);
+    // check if exit dialog is open
+    // if so, handle key press for dialog
+    // otherwise, handle key press for map selection
+    if (this.exitDialog.isOpen) {
+      this.exitDialog.keyPressed();
+      return;
+    }
 
+    if (this._isPressed('LEFT', keyCode)) this._scrollOption(-1);
     if (this._isPressed('RIGHT', keyCode)) this._scrollOption(1);
 
     // HIT or Enter to select
@@ -250,6 +270,15 @@ class MapSelection extends BasePage {
           break;
       }
     }
+  }
+
+  /**
+   * Handle mouse press events
+   * @override
+   */
+  mousePressed() {
+    super.mousePressed();
+    this.exitIconButton.mousePressed();
   }
 
   /**

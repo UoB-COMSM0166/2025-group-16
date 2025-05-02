@@ -237,6 +237,7 @@ classDiagram
   BasePage o-- "0..n" Img : contains
   BasePage o-- "0..n" Sound : contains
   BasePage o-- "0..n" Dialog : contains
+  BasePage o-- "0..n" IconButton : contains
 
   class UIComponent {
       <<abstract>>
@@ -307,6 +308,17 @@ classDiagram
       +loop()
       +stop()
       +play(isPlayInPureJs)
+  }
+
+  class IconButton {
+      +[number] x
+      +[number] y
+      +[Img] iconImg
+      +[function] onClick
+
+      +draw()
+      +drawIcon()
+      +mousePressed()
   }
 
   class Dialog {
@@ -381,7 +393,6 @@ classDiagram
       +keyPressed()
       +keyReleased()*
       +remove()
-      +isImagePressed(imageObj)
   }
 
   class BaseMapGame {
