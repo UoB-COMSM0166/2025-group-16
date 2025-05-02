@@ -242,6 +242,7 @@ class Results extends BasePage {
         Controller.changePage(new MapSelection(), Constants.Page.MAP_SELECTION);
       } else {
         Controller.resetPlayersScore();
+        Controller.resetLastMapIdx();
         Controller.changePage(new Welcome(), Constants.Page.WELCOME);
       }
     }

@@ -52,4 +52,12 @@ const Controller = {
   updateTargetScore(targetScore) {
     Store._updateState({ targetScore });
   },
+
+  updateLastMapIdx(newIdx) {
+    Store._updateState({ lastMapIdx: newIdx });
+  },
+
+  resetLastMapIdx() {
+    Store._updateState({ lastMapIdx: 0 });
+  },
 };

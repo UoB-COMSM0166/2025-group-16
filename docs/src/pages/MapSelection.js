@@ -9,7 +9,7 @@ class MapSelection extends BasePage {
       background: Resources.images.welcome.background,
     });
 
-    this.selectingIdx = 0;
+    this.selectingIdx = Store.getLastMapIdx(); // use last selected as default
     this.aniProgress = 0; // scroll animation progress (0-1)
     this.aniDirection = 0; // -1 to left, 1 to right, 0 no ani
 
@@ -226,6 +226,7 @@ class MapSelection extends BasePage {
 
     // HIT or Enter to select
     if (this._isPressed('HIT', keyCode) || keyCode === 13) {
+      Controller.updateLastMapIdx(this.selectingIdx);
       switch (this.selectingIdx) {
         case 0:
           Controller.changePage(new MapIntro1(), Constants.Page.MAP_INTRO_1);
