@@ -114,7 +114,6 @@ class MapSelection extends BasePage {
 
     // states
     const isSelected = position === 0;
-    const isAnimating = this.aniDirection != 0;
     const img = Resources.images.mapSelection[idx];
 
     // get animated states
@@ -149,7 +148,7 @@ class MapSelection extends BasePage {
    */
   _getAnimatedX(targetX, gap) {
     if (this.aniDirection == 0) return targetX;
-    return targetX - (1 - this.aniProgress) * gap * this.aniDirection;
+    return targetX + (1 - this.aniProgress) * gap * this.aniDirection;
   }
 
   /**
@@ -166,7 +165,7 @@ class MapSelection extends BasePage {
     }
 
     // animation: check if position is the target for scaling
-    const isTarget = position === this.aniDirection;
+    const isTarget = position === -this.aniDirection;
     const isCenter = position === 0;
     const scaleRange = selectedScale - baseScale;
 
@@ -258,7 +257,7 @@ class MapSelection extends BasePage {
    */
   _scrollOption(direction) {
     this.selectingIdx =
-      (this.selectingIdx - direction + Constants.Map.length) %
+      (this.selectingIdx + direction + Constants.Map.length) %
       Constants.Map.length;
     this.aniDirection = direction;
     this.aniProgress = 0;
