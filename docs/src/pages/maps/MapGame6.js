@@ -31,7 +31,7 @@ class MapGame6 extends BaseMapGame {
   constructor() {
     super({
       shapeType: Constants.EntityType.ROBOT,
-      robotNumber: 20,
+      robotNumber: 25,
       background: Resources.images.map.game6,
       bgm: Resources.sounds.bgm.playing6,
       robotParams: {
