@@ -100,20 +100,4 @@ class BasePage {
   remove() {
     this.bgm?.stop();
   }
-
-  /**
-   * Check if image is being pressed
-   * @param {Object} imageObj - Image object to check
-   * @returns {boolean} True if image is pressed
-   */
-  isImagePressed(imageObj) {
-    if (!imageObj || !imageObj.width || !imageObj.height) return false;
-
-    return (
-      mouseX >= imageObj.x - 20 &&
-      mouseX <= imageObj.x + imageObj.width &&
-      mouseY >= imageObj.y - 20 &&
-      mouseY <= imageObj.y + imageObj.height
-    );
-  }
 }

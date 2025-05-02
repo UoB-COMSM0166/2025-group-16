@@ -22,6 +22,15 @@ class Results extends BasePage {
     this.dropStartY;
     this.dropScoreSpeed = 8;
     this.scoreHeight = 128;
+
+    // exit button & dialog
+    this.exitIconButton = new IconButton({
+      iconImg: Resources.images.common.exit,
+      onClick: () => {
+        this.exitDialog.open();
+      },
+    });
+    this.exitDialog = new ExitDialog();
   }
 
   /**
@@ -105,6 +114,10 @@ class Results extends BasePage {
     if (timeSinceHint && Math.floor(timeSinceHint / 1000) % 2) {
       this.backHint?.draw();
     }
+
+    // draw exit icon & dialog
+    this.exitIconButton.draw(width * 0.95, height * 0.05);
+    this.exitDialog.draw();
   }
 
   /** Draw title with score drop animation */
@@ -236,6 +249,14 @@ class Results extends BasePage {
   keyPressed() {
     super.keyPressed();
 
+    // check if exit dialog is open
+    // if so, handle key press for dialog
+    // otherwise, handle key press for result page
+    if (this.exitDialog.isOpen) {
+      this.exitDialog.keyPressed();
+      return;
+    }
+
     if (millis() > this.showBackHintTime) {
       if (this.winner.idx === null) {
         Controller.resetPlayerJustWon();
@@ -246,5 +267,14 @@ class Results extends BasePage {
         Controller.changePage(new Welcome(), Constants.Page.WELCOME);
       }
     }
+  }
+
+  /**
+   * Handle mouse press events
+   * @override
+   */
+  mousePressed() {
+    super.mousePressed();
+    this.exitIconButton.mousePressed();
   }
 }

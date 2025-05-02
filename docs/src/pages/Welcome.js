@@ -30,10 +30,17 @@ class Welcome extends BasePage {
     this.introBox = { x: 20, y: 350, w: 400, h: 150 };
     this.keyBoardP1 = null;
     this.keyBoardP2 = null;
-    this.tutorialButton = null;
 
-    // dialogs, stop all players when dialog is open
+    // tutorial
+    this.tutorialIconButton = new IconButton({
+      iconImg: Resources.images.welcome.tutorial,
+      onClick: () => {
+        this.tutorialDialog.open();
+      },
+    });
     this.tutorialDialog = new TutorialDialog(this._getDialogParams());
+
+    // target score setting
     this.rulesSettingDialog = new RulesSettingDialog(this._getDialogParams());
   }
 
@@ -43,13 +50,6 @@ class Welcome extends BasePage {
    */
   setup() {
     super.setup();
-
-    // setup tutorial button
-    this.tutorialButton = {
-      ...Resources.images.welcome.tutorial,
-      x: width * 0.95,
-      y: height * 0.05,
-    };
 
     // load images
     this.title = Resources.images.welcome.title;
@@ -97,21 +97,6 @@ class Welcome extends BasePage {
    */
   draw() {
     super.draw();
-
-    // draw tutorial button with hover effect
-    if (this.isImagePressed(this.tutorialButton)) {
-      cursor('pointer');
-    }
-    if (this.tutorialButton) {
-      imageMode(CENTER);
-      image(
-        this.tutorialButton.image,
-        this.tutorialButton.x,
-        this.tutorialButton.y,
-        this.tutorialButton.width,
-        this.tutorialButton.height,
-      );
-    }
 
     // draw title
     if (this.title) {
@@ -184,9 +169,12 @@ class Welcome extends BasePage {
       }
     });
 
+    // draw tutorial
+    this.tutorialIconButton.draw(width * 0.95, height * 0.05);
+    this.tutorialDialog.draw();
+
     // draw countdown and dialogs
     this._drawCountdown();
-    this.tutorialDialog.draw();
     this.rulesSettingDialog.draw();
   }
 
@@ -206,11 +194,7 @@ class Welcome extends BasePage {
    */
   mousePressed() {
     super.mousePressed();
-
-    // when click tutorialButton, open dialog
-    if (this.isImagePressed(this.tutorialButton)) {
-      this.tutorialDialog.open();
-    }
+    this.tutorialIconButton.mousePressed();
   }
 
   /**

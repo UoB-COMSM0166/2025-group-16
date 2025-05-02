@@ -12,14 +12,17 @@ const _ASSET_PATHS = {
     entity: `${_BASE_PATH}assets/images/entity/`,
     playerAnimation: `${_BASE_PATH}assets/images/entity/playerAnimation`,
     playerAvatar: `${_BASE_PATH}assets/images/welcome/player_avatar.svg`,
+    common: {
+      speakerOn: `${_BASE_PATH}assets/images/common/icon_soundson.svg`,
+      speakerOff: `${_BASE_PATH}assets/images/common/icon_soundsoff.svg`,
+      exit: `${_BASE_PATH}assets/images/common/icon_exit.svg`,
+    },
     welcome: {
       background: `${_BASE_PATH}assets/images/welcome/background.png`,
       title: `${_BASE_PATH}assets/images/welcome/text_unstoppable.svg`,
       comehere: `${_BASE_PATH}assets/images/welcome/text_comehere.svg`,
       gamaStartArea: `${_BASE_PATH}assets/images/welcome/tileset_square_comehere.svg`,
       check: `${_BASE_PATH}assets/images/welcome/icon_check.svg`,
-      speakerOn: `${_BASE_PATH}assets/images/welcome/icon_soundson.svg`,
-      speakerOff: `${_BASE_PATH}assets/images/welcome/icon_soundsoff.svg`,
       tutorial: `${_BASE_PATH}assets/images/welcome/icon_tutorial.svg`,
       dialog: `${_BASE_PATH}assets/images/welcome/dialog.svg`,
     },
@@ -261,6 +264,15 @@ const Resources = {
     mapSelection: _ASSET_PATHS.images.mapSelection.map(
       (path) => new SVGImage(path, { scale: 2 }),
     ),
+    common: {
+      speakerOn: new SVGImage(_ASSET_PATHS.images.common.speakerOn, {
+        scale: 2,
+      }),
+      speakerOff: new SVGImage(_ASSET_PATHS.images.common.speakerOff, {
+        scale: 2,
+      }),
+      exit: new SVGImage(_ASSET_PATHS.images.common.exit, { scale: 2 }),
+    },
     map: {
       game1: new Img(_ASSET_PATHS.images.map.game1),
       game2: new Img(_ASSET_PATHS.images.map.game2),
