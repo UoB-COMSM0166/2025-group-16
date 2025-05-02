@@ -20,7 +20,7 @@ class MapGame4 extends BaseMapGame {
 
     super({
       shapeType: Constants.EntityType.ROBOT,
-      robotNumber: 10,
+      robotNumber: 20,
       background: Resources.images.map.game4,
       bgm: Resources.sounds.bgm.playing4,
       robotParams: entityParams,
@@ -50,14 +50,13 @@ class MapGame4 extends BaseMapGame {
    */
   draw() {
     super.draw();
+    this._renderDanceKeys();
     this._drawDanceline();
 
     if (this.timeBeforeDanceCountdown > 0) {
       this.timeBeforeDanceCountdown -= 1;
       return;
     }
-
-    this._renderDanceKeys();
 
     if (this.danceCountdownTimer === 0) {
       this._resetTimer();
@@ -66,9 +65,19 @@ class MapGame4 extends BaseMapGame {
 
   /** Draw the dance timing line */
   _drawDanceline() {
-    stroke(Theme.palette.white);
+    push();
+
+    // draw yellow outer glow
+    stroke(color(255, 255, 0, 60));
+    strokeWeight(12);
+    line(this.lineX, 0, this.lineX, this.rectH);
+
+    // yellow line
+    stroke(Theme.palette.yellow || color(255, 255, 0));
     strokeWeight(3);
     line(this.lineX, 0, this.lineX, this.rectH);
+
+    pop();
   }
 
   /** Handle dance key rendering and timing */
