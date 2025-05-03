@@ -81,7 +81,7 @@ Maps 2 to 6 build upon this foundation with diverse game rules, environments, an
 ### 3.2 Requirements
 
 <details>
-  <summary><strong>Team Game Idea Overview</summary>
+  <summary>Team Game Idea Overview</summary>
 <div align="center">
   <strong>Table 2:</strong> Team Game Idea Overview<br />
 </div>
@@ -747,7 +747,7 @@ All tests were performed by the developer through real-time interaction using mo
 Each test includes the test action, the expected result, the actual behavior, and whether it passed.
 
 <details>
-  <summary><strong>Welcome page test</summary>
+  <summary>Welcome page test</summary>
 <div align="center">
   <strong>Table 5:</strong> Welcome page test<br />
 </div>
@@ -773,7 +773,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 </details>
 
 <details>
-  <summary><strong>Charactor control test</summary>
+  <summary>Charactor control test</summary>
 <div align="center">
   <strong>Table 6:</strong> Charactor control test<br />
 </div>
@@ -789,7 +789,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 </details>
 
 <details>
-  <summary><strong>Map and game flow test</summary>
+  <summary>Map and game flow test</summary>
 <div align="center">
   <strong>Table 7:</strong> Map and game flow test<br />
 </div>
@@ -820,7 +820,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 </details>
 
 <details>
-  <summary><strong>Scoring and feedback test</summary>
+  <summary>Scoring and feedback test</summary>
 <div align="center">
   <strong>Table 8:</strong> Scoring and feedback test<br />
 </div>
@@ -843,7 +843,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 #### 1. Sustainability Impact Analysis
 
 <details>
-  <summary><strong>Overview Table (Base on the Sustainability Awareness Framework)</summary>
+  <summary>Overview Table (Base on the Sustainability Awareness Framework)</summary>
 <div align="center">
   <strong>Table 9:</strong> Overview table<br />
 </div>
@@ -873,7 +873,7 @@ Each test includes the test action, the expected result, the actual behavior, an
   </details>
 
 <details>
-  <summary><strong>Chains of Effects - Sustainability Dimensions</summary>
+  <summary>Chains of Effects - Sustainability Dimensions</summary>
 <div align="center">
   <strong>Table 10:</strong> Chains of Effects - Sustainability Dimensions<br />
 </div>
@@ -896,7 +896,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 #### 2. Green Software Foundation Patterns – Game Integration
 
 <details>
-  <summary><strong>Green Software Foundation Patterns</summary>
+  <summary>Green Software Foundation Patterns</summary>
 <div align="center">
   <strong>Table 11:</strong> Green Software Foundation Patterns – Game Integration<br />
 </div>
@@ -915,7 +915,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 #### 3. Sustainability Requirements -> User stories
 
 <details>
-  <summary><strong>Sustainability Requirements</summary>
+  <summary>Sustainability Requirements</summary>
 <div align="center">
   <strong>Table 12:</strong> Sustainability Requirements -> User stories<br />
 </div>
