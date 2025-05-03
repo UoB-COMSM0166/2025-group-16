@@ -5,31 +5,34 @@
 
 ## Contents
 
-- [Our Game](#our-game)
-- [Develop Team](#develop-team)
-- [Project Report](#project-report)
-  - [Introduction](#introduction)
-  - [Requirements](#requirements)
-  - [Design](#design)
-  - [Implementation](#implementation)
-  - [Evaluation: Qualitative and Quantitative Evaluation](#evaluation-qualitative-and-quantitative-evaluation)
-  - [Sustainability](#-sustainability)
-  - [Process](#process)
-  - [Conclusion](#conclusion-1)
-  - [Contribution Statement](#contribution-statement)
-  - [Additional Marks](#additional-marks)
+1. [Our Game](#1-our-game)
+2. [Develop Team](#2-develop-team)
+3. [Project Report](#3-project-report)
+   - [3.1 Introduction](#31-introduction)
+   - [3.2 Requirements](#32-requirements)
+   - [3.3 Design](#33-design)
+   - [3.4 Implementation](#34-implementation)
+   - [3.5 Evaluation](#35-evaluation)
+     - [3.5.1 Qualitative Evaluation](#351-qualitative-evaluation)
+     - [3.5.2 Quantitative Evaluation](#352-quantitative-evaluation)
+   - [3.6 Sustainability](#36-sustainability)
+   - [3.7 Process](#37-process)
+   - [3.8 Conclusion](#38-conclusion)
+   - [3.9 Contribution Statement](#39-contribution-statement)
 
-## Our Game
+## 1. Our Game
+
+### Game
 
 Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-16/)
 
 Your game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
 
-## Video Demonstration
+### Video Demonstration
 
 Find a game demonstration of the Unstoppable game below. This video is an overview of the gameplay mechanics and a sneak peek of our game.
 
-## Develop Team
+## 2. Develop Team
 
 <div align="center">
   <img src="docs/assets/readme/group-photo.png" width="500" alt="Team Photo" />
@@ -65,9 +68,9 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
 
 <div align="left"></div>
 
-## Project Report
+## 3. Project Report
 
-### Introduction
+### 3.1 Introduction
 
 Unspottable is a two-player party game where the ultimate goal is to find and eliminate your opponent. From Map 1 to Map 6, each stage offers a unique and progressively more challenging gameplay experience.<br />
 Map 1 introduces the core mechanic: locate your opponent among NPCs and knock them out.<br />
@@ -75,11 +78,15 @@ Maps 2 to 6 build upon this foundation with diverse game rules, environments, an
 
 ---
 
-### Requirements
+### 3.2 Requirements
 
+<details>
+  <summary><strong>Team Game Idea Overview</summary>
 <div align="center">
   <strong>Table 2:</strong> Team Game Idea Overview<br />
 </div>
+
+<br>
 
 | **Name**                   | **Introduction**                                                                                                                                                               | **Feasibility / Challenges**                                                                                                                                                          |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -94,6 +101,8 @@ Maps 2 to 6 build upon this foundation with diverse game rules, environments, an
 | **Ultimate Chicken Horse** | A party game where players build routes and place obstacles to challenge each other. Use simple movements to reach the goal while trying to block others.                      | **Feasibility:** ★☆☆☆☆ <br> - Simultaneous controls for players. <br> - Complex scoring system. <br> - Issues with block and obstacle combinations.                                   |
 | **King of Opera**          | A party game where characters continuously spin while idle. Players only need to control the forward button and try to knock others off by pushing them to fall from the edge. | **Feasibility:** ★☆☆☆☆ <br> - 3D to 2D transition may affect smoothness. <br> - Sliding-back effect needed on hit. <br> - Precise reactions for consecutive collisions.               |
 | **Ghost Invaders**         | A Space Invaders-inspired game featuring multiplayer controls for movement and shooting, with quick access to the menu and restart options.                                    | **Feasibility:** ★☆☆☆☆ <br> - Excessive repetition. <br> - Difficulty imbalance affects player retention.                                                                             |
+
+</details>
 
 #### Two Prototype Ideas GIFs
 
@@ -119,29 +128,29 @@ Maps 2 to 6 build upon this foundation with diverse game rules, environments, an
 
 Multiple players join a party game where they blend in with a crowd of robots while identifying and hunting down the other human players hidden among them, under various environmental rules.
 
-**Feasibility / Difficulty**
+##### Feasibility / Difficulty
 
-1. Develop an algorithm to make robots behave like real players.
-2. Convert 3D visual elements into a 2D style.
-3. Implement simultaneous controls for multiple players (single-player mode is not supported).
-4. Synchronize player actions and robot actions to ensure smooth gameplay.
+- Develop an algorithm that enables robots to behave like real players.
+- Convert 3D visual elements into a consistent 2D art style.
+- Support simultaneous controls for multiple local players (no single-player mode).
+- Ensure smooth synchronization between player actions and robot behaviors.
 
-**Features**
+##### Features
 
-1. Simple controls: move, attack, run, and disturb.
-2. Realistic robots involved.
-3. Diverse maps with unique rules.
-4. Customizable score system.
+- Simple controls: move, attack, run, and disturb.
+- Robots that realistically mimic human behavior to blend in with NPCs.
+- Multiple maps with unique mechanics and visual themes.
+- Customizable score system allowing players to define win conditions.
 
-**Twists / Stages**
+##### Twists / Stages
 
-1. Basic Gameplay: 2-player simplest mode. Robots have no special behavior. Basic controls include: up, right, down, left, and hit.
-2. More Maps: Add multiple maps with unique rules, such as Gym, Battlefield, Theater, and Nightclub.
-3. More Controls: Introduce additional controls like running and disturbing, making the game more dynamic.
-4. More Players: Support up to 4 local players.
-5. Score System: Implement a scoring system where players set a target score to win.
-6. Online Mode: Allow players to compete online with matchmaking or room creation.
-7. Facial Recognition Control: Use facial recognition to control the direction of movement in the game, providing a more intuitive and fun way to interact with the game.
+- **Basic Gameplay**: 2-player mode with basic controls (↑, ↓, ←, →, and hit). Robots exhibit no special behavior.
+- **More Maps**: Introduce thematic maps such as Gym, Battlefield, Theater, and Nightclub, each with distinct rules.
+- **More Controls**: Add actions like running and disturbing to increase gameplay complexity.
+- **More Players**: Expand support for up to 4 local players.
+- **Score System**: Let players set a target score to determine the match winner.
+- **Online Mode**: Allow online play with matchmaking or custom room creation.
+- **Facial Recognition Control**: Enable movement control via face direction for a unique and immersive experience.
 
 <div align="center">
   <img width="300px" src="docs/assets/readme/prototype-screenshot.png" alt="Prototype Screenshot from p5.js" />
@@ -153,26 +162,26 @@ Multiple players join a party game where they blend in with a crowd of robots wh
 
 A rhythm music game where players choose their favorite song and score points by hitting notes with perfect timing as they reach the target spots on the screen. The better the timing, the higher the score.
 
-**Feasibility / Difficulty**
+##### Feasibility / Difficulty
 
-1. Controls, music, and visuals must be perfectly synced for providing an engaging experience..
-2. Transform songs into beat points for gameplay.
+- Ensure perfect synchronization between user input, music, and visual feedback to maintain an engaging rhythm experience.
+- Convert audio tracks into beat points for real-time gameplay.
 
-**Features**
+##### Features
 
-1. Simple Controls: Only 2 buttons are needed.
-2. Multiplayer & Score System: Support multiple players and track scores.
-3. Multiple Songs & Levels: Offer a variety of songs with multiple level options of each.
+- Simple controls using only two buttons for accessible and intuitive gameplay.
+- Supports multiplayer mode with score tracking and performance comparison.
+- Includes a variety of songs, each with multiple difficulty levels.
 
-**Twists / Stages**
+##### Twists / Stages
 
-1. Basic Gameplay: Playable with keyboard and only one song.
-2. Start Screen: Add a start page before gameplay.
-3. Song Selection: Allow players to choose from three or more songs.
-4. Motion Detection: Add a motion-based gameplay mode.
-5. Multiplayer: Add a two-player versus mode.
-6. Custom Songs: Enable players to import music and auto-generate rhythm points.
-7. Visual Recognition for Drumming Action: Integrate image recognition to track players' drumming actions in the air, increasing immersion and making the experience more interactive.
+- **Basic Gameplay**: Single-song mode playable with keyboard controls.
+- **Start Screen**: Introduce a start page before the game begins.
+- **Song Selection**: Allow players to select from a list of three or more songs.
+- **Motion Detection**: Add a mode where gameplay is controlled via body or hand movement.
+- **Multiplayer Mode**: Enable a competitive two-player versus mode.
+- **Custom Songs**: Let players upload their own music and auto-generate beat maps.
+- **Visual Drumming Recognition**: Integrate visual recognition to detect air-drumming gestures, making gameplay more immersive and interactive.
 
 #### Final Idea
 
@@ -205,7 +214,7 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
 
 ---
 
-### Design
+### 3.3 Design
 
 #### System Architecture Overview
 
@@ -585,7 +594,7 @@ sequenceDiagram
 
 ---
 
-### Implementation
+### 3.4 Implementation
 
 #### Three Technical Challenges
 
@@ -622,34 +631,34 @@ In another map, AI-controlled machines will launch random attacks, forcing playe
 
 ---
 
-### Evaluation: Qualitative and Quantitative Evaluation
+### 3.5 Evaluation
 
 In this analysis, we apply both **qualitative** and **quantitative** evaluation methods learned in class. The collected data provide clear insights from users, guiding us as developers to improve the game.
 
-#### Qualitative Evaluation (via Think Aloud)
+#### 3.5.1 Qualitative Evaluation
 
 ##### Feedback from Testers and Corresponding Solutions
 
-###### 1. Introduction Page
+###### Issue 1: Introduction Page
 
-- **Issue:** Unclear indication of how to close or skip the introduction page.
-- **Issue:** Users do not know how to start the game from the homepage.
-- **Overall Solution:** Redesign the introduction page with a clearer visual guide for key controls. Instead of the original textual instructions, we will use simple animations to demonstrate how to play the game.
+- **Problem:** Unclear instructions on how to close or skip the introduction.
+- **Problem:** Players did not understand how to begin the game from the homepage.
+- **Solution:** We redesigned the introduction page with clearer visual guidance. Instead of static text, animated instructions now show players how to start and control the game.
 
-###### 2. During the Game
+###### Issue 2: In-Game Experience
 
-- **Issue:** Players using the left-side keyboard struggled to find the correct attack key.
-  - **Solution:** The new version of controller instructions aims to resolve this issue. Additionally, we have adjusted some key mappings to make controls more intuitive.
-- **Issue:** The attack sound is too soft or not noticeable.
-  - **Solution:** The sound design is being reconsidered, and an updated version will be released soon.
-- **Issue:** Players did not realize that there is a delay time after each attack.
-  - **Solution:** The new gameplay tutorial animation will explicitly show the attack delay mechanic.
-- **Issue:** When robots are killed, the animations feel insufficient, reducing the gaming experience.
-  - **Solution:** We are exploring enhanced death animations to improve player immersion.
+- **Problem:** Players using the left-side keyboard had difficulty locating the correct attack key.
+  - **Solution:** Updated control panel and remapped keys for better intuitiveness.
+- **Problem:** Attack sound was too soft or not noticeable.
+  - **Solution:** Audio levels and sound design are being revised.
+- **Problem:** Players were unaware of the post-attack cooldown delay.
+  - **Solution:** New tutorial animations now visualize the attack cooldown mechanic.
+- **Problem:** Robot death animations felt insufficient, affecting immersion.
+  - **Solution:** We are enhancing death animations to make robot defeats more visually impactful.
 
 ---
 
-#### Qualitative Evaluation (via Heuristic Evaluation)
+#### 3.5.2 Quantitative Evaluation
 
 ##### Heuristic Evaluation
 
@@ -729,19 +738,19 @@ However, the most noticeable change is the increase in Frustration, suggesting t
 
 Overall, we aim to develop a wider variety of gaming experiences to enhance the level of challenge that players seek. Additionally, improving map introductions will be a key focus to ensure better player adaptation.
 
-#### 🎮 Manual Testing Report
+#### Tests
 
 The following manual testing log records the major features of the game and their expected outcomes.
 All tests were performed by the developer through real-time interaction using mouse and keyboard.
 Each test includes the test action, the expected result, the actual behavior, and whether it passed.
 
-##### Welcome Page
-
+<details>
+  <summary><strong>Welcome page test</summary>
 <div align="center">
-
-<strong>Table 5:</strong> Welcome page<br />
-
+  <strong>Table 5:</strong> Welcome page test<br />
 </div>
+
+<br>
 
 | Feature Description                                                  | Expected Behavior                                         | Actual Result  | Conclusion |
 | -------------------------------------------------------------------- | --------------------------------------------------------- | -------------- | ---------- |
@@ -759,13 +768,15 @@ Each test includes the test action, the expected result, the actual behavior, an
 | Entering "Come Here" zone updates player status indicator to "OK"    | Status text below character shows “OK”                    | ✅ As expected | Passed     |
 | After countdown, a game mode selection window appears                | Players choose score goal before entering the actual game | ✅ As expected | Passed     |
 
-##### Charactor Control
+</details>
 
+<details>
+  <summary><strong>Charactor control test</summary>
 <div align="center">
-
-<strong>Table 6:</strong> Charactor control<br />
-
+  <strong>Table 6:</strong> Charactor control test<br />
 </div>
+
+<br>
 
 | Feature              | Action Description                      | Expected Result              | Actual Result      | Conclusion |
 | -------------------- | --------------------------------------- | ---------------------------- | ------------------ | ---------- |
@@ -773,13 +784,15 @@ Each test includes the test action, the expected result, the actual behavior, an
 | Valid Key Response   | Press correct key in game ("Q" and "?") | Character performs action    | ✅ Correct action  | Passed     |
 | Invalid Key Handling | Press invalid key (e.g., spacebar)      | No effect                    | ✅ No error        | Passed     |
 
-##### Map and Game Flow
+</details>
 
+<details>
+  <summary><strong>Map and game flow test</summary>
 <div align="center">
-
-<strong>Table 7:</strong> Map and game flow<br />
-
+  <strong>Table 7:</strong> Map and game flow test<br />
 </div>
+
+<br>
 
 | Feature Description                                              | Expected Behavior                             | Actual Result  | Conclusion |
 | ---------------------------------------------------------------- | --------------------------------------------- | -------------- | ---------- |
@@ -802,13 +815,15 @@ Each test includes the test action, the expected result, the actual behavior, an
 | **Transfer Point Map** – Player steps on portal → portal spins   | Portal starts rotating                        | ✅ As expected | Passed     |
 | **Transfer Point Map** – Player triggers robot character switch  | Two robots swap characters                    | ✅ As expected | Passed     |
 
-##### Scoring and Feedback
+</details>
 
+<details>
+  <summary><strong>Scoring and feedback test</summary>
 <div align="center">
-
-<strong>Table 8:</strong> Scoring and feedback<br />
-
+  <strong>Table 8:</strong> Scoring and feedback test<br />
 </div>
+
+<br>
 
 | Feature Description                                           | Expected Behavior                                     | Actual Result  | Conclusion |
 | ------------------------------------------------------------- | ----------------------------------------------------- | -------------- | ---------- |
@@ -819,19 +834,19 @@ Each test includes the test action, the expected result, the actual behavior, an
 | If game round ends, pressing any key returns to welcome page  | Game resets to welcome screen                         | ✅ As expected | Passed     |
 | Final result: winning character jumps with confetti animation | Player jumps and colorful confetti falls from the top | ✅ As expected | Passed     |
 
----
+## </details>
 
-### 🌱 Sustainability
+### 3.6 Sustainability
 
 #### 1. Sustainability Impact Analysis
 
-- **Overview Table (Base on the Sustainability Awareness Framework)**
-
+<details>
+  <summary><strong>Overview Table (Base on the Sustainability Awareness Framework)</summary>
 <div align="center">
-
-<strong>Table 9:</strong> Overview table<br />
-
+  <strong>Table 9:</strong> Overview table<br />
 </div>
+
+<br>
 
 | **Dimension**     | **Guiding Question**                                        | **Impact / Insight**                                                                                             |
 | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -853,14 +868,15 @@ Each test includes the test action, the expected result, the actual behavior, an
 |                   | How does it affect social behaviors?                        | Promotes communication, teamwork, and collaborative problem-solving.                                             |
 
   <br />
+  </details>
 
-- **Chains of Effects - Sustainability Dimensions**
-
+<details>
+  <summary><strong>Chains of Effects - Sustainability Dimensions</summary>
 <div align="center">
-
-<strong>Table 10:</strong> Chains of Effects - Sustainability Dimensions<br />
-
+  <strong>Table 10:</strong> Chains of Effects - Sustainability Dimensions<br />
 </div>
+
+<br>
 
 | **Dimension / Topic**                     | **Chains of Effects**                                                                                                                                                                                                                                                                          |
 | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -873,14 +889,17 @@ Each test includes the test action, the expected result, the actual behavior, an
 | **Economic: Customer Relationship**       | people enjoy playing → spend more time on the game → game provider adds advertisements → company gains benefit → company improves features → players enjoy more → more users...                                                                                                                |
 
   <br />
+  </details>
 
 #### 2. Green Software Foundation Patterns – Game Integration
 
+<details>
+  <summary><strong>Green Software Foundation Patterns</summary>
 <div align="center">
-
-<strong>Table 11:</strong> Green Software Foundation Patterns – Game Integration<br />
-
+  <strong>Table 11:</strong> Green Software Foundation Patterns – Game Integration<br />
 </div>
+
+<br>
 
 | Plan to Add to Game             | Relevant Pattern                    | Link                                                                                     | Task Description                                                          | Jira                                                                |
 | ------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------- |
@@ -889,14 +908,17 @@ Each test includes the test action, the expected result, the actual behavior, an
 | Remove redundant assets         | Keep Request Counts Low             | [Pattern](https://patterns.greensoftware.foundation/catalog/web/keep-request-counts-low) | Delete unnecessary SVG files to reduce total number of HTTP requests      | [DONE-TG-149](https://vivi2393142-0702.atlassian.net/browse/TG-149) |
 
 <br />
+</details>
 
 #### 3. Sustainability Requirements -> User stories
 
+<details>
+  <summary><strong>Sustainability Requirements</summary>
 <div align="center">
-
-<strong>Table 12:</strong> Sustainability Requirements -> User stories<br />
-
+  <strong>Table 12:</strong> Sustainability Requirements -> User stories<br />
 </div>
+
+<br>
 
 | **Epic**                                          | **Story**                                                                                                                                                                                           | **Acceptance Criteria**                                                                                                                                                                                                                                                                                                                  | **Jira**                                                                                  |
 | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -906,7 +928,9 @@ Each test includes the test action, the expected result, the actual behavior, an
 
 More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/edit-v2/25919494?).
 
-### Process
+</details>
+
+### 3.7 Process
 
 Our team collaborated through a structured software development workflow:
 
@@ -1045,7 +1069,7 @@ Alternatively, request access using your own account.
 
 ---
 
-### Conclusion
+### 3.8 Conclusion
 
 - 10% ~500 words
 
@@ -1053,13 +1077,13 @@ Alternatively, request access using your own account.
 
 ---
 
-### Future Possibility
+Future Possibility
 
 For more advanced development, we aim to integrate face detection through the front-facing camera, allowing users to control their character using their face direction. This face detection-based control method will reduce the time users spend observing others, enhancing their overall experience.
 
 ---
 
-### Contribution Statement
+### 3.9 Contribution Statement
 
 <div align="center">
 
@@ -1070,7 +1094,7 @@ For more advanced development, we aim to integrate face detection through the fr
 | Name                       | Role                       | Key Contributions                                                                                                                                                    |
 | -------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Vivi (Wei Lin)**         | 🧩 Project Lead            | - Led overall workflow and task distribution<br>- Designed system architecture and codebase<br>- Managed team communication and progress using Jira                  |
-| **Negi (Chen Pin Ru)**     | 🎨 UX & Visual Designer    | - Designed guidance/navigation screens and map visuals<br>- Built the full navigation system<br>- Directed intro video production (script, storyboard, editing)      |
+| **Negi (Pin-Ru Chen)**     | 🎨 UX & Visual Designer    | - Designed guidance/navigation screens and map visuals<br>- Built the full navigation system<br>- Directed intro video production (script, storyboard, editing)      |
 | **Chi (Yu-Qi Lin)**        | 🧪 Game Developer & Tester | - Built the Welcome Page<br>- Developed Map 4 and designed layout for Map 5<br>- Conducted full gameplay testing and visual polish                                   |
 | **Cynthia (Hsin-Yun Fan)** | 🖼️ Visual Designer         | - Designed game scene visuals<br>- Led development of Map 5                                                                                                          |
 | **Digo (Hsing-Min Tu)**    | 📚 Documentation Manager   | - Collected data and maintained documentation<br>- Managed GitHub README<br>- Analyzed user feedback<br>- Prototyped Map 3 & developed Game 6 logic                  |
