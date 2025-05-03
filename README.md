@@ -110,17 +110,19 @@ Maps 2 to 6 build upon this foundation with diverse game rules, environments, an
   <img width="600px" src="docs/assets/readme/prototype-demo-one.gif" alt="Prototype Demo 1" />
 </div>
 
-<p align="center"><strong>Figure 2:</strong> Early prototype demonstration – basic player movement and interaction.</p>
+<p align="center"><strong>Figure 2:</strong> Unspottable demonstration</p>
 
 <div align="center">
   <img width="600px" src="docs/assets/readme/prototype-demo-two.gif" alt="Prototype Demo 2" />
-  <p><strong>Figure 3:</strong> Advanced prototype demonstration – attacking, AI interaction and effects.</p>
+  <p><strong>Figure 3:</strong> Taiko no Tatsujin demonstration</p>
 </div>
+
+Two Prototype links:
 
 <div align="left"></div>
 
-1. <a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable</b></a>
-2. <a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin</b></a>
+1. <a href="https://youtu.be/sJq6Dhigx1E"><b>Unspottable(Figure 2)</b></a>
+2. <a href="https://youtu.be/9nLy-XZOiaM"><b>Taiko no Tatsujin(Figure 3)</b></a>
 
 #### Idea - Unspottable / Taiko no Tatsujin
 
@@ -598,15 +600,15 @@ sequenceDiagram
 
 #### Three Technical Challenges
 
-##### 1. Loading Too Many Assets (Images)
+#### 1. Loading Too Many Assets (Images)
 
 A game consists of many different graphical elements. Initially, when designing our JavaScript architecture, image loading posed a serious challenge. To address this, we implemented a module that allows color modifications through code, significantly reducing the number of images required. Additionally, we applied an SVG compression tool to enhance loading speed. These optimizations helped save both time and memory in the game’s development.
 
-##### 2. Helping Users Understand the Game’s Rules
+#### 2. Helping Users Understand the Game’s Rules
 
 Although our game logic appears simple and intuitive, some users still struggled to find where to start or how to use the control panel. To improve this, we redesigned the keyboard instruction panel and placed it on the welcome page, ensuring visibility for both players. Furthermore, to enhance the overall gaming experience, we introduced an interactive tutorial before entering the game. This allows players to practice controlling their characters and attacking robots in a simulated environment. Lastly, since each of our maps has unique characteristics, we now display a map preview before entering the game to familiarize players with its special features.
 
-##### 3. Designing Diverse Maps and Rules for Players
+#### 3. Designing Diverse Maps and Rules for Players
 
 Originally, our game featured only one map where players were the sole attackers. This limited gameplay depth, making it less engaging for extended play sessions of five to ten minutes. To enhance replayability, we introduced new maps and gameplay mechanics. Expanding on the original map, we developed additional variations incorporating new features, such as PC-controlled robots that can attack. These improvements have made the game more dynamic and enjoyable.
 
@@ -614,7 +616,7 @@ Originally, our game featured only one map where players were the sole attackers
 
 Our newly designed game architecture introduces additional difficulty levels, primarily based on map variations:
 
-##### 1. Expanded Map Boundaries
+#### 1. Expanded Map Boundaries
 
 More maps will be released in the coming weeks, featuring new boundaries that restrict player movement.
 
@@ -622,7 +624,7 @@ More maps will be released in the coming weeks, featuring new boundaries that re
 - By introducing boundaries, this strategy will no longer be effective.
 - Players will now have to navigate using all four directions to determine their identity while also being cautious not to cross the restricted areas.
 
-##### 2. Randomized Machine Attacks
+#### 2. Randomized Machine Attacks
 
 In another map, AI-controlled machines will launch random attacks, forcing players to stay vigilant.
 
@@ -637,15 +639,15 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 #### 3.5.1 Qualitative Evaluation
 
-##### Feedback from Testers and Corresponding Solutions
+#### Feedback from Testers and Corresponding Solutions(Via think aloud)
 
-###### Issue 1: Introduction Page
+#### Issue 1: Introduction Page
 
 - **Problem:** Unclear instructions on how to close or skip the introduction.
 - **Problem:** Players did not understand how to begin the game from the homepage.
 - **Solution:** We redesigned the introduction page with clearer visual guidance. Instead of static text, animated instructions now show players how to start and control the game.
 
-###### Issue 2: In-Game Experience
+#### Issue 2: In-Game Experience
 
 - **Problem:** Players using the left-side keyboard had difficulty locating the correct attack key.
   - **Solution:** Updated control panel and remapped keys for better intuitiveness.
@@ -660,7 +662,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 #### 3.5.2 Quantitative Evaluation
 
-##### Heuristic Evaluation
+#### Heuristic Evaluation
 
 <div align="center">
 
@@ -678,21 +680,21 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 </div>
 
-##### Feedback from Testers and Corresponding Solutions
+#### Feedback from Testers and Corresponding Solutions
 
-###### 1. User Control and Freedom
+#### 1. User Control and Freedom
 
 - **Feedback:** Players found the exit and undo options unclear, making it difficult to restart or exit the game.
-- **Solution:** We will add more intuitive options such as a **replay button** and a clearly labeled **exit key**, allowing players to restart or quit the game more easily.
+- **Solution:** In our game, the option to exit mid-game is intentionally restricted to ensure fairness between both players, as allowing an early exit could disrupt competitive balance. However, an exit option is provided at the end of each game round. Users can click the on-screen buttons to quit or restart — bottom-keyboard controls are disabled during this stage to avoid accidental activation.
 
-###### 2. Recognition Rather Than Recall
+#### 2. Recognition Rather Than Recall
 
 - **Feedback:** Some instructions were unclear or missing, leading to confusion among players.
-- **Solution:** We plan to redesign the instruction set to provide **clearer guidance**. This will be further detailed in the **Quantitative Evaluation** section, where we discuss usability improvements.
+- **Solution:** We redesigned multiple versions of the game instructions to improve the onboarding experience. In addition, we created a tutorial specifically for players with no prior experience with our game.
 
 #### Quantitative Evaluation
 
-##### Player Experience Analysis
+#### Player Experience Analysis
 
 <div align="center">
 
@@ -722,19 +724,19 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
   <strong>Figure 8:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
 </div>
 
-##### Briefing
+#### Briefing
 
 Quantitative Evaluation aims to provide user feedback through surveys conducted immediately after playing our game. Our data were collected from twelve users, each of whom played both Level I and Level II of the game.
 • Level I is an easier version where players only need to attack each other.
 • Level II introduces randomly attacking PC-controlled robots and adds boundaries to reduce the playing area, increasing the level of difficulty.
 
-##### Findings
+#### Findings
 
 From the chart, we observe that Mental Demand and Physical Demand remain nearly the same across both levels. A slight decrease can be seen in Temporal Demand, which may suggest players became more accustomed to the game’s pacing. On the other hand, Performance and Effort scores increased, indicating that players needed to invest more energy and attention when tackling the added difficulty of Level II.
 
 However, the most noticeable change is the increase in Frustration, suggesting that the harder gaming experience led to higher player frustration. Possible reasons include unclear map logic or the longer adaptation time required to understand the mechanics.
 
-##### Conclusion
+#### Conclusion
 
 Overall, we aim to develop a wider variety of gaming experiences to enhance the level of challenge that players seek. Additionally, improving map introductions will be a key focus to ensure better player adaptation.
 
@@ -1071,13 +1073,19 @@ Alternatively, request access using your own account.
 
 ### 3.8 Conclusion
 
-- 10% ~500 words
+#### Team reflections
 
-- Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work.
+All team members agree that we have built a game that we genuinely love, envisioned, and are proud of.
 
----
+At the start of the project, we believed that game development would be relatively straightforward and that focusing on coding alone would be enough. However, as the project progressed, we encountered a variety of challenges — not only technical issues, but also difficulties in communication, collaborative decision-making, and documentation integration. Since most of us had limited experience working on large-scale projects, our initial code lacked proper structure and consistent annotations. To address this, we spent a significant amount of time establishing a shared coding standard (which reminded us of the importance of practices like Extreme Programming), and we assigned a team member to oversee the integrity of the codebase. Once we were all aligned, most of the technical issues were resolved. Documentation faced a similar challenge: everyone initially wrote their own sections independently. To improve coherence, we appointed a documentation manager to unify the writing style and structure.
 
-Future Possibility
+To our surprise, the most helpful parts of the project were the team discussions and the evaluations — both qualitative and quantitative. Without regular discussions, we wouldn’t have been able to create a game with such coherence; instead, it might have felt like six loosely connected features.
+
+Evaluations also played a critical role. During our think-aloud sessions, testers revealed numerous blind spots that none of us had previously noticed. Their continuous and insightful feedback kept all our observers busy taking notes. On the other hand, the results from the quantitative evaluation further highlighted its value once we analyzed the collected data. Without these evaluations, we would have been designing based purely on our own assumptions. But software isn’t just for developers — it’s for users. Evaluations helped us identify our weaknesses and better understand what players actually want and need.
+
+Finally, we’d like to thank everyone who played our game and gave us feedback. Every opinion mattered and motivated us to keep improving — version after version.
+
+#### Future possobilities
 
 For more advanced development, we aim to integrate face detection through the front-facing camera, allowing users to control their character using their face direction. This face detection-based control method will reduce the time users spend observing others, enhancing their overall experience.
 
