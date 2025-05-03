@@ -1,9 +1,12 @@
+/**
+ * Base class for map introduction pages
+ * Handles common intro page elements and countdown
+ */
 class BaseMapIntro extends BasePage {
   /**
-   * Creates a new MapGame page instance.
    * @param {Object} params - The parameters for the map page.
    * @param {string} params.title - The number of robots.
-   * @param {string} params.gamePage - The instance of game page.
+   * @param {Object} params.gamePage - The instance of game page.
    * @param {string} params.gamePageKey - The key of game page.
    * @param {string[]} params.playerControlIntros - The number of robots.
    * @param {string} [params.additionalIntro] - The number of robots.
@@ -25,7 +28,7 @@ class BaseMapIntro extends BasePage {
 
     this.playerRobot = null;
 
-    // Initialize score display state
+    // initialize score display state
     this.scoreDisplayState = {
       opacity: 255,
       value: '+1',
@@ -35,7 +38,7 @@ class BaseMapIntro extends BasePage {
     this.gamePage = params.gamePage;
     this.gamePageKey = params.gamePageKey;
 
-    // Initialize countdown manager if countdown is enabled
+    // initialize countdown manager if countdown is enabled
     this.countdownManager = new CountdownManager({
       duration: 4,
       useFrameCount: false,
@@ -47,7 +50,10 @@ class BaseMapIntro extends BasePage {
     });
   }
 
-  /** @override */
+  /**
+   * Initialize intro page elements
+   * @override
+   */
   setup() {
     super.setup();
 
@@ -115,10 +121,12 @@ class BaseMapIntro extends BasePage {
     this._startCountdown();
   }
 
-  /** @override */
+  /**
+   * Render intro page
+   * @override
+   */
   draw() {
     super.draw();
-
     this.titleText.draw();
     this._drawScoreIndicator();
     this.playerRobot.draw();
@@ -126,9 +134,7 @@ class BaseMapIntro extends BasePage {
     this._drawProgressBar();
   }
 
-  /**
-   * Start the countdown if it exists
-   */
+  /** Start the countdown if it exists */
   _startCountdown() {
     this.countdownManager.start();
   }
@@ -165,19 +171,17 @@ class BaseMapIntro extends BasePage {
     });
   }
 
-  /**
-   * Draw the score indicator and player instructions
-   */
+  /** Draw the score indicator and player instructions */
   _drawScoreIndicator() {
     if (this.playerRobot) this.playerRobot.draw();
 
     push();
-    // Draw background rectangle with dotted line borders
+    // draw background rectangle with dotted line borders
     fill(255, 225, 200, 149);
     noStroke();
     rect(0, 270, width, 270);
 
-    // Draw the dotted lines
+    // draw the dotted lines
     stroke(255, 255, 255, 150);
     strokeWeight(3);
     drawingContext.setLineDash([10, 10]);
@@ -185,39 +189,37 @@ class BaseMapIntro extends BasePage {
     line(0, 540, width, 540);
     drawingContext.setLineDash([]);
 
-    // Draw score circle
+    // draw score circle
     fill(this.scoreDisplayState.color);
     noStroke();
     ellipse(width / 2, 370, 150, 150);
 
-    // Draw score value
+    // draw score value
     this.scoreIndicatorText.draw({
       label: this.scoreDisplayState.value,
       x: width / 2,
       y: 370,
     });
 
-    // Draw instruction text if exists
+    // draw instruction text if exists
     this.additionalIntroText?.draw();
     pop();
   }
 
-  /**
-   * Draw the controls box with player instructions
-   */
+  /** Draw the controls box with player instructions */
   _drawControlsBox() {
     if (!this.playerControlIntros || this.playerControlIntros.length === 0) {
       return;
     }
 
     push();
-    // Draw controls container
+    // draw controls container
     fill(255, 255, 255, 240);
     stroke(0);
     strokeWeight(2);
     rect(40, height - 150, 550, 100, 5);
 
-    // Draw each control instruction
+    // draw each control instruction
     this.playerControlIntroText.draw();
     pop();
   }

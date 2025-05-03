@@ -1,3 +1,4 @@
+// boundary configuration for game entities
 const areaMap5 = {
   x: 121,
   y: 21,
@@ -5,6 +6,10 @@ const areaMap5 = {
   height: 610,
 };
 
+/**
+ * Game implementation for Map 5
+ * Rule: robots hit in certain intervals
+ */
 class MapGame5 extends BaseMapGame {
   constructor() {
     const entityParams = {
@@ -23,7 +28,7 @@ class MapGame5 extends BaseMapGame {
     });
 
     this.attackCountdown = 3 * Constants.FramePerSecond;
-    // Due the game countdown at the start, daley the attack countdown
+    // due the game countdown at the start, daley the attack countdown
     this.startCountdownDelay = 5 * Constants.FramePerSecond;
     this.hitCountDownText = new Text({
       label: '',
@@ -39,6 +44,10 @@ class MapGame5 extends BaseMapGame {
     });
   }
 
+  /**
+   * Render game with synchronized attack countdown
+   * @override
+   */
   draw() {
     super.draw();
 
@@ -47,6 +56,7 @@ class MapGame5 extends BaseMapGame {
       return;
     }
 
+    // display countdown when <= 3 seconds
     const secondsLeft = Math.ceil(
       this.attackCountdown / Constants.FramePerSecond,
     );
@@ -55,6 +65,7 @@ class MapGame5 extends BaseMapGame {
       this.hitCountDownText.draw();
     }
 
+    // trigger attacks when countdown reaches 0
     if (this.attackCountdown === 0) {
       this.robots.forEach((robot) => {
         if (robot.status !== Constants.EntityStatus.DIED) {
@@ -65,7 +76,8 @@ class MapGame5 extends BaseMapGame {
           });
         }
       });
-      // Reset countdown
+
+      // reset countdown
       this.attackCountdown = 8 * Constants.FramePerSecond;
     } else {
       this.attackCountdown--;

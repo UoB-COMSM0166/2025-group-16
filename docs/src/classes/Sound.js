@@ -3,7 +3,6 @@
  */
 class Sound {
   /**
-   * Creates a new Sound instance.
    * @param {string} path - The path to the audio file.
    * @param {string[]} [formats=['wav']] - Audio formats to support, e.g. 'mp3', 'wav', 'ogg'
    */
@@ -13,26 +12,24 @@ class Sound {
     this.formats = formats;
   }
 
-  /**
-   * Loads the audio file.
-   */
+  /** Loads the audio file */
   loadSound() {
     this.sound = loadSound(this.path);
   }
 
-  // plays the sound in a loop
+  /** Plays the sound in a loop */
   loop() {
     if (!this.sound || this.sound.isPlaying()) return;
     this.sound.loop();
   }
 
-  // stops the sound
+  /** Stops the sound */
   stop() {
     if (!this.sound || !this.sound.isPlaying()) return;
     this.sound.stop();
   }
 
-  // plays the sound once
+  /** Plays the sound once */
   play(isPlayInPureJs = false) {
     if (isPlayInPureJs) {
       if (!Store.getSpeakerStatus()) return;
@@ -42,6 +39,7 @@ class Sound {
     }
   }
 
+  /** Play audio outside of p5.js */
   _playInPureJs() {
     new Audio(this.path).play().catch((error) => {
       console.error('Playback failed:', error);

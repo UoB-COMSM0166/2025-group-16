@@ -84,6 +84,52 @@
 
    Make sure you use the linters in project correctly, find more details at [Linter](#linter).
 
+   In addition to rules in the project configs, follow these guidelines:
+
+   - Naming
+
+     - **Classes/files**: Uppercase camelCase (e.g., `BasePage`).
+     - **Variables/functions**: Lowercase camelCase (e.g., `draw`).
+     - **Booleans**: Use prefixes like `is` or `has` (e.g., `isActive`).
+     - **Assets**: Underscore-separated (e.g., `player_avatar.png`).
+     - **Folders**: Lowercase camelCase (e.g., `pages`).
+     - **Config objects**: Uppercase camelCase (e.g., `Theme`, `Constants`).
+     - **Enums/constants**: All uppercase with underscores (e.g., `Constants.Page.MAP_SELECTION`).
+
+   - JSDoc
+
+     - **Classes**: Document purpose and parameters with JSDoc.
+     - **Functions**: Use JSDoc for all class methods.
+     - **Overrides**: Add `@override`.
+
+     Example:
+
+     ```js
+     /**
+      * Base class for all pages in the game.
+      */
+     class BaseMapPage extends BasePage {
+       /**
+        * @param {string} name - Name of the map.
+        */
+       constructor(name) {
+         this.name = name;
+       }
+
+       /**
+        * Render game page
+        * @override
+        */
+       draw() {
+         ...
+       }
+     }
+     ```
+
+   - Other
+     - **Private Functions**: Use underscore prefix (e.g., `_privateMethod()`).
+     - **Config Files**: Place constants, colors, and settings in config folder (`config/constants.js`, `config/settings.js`, `config/theme.js`).
+
 4. **Testing**:
 
    - Use **Live Server** to test your changes in the browser.

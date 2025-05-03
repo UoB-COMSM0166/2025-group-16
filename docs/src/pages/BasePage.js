@@ -6,10 +6,10 @@
  */
 class BasePage {
   /**
-   * @param {Img} [params.background] - Optional. Image resource.
-   * @param {Sound} [params.bgm] - Optional. Sound resource.
-   * @param {string} [params.shapeType] - Optional. ShapeType setting for player.
-   * @param {boolean} [params.initSound] - Optional. Setting if it's first time loading to the welcome page. Default:false
+   * @param {Img} [params.background] - Image resource.
+   * @param {Sound} [params.bgm] - Sound resource.
+   * @param {string} [params.shapeType] - ShapeType setting for player.
+   * @param {boolean} [params.initSound] - Setting if it's first time loading to the welcome page. Default:false
    */
   constructor(params) {
     this.background = params?.background || null;
@@ -46,6 +46,11 @@ class BasePage {
     this.bgm?.loop();
   }
 
+  /**
+   * Pause/unpause all entities of specified type
+   * @param {Constants.EntityType} type - Entity type to affect
+   * @param {boolean} isPaused - Pause state
+   */
   setAllEntitiesPaused(type, isPaused) {
     if (type === Constants.EntityType.PLAYER) {
       this.players.forEach((player) => {
@@ -94,16 +99,5 @@ class BasePage {
    */
   remove() {
     this.bgm?.stop();
-  }
-
-  isImagePressed(imageObj) {
-    if (!imageObj || !imageObj.width || !imageObj.height) return false;
-
-    return (
-      mouseX >= imageObj.x - 20 &&
-      mouseX <= imageObj.x + imageObj.width &&
-      mouseY >= imageObj.y - 20 &&
-      mouseY <= imageObj.y + imageObj.height
-    );
   }
 }

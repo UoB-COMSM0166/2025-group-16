@@ -1,3 +1,7 @@
+/**
+ * Game implementation for Map 1
+ * Rule: no special rules
+ */
 class MapGame1 extends BaseMapGame {
   constructor() {
     super({

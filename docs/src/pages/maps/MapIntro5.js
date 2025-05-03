@@ -1,3 +1,6 @@
+/**
+ * Game Introduction implementation for Map 5
+ */
 class MapIntro5 extends BaseMapIntro {
   constructor() {
     super({

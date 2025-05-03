@@ -1,3 +1,7 @@
+/**
+ * Game results page showing scores and winner
+ * Handles victory animations and transitions
+ */
 class Results extends BasePage {
   constructor() {
     super({
@@ -7,19 +11,32 @@ class Results extends BasePage {
 
     this.title = null;
     this.backHint = null;
-
     this.winner = { idx: null, score: 0 };
 
+    // animation timings
     this.showDropScoreAniTime = millis() + 300;
     this.showPlayerAniTime = millis() + 1000;
     this.showBackHintTime = millis() + 1500;
 
+    // score drop animation settings
     this.dropStartY;
     this.dropScoreSpeed = 8;
     this.scoreHeight = 128;
+
+    // exit button & dialog
+    this.exitIconButton = new IconButton({
+      iconImg: Resources.images.common.exit,
+      onClick: () => {
+        this.exitDialog.open();
+      },
+    });
+    this.exitDialog = new ExitDialog();
   }
 
-  /** @override */
+  /**
+   * Initialize result page elements
+   * @override
+   */
   setup() {
     super.setup();
 
@@ -48,10 +65,10 @@ class Results extends BasePage {
 
     this.playerSettings = this._getPlayerSettings();
     this.winner = this._getWinner();
-
     this.dropStartY = this.title.y - this.scoreHeight;
   }
 
+  /** Get player positions and scores for display */
   _getPlayerSettings() {
     const currPlayers = Store.getPlayers();
     return currPlayers.map((player, pIdx) => ({
@@ -64,6 +81,7 @@ class Results extends BasePage {
     }));
   }
 
+  /** Determine winner based on scores */
   _getWinner() {
     return this.playerSettings.reduce(
       (winner, { score }, idx) =>
@@ -72,7 +90,10 @@ class Results extends BasePage {
     );
   }
 
-  /** @override */
+  /**
+   * Render results page with animations
+   * @override
+   */
   draw() {
     super.draw();
 
@@ -93,8 +114,13 @@ class Results extends BasePage {
     if (timeSinceHint && Math.floor(timeSinceHint / 1000) % 2) {
       this.backHint?.draw();
     }
+
+    // draw exit icon & dialog
+    this.exitIconButton.draw(width * 0.95, height * 0.05);
+    this.exitDialog.draw();
   }
 
+  /** Draw title with score drop animation */
   _drawTitle() {
     if (!this.title) return;
 
@@ -146,6 +172,7 @@ class Results extends BasePage {
     }
   }
 
+  /** Draw player image with animation */
   _drawPlayerImage(setting, scale) {
     const aniType = this._getPlayerAniType(setting);
     const imageResource = this._getPlayerImageResource(aniType, setting.color);
@@ -162,6 +189,7 @@ class Results extends BasePage {
     pop();
   }
 
+  /** Determine player animation type based on game state */
   _getPlayerAniType(player) {
     const isShowAni = millis() > this.showPlayerAniTime;
     // change animation frame every 0.4s
@@ -195,6 +223,7 @@ class Results extends BasePage {
     return Resources.images.playerAnimation[type][color];
   }
 
+  /** Draw victory confetti effect */
   _drawConfetti(x, y) {
     const confettiImg = Resources.images.resultsPage.confetti;
     const scale = 3;
@@ -213,9 +242,20 @@ class Results extends BasePage {
     pop();
   }
 
-  /** @override */
+  /**
+   * Handle key press for page transition
+   * @override
+   */
   keyPressed() {
     super.keyPressed();
+
+    // check if exit dialog is open
+    // if so, handle key press for dialog
+    // otherwise, handle key press for result page
+    if (this.exitDialog.isOpen) {
+      this.exitDialog.keyPressed();
+      return;
+    }
 
     if (millis() > this.showBackHintTime) {
       if (this.winner.idx === null) {
@@ -223,8 +263,18 @@ class Results extends BasePage {
         Controller.changePage(new MapSelection(), Constants.Page.MAP_SELECTION);
       } else {
         Controller.resetPlayersScore();
+        Controller.resetLastMapIdx();
         Controller.changePage(new Welcome(), Constants.Page.WELCOME);
       }
     }
+  }
+
+  /**
+   * Handle mouse press events
+   * @override
+   */
+  mousePressed() {
+    super.mousePressed();
+    this.exitIconButton.mousePressed();
   }
 }

@@ -1,3 +1,7 @@
+/**
+ * Manage keyboard control UI in the game
+ * Render player-specific control indicators
+ */
 class KeyboardControl extends UIComponent {
   /**
    * @param {Object} params - The parameters for initializing the keyboard control.
@@ -5,11 +9,11 @@ class KeyboardControl extends UIComponent {
    * @param {number} params.x - The x-coordinate of the control.
    * @param {number} params.y - The y-coordinate of the control.
    * @param {Object} [params.color] - The color state of the controls.
-   * @param {String} [params.color.LEFT='default'] - The color of the LEFT control, can be 'default', 'active' & 'inactive'.
-   * @param {String} [params.color.RIGHT='default'] - The color of the RIGHT control, can be 'default', 'active' & 'inactive'.
-   * @param {String} [params.color.UP='default'] - The color of the UP control, can be 'default', 'active' & 'inactive'.
-   * @param {String} [params.color.DOWN='default'] - The color of the DOWN control, can be 'default', 'active' & 'inactive'.
-   * @param {String} [params.color.HIT='default'] - The color of the HIT control, can be 'default', 'active' & 'inactive'.
+   * @param {string} [params.color.LEFT='default'] - The color of the LEFT control, can be 'default', 'active' & 'inactive'.
+   * @param {string} [params.color.RIGHT='default'] - The color of the RIGHT control, can be 'default', 'active' & 'inactive'.
+   * @param {string} [params.color.UP='default'] - The color of the UP control, can be 'default', 'active' & 'inactive'.
+   * @param {string} [params.color.DOWN='default'] - The color of the DOWN control, can be 'default', 'active' & 'inactive'.
+   * @param {string} [params.color.HIT='default'] - The color of the HIT control, can be 'default', 'active' & 'inactive'.
    * @param {number} [params.scale=1] - The scale of the control.
    */
   constructor(params) {
@@ -24,7 +28,7 @@ class KeyboardControl extends UIComponent {
         control,
         params?.color?.[control] || 'default',
       ]),
-    );
+    ); // control color states
     this.scale = params?.scale || 1;
 
     if (params.scale > 1) {
@@ -33,11 +37,18 @@ class KeyboardControl extends UIComponent {
       );
     }
 
-    this.sideLength = 72;
-    this.gap = 8;
+    this.sideLength = 72; // control image size
+    this.gap = 8; // spacing between controls
   }
 
-  /** @override */
+  /**
+   * Draw keyboard control UI
+   * @param {Object} params - Drawing parameters
+   * @param {number} [params.x] - X-coordinate override
+   * @param {number} [params.y] - Y-coordinate override
+   * @param {Object} [params.color] - Updated color states
+   * @override
+   */
   draw(params) {
     this.x = params.x || this.x;
     this.y = params.y || this.y;
@@ -64,6 +75,12 @@ class KeyboardControl extends UIComponent {
     pop();
   }
 
+  /**
+   * Draw a single control image
+   * @param {string} control - Control type (e.g., 'HIT', 'UP')
+   * @param {number} offsetX - X-offset relative to base position
+   * @param {number} offsetY - Y-offset relative to base position
+   */
   _drawControl(control, offsetX, offsetY) {
     imageMode(CENTER);
     const colorStatus = this.color[control];

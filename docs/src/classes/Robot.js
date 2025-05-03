@@ -1,9 +1,9 @@
 /**
- * Represents a robot in the game.
+ * Manage a robot entity in the game
+ * Handle autonomous movement and pause functionality
  */
 class Robot extends Entity {
   /**
-   * Creates a new Robot instance.
    * @param {Object} params - The parameters for the player.
    * @param {number} params.idx - The index of the robot in robots.
    * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the player.
@@ -26,12 +26,14 @@ class Robot extends Entity {
     });
 
     this.isPaused = params?.isPaused ?? false;
-
     this.action = () => {};
     this.actionEndTime = millis();
   }
 
-  /** @override */
+  /**
+   * Draw robot and handle autonomous movement
+   * @override
+   */
   draw() {
     super.draw();
 
@@ -42,11 +44,16 @@ class Robot extends Entity {
     }
   }
 
+  /** Pause robot movement */
   pause() {
     this.action = () => {}; // clear current action
     this.actionEndTime = millis() + 1000; // stop immediately
   }
 
+  /**
+   * Control robot movement in specific direction
+   * @param {Constants.EntityMove} direction - Movement direction to control
+   */
   controlMove(direction) {
     this.action = () => {
       super.move(direction);
@@ -54,7 +61,10 @@ class Robot extends Entity {
     this.actionEndTime = millis() + 1000; // custom action duration
   }
 
-  /** @override */
+  /**
+   * Perform autonomous movement with random direction and duration
+   * @override
+   */
   move() {
     if (this.status === Constants.EntityStatus.DIED) return;
 
@@ -73,7 +83,7 @@ class Robot extends Entity {
   }
 }
 
-// map RobotMoveOptions to EntityMove
+// map robot movement options to entity movement directions
 const moveDirections = {
   [Constants.RobotMoveOption.UP]: [Constants.EntityMove.UP],
   [Constants.RobotMoveOption.DOWN]: [Constants.EntityMove.DOWN],

@@ -1,5 +1,6 @@
 /**
- * Represents a player in the game.
+ * Manage a player entity in the game
+ * Handle player controls, movement, and interactions
  */
 class Player extends Entity {
   /**
@@ -8,13 +9,13 @@ class Player extends Entity {
    * @param {number} params.idx - The index of the player in players.
    * @param {Object} params.controls - The control mappings from `Settings.players[idx].controls`.
    * @param {keyof typeof Constants.EntityType} [params.shapeType] - The shape type of the player, can looks like a robot but is a player actually.
-   * @param {typeof Theme.palette.player[keyof typeof Theme.palette.player]} [params.color] - Optional. The color of the player.
-   * @param {keyof typeof Constants.EntitySize} [params.size] - Optional. The size of the player.
-   * @param {{ x: number, y: number }} [params.position] - Optional. If not provided, will be randomly placed.
-   * @param {{ x: number, y: number, width: number, height: number }} [params.positionBoundary] - Optional. If provided and no `position`, will be randomly placed within the boundary.
-   * @param {{ x: number, y: number, width: number, height: number }} [params.randomPositionArea] - Optional. If provided, the entity will be placed within the area.
-   * @param {number} [params.randomPositionPadding] - Optional. If provided, the entity will be placed within the area with a padding.
-   * @param {number} [params.onHit] - Optional. Callback function when player hit.
+   * @param {typeof Theme.palette.player[keyof typeof Theme.palette.player]} [params.color] - The color of the player.
+   * @param {keyof typeof Constants.EntitySize} [params.size] - The size of the player.
+   * @param {{ x: number, y: number }} [params.position] - If not provided, will be randomly placed.
+   * @param {{ x: number, y: number, width: number, height: number }} [params.positionBoundary] - If provided and no `position`, will be randomly placed within the boundary.
+   * @param {{ x: number, y: number, width: number, height: number }} [params.randomPositionArea] - If provided, the entity will be placed within the area.
+   * @param {number} [params.randomPositionPadding] - If provided, the entity will be placed within the area with a padding.
+   * @param {Function} [params.onHit] - Callback function when player hit.
    */
   constructor(params) {
     const initColor =
@@ -32,14 +33,17 @@ class Player extends Entity {
       randomPositionArea: params?.randomPositionArea,
     });
 
-    this.controls = params.controls;
-    this.isPaused = params?.isPaused || false;
-    this.originColor = initColor;
-    this.onHit = params?.onHit;
-    this.hasCooldownEffect = false;
+    this.controls = params.controls; // player-specific control mappings
+    this.isPaused = params?.isPaused || false; // pause state
+    this.originColor = initColor; // original color for reset
+    this.onHit = params?.onHit; // hit callback
+    this.hasCooldownEffect = false; // cooldown effect flag
   }
 
-  /** @override */
+  /**
+   * Draw player and handle movement
+   * @override
+   */
   draw() {
     super.draw();
 
@@ -50,6 +54,11 @@ class Player extends Entity {
     });
   }
 
+  /**
+   * Handle key press events for player actions
+   * @param {Entity[]} entities - List of entities to check for hits
+   * @param {Function} onDie - Callback when an entity dies
+   */
   keyPressed(entities, onDie) {
     if (this.status === Constants.EntityStatus.DIED) return;
     if (this.isPaused) return;
@@ -60,11 +69,18 @@ class Player extends Entity {
       keyCode === hitControl.value &&
       this.status === Constants.EntityStatus.ALIVE
     ) {
+      // trigger hit action
       if (this.onHit) this.onHit();
       this.hit(entities, onDie);
     }
   }
 
+  /**
+   * Update player parameters
+   * @param {Object} [params] - Parameters to update
+   * @param {keyof typeof Constants.EntityType} [params.shapeType] - New shape type
+   * @param {typeof Theme.palette.player[keyof typeof Theme.palette.player]} [params.color] - New color
+   */
   updateParams(params = {}) {
     if (params?.shapeType) {
       this.shapeType = params.shapeType;

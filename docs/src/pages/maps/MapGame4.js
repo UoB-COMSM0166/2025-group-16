@@ -1,3 +1,4 @@
+// boundary configuration for game entities
 const areaMap4 = {
   x: 0,
   y: 181,
@@ -5,6 +6,10 @@ const areaMap4 = {
   height: 540,
 };
 
+/**
+ * Game implementation for Map 4
+ * Rule: robot move according to displayed keys
+ */
 class MapGame4 extends BaseMapGame {
   constructor() {
     const entityParams = {
@@ -15,28 +20,37 @@ class MapGame4 extends BaseMapGame {
 
     super({
       shapeType: Constants.EntityType.ROBOT,
-      robotNumber: 10,
+      robotNumber: 20,
       background: Resources.images.map.game4,
       bgm: Resources.sounds.bgm.playing4,
       robotParams: entityParams,
       playerParams: entityParams,
     });
+
+    // UI positioning
     this.rectH = height / 4 - 30;
     this.keyX = width - width / 4;
     this.keyY = this.rectH / 4;
     this.lineX = width / 4;
 
+    // key display management
     this.keys = [];
     this.keyLimit = 5;
     this.keyAmount = 0;
 
+    // dance rhythm timing
     this.dancePeriod = 20;
     this.timeBeforeDanceCountdown = 5 * Constants.FramePerSecond;
     this.danceCountdownTimer = 0;
   }
 
+  /**
+   * Render game with rhythm-based movement system
+   * @override
+   */
   draw() {
     super.draw();
+    this._renderDanceKeys();
     this._drawDanceline();
 
     if (this.timeBeforeDanceCountdown > 0) {
@@ -44,19 +58,29 @@ class MapGame4 extends BaseMapGame {
       return;
     }
 
-    this._renderDanceKeys();
-
     if (this.danceCountdownTimer === 0) {
       this._resetTimer();
     }
   }
 
+  /** Draw the dance timing line */
   _drawDanceline() {
-    stroke(Theme.palette.white);
+    push();
+
+    // draw yellow outer glow
+    stroke(color(255, 255, 0, 60));
+    strokeWeight(12);
+    line(this.lineX, 0, this.lineX, this.rectH);
+
+    // yellow line
+    stroke(Theme.palette.yellow || color(255, 255, 0));
     strokeWeight(3);
     line(this.lineX, 0, this.lineX, this.rectH);
+
+    pop();
   }
 
+  /** Handle dance key rendering and timing */
   _renderDanceKeys() {
     if (
       this.danceCountdownTimer <= this.dancePeriod * Constants.FramePerSecond &&
@@ -67,7 +91,9 @@ class MapGame4 extends BaseMapGame {
     }
   }
 
+  /** Update and display dance keys */
   _updateKeys() {
+    // add new key if time and limit allows
     if (
       frameCount % Constants.FramePerSecond === 0 &&
       this.keyAmount < this.keyLimit
@@ -79,12 +105,12 @@ class MapGame4 extends BaseMapGame {
         x: this.keyX,
         y: this.keyY,
       });
-
       this.keyAmount += 1;
     }
 
+    // draw and move existing keys
     for (let k of this.keys) {
-      // text
+      // draw key with outline effect
       const textFrame = new Text({
         x: k.x,
         y: k.y,
@@ -122,12 +148,17 @@ class MapGame4 extends BaseMapGame {
     this.keys = this.keys.filter((k) => k.x > 150);
   }
 
+  /** Reset dance sequence timer */
   _resetTimer() {
     this.danceCountdownTimer = this.dancePeriod * Constants.FramePerSecond;
     this.keyAmount = 0;
     this.keys = this.keys.filter((key) => key.x > -100);
   }
 
+  /**
+   * Generate random direction key for rhythm sequence
+   * @returns {Object} Contains display text and corresponding movement key
+   */
   _generateRandomDirectionKey() {
     // right, left, up, down, stop
     const directionKey = [
