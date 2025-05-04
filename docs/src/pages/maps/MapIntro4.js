@@ -11,14 +11,14 @@ class MapIntro4 extends BaseMapIntro {
 
         if (idx === 0) {
           return (
-            `Follow the arrows on the wall\n🔼and move with them!!\n` +
+            `` +
             controlText
           );
         }
 
         return controlText;
       }),
-      additionalIntro: '🌵Punch another player🌵',
+      additionalIntro: '↕️Move with arrows↔️',
       gamePage: new MapGame4(),
       gamePageKey: Constants.Page.MAP_GAME_4,
       background: Resources.images.map.game4,

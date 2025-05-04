@@ -11,13 +11,13 @@ class MapIntro3 extends BaseMapIntro {
 
         if (idx === 0) {
           return (
-            `🤖 Robots fight back!\n⚡ The fence will fry you!\n` + controlText
+            `` + controlText
           );
         }
 
         return controlText;
       }),
-      additionalIntro: '🚨Punch another player🚨',
+      additionalIntro: '🚨Fence fries you🚨',
       gamePage: new MapGame3(),
       gamePageKey: Constants.Page.MAP_GAME_3,
       background: Resources.images.map.game3,
