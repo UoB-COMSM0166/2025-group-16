@@ -10,12 +10,12 @@ class MapIntro5 extends BaseMapIntro {
         const controlText = `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
 
         if (idx === 0) {
-          return `👊 Punch with the crowd.\n` + controlText;
+          return `` + controlText;
         }
 
         return controlText;
       }),
-      additionalIntro: '🥊Punch another player🥊',
+      additionalIntro: '🥊3, 2, 1 — Punch!🥊',
       gamePage: new MapGame5(),
       gamePageKey: Constants.Page.MAP_GAME_5,
       background: Resources.images.map.game5,

@@ -10,12 +10,12 @@ class MapIntro6 extends BaseMapIntro {
         const controlText = `P${idx + 1}: Move [${UP.name} ${LEFT.name} ${DOWN.name} ${RIGHT.name}], Punch [${HIT.name}]`;
 
         if (idx === 0) {
-          return `🪄 Enter the circle, vanish\n  like magic!\n` + controlText;
+          return `` + controlText;
         }
 
         return controlText;
       }),
-      additionalIntro: '🔮Punch another player🔮',
+      additionalIntro: '🔮'+'Enter magic circle🔮\nhide or strike',
       gamePage: new MapGame6(),
       gamePageKey: Constants.Page.MAP_GAME_6,
       background: Resources.images.map.game6,

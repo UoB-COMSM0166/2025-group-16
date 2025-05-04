@@ -11,14 +11,14 @@ class MapIntro2 extends BaseMapIntro {
 
         if (idx === 0) {
           return (
-            `🤖 Be careful, the robots are\n  here to fight too!\n` +
+            `` +
             controlText
           );
         }
 
         return controlText;
       }),
-      additionalIntro: '🌱Punch another player🌱',
+      additionalIntro: '🌱Robots fight too🌱',
       gamePage: new MapGame2(),
       gamePageKey: Constants.Page.MAP_GAME_2,
       background: Resources.images.map.game2,
