@@ -1,9 +1,9 @@
 // boundary configuration for game entities
 const area = {
-  x: 64,
-  y: 120,
-  width: 1144,
-  height: 479,
+  x: 32,
+  y: 30,
+  width: 1220,
+  height: 640,
 };
 
 /**
