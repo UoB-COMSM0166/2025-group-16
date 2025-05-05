@@ -775,7 +775,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Charactor control test</summary>
 <div align="center">
-  <strong>Table 6:</strong> Charactor control test<br />
+  <strong>Table 6:</strong> Character control test<br />
 </div>
 
 <br>
@@ -1039,6 +1039,87 @@ flowchart LR
 - **Sprint Review & Retrospective**: At the end of each two-week sprint, we demo features, reflect on the process, and identify improvements.
 - **Sprint Planning**: Post-review, we prioritize tasks for the next sprint.
 
+Below is a summary of our Epics, their associated User Stories, and Sprint execution metrics tracked in Jira.
+
+<details>
+  <summary>Epic and User Story Overview</summary>
+
+  <div align="center">
+    <strong>Table 13:</strong> Epic and user story overview table
+  </div>
+  <br />
+
+<div align="center">
+
+| Epic Name                                                     | Number of User Stories |
+| ------------------------------------------------------------- | ---------------------- |
+| [DOC] Documentation of Work                                   | 2                      |
+| [INIT] Prototype                                              | 1                      |
+| [Page] Welcome Page                                           | 3                      |
+| [Page] Results (Game Over)                                    | 8                      |
+| [Page] Map Selection Page                                     | 22                     |
+| [Page] Basic Map (Map1)                                       | 6                      |
+| [Page] Fighting Map (Map2)                                    | 6                      |
+| [Page] Jail Map (Map3)                                        | 31                     |
+| [Page] Dancing Map (Map4)                                     | 7                      |
+| [Page] 3-2-1 Fight (Map5)                                     | 9                      |
+| [Page] Transfer Point (Map6)                                  | 7                      |
+| [Video] Prepare the Video Workflow                            | 6                      |
+| [REPORT & DEMO] Finalize code & documents                     | 30                     |
+| [ADV] Improve Website Performance                             | 3                      |
+| [ADV] Advanced features                                       | 1                      |
+| Increase the playing duration without making users feel bored | 5                      |
+| Add more interaction features during the game                 | 7                      |
+| Improve first-time user onboarding experience                 | 18                     |
+
+</div>
+
+</details>
+
+<details>
+  <summary>Sprints Overview</summary>
+
+  <div align="center">
+    <strong>Table 14:</strong> Sprint overview table
+  </div>
+  <br />
+
+| Sprint Name        | Date Range | Issues Added | Issues Committed | Issues Completed | Issues Rolled Over | Completion Rate |
+| ------------------ | ---------- | ------------ | ---------------- | ---------------- | ------------------ | --------------- |
+| Week2-3            | 1/19-2/6   | 26           | 12               | 11               | 1                  | 92%             |
+| Week4-5            | 2/6-2/20   | 25           | 34               | 29               | 5                  | 85%             |
+| Week6-7            | 2/20-3/6   | 37           | 40               | 29               | 11                 | 73%             |
+| Week8-9            | 3/6-3/20   | 48           | 44               | 25               | 19                 | 57%             |
+| Week10-11          | 3/20-4/3   | 12           | 39               | 26               | 13                 | 67%             |
+| Week14-15 LAST DEV | 4/18-5/1   | 7            | 33               | 13               | 20                 | 39%             |
+| Week16-17 DEMO     | 5/1-5/15   | 17           | 36               | 36               | 0                  | 100%            |
+| Overall            |            | 172          | 265              | 169              |                    | 98%             |
+
+</details>
+
+<details>
+  <summary>Jira Screenshots</summary>
+
+  <div align="center">
+    <img width="600px" src="docs/assets/readme/jira-timeline.png" alt="Jira Timeline View" />
+  </div>
+
+  <p align="center"><strong>Figure 11:</strong> Jira timeline view</p>
+
+  <div align="center">
+    <img width="600px" src="docs/assets/readme/jira-kanban.png" alt="Jira Kanban View" />
+  </div>
+
+  <p align="center"><strong>Figure 12:</strong> Jira kanban view</p>
+
+  <div align="center">
+    <img width="600px" src="docs/assets/readme/jira-task.png" alt="Jira Task View" />
+  </div>
+
+  <p align="center"><strong>Figure 13:</strong> Jira task view</p>
+
+</details>
+
 #### Communication
 
 - **Group Chat**: We use a team chat for real-time questions and issue discussions.
@@ -1095,7 +1176,7 @@ For more advanced development, we aim to integrate face detection through the fr
 
 <div align="center">
 
-<strong>Table 13:</strong> Contribution table<br />
+<strong>Table 15:</strong> Contribution table<br />
 
 </div>
 
