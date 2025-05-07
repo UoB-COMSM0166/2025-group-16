@@ -15,6 +15,7 @@
    - [3.5 Evaluation](#35-evaluation)
      - [3.5.1 Qualitative Evaluation](#351-qualitative-evaluation)
      - [3.5.2 Quantitative Evaluation](#352-quantitative-evaluation)
+     - [3.5.3 Tests](#353-tests)
    - [3.6 Sustainability](#36-sustainability)
    - [3.7 Process](#37-process)
    - [3.8 Conclusion](#38-conclusion)
@@ -24,9 +25,9 @@
 
 ### Game
 
-Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-16/)
+Link to our game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-16/)
 
-Your game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
+Our game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
 
 ### Video Demonstration
 
@@ -73,7 +74,7 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
 
 ### 3.1 Introduction
 
-Unspottable is a two-player party game where the ultimate goal is to find and eliminate your opponent. From Map 1 to Map 6, each stage offers a unique and progressively more challenging gameplay experience.<br />
+Unstoppable is a two-player party game where the ultimate goal is to find and eliminate your opponent. From Map 1 to Map 6, each stage offers a unique and progressively more challenging gameplay experience.<br />
 Map 1 introduces the core mechanic: locate your opponent among NPCs and knock them out.<br />
 Maps 2 to 6 build upon this foundation with diverse game rules, environments, and mechanics — all designed to make the game more dynamic, fun, and competitive.
 
@@ -206,14 +207,14 @@ Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/j
 
 #### Reflection
 
-- Brief Reflection:
-  Before taking the agile development class, we primarily focused on developing our own game, aiming to create a unique, user-friendly, and entertaining party game. While we had plenty of ideas, we lacked concrete plans for developing this game. However, after the class, our objectives were broken down into smaller, more manageable pieces, which makes our development goals much clearer.
+Brief Reflection:
+Before taking the agile development class, we primarily focused on developing our own game, aiming to create a unique, user-friendly, and entertaining party game. While we had plenty of ideas, we lacked concrete plans for developing this game. However, after the class, our objectives were broken down into smaller, more manageable pieces, which makes our development goals much clearer.
 
-  Through the introduction of stakeholders, we learned how to analyze both software users and competitors. In our project, stakeholders mainly include teachers, team members, and even fellow students in the same course, who might become potential users in the future. Identifying and defining these relationships early on allows our team to focus on the right audience and smoothly transition into the user stories and epics phase.
+Through the introduction of stakeholders, we learned how to analyze both software users and competitors. In our project, stakeholders mainly include teachers, team members, and even fellow students in the same course, who might become potential users in the future. Identifying and defining these relationships early on allows our team to focus on the right audience and smoothly transition into the user stories and epics phase.
 
-  When working with epics, having a clear goal is essential, but understanding our users is equally crucial for building an efficient development environment. These epics can be further divided into smaller, actionable tasks based on actual requirements. For instance, in our game, one of our key epics is to create an intuitive and accessible experience for all players, regardless of whether they are first-time users or experienced ones. This epic consists of several user stories, including tailored experiences for new players, returning players, and those who prefer to skip tutorials at the beginning of the game.
+When working with epics, having a clear goal is essential, but understanding our users is equally crucial for building an efficient development environment. These epics can be further divided into smaller, actionable tasks based on actual requirements. For instance, in our game, one of our key epics is to create an intuitive and accessible experience for all players, regardless of whether they are first-time users or experienced ones. This epic consists of several user stories, including tailored experiences for new players, returning players, and those who prefer to skip tutorials at the beginning of the game.
 
-  Breaking down large objectives into smaller, well-defined tasks significantly streamlines the development process. Additionally, setting clear acceptance criteria ensures that our progress stays on track. If any issues arise, we can systematically analyze each step to identify where the problem occurred and make necessary adjustments.
+Breaking down large objectives into smaller, well-defined tasks significantly streamlines the development process. Additionally, setting clear acceptance criteria ensures that our progress stays on track. If any issues arise, we can systematically analyze each step to identify where the problem occurred and make necessary adjustments.
 
 ---
 
@@ -619,7 +620,7 @@ Our newly designed game architecture introduces additional difficulty levels, pr
 
 #### 1. Expanded Map Boundaries
 
-More maps will be released in the coming weeks, featuring new boundaries that restrict player movement.
+Through multiple playtests, we identified some critical player behaviors that significantly impact the game experience:
 
 - We observed that players tend to move in a specific direction at the start of the game to identify their character.
 - By introducing boundaries, this strategy will no longer be effective.
@@ -728,8 +729,9 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 #### Briefing
 
 Quantitative Evaluation aims to provide user feedback through surveys conducted immediately after playing our game. Our data were collected from twelve users, each of whom played both Level I and Level II of the game.
-• Level I is an easier version where players only need to attack each other.
-• Level II introduces randomly attacking PC-controlled robots and adds boundaries to reduce the playing area, increasing the level of difficulty.
+
+- Level I is an easier version where players only need to attack each other.
+- Level II introduces randomly attacking PC-controlled robots and adds boundaries to reduce the playing area, increasing the level of difficulty.
 
 #### Findings
 
@@ -741,7 +743,7 @@ However, the most noticeable change is the increase in Frustration, suggesting t
 
 Overall, we aim to develop a wider variety of gaming experiences to enhance the level of challenge that players seek. Additionally, improving map introductions will be a key focus to ensure better player adaptation.
 
-#### Tests
+#### 3.5.3 Tests
 
 The following manual testing log records the major features of the game and their expected outcomes.
 All tests were performed by the developer through real-time interaction using mouse and keyboard.
@@ -1167,7 +1169,7 @@ Evaluations also played a critical role. During our think-aloud sessions, tester
 
 Finally, we’d like to thank everyone who played our game and gave us feedback. Every opinion mattered and motivated us to keep improving — version after version.
 
-#### Future possobilities
+#### Future possibilities
 
 For more advanced development, we aim to integrate face detection through the front-facing camera, allowing users to control their character using their face direction. This face detection-based control method will reduce the time users spend observing others, enhancing their overall experience.
 
