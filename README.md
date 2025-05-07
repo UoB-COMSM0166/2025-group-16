@@ -31,6 +31,7 @@ Your game lives in the [/docs](/docs) folder, and is published using Github page
 ### Video Demonstration
 
 Find a game demonstration of the Unstoppable game below. This video is an overview of the gameplay mechanics and a sneak peek of our game.
+[![Watch the Video](docs/assets/readme/VIDEO-LINK.gif)](https://www.youtube.com/watch?v=islThrjO-MM)
 
 ## 2. Develop Team
 
