@@ -9,15 +9,27 @@
 2. [Develop Team](#2-develop-team)
 3. [Project Report](#3-project-report)
    - [3.1 Introduction](#31-introduction)
+     - [3.1.1 Map Overviews](#311-map-overviews)
    - [3.2 Requirements](#32-requirements)
+     - [3.2.1 Team Game Idea Overviews](#321-team-game-idea-overviews)
+     - [3.2.2 Stakeholder List](#322-stakeholder-list)
+     - [3.2.3 Epics and User Stories](#323-epics-and-user-stories)
+     - [3.2.4 Reflection](#324-reflection)
    - [3.3 Design](#33-design)
    - [3.4 Implementation](#34-implementation)
+     - [3.4.1 Three Technical Challenges](#341-three-technical-challenges)
+     - [3.4.2 Two New Difficulty Levels](#342-two-new-difficulty-levels)
    - [3.5 Evaluation](#35-evaluation)
      - [3.5.1 Qualitative Evaluation](#351-qualitative-evaluation)
      - [3.5.2 Quantitative Evaluation](#352-quantitative-evaluation)
      - [3.5.3 Tests](#353-tests)
    - [3.6 Sustainability](#36-sustainability)
    - [3.7 Process](#37-process)
+     - [3.7.1 Code Collaboration & Roles](#371-code-collaboration--roles)
+     - [3.7.2 Project Management (Kanban & Sprints)](#372-project-management-kanban--sprints)
+     - [3.7.3 Communication](#373-communication)
+     - [3.7.4 Documentation & Coding Standards](#374-documentation--coding-standards)
+     - [3.7.5 Access to Jira Board & Documents](#375-access-to-jira-board--documents)
    - [3.8 Conclusion](#38-conclusion)
    - [3.9 Contribution Statement](#39-contribution-statement)
 
@@ -74,13 +86,32 @@ Find a game demonstration of the Unstoppable game below. This video is an overvi
 
 ### 3.1 Introduction
 
-Unstoppable is a two-player party game where the ultimate goal is to find and eliminate your opponent. From Map 1 to Map 6, each stage offers a unique and progressively more challenging gameplay experience.<br />
-Map 1 introduces the core mechanic: locate your opponent among NPCs and knock them out.<br />
-Maps 2 to 6 build upon this foundation with diverse game rules, environments, and mechanics — all designed to make the game more dynamic, fun, and competitive.
+**Unstoppable** is a two-player party game where the ultimate goal is to find and eliminate your opponent.
+From **Map 1** to **Map 6**, each stage offers a unique and progressively more challenging gameplay experience:
+
+- **Map 1** introduces the core mechanic: locate your opponent among NPCs and knock them out.
+- **Maps 2 to 6** build upon this foundation with diverse game rules, environments, and mechanics — all designed to make the game more dynamic, fun, and competitive.
+
+---
+
+#### 3.1.1 Map Overviews
+
+To provide players with a deeper understanding of the game, here is an overview of each unique map:
+
+| **Map Name**                                                            | **Icon** | **Description**                                                                                                                                   |
+| ----------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Map 1 – Only players can punch**                                      | 🗺️       | This is the most basic map, with no attacking behavior from robots or environmental hazards — ideal for learning the core mechanics.              |
+| **Map 2 – Robots can punch players too**                                | 🤖       | This map introduces hostile NPCs, increasing the difficulty by forcing players to dodge both robots and opponents.                                |
+| **Map 3 – Touching the map boundaries results in instant death**        | ⚡       | An electrified border surrounds the arena, limiting player movement and punishing those who step outside the safe zone.                           |
+| **Map 4 – All robots follow on-screen dance commands**                  | 🎵       | Players must mimic the synchronized movements of the crowd to avoid detection, while carefully watching for suspicious actions from the opponent. |
+| **Map 5 – A countdown triggers a synchronized punch**                   | ⏳       | All characters must punch on the final count. Players can blend in by timing their punch correctly or wait at the edge and strike strategically.  |
+| **Map 6 – A magic circle randomly teleports players and nearby robots** | 🔄       | Stepping into the magic circle triggers sudden teleportation, creating visual confusion and making it harder to track the real player.            |
 
 ---
 
 ### 3.2 Requirements
+
+#### 3.2.1 Team Game Idea Overviews
 
 <details>
   <summary>Team Game Idea Overview</summary>
@@ -191,21 +222,51 @@ A rhythm music game where players choose their favorite song and score points by
 
 To create an exciting and easy-to-play game, our goal is to develop Unspottable. The design of the characters and background maps will be our top priority. Additionally, we will be working on extra buttons and other visual indicators during this stage. At the same time, we will generate the first version of the p5.js code, maximizing our flexibility for future adjustments if needed.
 
-#### Stakeholder List
+#### 3.2.2 Stakeholder List
 
-- User
+Our stakeholder list is categorized as follows:
 
-- Developer
+Core Game:</br>
+The fundamental game engine, core logic, and JavaScript code that power the game experience.
 
-- Supervisor
+Development Team:</br>
+Our dedicated team members, including designers, testers, coders, and project organizers.
 
-- Competitor
+Active Players:</br>
+The primary users of the game, including:
 
-#### Epics and User Stories
+- **Competitive players** - those who aim to achieve high scores and dominate the game.
+- **Casual players** - users who play occasionally for fun and relaxation.
+- **First-time players** - newcomers who are experiencing the game for the first time.
+- **Returning players** - users who have played before and continue to engage with the game.
+
+External Support:</br>
+Contributors who provide essential feedback and support:
+
+- **Academic Support:** TAs who assist in technical and project guidance.
+- **Community Support:** Friends who help test and provide feedback.
+- **User Testing Support:** External testers who participate in evaluations and usability tests.
+
+Regulatory:</br>
+Authorities and policies that guide the development and deployment of the game:
+
+- **Teachers and TAs** - ensure the project aligns with academic expectations.
+- **Privacy policies** - protect user data and maintain transparency.
+- **Data collection regulations** - comply with legal requirements for user information.
+
+Competitor:</br>
+Other games in the same genre or with similar mechanics that influence market expectations and set the benchmark for user experience.
+
+<div align="center">
+  <img width="600px" src="docs/assets/readme/stakeholders.png" alt="stakeholders" />
+  <p><strong>Figure 5:</strong> Stakeholder configuration</p>
+</div>
+
+#### 3.2.3 Epics and User Stories
 
 Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/jira/software/projects/TG/boards/2/timeline), or check our documentations through the [link](https://vivi2393142-0702.atlassian.net/wiki/x/OoBm).
 
-#### Reflection
+#### 3.2.4 Reflection
 
 Brief Reflection:
 Before taking the agile development class, we primarily focused on developing our own game, aiming to create a unique, user-friendly, and entertaining party game. While we had plenty of ideas, we lacked concrete plans for developing this game. However, after the class, our objectives were broken down into smaller, more manageable pieces, which makes our development goals much clearer.
@@ -240,7 +301,7 @@ graph LR
 
 <div align="center">
   <br>
-  <strong>Figure 5:</strong> Architecture Diagram
+  <strong>Figure 6:</strong> Architecture Diagram
 </div>
 
 #### Class Diagram
@@ -478,7 +539,7 @@ classDiagram
 
 <div align="center">
   <br>
-  <strong>Figure 6:</strong> Class diagram
+  <strong>Figure 7:</strong> Class diagram
 </div>
 
 #### Sequence Diagram
@@ -586,7 +647,7 @@ sequenceDiagram
 
 <div align="center">
   <br>
-  <strong>Figure 7:</strong> Sequence Diagram
+  <strong>Figure 8:</strong> Sequence Diagram
 </div>
 
 #### Core Design Features
@@ -600,7 +661,7 @@ sequenceDiagram
 
 ### 3.4 Implementation
 
-#### Three Technical Challenges
+#### 3.4.1 Three Technical Challenges
 
 #### 1. Loading Too Many Assets (Images)
 
@@ -614,7 +675,7 @@ Although our game logic appears simple and intuitive, some users still struggled
 
 Originally, our game featured only one map where players were the sole attackers. This limited gameplay depth, making it less engaging for extended play sessions of five to ten minutes. To enhance replayability, we introduced new maps and gameplay mechanics. Expanding on the original map, we developed additional variations incorporating new features, such as PC-controlled robots that can attack. These improvements have made the game more dynamic and enjoyable.
 
-#### Two New Difficulty Levels
+#### 3.4.2 Two New Difficulty Levels
 
 Our newly designed game architecture introduces additional difficulty levels, primarily based on map variations:
 
@@ -723,7 +784,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 <div align="center">
   <img width="600px" src="docs/assets/readme/NASA-TLX.png" alt="NASA TLX Results Chart" />
   <br>
-  <strong>Figure 8:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
+  <strong>Figure 9:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
 </div>
 
 #### Briefing
@@ -939,7 +1000,7 @@ More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/
 
 Our team collaborated through a structured software development workflow:
 
-#### Code Collaboration & Roles
+#### 3.7.1 Code Collaboration & Roles
 
 All code is hosted on GitHub, and we use Pull Requests (PRs) for every change — direct pushes to the main branch are not allowed. See our Git workflow diagram:
 
@@ -985,7 +1046,7 @@ graph LR
 
 <div align="center">
   <br>
-  <strong>Figure 9:</strong> Git Workflow Diagram
+  <strong>Figure 10:</strong> Git Workflow Diagram
 </div>
 
 - Roles
@@ -1008,7 +1069,7 @@ graph LR
   - **Testing**: Primarily manual, with details in the README’s _Manual Testing Report_ section. We test features like player keypress handling and page transitions.
   - **Deployment**: Automated via GitHub Pages, redeployed on every PR merge to the main branch.
 
-#### Project Management (Kanban & Sprints)
+#### 3.7.2 Project Management (Kanban & Sprints)
 
 We manage tasks on Jira using the Epic/User Story structure, organized in bi-weekly sprints. See our sprint workflow diagram:
 
@@ -1035,7 +1096,7 @@ flowchart LR
 
 <div align="center">
   <br>
-  <strong>Figure 10:</strong> Sprint Workflow Diagram
+  <strong>Figure 11:</strong> Sprint Workflow Diagram
 </div>
 
 - **Weekly Meetings**: Every Thursday, we discuss progress, report issues, or raise specific concerns.
@@ -1107,29 +1168,29 @@ Below is a summary of our Epics, their associated User Stories, and Sprint execu
     <img width="600px" src="docs/assets/readme/jira-timeline.png" alt="Jira Timeline View" />
   </div>
 
-  <p align="center"><strong>Figure 11:</strong> Jira timeline view</p>
+  <p align="center"><strong>Figure 12:</strong> Jira timeline view</p>
 
   <div align="center">
     <img width="600px" src="docs/assets/readme/jira-kanban.png" alt="Jira Kanban View" />
   </div>
 
-  <p align="center"><strong>Figure 12:</strong> Jira kanban view</p>
+  <p align="center"><strong>Figure 13:</strong> Jira kanban view</p>
 
   <div align="center">
     <img width="600px" src="docs/assets/readme/jira-task.png" alt="Jira Task View" />
   </div>
 
-  <p align="center"><strong>Figure 13:</strong> Jira task view</p>
+  <p align="center"><strong>Figure 14:</strong> Jira task view</p>
 
 </details>
 
-#### Communication
+#### 3.7.3 Communication
 
 - **Group Chat**: We use a team chat for real-time questions and issue discussions.
 - **Weekly Meetings**: Held every Thursday to address specific problems or updates.
 - **Jira Updates**: Task progress, issues, or blockers are recorded in Jira ticket comments. Linked issues and “is blocked by” relationships are set to clarify dependencies, helping developers know when to start their tasks.
 
-#### Documentation & Coding Standards
+#### 3.7.4 Documentation & Coding Standards
 
 To help developers contribute smoothly:
 
@@ -1137,7 +1198,7 @@ To help developers contribute smoothly:
 - **Code Style**: Enforced using `ESLint` and `Prettier`.
 - **Editor Settings**: Unified with `EditorConfig` and shared `.vscode` configurations.
 
-#### Access to Jira Board & Documents
+#### 3.7.5 Access to Jira Board & Documents
 
 Since Jira's free plan doesn’t allow public sharing, we provide a shared account for reviewers:
 
