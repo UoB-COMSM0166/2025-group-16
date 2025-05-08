@@ -844,7 +844,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 </details>
 
 <details>
-  <summary>Charactor control test</summary>
+  <summary>Character control test</summary>
 <div align="center">
   <strong>Table 6:</strong> Character control test<br />
 </div>
