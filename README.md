@@ -1,7 +1,14 @@
 # 2025-group-16
 
-2025 COMSM0166 group 16
 ![alt text](docs/assets/readme/banner.png)
+
+<p align="center">
+  <a href="https://uob-comsm0166.github.io/2025-group-16/" target="_blank"><img src="https://img.shields.io/badge/play%20game-28a745?style=for-the-badge&logo=rocket&logoColor=white&logoWidth=20" alt="Play Game"></a>
+    
+  <a href="https://www.youtube.com/watch?v=islThrjO-MM" target="_blank"><img src="https://img.shields.io/badge/see%20video-ff69b4?style=for-the-badge&logo=youtube&logoColor=white&logoWidth=20" alt="See Video"></a>
+    
+  <a href="https://github.com/UoB-COMSM0166/2025-group-16" target="_blank"><img src="https://img.shields.io/badge/view%20repo-24292e?style=for-the-badge&logo=github&logoColor=white&logoWidth=20" alt="View Repo"></a>
+</p>
 
 ## Contents
 
