@@ -292,7 +292,7 @@ Breaking down large objectives into smaller, well-defined tasks significantly st
 
 #### System Architecture Overview
 
-The game is a multiplayer party game where players blend with robots and attack each other across varied maps. Its architecture is modular, comprising pages (e.g., `WelcomePage`, `MapGamePage`), entities (e.g., `Player`, `Robot`), UI components (e.g., `Text`, `Dialog`), and a global state manager.
+The game is a multiplayer party game where players blend in with robots and attack each other across varied maps. Its architecture is modular, comprising pages (e.g., `WelcomePage`, `MapGamePage`), entities (e.g., `Player`, `Robot`), UI components (e.g., `Text`, `Dialog`), and a global state manager.
 
 The `sketch.js` entry point preloads assets (images, sounds) and delegates rendering to the current page, encapsulating page-specific logic for clean development. The state manager coordinates page transitions and game progress, supporting dynamic map selection. The architecture diagram illustrates these module interactions.
 
@@ -548,7 +548,7 @@ classDiagram
 
 <div align="center">
   <br>
-  <strong>Figure 7:</strong> Class diagram
+  <strong>Figure 7:</strong> Class Diagram
 </div>
 
 #### Sequence Diagram
@@ -664,7 +664,7 @@ sequenceDiagram
 - **Modular Architecture**: The design separates pages, assets (images, sounds), constants, and global states into distinct modules. New pages inherit from `BasePage`, using predefined interfaces (e.g., `setup()`, `draw()`) to add logic without affecting other components. For example, adding a new map involves creating a `MapGame` subclass, ensuring clean, component-based development.
 - **Map Flexibility**: `MapSelectionPage` and `MapGame` subclasses support six maps with unique rules, derived from `BaseMapGame` and `BaseMapIntro`.
 - **Player-NPC Interaction**: `Player` and `Robot` provide pre-defined API interfaces (e.g., `move()`, `hit()`), enabling easy integration of new map-specific logic.
-- **Onboarding**: `TutorialPage` and `TutorialDialog` provide onboarding, with a mandatory prompt for first-time users and a button-triggered option for returning players.
+- **Onboarding**: `TutorialPage` and `TutorialDialog` provide onboarding support, with a mandatory prompt for first-time users and a button-triggered option for returning players.
 
 ---
 
@@ -678,7 +678,7 @@ A game consists of many different graphical elements. Initially, when designing 
 
 #### 2. Helping Users Understand the Game’s Rules
 
-Although our game logic appears simple and intuitive, some users still struggled to find where to start or how to use the control panel. To improve this, we redesigned the keyboard instruction panel and placed it on the welcome page, ensuring visibility for both players. Furthermore, to enhance the overall gaming experience, we introduced an interactive tutorial before entering the game. This allows players to practice controlling their characters and attacking robots in a simulated environment. Lastly, since each of our maps has unique characteristics, we now display a map preview before entering the game to familiarize players with its special features.
+Although our game logic appears simple and intuitive, some users still struggled with getting started or using the control panel. To improve this, we redesigned the keyboard instruction panel and placed it on the welcome page, ensuring visibility for both players. Furthermore, to enhance the overall gaming experience, we introduced an interactive tutorial before entering the game. This allows players to practice controlling their characters and attacking robots in a simulated environment. Lastly, since each of our maps has unique characteristics, we now display a map preview before entering the game to familiarize players with its special features.
 
 #### 3. Designing Diverse Maps and Rules for Players
 
@@ -698,7 +698,7 @@ Through multiple playtests, we identified some critical player behaviors that si
 
 #### 2. Randomized Machine Attacks
 
-In another map, AI-controlled machines will launch random attacks, forcing players to stay vigilant.
+In another map, AI-controlled machines will launch random attacks, requiring players to stay alert.
 
 - With robots actively attacking, players will no longer be able to distinguish between other players and robots by simply observing attack behavior.
 - This change increases the game’s challenge and unpredictability, making gameplay more dynamic and engaging.
