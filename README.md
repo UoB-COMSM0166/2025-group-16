@@ -55,7 +55,7 @@ Our game lives in the [/docs](/docs) folder, and is published using Github pages
 Find a game demonstration of the Unstoppable game below. This video is an overview of the gameplay mechanics and a sneak peek of our game.
 [![Watch the Video](docs/assets/readme/VIDEO-LINK.gif)](https://www.youtube.com/watch?v=islThrjO-MM)
 
-## 2. Develop Team
+## 2. Development Team
 
 <div align="center">
   <img src="docs/assets/readme/group-photo.png" width="500" alt="Team Photo" />
@@ -107,6 +107,10 @@ From **Map 1** to **Map 6**, each stage offers a unique and progressively more c
 
 To provide players with a deeper understanding of the game, here is an overview of each unique map:
 
+<div align="center">
+  <strong>Table 2:</strong> Map Overviews<br />
+</div>
+
 | **Map Name**                                                            | **Icon** | **Description**                                                                                                                                   |
 | ----------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Map 1 – Only players can punch**                                      | 🗺️       | This is the most basic map, with no attacking behavior from robots or environmental hazards — ideal for learning the core mechanics.              |
@@ -125,7 +129,7 @@ To provide players with a deeper understanding of the game, here is an overview 
 <details>
   <summary>Team Game Idea Overview</summary>
 <div align="center">
-  <strong>Table 2:</strong> Team Game Idea Overview<br />
+  <strong>Table 3:</strong> Team Game Idea Overview<br />
 </div>
 
 <br>
@@ -235,36 +239,36 @@ To create an exciting and easy-to-play game, our goal is to develop Unspottable.
 
 Our stakeholder list is categorized as follows:
 
-Core Game:</br>
-The fundamental game engine, core logic, and JavaScript code that power the game experience.
+- Core Game:</br>
+  The fundamental game engine, core logic, and JavaScript code that power the game experience.
 
-Development Team:</br>
-Our dedicated team members, including designers, testers, coders, and project organizers.
+- Development Team:</br>
+  Our dedicated team members, including designers, testers, coders, and project organizers.
 
-Active Players:</br>
-The primary users of the game, including:
+- Active Players:</br>
+  The primary users of the game, including:
 
-- **Competitive players** - those who aim to achieve high scores and dominate the game.
-- **Casual players** - users who play occasionally for fun and relaxation.
-- **First-time players** - newcomers who are experiencing the game for the first time.
-- **Returning players** - users who have played before and continue to engage with the game.
+  - **Competitive players** - those who aim to achieve high scores and dominate the game.
+  - **Casual players** - users who play occasionally for fun and relaxation.
+  - **First-time players** - newcomers who are experiencing the game for the first time.
+  - **Returning players** - users who have played before and continue to engage with the game.
 
-External Support:</br>
-Contributors who provide essential feedback and support:
+- External Support:</br>
+  Contributors who provide essential feedback and support:
 
-- **Academic Support:** TAs who assist in technical and project guidance.
-- **Community Support:** Friends who help test and provide feedback.
-- **User Testing Support:** External testers who participate in evaluations and usability tests.
+  - **Academic Support:** TAs who assist in technical and project guidance.
+  - **Community Support:** Friends who help test and provide feedback.
+  - **User Testing Support:** External testers who participate in evaluations and usability tests.
 
-Regulatory:</br>
-Authorities and policies that guide the development and deployment of the game:
+- Regulatory:</br>
+  Authorities and policies that guide the development and deployment of the game:
 
-- **Teachers and TAs** - ensure the project aligns with academic expectations.
-- **Privacy policies** - protect user data and maintain transparency.
-- **Data collection regulations** - comply with legal requirements for user information.
+  - **Teachers and TAs** - ensure the project aligns with academic expectations.
+  - **Privacy policies** - protect user data and maintain transparency.
+  - **Data collection regulations** - comply with legal requirements for user information.
 
-Competitor:</br>
-Other games in the same genre or with similar mechanics that influence market expectations and set the benchmark for user experience.
+- Competitor:</br>
+  Other games in the same genre or with similar mechanics that influence market expectations and set the benchmark for user experience.
 
 <div align="center">
   <img width="600px" src="docs/assets/readme/stakeholders.png" alt="stakeholders" />
@@ -273,7 +277,7 @@ Other games in the same genre or with similar mechanics that influence market ex
 
 #### 3.2.3 Epics and User Stories
 
-Please find all the tasks on our [Jira](https://vivi2393142-0702.atlassian.net/jira/software/projects/TG/boards/2/timeline), or check our documentations through the [link](https://vivi2393142-0702.atlassian.net/wiki/x/OoBm).
+Epics and user stories guide our development, defining major features (e.g., game maps) and specific tasks for stakeholders. These are managed on our [Jira](https://vivi2393142-0702.atlassian.net/jira/software/projects/TG/boards/2/timeline) board. For details on task management and Jira access, see [3.7.2 Project Management (Kanban & Sprints)](#372-project-management-kanban--sprints) and [3.7.5 Access to Jira Board & Documents](#375-access-to-jira-board--documents).
 
 #### 3.2.4 Reflection
 
@@ -736,7 +740,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 <div align="center">
 
-<strong>Table 3:</strong> Heuristic Evaluation Summary<br />
+<strong>Table 4:</strong> Heuristic Evaluation Summary<br />
 <em>Identified usability issues based on Nielsen’s heuristics.</em>
 
 </div>
@@ -768,7 +772,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 <div align="center">
 
-<strong>Table 4:</strong> NASA TLX Average Scores of Level I and Level II<br />
+<strong>Table 5:</strong> NASA TLX Average Scores of Level I and Level II<br />
 <em>Player-reported cognitive load comparison between levels.</em>
 
 </div>
@@ -820,7 +824,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Welcome page test</summary>
 <div align="center">
-  <strong>Table 5:</strong> Welcome page test<br />
+  <strong>Table 6:</strong> Welcome page test<br />
 </div>
 
 <br>
@@ -846,7 +850,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Character control test</summary>
 <div align="center">
-  <strong>Table 6:</strong> Character control test<br />
+  <strong>Table 7:</strong> Character control test<br />
 </div>
 
 <br>
@@ -862,7 +866,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Map and game flow test</summary>
 <div align="center">
-  <strong>Table 7:</strong> Map and game flow test<br />
+  <strong>Table 8:</strong> Map and game flow test<br />
 </div>
 
 <br>
@@ -893,7 +897,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Scoring and feedback test</summary>
 <div align="center">
-  <strong>Table 8:</strong> Scoring and feedback test<br />
+  <strong>Table 9:</strong> Scoring and feedback test<br />
 </div>
 
 <br>
@@ -918,7 +922,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Overview Table (Base on the Sustainability Awareness Framework)</summary>
 <div align="center">
-  <strong>Table 9:</strong> Overview table<br />
+  <strong>Table 10:</strong> Overview table<br />
 </div>
 
 <br>
@@ -948,7 +952,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Chains of Effects - Sustainability Dimensions</summary>
 <div align="center">
-  <strong>Table 10:</strong> Chains of Effects - Sustainability Dimensions<br />
+  <strong>Table 11:</strong> Chains of Effects - Sustainability Dimensions<br />
 </div>
 
 <br>
@@ -971,7 +975,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Green Software Foundation Patterns</summary>
 <div align="center">
-  <strong>Table 11:</strong> Green Software Foundation Patterns – Game Integration<br />
+  <strong>Table 12:</strong> Green Software Foundation Patterns – Game Integration<br />
 </div>
 
 <br>
@@ -990,7 +994,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Sustainability Requirements</summary>
 <div align="center">
-  <strong>Table 12:</strong> Sustainability Requirements -> User stories<br />
+  <strong>Table 13:</strong> Sustainability Requirements -> User stories<br />
 </div>
 
 <br>
@@ -1120,7 +1124,7 @@ Below is a summary of our Epics, their associated User Stories, and Sprint execu
   <summary>Epic and User Story Overview</summary>
 
   <div align="center">
-    <strong>Table 13:</strong> Epic and user story overview table
+    <strong>Table 14:</strong> Epic and user story overview table
   </div>
   <br />
 
@@ -1155,7 +1159,7 @@ Below is a summary of our Epics, their associated User Stories, and Sprint execu
   <summary>Sprints Overview</summary>
 
   <div align="center">
-    <strong>Table 14:</strong> Sprint overview table
+    <strong>Table 15:</strong> Sprint overview table
   </div>
   <br />
 
@@ -1251,7 +1255,7 @@ For more advanced development, we aim to integrate face detection through the fr
 
 <div align="center">
 
-<strong>Table 15:</strong> Contribution table<br />
+<strong>Table 16:</strong> Contribution table<br />
 
 </div>
 
