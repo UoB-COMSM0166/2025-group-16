@@ -28,6 +28,8 @@
      - [3.4.2 Two New Difficulty Levels](#342-two-new-difficulty-levels)
    - [3.5 Evaluation](#35-evaluation)
      - [3.5.1 Qualitative Evaluation](#351-qualitative-evaluation)
+       - [3.5.1.1 Think Aloud](#3511-think-aloud)
+       - [3.5.1.2 Heuristic Evaluation](#3512-heuristic-evaluation)
      - [3.5.2 Quantitative Evaluation](#352-quantitative-evaluation)
      - [3.5.3 Tests](#353-tests)
    - [3.6 Sustainability](#36-sustainability)
@@ -709,6 +711,8 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 
 #### 3.5.1 Qualitative Evaluation
 
+#### 3.5.1.1 Think Aloud
+
 #### Feedback from Testers and Corresponding Solutions(Via think aloud)
 
 #### Issue 1: Introduction Page
@@ -728,11 +732,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 - **Problem:** Robot death animations felt insufficient, affecting immersion.
   - **Solution:** We are enhancing death animations to make robot defeats more visually impactful.
 
----
-
-#### 3.5.2 Quantitative Evaluation
-
-#### Heuristic Evaluation
+#### 3.5.1.2 Heuristic Evaluation
 
 <div align="center">
 
@@ -762,7 +762,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
 - **Feedback:** Some instructions were unclear or missing, leading to confusion among players.
 - **Solution:** We redesigned multiple versions of the game instructions to improve the onboarding experience. In addition, we created a tutorial specifically for players with no prior experience with our game.
 
-#### Quantitative Evaluation
+#### 3.5.2 Quantitative Evaluation
 
 #### Player Experience Analysis
 
@@ -909,6 +909,8 @@ Each test includes the test action, the expected result, the actual behavior, an
 
 ## </details>
 
+---
+
 ### 3.6 Sustainability
 
 #### 1. Sustainability Impact Analysis
@@ -1002,6 +1004,8 @@ Each test includes the test action, the expected result, the actual behavior, an
 More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/edit-v2/25919494?).
 
 </details>
+
+---
 
 ### 3.7 Process
 
