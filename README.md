@@ -1013,11 +1013,11 @@ More Info in [Jira](https://vivi2393142-0702.atlassian.net/wiki/spaces/TP/pages/
 
 ### 3.7 Process
 
-Our team collaborated through a structured software development workflow:
+Our team collaborated through a structured software development workflow.
 
 #### 3.7.1 Code Collaboration & Roles
 
-All code is hosted on GitHub, and we use Pull Requests (PRs) for every change — direct pushes to the main branch are not allowed. See our Git workflow diagram:
+All code is hosted on GitHub, and we use Pull Requests (PRs) for every change — direct pushes to the main branch are not allowed. This process is illustrated in our GitHub workflow diagram below.
 
 ```mermaid
 graph LR
@@ -1061,12 +1061,12 @@ graph LR
 
 <div align="center">
   <br>
-  <strong>Figure 10:</strong> Git Workflow Diagram
+  <strong>Figure 10:</strong> GitHub Workflow Diagram
 </div>
 
 - Roles
 
-  As a learning exercise, our team does not assign fixed roles. Everyone can contribute to different tasks, which are categorized in Jira as:
+  Rather than assigning fixed roles, we adopted a flexible model in which team members could contribute across different areas based on sprint needs. These areas are categorized in Jira as follows:
 
   - **Design**: UI/UX for pages like WelcomePage and MapGamePage.
   - **Development**: New features, debugging, and testing (e.g., player-robot interactions).
@@ -1076,17 +1076,17 @@ graph LR
 - Branching Strategy
 
   - **Main Branch**: Stable, production-ready code.
-  - **Other Branches**: Named based on Jira ticket numbers (e.g., TG-123).
+  - **Feature Branches**: Named based on Jira ticket numbers (e.g., TG-123).
   - **Commit Messages**: Follow _Conventional Commits_ format (e.g., feat: add map selection, fix: resolve keypress bug, docs: update README).
   - **Pull Requests**: Use the `pull_request_template.md` in the repo to ensure consistent PR formatting.
 
 - Testing and Deployment
   - **Testing**: Primarily manual, with details in the README’s _Manual Testing Report_ section. We test features like player keypress handling and page transitions.
-  - **Deployment**: Automated via GitHub Pages, redeployed on every PR merge to the main branch.
+  - **Deployment**: Automated via GitHub Pages, triggered on every successful pull request merge into the `main` branch.
 
 #### 3.7.2 Project Management (Kanban & Sprints)
 
-We manage tasks on Jira using the Epic/User Story structure, organized in bi-weekly sprints. See our sprint workflow diagram:
+We manage tasks on Jira using the Epic/User Story structure, organized in bi-weekly sprints. This process is illustrated in our Sprint Workflow Diagram below.
 
 ```mermaid
 flowchart LR
@@ -1124,7 +1124,7 @@ Below is a summary of our Epics, their associated User Stories, and Sprint execu
   <summary>Epic and User Story Overview</summary>
 
   <div align="center">
-    <strong>Table 14:</strong> Epic and user story overview table
+    <strong>Table 14:</strong> Epic and User Story Overview
   </div>
   <br />
 
@@ -1159,7 +1159,7 @@ Below is a summary of our Epics, their associated User Stories, and Sprint execu
   <summary>Sprints Overview</summary>
 
   <div align="center">
-    <strong>Table 15:</strong> Sprint overview table
+    <strong>Table 15:</strong> Sprints Overview
   </div>
   <br />
 
