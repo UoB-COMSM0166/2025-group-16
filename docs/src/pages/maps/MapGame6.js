@@ -226,10 +226,8 @@ class MapGame6 extends BaseMapGame {
     });
 
     if (this.isSoundPlaying) {
-      if (this.isSoundPlaying) {
-        Resources.sounds.soundEffect.swap.stop();
-        this.isSoundPlaying = false;
-      }
+      Resources.sounds.soundEffect.swap.stop();
+      this.isSoundPlaying = false;
     }
 
     this.swapPlayer = null;
@@ -314,7 +312,6 @@ class MapGame6 extends BaseMapGame {
 
         // check is it playing?
         if (!this.isSoundPlaying) {
-          Resources.sounds.soundEffect.swap.loop = true;
           Resources.sounds.soundEffect.swap.play();
           this.isSoundPlaying = true;
         }
