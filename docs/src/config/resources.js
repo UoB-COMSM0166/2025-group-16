@@ -69,6 +69,7 @@ const _ASSET_PATHS = {
     },
     soundEffect: {
       countdown: `${_BASE_PATH}assets/sounds/321.wav`,
+      swap: `${_BASE_PATH}assets/sounds/swap.wav`,
     },
   },
 };
@@ -316,6 +317,7 @@ const Resources = {
     },
     soundEffect: {
       countdown: new Sound(_ASSET_PATHS.sounds.soundEffect.countdown),
+      swap: new Sound(_ASSET_PATHS.sounds.soundEffect.swap),
     },
   },
 };

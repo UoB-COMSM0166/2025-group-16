@@ -76,6 +76,8 @@ class MapGame6 extends BaseMapGame {
     this.isSwapping = false;
     this.isPostFlashing = false;
     this.postFlashStart = null;
+
+    this.isSoundPlaying = false;
   }
 
   /**
@@ -221,6 +223,15 @@ class MapGame6 extends BaseMapGame {
       }
     });
 
+    if (this.isSoundPlaying) {
+      console.log('🔇 Stopping countdown sound...');
+      if (this.isSoundPlaying) {
+        console.log('🔇 Stopping countdown sound...');
+        Resources.sounds.soundEffect.swap.stop();
+        this.isSoundPlaying = false;
+      }
+    }
+
     this.swapPlayer = null;
     this.swapTargets = [];
     this.enteredAt = null;
@@ -300,6 +311,14 @@ class MapGame6 extends BaseMapGame {
           isSpinning: true,
           stopAt: null,
         };
+
+        // check is it playing?
+        if (!this.isSoundPlaying) {
+          console.log('🔊 Playing countdown sound...');
+          Resources.sounds.soundEffect.swap.loop = true;
+          Resources.sounds.soundEffect.swap.play();
+          this.isSoundPlaying = true;
+        }
       }
     });
   }
