@@ -208,6 +208,8 @@ class MapGame6 extends BaseMapGame {
         z.stopAt = millis();
       }
     });
+
+    this.isSoundPlaying = false;
   }
 
   /** Cancel swap or flashing at any point */
