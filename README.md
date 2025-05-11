@@ -1233,25 +1233,47 @@ Alternatively, request access using your own account.
 
 ### 3.8 Conclusion
 
-#### Team reflections
-
 All team members agree that we have built a game that we genuinely love, envisioned, and are proud of.
 
-At the start of the project, we believed that game development would be relatively straightforward and that focusing on coding alone would be enough. However, as the project progressed, we encountered a variety of challenges — not only technical issues, but also difficulties in communication, collaborative decision-making, and documentation integration. Since most of us had limited experience working on large-scale projects, our initial code lacked proper structure and consistent annotations. To address this, we spent a significant amount of time establishing a shared coding standard (which reminded us of the importance of practices like Extreme Programming), and we assigned a team member to oversee the integrity of the codebase. Once we were all aligned, most of the technical issues were resolved. Documentation faced a similar challenge: everyone initially wrote their own sections independently. To improve coherence, we appointed a documentation manager to unify the writing style and structure.
+At the start of the project, we believed that game development would be relatively straightforward and that focusing on coding alone would be enough. However, as the project progressed, we encountered a variety of challenges — not only technical issues, but also difficulties in communication, collaborative decision-making, and documentation integration. Since most of us had limited experience working on large-scale projects, our initial code lacked proper structure and consistent annotations. To address this, we spent a significant amount of time establishing a shared coding standard and assigned a team member to oversee the integrity of the codebase. This approach was inspired by Extreme Programming we learned in class—particularly the emphasis on collective code ownership and consistent style. By applying these ideas, we improved code readability, reduced merge conflicts, and made it easier for all team members to contribute across different parts of the project. Once we were all aligned, most of the technical issues were resolved. Documentation faced a similar challenge: everyone initially wrote their own sections independently. To improve coherence, we appointed a documentation manager to unify the writing style and structure.
+
+#### Team Collaboration
+
+We followed an agile development model, holding weekly retrospectives and updating goals collaboratively. We didn’t assign rigid roles at the beginning of the project. Instead, tasks were distributed flexibly each week based on availability and project needs. Over time, we naturally gravitated toward areas where we had more experience or interest — for example, some members became the go-to for debugging, while others focused more on visual design or testing. This balance between shared responsibility and individual specialization allowed us to collaborate effectively while still making use of each person’s strengths.
+
+We managed our development workflow using Jira, which helped us break down features into user stories and subtasks, assign responsibilities, and track progress efficiently. Combined with a high level of dedication from each team member, this system enabled us to respond quickly to development bottlenecks and emerging ideas. Our weekly meetings and open communication practices made it easy to raise issues early and reassign work when needed. As a result, we were able to implement new features promptly, avoid communication silos, and ensure that no critical functionality was overlooked.
+
+#### Qualitative and Quantitative Evaluation
 
 To our surprise, the most helpful parts of the project were the team discussions and the evaluations — both qualitative and quantitative. Without regular discussions, we wouldn’t have been able to create a game with such coherence; instead, it might have felt like six loosely connected features.
 
-Evaluations also played a critical role. During our think-aloud sessions, testers revealed numerous blind spots that none of us had previously noticed. Their continuous and insightful feedback kept all our observers busy taking notes. On the other hand, the results from the quantitative evaluation further highlighted its value once we analyzed the collected data. Without these evaluations, we would have been designing based purely on our own assumptions. But software isn’t just for developers — it’s for users. Evaluations helped us identify our weaknesses and better understand what players actually want and need.
+Evaluations also played a critical role. During our think-aloud sessions, testers revealed numerous blind spots that none of us had previously noticed. Their continuous and insightful feedback kept all our observers busy taking notes. One clear outcome from user testing was the repeated confusion around the game’s introduction. To make our game more user-friendly, we iteratively modified the intro cutscene and gameplay tutorial, so new players could more intuitively understand the game’s premise and how to control their character. Eventually, we implemented a clear and focused tutorial where players could safely practice key actions such as movement and punching before entering a real match. This helped ease the learning curve and significantly improved early-game usability.
+
+On the other hand, the results from the quantitative evaluation further highlighted its value once we analyzed the collected data using the System Usability Scale (SUS) and the NASA Task Load Index (NASA TLX). The results helped us identify stages where players struggled most and guided refinements that improved clarity and pacing. Without these evaluations, we would have been designing based purely on our own assumptions. But software isn’t just for developers — it’s for users. Evaluations helped us identify our weaknesses and better understand what players actually want and need.
+
+#### Technical Growth and Learning
+
+Beyond structural improvements, we also gained valuable insight into optimization and performance. In particular, working with SVG assets taught us the importance of lightweight vector graphics and compression techniques. By optimizing SVGs and selectively applying compression strategies, we were able to significantly reduce load times and improve runtime performance — especially on slower connections or mobile devices. We also learned that good architecture is not something that can be postponed. Early decisions around modularity, naming conventions, and file organization had lasting consequences. As we iterated, it became increasingly clear that projects scale best when foundational design principles are established from the outset. Lessons ranging from visual optimization to structural foresight are difficult to learn from theory alone. They are outcomes of real development constraints and trade-offs, and they’ve equipped us with the intuition to design more maintainable and scalable software in future projects.
+
+#### Future Possibilities
+
+For future development, we have identified three main directions to enhance the game experience and accessibility:
+
+- **Face detection control**: By using the front-facing camera, players could control their character through head movements. This would create a more immersive experience and reduce the need to observe others through the keyboard interface.
+
+- **External controller support**: Supporting devices such as gamepads or motion-based controllers would offer more flexible control schemes and make it easier to play across different platforms and setups.
+
+- **Expanded multiplayer mode**: While the current version supports two players, we plan to explore modes that allow more participants — potentially with ranked roles or party-style mechanics. While online multiplayer is not a confirmed feature yet, future iterations may further experiment with scalable multiplayer interactions.
+
 
 Finally, we’d like to thank everyone who played our game and gave us feedback. Every opinion mattered and motivated us to keep improving — version after version.
 
-#### Future possibilities
-
-For more advanced development, we aim to integrate face detection through the front-facing camera, allowing users to control their character using their face direction. This face detection-based control method will reduce the time users spend observing others, enhancing their overall experience.
 
 ---
 
 ### 3.9 Contribution Statement
+
+The contributions were divided based on individual strengths, but all team members **contributed equally** in terms of effort and time.
 
 <div align="center">
 
@@ -1261,11 +1283,11 @@ For more advanced development, we aim to integrate face detection through the fr
 
 | Name                       | Role                       | Key Contributions                                                                                                                                                    |
 | -------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Vivi (Wei Lin)**         | 🧩 Project Lead            | - Led overall workflow and task distribution<br>- Designed system architecture and codebase<br>- Managed team communication and progress using Jira                  |
-| **Negi (Pin-Ru Chen)**     | 🎨 UX & Visual Designer    | - Designed guidance/navigation screens and map visuals<br>- Built the full navigation system<br>- Directed intro video production (script, storyboard, editing)      |
-| **Chi (Yu-Qi Lin)**        | 🧪 Game Developer & Tester | - Built the Welcome Page<br>- Developed Map 4 and designed layout for Map 5<br>- Conducted full gameplay testing and visual polish                                   |
-| **Cynthia (Hsin-Yun Fan)** | 🖼️ Visual Designer         | - Designed game scene visuals<br>- Led development of Map 5                                                                                                          |
-| **Digo (Hsing-Min Tu)**    | 📚 Documentation Manager   | - Collected data and maintained documentation<br>- Managed GitHub README<br>- Analyzed user feedback<br>- Prototyped Map 3 & developed Game 6 logic                  |
-| **Susan (Zih-Cing Lan)**   | 🎬 Content & Demo Designer | - Designed Map 6 and its music<br>- Created intro content for Maps 2–6 & Welcome Page<br>- Managed demo process and co-edited the final video with subtitles & sound |
+| **Vivi<br>(Wei Lin)**         | 🧩 Project Lead            | - Led overall workflow and task distribution<br>- Designed system architecture and codebase<br>- Managed team communication and progress using Jira                  |
+| **Negi<br>(Pin-Ru Chen)**     | 🎨 UX & Visual Designer    | - Designed guidance/navigation screens and map visuals<br>- Built the full navigation system<br>- Directed intro video production (script, storyboard, editing)      |
+| **Chi<br>(Yu-Qi Lin)**        | 🧪 Game Developer & Tester | - Built the Welcome Page<br>- Developed Map 4 and designed layout for Map 5<br>- Conducted full gameplay testing and visual polish                                   |
+| **Cynthia<br>(Hsin-Yun Fan)** | 🖼️ Visual Designer         | - Designed game scene visuals<br>- Led development of Map 5                                                                                                          |
+| **Digo<br>(Hsing-Min Tu)**    | 📚 Documentation Manager   | - Collected data and maintained documentation<br>- Managed GitHub README<br>- Analyzed user feedback<br>- Prototyped Map 3 & developed Game 6 logic                  |
+| **Susan<br>(Zih-Cing Lan)**   | 🎬 Content & Demo Designer | - Designed Map 6 and its music<br>- Created intro content for Maps 2–6 & Welcome Page<br>- Managed demo process and co-edited the final video with subtitles & sound |
 
 ---
