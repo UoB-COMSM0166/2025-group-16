@@ -375,7 +375,7 @@ class Tutorial extends BasePage {
   /** Check if current mission is completed */
   _checkMissionCompletion() {
     const isCurrentMissionComplete = this.playerMissionProgress.every(
-      (progress) => progress === this.missions[this.currMissionIdx].targetCtn,
+      (progress) => progress >= this.missions[this.currMissionIdx].targetCtn,
     );
 
     if (isCurrentMissionComplete) this._nextMission();
