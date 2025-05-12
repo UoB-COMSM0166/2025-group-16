@@ -162,10 +162,10 @@ class MapGame4 extends BaseMapGame {
   _generateRandomDirectionKey() {
     // right, left, up, down, stop
     const directionKey = [
-      { text: '⬅', key: Constants.EntityMove.LEFT },
-      { text: '⮕', key: Constants.EntityMove.RIGHT },
-      { text: '⬆', key: Constants.EntityMove.UP },
-      { text: '⬇', key: Constants.EntityMove.DOWN },
+      { text: '←', key: Constants.EntityMove.LEFT },
+      { text: '→', key: Constants.EntityMove.RIGHT },
+      { text: '↑', key: Constants.EntityMove.UP },
+      { text: '↓', key: Constants.EntityMove.DOWN },
       { text: '⏸️', key: null },
     ];
     const randomInt = Math.floor(Math.random() * 5);
