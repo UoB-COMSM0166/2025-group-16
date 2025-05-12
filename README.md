@@ -798,18 +798,34 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
   <strong>Figure 9:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
 </div>
 
+<div align="center">
+
+<strong>Table 6:</strong> SUS Survey Scores of Level I and Level II<br />
+
+</div>
+
+<div align="center">
+
+|               | Level I Average | Level II Average |
+| ------------- | --------------- | ---------------- |
+| Average Score | 76              | 76.5             |
+
+</div>
+
 #### Briefing
 
-Quantitative Evaluation aims to provide user feedback through surveys conducted immediately after playing our game. Our data were collected from twelve users, each of whom played both Level I and Level II of the game.
+Quantitative Evaluation aims to provide user feedback through surveys conducted immediately after playing our game. We conducted both NASA TLX and SUS Survey, and our data were collected from twelve users, each of whom played both Level I and Level II of the game.
 
 - Level I is an easier version where players only need to attack each other.
 - Level II introduces randomly attacking PC-controlled robots and adds boundaries to reduce the playing area, increasing the level of difficulty.
 
 #### Findings
 
-From the chart, we observe that Mental Demand and Physical Demand remain nearly the same across both levels. A slight decrease can be seen in Temporal Demand, which may suggest players became more accustomed to the game’s pacing. On the other hand, Performance and Effort scores increased, indicating that players needed to invest more energy and attention when tackling the added difficulty of Level II.
+From the chart of NASA TLX, we observe that Mental Demand and Physical Demand remain nearly the same across both levels. A slight decrease can be seen in Temporal Demand, which may suggest players became more accustomed to the game’s pacing. On the other hand, Performance and Effort scores increased, indicating that players needed to invest more energy and attention when tackling the added difficulty of Level II.
 
 However, the most noticeable change is the increase in Frustration, suggesting that the harder gaming experience led to higher player frustration. Possible reasons include unclear map logic or the longer adaptation time required to understand the mechanics.
+
+In addition to NASA-TLX, the SUS score averaged **76** (above the 68 benchmark), indicating a **positive overall experience**. Despite increased frustration and effort in Level II, the game remained **usable and engaging**, showing that players could still enjoy the gameplay despite added difficulty.
 
 #### Conclusion
 
@@ -824,7 +840,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Welcome page test</summary>
 <div align="center">
-  <strong>Table 6:</strong> Welcome page test<br />
+  <strong>Table 7:</strong> Welcome page test<br />
 </div>
 
 <br>
@@ -850,7 +866,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Character control test</summary>
 <div align="center">
-  <strong>Table 7:</strong> Character control test<br />
+  <strong>Table 8:</strong> Character control test<br />
 </div>
 
 <br>
@@ -866,7 +882,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Map and game flow test</summary>
 <div align="center">
-  <strong>Table 8:</strong> Map and game flow test<br />
+  <strong>Table 9:</strong> Map and game flow test<br />
 </div>
 
 <br>
@@ -897,7 +913,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Scoring and feedback test</summary>
 <div align="center">
-  <strong>Table 9:</strong> Scoring and feedback test<br />
+  <strong>Table 10:</strong> Scoring and feedback test<br />
 </div>
 
 <br>
@@ -922,7 +938,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Overview Table (Base on the Sustainability Awareness Framework)</summary>
 <div align="center">
-  <strong>Table 10:</strong> Overview table<br />
+  <strong>Table 11:</strong> Overview table<br />
 </div>
 
 <br>
@@ -952,7 +968,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Chains of Effects - Sustainability Dimensions</summary>
 <div align="center">
-  <strong>Table 11:</strong> Chains of Effects - Sustainability Dimensions<br />
+  <strong>Table 12:</strong> Chains of Effects - Sustainability Dimensions<br />
 </div>
 
 <br>
@@ -975,7 +991,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Green Software Foundation Patterns</summary>
 <div align="center">
-  <strong>Table 12:</strong> Green Software Foundation Patterns – Game Integration<br />
+  <strong>Table 13:</strong> Green Software Foundation Patterns – Game Integration<br />
 </div>
 
 <br>
@@ -994,7 +1010,7 @@ Each test includes the test action, the expected result, the actual behavior, an
 <details>
   <summary>Sustainability Requirements</summary>
 <div align="center">
-  <strong>Table 13:</strong> Sustainability Requirements -> User stories<br />
+  <strong>Table 14:</strong> Sustainability Requirements -> User stories<br />
 </div>
 
 <br>
@@ -1124,7 +1140,7 @@ Below is a summary of our Epics, their associated User Stories, and Sprint execu
   <summary>Epic and User Story Overview</summary>
 
   <div align="center">
-    <strong>Table 14:</strong> Epic and User Story Overview
+    <strong>Table 15:</strong> Epic and User Story Overview
   </div>
   <br />
 
@@ -1159,7 +1175,7 @@ Below is a summary of our Epics, their associated User Stories, and Sprint execu
   <summary>Sprints Overview</summary>
 
   <div align="center">
-    <strong>Table 15:</strong> Sprints Overview
+    <strong>Table 16:</strong> Sprints Overview
   </div>
   <br />
 
@@ -1275,7 +1291,7 @@ The contributions were divided based on individual strengths, but all team membe
 
 <div align="center">
 
-<strong>Table 16:</strong> Contribution table<br />
+<strong>Table 17:</strong> Contribution table<br />
 
 </div>
 
