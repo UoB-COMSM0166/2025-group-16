@@ -797,7 +797,7 @@ In this analysis, we apply both **qualitative** and **quantitative** evaluation 
   <br>
   <strong>Figure 9:</strong> NASA TLX results showing user-perceived workload across Levels I and II.
 </div>
-
+<br />
 <div align="center">
 
 <strong>Table 6:</strong> SUS Survey Scores of Level I and Level II<br />
@@ -825,7 +825,7 @@ From the chart of NASA TLX, we observe that Mental Demand and Physical Demand re
 
 However, the most noticeable change is the increase in Frustration, suggesting that the harder gaming experience led to higher player frustration. Possible reasons include unclear map logic or the longer adaptation time required to understand the mechanics.
 
-In addition to NASA-TLX, the SUS score averaged **76** (above the 68 benchmark), indicating a **positive overall experience**. Despite increased frustration and effort in Level II, the game remained **usable and engaging**, showing that players could still enjoy the gameplay despite added difficulty.
+In addition to NASA-TLX, the SUS score averaged are both around **76** (above the 68 benchmark), indicating a **positive overall experience**. Despite increased frustration and effort in Level II, the game remained **usable and engaging**, showing that players could still enjoy the gameplay despite added difficulty.
 
 #### Conclusion
 
